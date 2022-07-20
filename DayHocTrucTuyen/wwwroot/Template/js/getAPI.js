@@ -74,7 +74,7 @@ function getUserInfo() {
             form_data.append('email', user.email);
             form_data.append('img_avt', user.picture);
             $.ajax({
-                url: '/Default/loginWithGoogle',
+                url: '/Account/loginWithGoogle',
                 type: 'POST',
                 data: form_data,
                 contentType: false,

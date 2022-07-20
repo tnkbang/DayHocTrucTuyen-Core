@@ -1447,7 +1447,7 @@ function passValidate(id_pass, re_pass, kt_pass) {
 
 //Hàm đăng ký
 function dangky() {
-    $.getJSON('/Default/createAccount' + '?holot=' + $('#holotCreate').val() + '&ten=' + $('#tenCreate').val() + '&email=' + $('#emailCreate').val() + '&matkhau=' + $('#passCreate').val(), function (data) {
+    $.getJSON('/Account/createAccount' + '?holot=' + $('#holotCreate').val() + '&ten=' + $('#tenCreate').val() + '&email=' + $('#emailCreate').val() + '&matkhau=' + $('#passCreate').val(), function (data) {
         if (data.tt) {
             window.location.href = "/Default/Index";
         }
@@ -1471,7 +1471,7 @@ function dangky() {
 //Hàm đăng nhập
 function dangnhap() {
     var remember = document.getElementById('rememberLogin');
-    $.getJSON('/Default/getLogin' + '?email=' + $('#emailLogin').val() + '&pass=' + $('#passLogin').val() + '&re=' + remember.checked, function (data) {
+    $.getJSON('/Account/getLogin' + '?email=' + $('#emailLogin').val() + '&pass=' + $('#passLogin').val() + '&re=' + remember.checked, function (data) {
         if (data.tt) {
             window.location.href = $('#urlreturnLogin').val();
         }
@@ -1485,8 +1485,8 @@ function dangnhap() {
 
 //Hàm đăng xuất
 function dangxuat() {
-    $.getJSON('/Default/Logout', function (data) {
-        location.replace('/Default/Login');
+    $.getJSON('/Account/Logout', function (data) {
+        location.replace('/Account/Login');
     })
 }
 
@@ -1528,7 +1528,7 @@ $('.viewPass').on('click', function () {
 
 //Bắt sự kiện chọn nghề nghiệp
 function choseRole(uid, cv) {
-    $.getJSON('/Default/choseEducation?uid=' + uid + '&cv=' + cv, function (data) {
+    $.getJSON('/Account/choseEducation?uid=' + uid + '&cv=' + cv, function (data) {
         if (data.tt) {
             if (cv == '03') {
                 location.replace('/User/GiaoVien/Index');

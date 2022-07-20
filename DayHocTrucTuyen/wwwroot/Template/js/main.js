@@ -120,17 +120,9 @@ $(window).load(function () {
 
 })()
 
-
-//JS xử lý các sự kiện
-
 //Hàm đăng xuất
 function dangxuat() {
-    $.getJSON('/Default/Logout', function (data) {
-        getThongBao('success', 'Đăng xuất thành công', data.mess)
-
-        //Thay đổi header khi đăng xuất
-        document.getElementById('userSystem').innerHTML =
-            '<a href="/Default/Register" class="get-started-a">Đăng ký</a>' +
-            '<a href="/Default/Login" class="btn get-started-btn">Đăng nhập</a>';
+    $.getJSON('/Account/Logout', function (data) {
+        location.replace('/');
     })
 }

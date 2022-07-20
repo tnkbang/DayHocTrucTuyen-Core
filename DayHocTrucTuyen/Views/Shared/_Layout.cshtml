@@ -1,49 +1,153 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DayHocTrucTuyen</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/DayHocTrucTuyen.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DayHocTrucTuyen</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+﻿@using DayHocTrucTuyen.Models
+@{
+    Layout = null;
+    var UserLogin = User.Claims.ToList();
+}
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - DayHocTrucTuyen - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewBag.Title</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/Content/Img/Resources/Logo.gif" rel="icon">
+    <link href="~/Content/Img/Resources/Logo.gif" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="~/Template/css/fonts.css" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Template/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/Template/aos/aos.css" rel="stylesheet">
+    <link href="~/Template/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Template/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Template/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Template/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Template/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/Template/css/style.css" rel="stylesheet">
+
+    <!--Toastr thông báo-->
+    <link rel="stylesheet" href="~/Template/css/toastr.css" />
+</head>
+
+<body>
+    <div class="wavy-wraper">
+        <div class="wavy">
+            <span style="--i:1;">L</span>
+            <span style="--i:2;">o</span>
+            <span style="--i:3;">a</span>
+            <span style="--i:4;">d</span>
+            <span style="--i:5;">i</span>
+            <span style="--i:6;">n</span>
+            <span style="--i:7;">g</span>
+            <span style="--i:8;">.</span>
+            <span style="--i:9;">.</span>
+            <span style="--i:10;">.</span>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </div>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+            <a href="~/Default/Index" class="logo me-auto"><img src="~/Content/Img/Resources/Logo.gif" alt="" class="img-fluid"></a>
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a class="@ViewBag.Index" href="~/Default/Index">Trang chủ</a></li>
+                    <li><a class="@ViewBag.ThongTin" href="">Thông tin</a></li>
+                    <li><a class="@ViewBag.KhoaHoc" href="~/Default/Courses">Khóa học</a></li>
+                    <li><a class="@ViewBag.SuKien" href="">Sự kiện</a></li>
+                    @*<li class="dropdown">
+                    <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                    <li><a href="#">Drop Down 1</a></li>
+                    <li class="dropdown">
+                    <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                    <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="#">Drop Down 2</a></li>
+                    <li><a href="#">Drop Down 3</a></li>
+                    <li><a href="#">Drop Down 4</a></li>
+                    </ul>
+                    </li>*@
+                    <li><a class="@ViewBag.LienHe" href="~/Default/Contact">Liên hệ</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+            <div id="userSystem">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a href="~/Account/Register" class="get-started-a">Đăng ký</a>
+                    <a href="~/Account/Login" type="button" class="btn get-started-btn">Đăng nhập</a>
+                }
+                else
+                {
+                    <div class="dropdown">
+                        <a class="btn get-started-a dropdown-toggle" id="dropdownUser">
+                            Xin chào, @UserLogin[3].Value
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                @if (UserLogin[1].Equals("User"))
+                                {
+                                    <a href="~/Default/Education" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
+                                }
+                                else
+                                {
+                                    <a href="~/User/@UserLogin[1]/Index" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
+                                }
+                                <button type="button" id="logoutAccount" class="dropdown-item text-danger" onclick="dangxuat()"><i class="bi bi-power"> Đăng xuất</i></button>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </header><!-- End Header -->
+    @RenderBody()
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="container d-md-flex py-4">
+
+            <div class="me-md-auto text-center text-md-start">
+                <b>Triệu Nguyễn Khánh Băng</b>
+                <br />
+                B1809328
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                <a href="https://instagram.com/tnk_bang" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="https://fb.com/tnkbang" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="https://m.me/tnkbang" class="messenger"><i class="bx bxl-messenger"></i></a>
+                <a href="mailto:bangb1809328@student.ctu.edu.vn" class="google-plus"><i class="bx bx-mail-send"></i></a>
+                <a href="tel:+0833229121" class="phone"><i class="bx bx-phone-call"></i></a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+    <div class="back-to-top d-flex align-items-center justify-content-center" title="Về đầu trang"><i class="bi bi-arrow-up-short"></i></div>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Template/js/purecounter.js"></script>
+    <script src="~/Template/aos/aos.js"></script>
+    <script src="~/Template/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Template/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Template/js/main.min.js"></script>
+    <script src="~/Template/js/main.js"></script>
+
+    <!--Toastr thông báo-->
+    <script src="~/Template/js/toastr.js"></script>
 </body>
 </html>
