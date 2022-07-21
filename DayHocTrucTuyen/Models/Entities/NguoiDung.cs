@@ -123,6 +123,13 @@ namespace DayHocTrucTuyen.Models.Entities
             var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
             return user.HoLot + " " + user.Ten;
         }
+
+        public string getName()
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
+            return user.Ten;
+        }
+
         public string getImageBG()
         {
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
