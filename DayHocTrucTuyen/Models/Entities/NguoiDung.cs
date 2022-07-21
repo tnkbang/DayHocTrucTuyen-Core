@@ -105,9 +105,23 @@ namespace DayHocTrucTuyen.Models.Entities
         public string getImageAvt()
         {
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
-            if (nd.ImgAvt == null) return "/Content/Img/userAvt/avt-default.png";
-            if (nd.ImgAvt.ToLower().StartsWith("http")) return nd.ImgAvt;
+            if (String.IsNullOrEmpty(nd.ImgAvt)) return "/Content/Img/userAvt/avt-default.png";
             return "/Content/Img/userAvt/" + nd.ImgAvt;
+        }
+
+        public string getTenLoai()
+        {
+            var loai = db.LoaiNds.FirstOrDefault(x=>x.MaLoai == this.MaLoai);
+            if (loai.MaLoai.Equals("01")) return "Quản trị viên";
+            if (loai.MaLoai.Equals("02")) return "Tài khoản khách";
+
+            return loai.TenLoai;
+        }
+
+        public string getFullName()
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
+            return user.HoLot + " " + user.Ten;
         }
         public string getImageBG()
         {

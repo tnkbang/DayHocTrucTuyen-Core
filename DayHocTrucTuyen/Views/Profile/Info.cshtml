@@ -1,0 +1,237 @@
+﻿
+@model DayHocTrucTuyen.Models.Entities.NguoiDung
+@using DayHocTrucTuyen.Models.Entities
+@{
+    NguoiDung uLogin = new NguoiDung(User.Claims.First().Value);
+    ViewBag.Title = "Thông tin của " + Model.Ten;
+    ViewBag.Main = "Hồ sơ: " + Model.getFullName();
+    Layout = "~/Views/Shared/_LayoutArea.cshtml";
+}
+
+<section>
+    <div class="gap2 gray-bg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row merged20" id="page-contents">
+                        <div class="user-profile">
+                            <figure>
+                                @if (uLogin.MaNd == Model.MaNd)
+                                {
+                                    <div class="edit-pp">
+                                        <label class="fileContainer">
+                                            <i class="fa fa-camera"></i>
+                                            <input id="edit-cover" type="file" title="Thay đổi ảnh bìa">
+                                        </label>
+                                    </div>
+                                }
+                                <img src="@Model.getImageBG()" alt="" />
+                            <ul class="profile-controls">
+                                @if (Model.liked(uLogin.MaNd))
+                                {
+                                    <li><a id="btnLike" title="Đã thích" data-toggle="tooltip"><i class="fa fa-heart"></i></a></li>
+                                }
+                                else
+                                {
+                                    <li><a class="bg-success" id="btnLike" title="Thích trang" data-toggle="tooltip" onclick="like('@Model.MaNd', '@uLogin.MaNd')"><i class="fa fa-heart"></i></a></li>
+                                }
+                                <li><a class="send-mesg" href="#" title="Gửi tin nhắn" data-toggle="tooltip"><i class="fa fa-comment"></i></a></li>
+                            </ul>
+                            </figure>
+                            <div class="profile-section">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="profile-author">
+                                            <div class="profile-author-thumb">
+                                                @if (uLogin.MaNd == Model.MaNd)
+                                                {
+                                                    <div class="edit-dp">
+                                                        <label class="fileContainer">
+                                                            <i class="fa fa-camera"></i>
+                                                            <input id="edit-avt" type="file" title="Thay đổi ảnh đại diện">
+                                                        </label>
+                                                    </div>
+                                                }
+                                                <img alt="@Model.getFullName()" src="@Model.getImageAvt()" />
+                                            </div>
+                                            <div class="author-content">
+                                                <div class="h4 author-name">@Model.getFullName()</div>
+                                                <div class="user_job">@Model.getTenLoai()</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- banner hồ sơ  -->
+                        <div class="col-lg-3">
+                            <aside class="sidebar static left">
+                                <div class="widget">
+                                    <h4 class="widget-title">Thao tác nhanh</h4>
+                                    <ul class="naves">
+                                        <li>
+                                            <i class="ti-home"></i>
+                                            <a href="/Default/Index" title="">Trang chủ</a>
+                                        </li>
+                                        <li>
+                                            <i class="ti-layout-list-thumb"></i>
+                                            <a href="~/Courses/Room/List" title="">Danh sách lớp học</a>
+                                        </li>
+                                        <li>
+                                            <i class="ti-comment-alt"></i>
+                                            <a href="" title="">Tin nhắn</a>
+                                        </li>
+                                        <li>
+                                            <i class="ti-bell"></i>
+                                            <a href="~/User/Notification/Detail" title="">Thông báo</a>
+                                        </li>
+                                    </ul>
+                                </div><!-- Thao tác nhanh -->
+                                <div class="widget">
+                                    <h4 class="widget-title">Xem thêm</h4>
+                                    <ul class="naves">
+                                        <li>
+                                            <i class="fa fa-bar-chart-o"></i>
+                                            <a href="" title="">Biểu đồ</a>
+                                        </li>
+                                        <li>
+                                            <i class="ti-help"></i>
+                                            <a href="" title="">Trợ giúp</a>
+                                        </li>
+                                        <li>
+                                            <i class="ti-power-off"></i>
+                                            <a href="/Default/Login" title="">Đăng xuất</a>
+                                        </li>
+                                    </ul>
+                                </div><!-- Xem thêm -->
+                            </aside>
+                        </div><!-- Thanh trái -->
+                        <div class="col-lg-6">
+                            <div class="central-meta">
+                                <span class="create-post tran-bottom">Thông tin chi tiết</span>
+                                <ul class="short-profile">
+                                    <li>
+                                        <span>UID</span>
+                                        <p>@Model.MaNd</p>
+                                    </li>
+                                    <li>
+                                        <span>Bí danh</span>
+                                        @if (Model.BiDanh == Model.MaNd)
+                                        {
+                                            <p>Chưa đặt</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@Model.BiDanh</p>
+                                        }
+                                    </li>
+                                    <li>
+                                        <span>Giới tính</span>
+                                        @if (Model.GioiTinh == null)
+                                        {
+                                            <p>Chưa có thông tin</p>
+                                        }
+                                        else
+                                        {
+                                            if (Model.GioiTinh == 1)
+                                            {
+                                                <p>Nam</p>
+                                            }
+                                            else
+                                            {
+                                                <p>Nữ</p>
+                                            }
+                                        }
+                                    </li>
+                                    <li>
+                                        <span>Tuổi</span>
+                                        @if (Model.NgaySinh == null)
+                                        {
+                                            <p>Chưa có thông tin</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@Model.getTuoi(DateTime.Parse(Model.NgaySinh.ToString()))</p>
+                                        }
+                                    </li>
+                                    <li>
+                                        <span>Gia nhập</span>
+                                        <p>@Model.NgayTao.ToString("'Ngày' dd/MM/yyyy 'lúc' HH:mm:ss tt")</p>
+                                    </li>
+                                    <li>
+                                        <span>Mô tả</span>
+                                        @if (String.IsNullOrEmpty(Model.MoTa))
+                                        {
+                                            <p>Xin chào, mình tên là @Model.getFullName() !</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@Model.MoTa</p>
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
+                        </div><!-- nội dung giữa -->
+                        <div class="col-lg-3">
+                            <aside class="sidebar static right">
+                                <div class="widget">
+                                    <h4 class="widget-title">Thống kê</h4>
+                                    <div class="your-page">
+                                        <div class="page-likes">
+                                            <ul class="nav nav-tabs likes-btn">
+                                                <li class="nav-item"><a class="active" href="#link1" data-toggle="tab" data-ripple="">Yêu thích</a></li>
+                                                <li class="nav-item"><a class="" href="#link2" data-toggle="tab" data-ripple="">Ghé thăm</a></li>
+                                            </ul>
+                                            <!-- chi tiết like and view -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active fade show " id="link1">
+                                                    <span><i class="ti-heart"></i>@Model.getYeuThich()</span>
+                                                    <a style="text-decoration:none" title="Lượt thích mới">@Model.getYeuThichTheoTuan() lượt yêu thích gần đây</a>
+                                                    <div class="users-thumb-list">
+                                                        @foreach (var u in ViewData["userLike"] as List<NguoiDung>)
+                                                        {
+                                                            <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
+                                                                <img alt="" src="@u.getImageAvt()" width="35" height="35" />
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="link2">
+                                                    <span><i class="fa fa-eye"></i>@Model.getXemTrang()</span>
+                                                    <a style="text-decoration:none" title="Lượt xem mới">@Model.getXemTrangTheoTuan() lượt ghé thăm gần đây</a>
+                                                    <div class="users-thumb-list">
+                                                        @foreach (var u in ViewData["userView"] as List<NguoiDung>)
+                                                        {
+                                                            <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
+                                                                <img alt="" src="@u.getImageAvt()" width="35" height="35">
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div><!-- thanh phải -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- nội dung chính -->
+<div class="popup-wraper1">
+    <div class="popup direct-mesg">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5>Gửi tin nhắn cho @Model.Ten</h5>
+            </div>
+            <div class="send-message">
+                <form method="post" class="c-form" id="info-send-mess">
+                    <textarea id="info-send-mess-text" placeholder="Nội dung tin nhắn"></textarea>
+                    <button type="submit" class="main-btn" onclick="infoSendMess('@uLogin.MaNd', '@Model.MaNd')">Gửi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><!-- popup gửi tin nhắn -->

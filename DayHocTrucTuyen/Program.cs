@@ -24,6 +24,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Using custom status error
+app.UseStatusCodePagesWithReExecute("/error/{0}");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
