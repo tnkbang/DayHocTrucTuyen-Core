@@ -37,6 +37,14 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+
+//Config Map Route Areas
+app.MapAreaControllerRoute(
+    name: "MyAreas",
+    areaName: "Areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+//Default Map Route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Default}/{action=Index}/{id?}");
