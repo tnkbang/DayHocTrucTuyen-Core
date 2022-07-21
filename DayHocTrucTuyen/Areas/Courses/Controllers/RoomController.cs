@@ -13,7 +13,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
         //Danh sách các lớp học của người dùng
-        public ActionResult List(string q)
+        public IActionResult List(string q)
         {
             string maUser = User.Claims.First().Value;
             List<LopHoc> roomOfUser = db.LopHocs.Where(x => x.MaNd == maUser).OrderByDescending(x => x.NgayTao).ToList();
@@ -23,7 +23,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Giao diện chính lớp học
-        public ActionResult Detail(string Room)
+        public IActionResult Detail(string Room)
         {
             LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == Room);
             LopHoc roomBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == Room);
@@ -41,7 +41,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Trang chỉnh sửa lớp học
-        public ActionResult editRoom(string Room)
+        public IActionResult editRoom(string Room)
         {
             string maUser = User.Claims.First().Value;
             LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == Room && x.MaNd == maUser);
@@ -53,142 +53,172 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             return View(room);
         }
 
-        ////Thêm mới lớp học
-        //[HttpPost]
-        //public ActionResult createRoom(string tl, string bd, string mt, string tag, HttpPostedFileBase img)
-        //{
-        //    var sess = (UserLogin)Session[SessionLogin.SESSION_LOGIN];
-        //    LopHoc newLop = new LopHoc();
+        //Thêm mới lớp học
+        [HttpPost]
+        public async Task<IActionResult> createRoom(string tl, string bd, string mt, string tag, IFormFile img)
+        {
+            var maUser = User.Claims.First().Value;
+            LopHoc newLop = new LopHoc();
 
-        //    newLop.Ma_Lop = newLop.setMa();
-        //    newLop.Ma_ND = sess.MaUser;
-        //    newLop.Ngay_Tao = DateTime.Now;
-        //    newLop.Ten_Lop = tl;
-        //    newLop.Trang_Thai = true;
+            newLop.MaLop = newLop.setMa();
+            newLop.MaNd = maUser;
+            newLop.NgayTao = DateTime.Now;
+            newLop.TenLop = tl;
+            newLop.TrangThai = true;
 
-        //    if (img != null)
-        //    {
-        //        string file_extension = Path.GetFileName(img.FileName).Substring(Path.GetFileName(img.FileName).LastIndexOf('.'));
-        //        var fileName = newLop.Ma_Lop + "-" + DateTime.Now.Millisecond + file_extension;
-        //        var path = Path.Combine(Server.MapPath("~/Content/Img/roomCover"), fileName);
-        //        img.SaveAs(path);
-        //        newLop.Img_Bia = fileName;
-        //    }
+            if (img != null)
+            {
+                //Khai báo đường dẫn lưu file
+                var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Content\\Img\\roomCover\\");
+                bool basePathExists = Directory.Exists(basePath);
 
-        //    if (bd != "null")
-        //    {
-        //        LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.Bi_Danh == bd);
-        //        if (checkBD != null)
-        //        {
-        //            return Json(new { tt = false, mess = "Bí danh đã tồn tại !" }, JsonRequestBehavior.AllowGet);
-        //        }
-        //        newLop.Bi_Danh = bd;
-        //    }
-        //    else
-        //    {
-        //        newLop.Bi_Danh = newLop.Ma_Lop;
-        //    }
-        //    if (mt != "null") { newLop.Mo_Ta = mt; }
+                string file_extension = Path.GetFileName(img.FileName).Substring(Path.GetFileName(img.FileName).LastIndexOf('.'));
+                var fileName = newLop.MaLop + "-" + DateTime.Now.Millisecond + file_extension;
+                var filePath = Path.Combine(basePath, fileName);
 
-        //    db.LopHocs.Add(newLop);
-        //    db.SaveChanges();
+                //Thêm file vào server và cập nhật vào csdl
+                if (fileName != null && !System.IO.File.Exists(filePath))
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await img.CopyToAsync(stream);
+                    }
 
-        //    //Thêm phần tử vào table LopThuocTag
-        //    if (tag != "")
-        //    {
-        //        string[] roomTag = new string[] { "" };
-        //        roomTag = tag.Split(',');
+                    newLop.ImgBia = fileName;
+                }
+            }
 
-        //        for (var i = 0; i < roomTag.Length; i++)
-        //        {
-        //            db.Database.ExecuteSqlCommand("INSERT INTO LopThuocTag VALUES('" + roomTag[i] + "','" + newLop.Ma_Lop + "')");
-        //        }
-        //    }
+            if (bd != "null")
+            {
+                LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
+                if (checkBD != null)
+                {
+                    return Json(new { tt = false, mess = "Bí danh đã tồn tại !" });
+                }
+                newLop.BiDanh = bd;
+            }
+            else
+            {
+                newLop.BiDanh = newLop.MaLop;
+            }
+            if (mt != "null") { newLop.MoTa = mt; }
 
-        //    return Json(new { tt = true, room = newLop.Ma_Lop }, JsonRequestBehavior.AllowGet);
-        //}
+            db.LopHocs.Add(newLop);
 
-        ////Cập nhật thông tin lớp học
-        //[HttpPost]
-        //public ActionResult editRoom(string ml, string tl, string bd, string mk, string mt, string tag, HttpPostedFileBase img)
-        //{
-        //    var sess = (UserLogin)Session[SessionLogin.SESSION_LOGIN];
-        //    var update = db.LopHocs.FirstOrDefault(x => x.Ma_Lop == ml && x.Ma_ND == sess.MaUser);
+            //Thêm phần tử vào table LopThuocTag
+            if (tag != "")
+            {
+                string[] roomTag = new string[] { "" };
+                roomTag = tag.Split(',');
 
-        //    if (update == null)
-        //    {
-        //        return Json(new { tt = false }, JsonRequestBehavior.AllowGet);
-        //    }
+                for (var i = 0; i < roomTag.Length; i++)
+                {
+                    LopThuocTag newLTT = new LopThuocTag();
+                    newLTT.MaLop = newLop.MaLop;
+                    newLTT.MaTag = roomTag[i];
+                    db.LopThuocTags.Add(newLTT);
+                }
+            }
 
-        //    update.Ten_Lop = tl;
-        //    if (bd != "null")
-        //    {
-        //        LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.Bi_Danh == bd);
-        //        LopHoc bidanhThis = db.LopHocs.FirstOrDefault(x => x.Ma_Lop == update.Ma_Lop && x.Bi_Danh == bd);
-        //        if (checkBD != null && bidanhThis == null)
-        //        {
-        //            return Json(new { tt = false, mess = "Bí danh đã tồn tại !" }, JsonRequestBehavior.AllowGet);
-        //        }
-        //        update.Bi_Danh = bd;
-        //    }
-        //    else { update.Bi_Danh = null; }
-        //    if (mk != "null") { update.Mat_Khau = mk; }
-        //    else { update.Mat_Khau = null; }
-        //    if (mt != "null") { update.Mo_Ta = mt; }
-        //    else { update.Mo_Ta = null; }
+            db.SaveChanges();
 
-        //    if (img != null)
-        //    {
-        //        if (update.Img_Bia != null)
-        //        {
-        //            var delpath = Path.Combine(Server.MapPath("~/Content/Img/roomCover"), update.Img_Bia);
-        //            if (System.IO.File.Exists(delpath))
-        //            {
-        //                System.IO.File.Delete(delpath);
-        //            }
-        //        }
-        //        string file_extension = Path.GetFileName(img.FileName).Substring(Path.GetFileName(img.FileName).LastIndexOf('.'));
-        //        var fileName = update.Ma_Lop + "-" + DateTime.Now.Millisecond + file_extension;
-        //        var path = Path.Combine(Server.MapPath("~/Content/Img/roomCover"), fileName);
-        //        img.SaveAs(path);
-        //        update.Img_Bia = fileName;
-        //    }
+            return Json(new { tt = true, room = newLop.MaLop });
+        }
 
-        //    db.SaveChanges();
+        //Cập nhật thông tin lớp học
+        [HttpPost]
+        public async Task<IActionResult> editRoom(string ml, string tl, string bd, string mk, string mt, string tag, IFormFile img)
+        {
+            var maUser = User.Claims.First().Value;
+            var update = db.LopHocs.FirstOrDefault(x => x.MaLop == ml && x.MaNd == maUser);
 
-        //    //Thêm phần tử vào table LopThuocTag
-        //    if (tag != "")
-        //    {
-        //        //Xóa hết tag cũ của lớp
-        //        db.Database.ExecuteSqlCommand("DELETE FROM LopThuocTag WHERE Ma_Lop='" + update.Ma_Lop + "'");
+            if (update == null)
+            {
+                return Json(new { tt = false });
+            }
 
-        //        string[] roomTag = new string[] { "" };
-        //        roomTag = tag.Split(',');
+            update.TenLop = tl;
+            if (bd != "null")
+            {
+                LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
+                LopHoc bidanhThis = db.LopHocs.FirstOrDefault(x => x.MaLop == update.MaLop && x.BiDanh == bd);
+                if (checkBD != null && bidanhThis == null)
+                {
+                    return Json(new { tt = false, mess = "Bí danh đã tồn tại !" });
+                }
+                update.BiDanh = bd;
+            }
+            else { update.BiDanh = null; }
+            if (mk != "null") { update.MatKhau = mk; }
+            else { update.MatKhau = null; }
+            if (mt != "null") { update.MoTa = mt; }
+            else { update.MoTa = null; }
 
-        //        for (var i = 0; i < roomTag.Length; i++)
-        //        {
-        //            db.Database.ExecuteSqlCommand("INSERT INTO LopThuocTag VALUES('" + roomTag[i] + "','" + update.Ma_Lop + "')");
-        //        }
-        //    }
+            if (img != null)
+            {
+                //Khai báo đường dẫn lưu file
+                var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Content\\Img\\roomCover\\");
+                bool basePathExists = Directory.Exists(basePath);
 
-        //    return Json(new { tt = true, room = update.Ma_Lop }, JsonRequestBehavior.AllowGet);
-        //}
+                string file_extension = Path.GetFileName(img.FileName).Substring(Path.GetFileName(img.FileName).LastIndexOf('.'));
+                var fileName = update.MaLop + "-" + DateTime.Now.Millisecond + file_extension;
+                var filePath = Path.Combine(basePath, fileName);
 
-        ////Thêm mới thành viên cho lớp
-        //[HttpPost]
-        //public ActionResult setJoinRoom(string maLop)
-        //{
-        //    var sess = (UserLogin)Session[SessionLogin.SESSION_LOGIN];
+                //Xóa file cũ khỏi server
+                if (!String.IsNullOrEmpty(update.ImgBia) && System.IO.File.Exists(Path.Combine(basePath, update.ImgBia)))
+                {
+                    System.IO.File.Delete(basePath + update.ImgBia);
+                }
 
-        //    HocSinhThuocLop hs = new HocSinhThuocLop();
-        //    hs.Ma_ND = sess.MaUser;
-        //    hs.Ma_Lop = maLop;
-        //    hs.Ngay_Tham_Gia = DateTime.Now;
+                //Thêm file vào server và cập nhật vào csdl
+                if (fileName != null && !System.IO.File.Exists(filePath))
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await img.CopyToAsync(stream);
+                    }
 
-        //    db.HocSinhThuocLops.Add(hs);
-        //    db.SaveChanges();
+                    update.ImgBia = fileName;
+                }
+            }
 
-        //    return Json(new { tt = true }, JsonRequestBehavior.AllowGet);
-        //}
+            //Thêm phần tử vào table LopThuocTag
+            if (tag != "")
+            {
+                //Xóa hết tag cũ của lớp
+                var delLTT = db.LopThuocTags.Where(x => x.MaLop == update.MaLop);
+                db.LopThuocTags.RemoveRange(delLTT);
+
+                string[] roomTag = new string[] { "" };
+                roomTag = tag.Split(',');
+
+                for (var i = 0; i < roomTag.Length; i++)
+                {
+                    LopThuocTag newLTT = new LopThuocTag();
+                    newLTT.MaLop = update.MaLop;
+                    newLTT.MaTag = roomTag[i];
+                    db.LopThuocTags.Add(newLTT);
+                }
+            }
+
+            db.SaveChanges();
+
+            return Json(new { tt = true, room = update.MaLop });
+        }
+
+        //Thêm mới thành viên cho lớp
+        [HttpPost]
+        public IActionResult setJoinRoom(string maLop)
+        {
+            HocSinhThuocLop hs = new HocSinhThuocLop();
+            hs.MaNd = User.Claims.First().Value;
+            hs.MaLop = maLop;
+            hs.NgayThamGia = DateTime.Now;
+
+            db.HocSinhThuocLops.Add(hs);
+            db.SaveChanges();
+
+            return Json(new { tt = true });
+        }
     }
 }

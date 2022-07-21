@@ -134,7 +134,7 @@ namespace DayHocTrucTuyen.Models.Entities
         }
         public bool isTag(string maTag)
         {
-            var tags = db.LopThuocTags.FirstOrDefault(x => x.MaLop == this.MaLop && x.MaTag == x.MaTag);
+            var tags = db.LopThuocTags.FirstOrDefault(x => x.MaLop == this.MaLop && x.MaTag == maTag);
             if (tags != null) return true;
             return false;
         }

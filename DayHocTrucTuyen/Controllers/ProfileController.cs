@@ -65,7 +65,7 @@ namespace DayHocTrucTuyen.Controllers
             }
         }
         //Hàm set thích trang
-        public ActionResult setThichTrang(string nd, string nt)
+        public IActionResult setThichTrang(string nd, string nt)
         {
             if (nd == nt) return Json(new { tt = false });
             ThichTrang yt = db.ThichTrangs.Where(x => x.NguoiDung == nd && x.NguoiThich == nt).OrderByDescending(x => x.MaYt).FirstOrDefault();
