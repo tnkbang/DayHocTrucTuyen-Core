@@ -47,7 +47,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == Room && x.MaNd == maUser);
             if (room == null || Room == null)
             {
-                NotFound();
+                return NotFound();
             }
             ViewData["Tag"] = db.Tags.ToList();
             return View(room);
@@ -71,6 +71,9 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 //Khai báo đường dẫn lưu file
                 var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Content\\Img\\roomCover\\");
                 bool basePathExists = Directory.Exists(basePath);
+
+                //Nếu thư mục không có thì tạo mới
+                if (!basePathExists) Directory.CreateDirectory(basePath);
 
                 string file_extension = Path.GetFileName(img.FileName).Substring(Path.GetFileName(img.FileName).LastIndexOf('.'));
                 var fileName = newLop.MaLop + "-" + DateTime.Now.Millisecond + file_extension;

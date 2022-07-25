@@ -1768,7 +1768,7 @@ $('#btnCreatePost').on('click', function () {
 
     var files = $("#fileCreatePost").get(0).files;
     for (var i = 0; i < files.length; i++) {
-        form_data.append('dinhkem', files[i]);
+        form_data.append('files', files[i]);
     }
 
     $.ajax({
