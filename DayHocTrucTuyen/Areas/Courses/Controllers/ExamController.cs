@@ -15,7 +15,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Quản lý phòng thi
         [Authorize(Roles = "03")]
-        public ActionResult Manage(string id)
+        public IActionResult Manage(string id)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == id);
             if (id == null || pt == null)
@@ -26,7 +26,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Danh sách bài thi của lớp
         [Authorize(Roles = "03")]
-        public ActionResult List(string Room, string q)
+        public IActionResult List(string Room, string q)
         {
             LopHoc lp = db.LopHocs.FirstOrDefault(x => x.MaLop == Room);
             if (Room == null || lp == null)
@@ -40,7 +40,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             return View(pt);
         }
         //Trang xác nhận trước khi thi
-        public ActionResult preExam(string id)
+        public IActionResult preExam(string id)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == id);
             if (id == null || pt == null)
@@ -56,7 +56,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Trang thực hiện thi
-        public ActionResult workExam(string id, int re)
+        public IActionResult workExam(string id, int re)
         {
             if (id == null || re == 0) return NotFound();
 
@@ -78,7 +78,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Trang xem lại bài thi
-        public ActionResult viewExam(string id, int re)
+        public IActionResult viewExam(string id, int re)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == id);
             if (id == null || pt == null)
@@ -95,7 +95,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Tạo mới phòng thi
         [HttpPost]
-        public ActionResult createExam(string malop, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xacthuc, bool xemlai)
+        public IActionResult createExam(string malop, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xacthuc, bool xemlai)
         {
             var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == malop);
             if (lop == null) return Json(new { tt = false });
@@ -131,7 +131,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Chỉnh sửa phòng thi
         [HttpPost]
-        public ActionResult editExam(string maphong, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xacthuc, bool xemlai)
+        public IActionResult editExam(string maphong, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xacthuc, bool xemlai)
         {
             var phongthi = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong);
             if (phongthi == null) return Json(new { tt = false });
@@ -154,7 +154,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Tạo mới câu hỏi
         [HttpPost]
-        public ActionResult createQuest(string maphong, string cauhoi, string da1, string da2, string da3, string da4, string loigiai)
+        public IActionResult createQuest(string maphong, string cauhoi, string da1, string da2, string da3, string da4, string loigiai)
         {
             var phongthi = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong);
             if (phongthi == null) return Json(new { tt = false });
@@ -186,7 +186,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Gán câu hỏi cần chỉnh sửa
         [HttpPost]
-        public ActionResult getQuestEdit(int stt, string maphong)
+        public IActionResult getQuestEdit(int stt, string maphong)
         {
             var quest = db.CauHoiThis.FirstOrDefault(x => x.Stt == stt && x.MaPhong == maphong);
             if (quest == null) return Json(new { tt = false });
@@ -211,7 +211,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Chỉnh sửa câu hỏi
         [HttpPost]
-        public ActionResult editQuest(int stt, string maphong, string cauhoi, string da1, string da2, string da3, string da4, string loigiai)
+        public IActionResult editQuest(int stt, string maphong, string cauhoi, string da1, string da2, string da3, string da4, string loigiai)
         {
             var updateQuest = db.CauHoiThis.FirstOrDefault(x => x.Stt == stt && x.MaPhong == maphong);
             if (updateQuest == null) return Json(new { tt = false });
@@ -240,7 +240,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Kiểm tra xem phòng thi có mật khẩu hay không
         [HttpPost]
-        public ActionResult ktMatKhau(string maphong)
+        public IActionResult ktMatKhau(string maphong)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong);
             if (pt.MatKhau != null) return Json(new { tt = true });
@@ -250,7 +250,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Chuẩn bị phòng thi
         [HttpPost]
-        public ActionResult setWorkExam(string maphong, string matkhau)
+        public IActionResult setWorkExam(string maphong, string matkhau)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong && x.MatKhau == matkhau);
             if (pt == null) return Json(new { tt = false });
@@ -275,7 +275,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Gán đáp án thi
         [HttpPost]
-        public ActionResult setDapAnThi(int stt, string maphong, int lanthu, string dapan)
+        public IActionResult setDapAnThi(int stt, string maphong, int lanthu, string dapan)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong);
             if (pt == null) return Json(new { tt = false });
@@ -304,7 +304,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Kết thúc bài thi
         [HttpPost]
-        public ActionResult setEndExam(string maphong, int lanthu)
+        public IActionResult setEndExam(string maphong, int lanthu)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong);
             if (pt == null) return Json(new { tt = false });

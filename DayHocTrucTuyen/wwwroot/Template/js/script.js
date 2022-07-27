@@ -294,8 +294,7 @@ jQuery(document).ready(function ($) {
         var user = document.createElement('div');
         user.classList = 'chat-thumb';
         var img = document.createElement('img');
-        if (avt) { img.src = '/Content/Img/userAvt/' + avt; }
-        else { img.src = '/Content/Img/userAvt/avt-default.png'; }
+        img.src = avt;
         user.appendChild(img);
         li.appendChild(user);
         var model = document.createElement('div');
@@ -335,13 +334,13 @@ jQuery(document).ready(function ($) {
                     }
                     else {
                         document.getElementById('mess-content').innerHTML = null;
-                        document.getElementById('mess-user-name').innerHTML = data.USend.Ho_Lot + " " + data.USend.Ten;
-                        $.each(data.TinNhan, function (index, value) {
-                            if (value.Nguoi_Gui == maNG) setChat('you', data.USend.Img_Avt, value.Noi_Dung, value.Thoi_Gian);
-                            else setChat('me', data.UReceived.Img_Avt, value.Noi_Dung, value.Thoi_Gian);
+                        document.getElementById('mess-user-name').innerHTML = data.uSend.ho_Lot + " " + data.uSend.ten;
+                        $.each(data.tinNhan, function (index, value) {
+                            if (value.nguoi_Gui == maNG) setChat('you', data.uSend.img_Avt, value.noi_Dung, value.thoi_Gian);
+                            else setChat('me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
                         })
                     }
-                    document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info?User=' + data.USend.Ma_ND) }
+                    document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info?User=' + data.uSend.ma_ND) }
                     $("i.timeago").timeago();
 
                     if (firstLoad) {
@@ -379,7 +378,7 @@ jQuery(document).ready(function ($) {
                     getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
                 }
                 else {
-                    setChat('me', data.Img_Avt, data.Noi_Dung, data.Thoi_Gian);
+                    setChat('me', data.img_Avt, data.noi_Dung, data.thoi_Gian);
                     noidung.value = null;
                 }
                 $("i.timeago").timeago();

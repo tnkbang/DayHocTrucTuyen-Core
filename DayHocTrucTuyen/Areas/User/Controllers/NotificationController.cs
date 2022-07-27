@@ -29,7 +29,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         }
 
         //Trang xem thông báo
-        public ActionResult Detail()
+        public IActionResult Detail()
         {
             ThongBao tb = new ThongBao();
             tb.MaNd = User.Claims.First().Value;
@@ -38,7 +38,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
 
         //Đã xem thông báo
         [HttpPost]
-        public ActionResult setDaXemThongBao(string maTB, string maND)
+        public IActionResult setDaXemThongBao(string maTB, string maND)
         {
             var tb = db.ThongBaos.FirstOrDefault(x => x.MaTb == maTB && x.MaNd == maND);
             if (tb == null) Json(new { tt = false });
@@ -51,7 +51,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
 
         //Đã xem tất cả thông báo
         [HttpPost]
-        public ActionResult setXemTatCaThongBao(string maND)
+        public IActionResult setXemTatCaThongBao(string maND)
         {
             var tb = db.ThongBaos.Where(x => x.MaNd == maND && x.TrangThai == false);
             if (tb == null) Json(new { tt = false });
