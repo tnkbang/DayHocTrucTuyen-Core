@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models.Entities;
+﻿using DayHocTrucTuyen.Areas.User.Controllers;
+using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -118,13 +119,13 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             db.PhongThis.Add(newPT);
             db.SaveChanges();
 
-            ////Gửi thông báo đến tất cả thành viên thuộc lớp
-            //NotificationController notification = new NotificationController();
-            //var thanhvienlop = db.HocSinhThuocLops.Where(x => x.Ma_Lop == lop.Ma_Lop);
-            //foreach (var tvl in thanhvienlop)
-            //{
-            //    notification.setThongBao(tvl.Ma_ND, "Bài thi mới", "exam" + "\\Từ lớp " + lop.Ten_Lop, "Courses/Room/Detail?Room=" + lop.Ma_Lop);
-            //}
+            //Gửi thông báo đến tất cả thành viên thuộc lớp
+            NotificationController notification = new NotificationController();
+            var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
+            foreach (var tvl in thanhvienlop)
+            {
+                notification.setThongBao(tvl.MaNd, "Bài thi mới", "exam" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?Room=" + lop.MaLop);
+            }
 
             return Json(new { tt = true, exam = newPT.MaPhong });
         }

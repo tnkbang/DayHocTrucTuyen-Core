@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models.Entities;
+﻿using DayHocTrucTuyen.Areas.User.Controllers;
+using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,13 +60,13 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             db.SaveChanges();
 
             //Gửi thông báo đến tất cả thành viên thuộc lớp
-            //NotificationController notification = new NotificationController();
-            //var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == malop);
-            //var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
-            //foreach (var tvl in thanhvienlop)
-            //{
-            //    notification.setThongBao(tvl.MaNd, "Bài đăng mới", "post" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?Room=" + lop.MaLop);
-            //}
+            NotificationController notification = new NotificationController();
+            var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == malop);
+            var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
+            foreach (var tvl in thanhvienlop)
+            {
+                notification.setThongBao(tvl.MaNd, "Bài đăng mới", "post" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?Room=" + lop.MaLop);
+            }
 
             return Json(new { mess = "Thành công" });
         }
