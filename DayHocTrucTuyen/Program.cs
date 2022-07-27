@@ -1,4 +1,6 @@
+using DayHocTrucTuyen.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Login";
 });
+
+//Using custom authen role
+builder.Services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
 
 var app = builder.Build();
 

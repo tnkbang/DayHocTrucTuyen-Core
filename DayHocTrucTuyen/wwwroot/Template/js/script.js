@@ -2351,12 +2351,12 @@ $('#form-create-quest').on('submit', function () {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                getThongBao('success', 'Thành công !', 'Đã thêm câu hỏi ' + data.cauhoi.STT + ' thành công !');
-                if (data.cauhoi.Multi_Ans) {
-                    addDOMQuestMultiAns(data.cauhoi.STT, data.cauhoi.Ma_Phong, data.cauhoi.Cau_Hoi, data.cauhoi.Dap_An_1, data.cauhoi.Dap_An_2, data.cauhoi.Dap_An_3, data.cauhoi.Dap_An_4, data.cauhoi.Loi_Giai);
+                getThongBao('success', 'Thành công !', 'Đã thêm câu hỏi ' + data.cauhoi.stt + ' thành công !');
+                if (data.cauhoi.multi_Ans) {
+                    addDOMQuestMultiAns(data.cauhoi.stt, data.cauhoi.ma_Phong, data.cauhoi.cau_Hoi, data.cauhoi.dap_An_1, data.cauhoi.dap_An_2, data.cauhoi.dap_An_3, data.cauhoi.dap_An_4, data.cauhoi.loi_Giai);
                 }
                 else {
-                    addDOMQuest(data.cauhoi.STT, data.cauhoi.Ma_Phong, data.cauhoi.Cau_Hoi, data.cauhoi.Dap_An_1, data.cauhoi.Dap_An_2, data.cauhoi.Dap_An_3, data.cauhoi.Dap_An_4, data.cauhoi.Loi_Giai);
+                    addDOMQuest(data.cauhoi.stt, data.cauhoi.ma_Phong, data.cauhoi.cau_Hoi, data.cauhoi.dap_An_1, data.cauhoi.dap_An_2, data.cauhoi.dap_An_3, data.cauhoi.dap_An_4, data.cauhoi.loi_Giai);
                 }
 
                 for (var i = 0; i < text.length; i++) {
@@ -2416,14 +2416,14 @@ $('#form-edit-quest').on('submit', function () {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                getThongBao('success', 'Thành công !', 'Đã chỉnh sửa câu hỏi ' + data.cauhoi.STT + ' thành công !');
+                getThongBao('success', 'Thành công !', 'Đã chỉnh sửa câu hỏi ' + data.cauhoi.stt + ' thành công !');
 
-                domEdit[0].innerText = data.cauhoi.Cau_Hoi;
-                domEdit[2].innerText = 'A: ' + data.cauhoi.Dap_An_1;
-                domEdit[4].innerText = 'B: ' + data.cauhoi.Dap_An_2;
-                domEdit[6].innerText = 'C: ' + data.cauhoi.Dap_An_3;
-                domEdit[8].innerText = 'D: ' + data.cauhoi.Dap_An_4;
-                domEdit[9].innerText = 'Đáp án đúng: ' + data.cauhoi.Loi_Giai;
+                domEdit[0].innerText = data.cauhoi.cau_Hoi;
+                domEdit[2].innerText = 'A: ' + data.cauhoi.dap_An_1;
+                domEdit[4].innerText = 'B: ' + data.cauhoi.dap_An_2;
+                domEdit[6].innerText = 'C: ' + data.cauhoi.dap_An_3;
+                domEdit[8].innerText = 'D: ' + data.cauhoi.dap_An_4;
+                domEdit[9].innerText = 'Đáp án đúng: ' + data.cauhoi.loi_Giai;
 
                 if (data.cauhoi.Multi_Ans) {
                     domEdit[1].type = 'checkbox';
@@ -2477,18 +2477,18 @@ function setQuestEdit(stt, maphong) {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                document.getElementById('editQuestTitle').innerHTML = 'Chỉnh sửa câu hỏi ' + data.cauhoi.STT;
-                text[0].value = data.cauhoi.Cau_Hoi;
-                text[1].value = data.cauhoi.Dap_An_1;
-                text[2].value = data.cauhoi.Dap_An_2;
-                text[3].value = data.cauhoi.Dap_An_3;
-                text[4].value = data.cauhoi.Dap_An_4;
+                document.getElementById('editQuestTitle').innerHTML = 'Chỉnh sửa câu hỏi ' + data.cauhoi.stt;
+                text[0].value = data.cauhoi.cau_Hoi;
+                text[1].value = data.cauhoi.dap_An_1;
+                text[2].value = data.cauhoi.dap_An_2;
+                text[3].value = data.cauhoi.dap_An_3;
+                text[4].value = data.cauhoi.dap_An_4;
 
                 for (var i = 0; i < 4; i++) {
                     kt_da[i].checked = false;
                 }
 
-                let arrLoiGiai = Array.from(data.cauhoi.Loi_Giai);
+                let arrLoiGiai = Array.from(data.cauhoi.loi_Giai);
 
                 for (var i = 0; i < arrLoiGiai.length; i++) {
                     for (var j = 0; j < kt_da.length; j++) {
@@ -2518,7 +2518,7 @@ function setWorkExam(maPhong, matkhau) {
                 getThongBao('error', 'Lỗi !', 'Mật khẩu chưa chính xác !');
             }
             else {
-                location.replace('/Courses/Exam/workExam?id=' + data.work.Ma_Phong + '&re=' + data.work.Lan_Thu);
+                location.replace('/Courses/Exam/workExam?id=' + data.work.ma_Phong + '&re=' + data.work.lan_Thu);
             }
         },
         error: function () {
