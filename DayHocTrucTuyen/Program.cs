@@ -19,6 +19,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 //Using custom authen role
 builder.Services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
 
+//Using SignalR chat
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,6 +45,8 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+//Config Endpoint chat
+app.MapHub<ChatHub>($"/Models/{nameof(ChatHub)}");
 
 //Config Map Route Areas
 app.MapAreaControllerRoute(
