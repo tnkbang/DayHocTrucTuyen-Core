@@ -61,7 +61,9 @@
 
             $('#message').val('');
 
-            connection.invoke('Send', nick, message);
+            connection.invoke('SendAll', nick, message);
+
+            connection.invoke('TestA');
             event.preventDefault();
         });
 
