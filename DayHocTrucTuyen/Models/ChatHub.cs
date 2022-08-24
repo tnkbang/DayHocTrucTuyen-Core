@@ -14,6 +14,15 @@ namespace DayHocTrucTuyen.Models
             await Clients.All.SendAsync("Send", nick, message);
         }
 
+        public async Task SendToUser(string ma, string mess)
+        {
+            var user = ConnectedUsers.FirstOrDefault(x => x.MaNd == ma);
+            if(user != null)
+            {
+                await Clients.Client(user.ConnectionId).SendAsync("Send", ma, mess);
+            }
+        }
+
         public async Task TestA()
         {
             await Clients.All.SendAsync("Send", "Tin nhắn Test", "Nội dung");
