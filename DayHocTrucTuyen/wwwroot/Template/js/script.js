@@ -2716,34 +2716,34 @@ function setXemTatCaTinNhan(maND) {
     })
 }
 
-//Xử lý gửi tin nhắn từ trang info
-function infoSendMess(gui, nhan) {
-    event.preventDefault();
-    var noidung = document.getElementById('info-send-mess-text');
-    if (!noidung.value) {
-        getThongBao('error', 'Lỗi', 'Nội dung tin nhắn không được để trống !');
-        return false;
-    }
-    if (gui == nhan) {
-        getThongBao('warning', 'Lỗi', 'Không thể gửi tin cho chính mình !');
-        return false;
-    }
-    $.ajax({
-        url: '/User/Mess/sendNewTinNhan',
-        type: 'POST',
-        data: { maNN: nhan, noidung: noidung.value },
-        success: function (data) {
-            if (!data.tt) {
-                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
-            }
-            else {
-                getThongBao('success', 'Thành công !', 'Đã gửi tin nhắn !');
-                noidung.value = null;
-                $('.popup-wraper1').removeClass('active');
-            }
-        },
-        error: function () {
-            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
-        }
-    })
-}
+////Xử lý gửi tin nhắn từ trang info
+//function infoSendMess(gui, nhan) {
+//    event.preventDefault();
+//    var noidung = document.getElementById('info-send-mess-text');
+//    if (!noidung.value) {
+//        getThongBao('error', 'Lỗi', 'Nội dung tin nhắn không được để trống !');
+//        return false;
+//    }
+//    if (gui == nhan) {
+//        getThongBao('warning', 'Lỗi', 'Không thể gửi tin cho chính mình !');
+//        return false;
+//    }
+//    $.ajax({
+//        url: '/User/Mess/sendNewTinNhan',
+//        type: 'POST',
+//        data: { maNN: nhan, noidung: noidung.value },
+//        success: function (data) {
+//            if (!data.tt) {
+//                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+//            }
+//            else {
+//                getThongBao('success', 'Thành công !', 'Đã gửi tin nhắn !');
+//                noidung.value = null;
+//                $('.popup-wraper1').removeClass('active');
+//            }
+//        },
+//        error: function () {
+//            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+//        }
+//    })
+//}
