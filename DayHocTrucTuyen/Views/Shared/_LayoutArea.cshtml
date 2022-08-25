@@ -241,6 +241,7 @@
                 <div class="user-img">
                     <h5>@userAccount.getFullName()</h5>
                     <img src="@userAccount.getImageAvt()" alt="" width="45" />
+                    <span class="status f-online"></span>
                     <div class="user-setting">
                         <ul class="log-out">
                             <li><a href="/Profile/Info?User=@maUser" title=""><i class="ti-user"></i> Trang của tôi</a></li>
@@ -254,6 +255,7 @@
 
         <div class="chat-box hide">
             <div class="chat-head">
+                <span class="status f-off"></span>
                 <h6 id="mess-user-name">@userAccount.getFullName()</h6>
                 <div class="more">
                     <div class="more-optns">
