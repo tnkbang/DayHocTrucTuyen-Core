@@ -26,7 +26,7 @@
                     <div class="salary-area">
                         @foreach (var t in Model.getTag())
                         {
-                            <span>@t.TenTag</span>
+                                <span>@t.TenTag</span>
                         }
                         <br />
                     </div>
@@ -49,14 +49,14 @@
                                     <ul class="twiter-feed fav-community">
                                         @if (Model.getAllPhongThi().Count() == 0)
                                         {
-                                            <li class="text-center">Không có gì cả !</li>
+                                                <li class="text-center">Không có gì cả !</li>
                                         }
                                         @foreach (PhongThi pt in Model.getAllPhongThi())
                                         {
-                                            <li>
-                                                <i class="fa fa-link"></i> @pt.TenPhong
-                                                <p class="text-right"><a href="~/Courses/Exam/preExam?id=@pt.MaPhong">Đi đến liên kết</a></p>
-                                            </li>
+                                                <li>
+                                                    <i class="fa fa-link"></i> @pt.TenPhong
+                                                    <p class="text-right"><a href="~/Courses/Exam/preExam?id=@pt.MaPhong">Đi đến liên kết</a></p>
+                                                </li>
                                         }
                                     </ul>
                                 </div><!-- Page Community-->
@@ -131,8 +131,14 @@
                                                 <select id="room-edit-tag" multiple name="native-select" placeholder="Chọn chủ đề cho lớp" data-search="true" data-silent-initial-value-set="true" data-max-values="3">
                                                     @foreach (var tag in ViewData["Tag"] as List<Tag>)
                                                     {
-                                                        if(Model.isTag(tag.MaTag)) { <option selected value="@tag.MaTag">@tag.TenTag</option>}
-                                                        else { <option value="@tag.MaTag">@tag.TenTag</option>}
+                                                        if (Model.isTag(tag.MaTag))
+                                                        {
+                                                            <option selected value="@tag.MaTag">@tag.TenTag</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@tag.MaTag">@tag.TenTag</option>
+                                                        }
                                                     }
                                                 </select>
                                             </div>
@@ -152,19 +158,26 @@
                                     <ul class="twiter-feed invitepage">
                                         <li>
                                             <figure>
+                                                <span class="room-member-status status f-off @Model.getOwner().MaNd"></span>
                                                 <img width="40" height="40" src="@Model.getOwner().getImageAvt()" data-toggle="tooltip" title="@Model.getOwner().getFullName()" />
                                                 <a href="~/Profile/Info?id=@Model.getOwner().MaNd" title="Xem trang của @Model.getOwner().Ten">@Model.getOwner().Ten</a>
+                                                <a data-toggle="tooltip" title="Giáo viên"><i class="fa fa-mortar-board"></i></a>
                                             </figure>
-                                            <a class="invited" title="Giáo viên"><i class="fa fa-key"></i></a>
+                                            <a data-toggle="tooltip" title="Quản trị viên"><i class="fa fa-key"></i></a>
                                         </li>
                                         @foreach (var mem in Model.listMembers())
                                         {
                                             <li>
                                                 <figure>
+                                                    <span class="room-member-status status f-off @mem.MaNd"></span>
                                                     <img width="40" height="40" src="@mem.getImageAvt()" data-toggle="tooltip" title="@mem.getFullName()" />
                                                     <a href="~/Profile/Info?id=@mem.MaNd" title="Xem trang của @mem.Ten">@mem.Ten</a>
+                                                    @if (mem.MaLoai.Equals("03"))
+                                                    {
+                                                        <a data-toggle="tooltip" title="Giáo viên"><i class="fa fa-mortar-board"></i></a>
+                                                    }
                                                 </figure>
-                                                <a class="invited" title="Thành viên"><i class="fa fa-user"></i></a>
+                                                <a data-toggle="tooltip" title="Thành viên"><i class="fa fa-user"></i></a>
                                             </li>
                                         }
                                     </ul>
@@ -174,25 +187,25 @@
                                     <ul class="naves">
                                         @if (Model.isOwner(maUser))
                                         {
-                                            <li>
-                                                <i class="fa fa-cog"></i>
-                                                <a onclick="editRoom('@Model.MaLop')">Đổi thông tin lớp</a>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-cogs"></i>
-                                                <a href="~/Courses/Exam/List?Room=@Model.MaLop">Quản lý bài thi</a>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-bar-chart-o"></i>
-                                                <a>Thống kê</a>
-                                            </li>
+                                                <li>
+                                                    <i class="fa fa-cog"></i>
+                                                    <a onclick="editRoom('@Model.MaLop')">Đổi thông tin lớp</a>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-cogs"></i>
+                                                    <a href="~/Courses/Exam/List?Room=@Model.MaLop">Quản lý bài thi</a>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-bar-chart-o"></i>
+                                                    <a>Thống kê</a>
+                                                </li>
                                         }
                                         else
                                         {
-                                            <li>
-                                                <i class="fa fa-flag"></i>
-                                                <a>Báo cáo vi phạm</a>
-                                            </li>
+                                                <li>
+                                                    <i class="fa fa-flag"></i>
+                                                    <a>Báo cáo vi phạm</a>
+                                                </li>
                                         }
                                         <li>
                                             <i class="ti-sharethis-alt"></i>
