@@ -188,43 +188,12 @@
                         }
                     </li>
                     <li>
-                        @if (tinnhan.getSLTinNhanChuaXem(maUser) == 0)
-                        {
-                            <a href="#" title="Tin nhắn" data-ripple="">
-                                <i class="fa fa-commenting"></i>
-                            </a>
-                            <div class="dropdowns">
-                                <span>Hiện không có tin nhắn mới nào!</span>
-                                <a href="~/User/Messenger/Detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>
-                            </div>
-                        }
-                        else
-                        {
-                            <a href="#" title="Tin nhắn" data-ripple="">
-                                <i class="fa fa-commenting"></i><em id="dot-tin-nhan" class="bg-blue">@tinnhan.getSLTinNhanChuaXem(maUser)</em>
-                            </a>
-                            <div class="dropdowns">
-                                <span>@tinnhan.getSLTinNhanChuaXem(maUser) tin nhắn mới <a href="" title="" onclick="setXemTatCaTinNhan('@maUser')">Đã xem hết</a></span>
-                                <ul class="drops-menu">
-                                    @foreach (var tn in tinnhan.getTinNhanChuaXem(maUser))
-                                    {
-                                        <li>
-                                            <a class="show-mesg" title="">
-                                                <figure id="@tn.NguoiGui">
-                                                    <img width="40" height="40" src="@tn.getUser(tn.NguoiGui).getImageAvt()" alt="" />
-                                                </figure>
-                                                <div class="mesg-meta">
-                                                    <h6>@tn.getUser(tn.NguoiGui).HoLot @tn.getUser(tn.NguoiGui).Ten</h6>
-                                                    <span><i class="ti-check"></i> @tn.NoiDung</span>
-                                                    <i class="timeago" title="@tn.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@tn.ThoiGian.ToString()</i>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                                <a href="~/User/Mess/Detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>
-                            </div>
-                        }
+                        <a href="#" title="Tin nhắn" data-ripple="">
+                            <i class="fa fa-commenting"></i><em id="dot-tin-nhan" class="bg-blue">0</em>
+                        </a>
+                        <div class="dropdowns" id="dropdown-ping-mess">
+                            <span>Tin nhắn đang được tải, vui lòng chờ.</span>
+                        </div>
                     </li>
                     <li>
                         <a href="#" title="Trợ giúp" data-ripple=""><i class="fa fa-question-circle"></i></a>

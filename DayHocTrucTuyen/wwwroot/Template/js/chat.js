@@ -4,6 +4,11 @@
 
 connection.start().catch(err => console.error(err.toString()));
 
+//Nhận ping tin nhắn sau khi tải trang
+$(function () {
+    getPingMess();
+});
+
 //Khi có người dùng kết nối và ngắt kết nối
 connection.on('UserConnect', (ma) => {
 
@@ -37,6 +42,7 @@ connection.on('ReceivedChat', (ma, img, mess, time) => {
     if (messUserReceived == ma) {
         setChat('you', img, mess, time);
     }
+    getPingMess();
 })
 
 //add tin nhắn
@@ -76,49 +82,6 @@ function setChat(user, avt, mess, time) {
 
 //Mã người nhận tin nhắn
 var messUserReceived;
-
-//Hiển thị popup chat khi nhấn trên thông báo chat
-$('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('click', function () {
-    var maNG = this.children[0].id;
-    messUserReceived = maNG;
-
-    $.ajax({
-        url: '/User/Mess/getTinNhanTuUser',
-        type: 'POST',
-        data: { maNG: maNG },
-        success: function (data) {
-            if (!data.tt) {
-                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
-            }
-            else {
-                document.getElementById('mess-content').innerHTML = null;
-                document.getElementById('mess-user-name').innerHTML = data.uSend.ho_Lot + " " + data.uSend.ten;
-                $.each(data.tinNhan, function (index, value) {
-                    if (value.nguoi_Gui == maNG) setChat('you', data.uSend.img_Avt, value.noi_Dung, value.thoi_Gian);
-                    else setChat('me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
-                })
-            }
-            document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info?id=' + data.uSend.ma_ND) }
-
-            //Thanh cuộn cuối phần tử tin nhắn
-            var messContent = document.getElementById('mess-content');
-            messContent.scrollTop = messContent.scrollHeight - messContent.clientHeight;
-        },
-        error: function () {
-            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
-        }
-    })
-
-    //Kiểm tra online
-    connection.invoke('CheckOnline', messUserReceived);
-
-    $('.chat-box').addClass("show");
-    return false;
-});
-$('.close-mesage').on('click', function () {
-    $('.chat-box').removeClass("show");
-    return false;
-});
 
 //Xử lý nút gửi tin trên popup tin nhắn
 $('#mess-send').on('click', function () {
@@ -190,3 +153,109 @@ connection.on('ListOnline', (list) => {
         $('.room-member-status').filter('.' + value).removeClass('f-off').addClass('f-online');
     })
 })
+
+
+//Gán thông báo cho tin nhắn
+function addPingMess(usend, img, name, noidung, time) {
+    $('#dropdown-ping-mess').append(
+        '<ul class="drops-menu">' +
+        '<li>' +
+        '<a class="show-mesg" title="">' +
+        '<figure id="' + usend + '">' +
+        '<img width="40" height="40" src="' + img + '" alt="" />' +
+        '</figure>' +
+        '<div class="mesg-meta">' +
+        '<h6>' + name + '</h6>' +
+        '<span><i class="ti-check"></i> ' + noidung + '</span>' +
+        '<i class="timeago" title="' + time + '">' + time + '</i>' +
+        '</div>' +
+        '</a>' +
+        '</li>' +
+        '</ul>'
+    );
+}
+
+function getPingMess() {
+    $.ajax({
+        url: '/User/Mess/getAllTinChuaXem',
+        type: 'POST',
+        success: function (data) {
+
+            $('#dropdown-ping-mess').html('');
+            $('#dot-tin-nhan').html(data.sl);
+
+            if (data.sl == 0) {
+                $('#dot-tin-nhan').hide();
+
+                $('#dropdown-ping-mess').append(
+                    '<span>Hiện không có tin nhắn mới nào!</span>' +
+                    '<a href="~/User/Messenger/Detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>'
+                );
+            }
+            else {
+                $('#dot-tin-nhan').show();
+
+                $('#dropdown-ping-mess').append('<span>' + data.sl + ' tin nhắn mới <a href="" title="" onclick="setXemTatCaTinNhan("' + data.ugive + '")">Đã xem hết</a></span>');
+                $.each(data.list, function (index, value) {
+                    addPingMess(value.usend, value.img, value.name, value.noidung, value.time);
+                })
+                $('#dropdown-ping-mess').append('<a href="~/User/Mess/Detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>');
+
+                //Hiển thị theo khoảng thời gian
+                $("i.timeago").timeago();
+            }
+
+            
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+}
+
+//Đóng popup mini chat
+$('.close-mesage').on('click', function () {
+    $('.chat-box').removeClass("show");
+    return false;
+});
+
+//Hiển thị popup chat khi nhấn trên thông báo chat
+$('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('click', function () {
+    var maNG = this.children[0].id;
+    messUserReceived = maNG;
+
+    $.ajax({
+        url: '/User/Mess/getTinNhanTuUser',
+        type: 'POST',
+        data: { maNG: maNG },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+            }
+            else {
+                document.getElementById('mess-content').innerHTML = null;
+                document.getElementById('mess-user-name').innerHTML = data.uSend.ho_Lot + " " + data.uSend.ten;
+                $.each(data.tinNhan, function (index, value) {
+                    if (value.nguoi_Gui == maNG) setChat('you', data.uSend.img_Avt, value.noi_Dung, value.thoi_Gian);
+                    else setChat('me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
+                })
+            }
+            document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info?id=' + data.uSend.ma_ND) }
+
+            //Thanh cuộn cuối phần tử tin nhắn
+            var messContent = document.getElementById('mess-content');
+            messContent.scrollTop = messContent.scrollHeight - messContent.clientHeight;
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+
+    //Kiểm tra online
+    connection.invoke('CheckOnline', messUserReceived);
+
+    //Nhận lại ping mess
+    getPingMess();
+
+    $('.chat-box').addClass("show");
+});
