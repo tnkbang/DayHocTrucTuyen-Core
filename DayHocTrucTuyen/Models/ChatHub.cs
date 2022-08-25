@@ -39,7 +39,7 @@ namespace DayHocTrucTuyen.Models
                 });
 
                 //Báo có người dùng onl
-                await Clients.AllExcept(Context.ConnectionId).SendAsync("UserConnect", user.MaNd, user.getFullName());
+                await Clients.AllExcept(Context.ConnectionId).SendAsync("UserConnect", user.MaNd);
                 
                 await base.OnConnectedAsync();
             }
@@ -54,7 +54,7 @@ namespace DayHocTrucTuyen.Models
                 ConnectedUsers.Remove(item);
 
                 //Báo có người dùng off
-                await Clients.All.SendAsync("UserDisconnect", item.MaNd, item.UserName);
+                await Clients.All.SendAsync("UserDisconnect", item.MaNd);
             }
 
             await base.OnDisconnectedAsync(exception);

@@ -5,13 +5,13 @@
 connection.start().catch(err => console.error(err.toString()));
 
 //Khi có người dùng kết nối và ngắt kết nối
-connection.on('UserConnect', (ma, name) => {
-    if (messUserReceived === name) {
+connection.on('UserConnect', (ma) => {
+    if (messUserReceived == ma) {
         $('#mess-user-status').removeClass('f-off').addClass('f-online');
     }
 })
-connection.on('UserDisconnect', (ma, name) => {
-    if (messUserReceived === name) {
+connection.on('UserDisconnect', (ma) => {
+    if (messUserReceived == ma) {
         $('#mess-user-status').removeClass('f-online').addClass('f-off');
     }
 })
