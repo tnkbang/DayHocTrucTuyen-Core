@@ -40,6 +40,14 @@ namespace DayHocTrucTuyen.Models
 
                 //Báo có người dùng onl
                 await Clients.AllExcept(Context.ConnectionId).SendAsync("UserConnect", user.MaNd);
+
+                //Gửi trạng thái tất cả người dùng onl
+                List<string> temp = new List<string>();
+                foreach(var i in ConnectedUsers.ToList())
+                {
+                    temp.Add(i.MaNd);
+                }
+                await Clients.Client(Context.ConnectionId).SendAsync("ListOnline", temp);
                 
                 await base.OnConnectedAsync();
             }

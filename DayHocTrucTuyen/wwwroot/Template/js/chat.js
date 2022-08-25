@@ -6,17 +6,27 @@ connection.start().catch(err => console.error(err.toString()));
 
 //Khi có người dùng kết nối và ngắt kết nối
 connection.on('UserConnect', (ma) => {
+
+    //Gán trạng thái online tại popup mini chat
     if (messUserReceived == ma) {
         $('#mess-user-status').removeClass('f-off').addClass('f-online');
     }
+
+    //Gán trạng thái online tại lớp học
+    $('.room-member-status').filter('.' + ma).removeClass('f-off').addClass('f-online');
 })
 connection.on('UserDisconnect', (ma) => {
+
+    //Xóa trạng thái online tại mini chat
     if (messUserReceived == ma) {
         $('#mess-user-status').removeClass('f-online').addClass('f-off');
     }
+
+    //Xóa trạng thái online tại lớp học
+    $('.room-member-status').filter('.' + ma).removeClass('f-online').addClass('f-off');
 })
 
-//Kiểm tra người dùng đang có online hay không
+//Kiểm tra người dùng đang có online hay không (mini chat)
 connection.on('CheckOnline', (trangthai) => {
     if (trangthai) { $('#mess-user-status').removeClass('f-off').addClass('f-online') }
     else { $('#mess-user-status').removeClass('f-online').addClass('f-off') }
@@ -174,6 +184,9 @@ function infoSendMess(gui, nhan) {
     })
 }
 
-console.log($('.room-member-status')[0].parentElement.firstElementChild.title)
-console.log($('.room-member-status')[1].parentElement.firstElementChild.title)
-console.log($('.room-member-status')[2].parentElement.firstElementChild.title)
+//Gán danh sách người dùng đang onl tại trang lớp học
+connection.on('ListOnline', (list) => {
+    $.each(list, function (index, value) {
+        $('.room-member-status').filter('.' + value).removeClass('f-off').addClass('f-online');
+    })
+})
