@@ -3483,6 +3483,10 @@ li.google {
     font-size: 12px;
 }
 
+.twiter-feed .room-member-status {
+    left: 32px;
+}
+
 
 /*--- svg play button ---*/
 
