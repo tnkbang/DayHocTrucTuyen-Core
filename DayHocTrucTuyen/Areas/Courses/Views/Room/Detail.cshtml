@@ -546,6 +546,7 @@ else
                                         <ul class="twiter-feed invitepage">
                                             <li>
                                                 <figure>
+                                                    <em hidden title="@Model.getOwner().MaNd"></em>
                                                     <span class="room-member-status status f-off"></span>
                                                     <img width="40" height="40" src="@Model.getOwner().getImageAvt()" data-toggle="tooltip" title="@Model.getOwner().getFullName()" />
                                                     <a href="~/Profile/Info?id=@Model.getOwner().MaNd" title="Xem trang của @Model.getOwner().Ten">@Model.getOwner().Ten</a>
@@ -557,6 +558,7 @@ else
                                             {
                                                 <li>
                                                     <figure>
+                                                        <em hidden title="@mem.MaNd"></em>
                                                         <span class="room-member-status status f-off"></span>
                                                         <img width="40" height="40" src="@mem.getImageAvt()" data-toggle="tooltip" title="@mem.getFullName()" />
                                                         <a href="~/Profile/Info?id=@mem.MaNd" title="Xem trang của @mem.Ten">@mem.Ten</a>

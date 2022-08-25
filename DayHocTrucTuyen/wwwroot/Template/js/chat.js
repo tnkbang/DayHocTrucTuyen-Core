@@ -4,20 +4,14 @@
 
 connection.start().catch(err => console.error(err.toString()));
 
-//Thông báo kết nối trên console
-connection.on('Send', (nick, message) => {
-    //appendLine(nick, message);
-    console.log(nick + " : " + message);
-});
-
 //Khi có người dùng kết nối và ngắt kết nối
 connection.on('UserConnect', (ma, name) => {
-    if ($('#mess-user-name').text() === name) {
+    if (messUserReceived === name) {
         $('#mess-user-status').removeClass('f-off').addClass('f-online');
     }
 })
 connection.on('UserDisconnect', (ma, name) => {
-    if ($('#mess-user-name').text() === name) {
+    if (messUserReceived === name) {
         $('#mess-user-status').removeClass('f-online').addClass('f-off');
     }
 })
@@ -30,7 +24,9 @@ connection.on('CheckOnline', (trangthai) => {
 
 //Tự động nhận chat trên popup
 connection.on('ReceivedChat', (ma, img, mess, time) => {
-    setChat('you', img, mess, time);
+    if (messUserReceived == ma) {
+        setChat('you', img, mess, time);
+    }
 })
 
 //add tin nhắn
@@ -177,3 +173,7 @@ function infoSendMess(gui, nhan) {
         }
     })
 }
+
+console.log($('.room-member-status')[0].parentElement.firstElementChild.title)
+console.log($('.room-member-status')[1].parentElement.firstElementChild.title)
+console.log($('.room-member-status')[2].parentElement.firstElementChild.title)
