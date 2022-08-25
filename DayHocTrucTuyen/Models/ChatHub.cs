@@ -16,10 +16,17 @@ namespace DayHocTrucTuyen.Models
 
         public async Task SendToUser(string ma, string mess)
         {
-            var user = ConnectedUsers.FirstOrDefault(x => x.MaNd == ma);
-            if(user != null)
+            var gui = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var nhan = ConnectedUsers.FirstOrDefault(x => x.MaNd == ma);
+            if(nhan != null)
             {
-                await Clients.Client(user.ConnectionId).SendAsync("Send", ma, mess);
+                await Clients.Client(nhan.ConnectionId).SendAsync(
+                    "ReceivedChat",
+                    gui.MaNd,
+                    gui.ImgAvt,
+                    mess,
+                    DateTime.Now.ToString("yyyy-MM-dd'T'HH:mm:ss")
+                );
             }
         }
 
@@ -36,7 +43,11 @@ namespace DayHocTrucTuyen.Models
             var id = Context.ConnectionId;
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
-                ConnectedUsers.Add(new UserConnect { ConnectionId = id, MaNd = user.MaNd, UserName = user.getName() });
+                ConnectedUsers.Add(new UserConnect { 
+                    ConnectionId = id, MaNd = user.MaNd, 
+                    UserName = user.getName(), 
+                    ImgAvt = user.getImageAvt() 
+                });
 
                 await Clients.AllExcept(Context.ConnectionId).SendAsync("Send", user.getName(), "Đã kết nối");
                 await Clients.Client(Context.ConnectionId).SendAsync("Send", "Hiện có", ConnectedUsers.Count);

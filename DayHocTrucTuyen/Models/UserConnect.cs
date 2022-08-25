@@ -5,5 +5,6 @@
         public string ConnectionId { get; set; }
         public string MaNd { get; set; }
         public string UserName { get; set; }
+        public string ImgAvt { get; set; }
     }
 }

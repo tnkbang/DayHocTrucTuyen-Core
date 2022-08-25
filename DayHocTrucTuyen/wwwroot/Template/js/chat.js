@@ -4,14 +4,15 @@
 
 connection.start().catch(err => console.error(err.toString()));
 
+//Thông báo kết nối trên console
 connection.on('Send', (nick, message) => {
     //appendLine(nick, message);
     console.log(nick + " : " + message);
 });
 
-$('#mess-send').on('click', function () {
-    var noidung = document.getElementById('mess-new-text');
-    connection.invoke("SendToUser", messUserReceived, noidung.value);
+//Tự động nhận chat trên popup
+connection.on('ReceivedChat', (ma, img, mess, time) => {
+    setChat('you', img, mess, time);
 })
 
 //add tin nhắn
@@ -41,11 +42,18 @@ function setChat(user, avt, mess, time) {
     model.appendChild(spntime);
     li.appendChild(model);
     main.appendChild(li);
+
+    //Hiển thị theo khoảng thời gian
+    $("i.timeago").timeago();
+
+    //Thanh cuộn về cuối trang
+    main.scrollTop = main.scrollHeight - main.clientHeight;
 }
 
 //Mã người nhận tin nhắn
 var messUserReceived;
-//--- side message box	
+
+//Hiển thị popup chat khi nhấn trên thông báo chat
 $('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('click', function () {
     var maNG = this.children[0].id;
     messUserReceived = maNG;
@@ -66,8 +74,7 @@ $('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('cl
                     else setChat('me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
                 })
             }
-            document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info?User=' + data.uSend.ma_ND) }
-            $("i.timeago").timeago();
+            document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info?id=' + data.uSend.ma_ND) }
 
             //Thanh cuộn cuối phần tử tin nhắn
             var messContent = document.getElementById('mess-content');
@@ -85,35 +92,36 @@ $('.close-mesage').on('click', function () {
     return false;
 });
 
-//$('#mess-send').on('click', function () {
-//    var noidung = document.getElementById('mess-new-text');
-//    if (!noidung.value) {
-//        getThongBao('error', 'Lỗi', 'Nội dung tin nhắn không được để trống!');
-//        return false;
-//    }
-//    $.ajax({
-//        url: '/User/Mess/sendNewTinNhan',
-//        type: 'POST',
-//        data: { maNN: messUserReceived, noidung: noidung.value },
-//        success: function (data) {
-//            if (!data.tt) {
-//                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
-//            }
-//            else {
-//                setChat('me', data.img_Avt, data.noi_Dung, data.thoi_Gian);
-//                noidung.value = null;
-//            }
-//            $("i.timeago").timeago();
+//Xử lý nút gửi tin trên popup tin nhắn
+$('#mess-send').on('click', function () {
+    var noidung = document.getElementById('mess-new-text');
+    if (!noidung.value) {
+        getThongBao('error', 'Lỗi', 'Nội dung tin nhắn không được để trống!');
+        return false;
+    }
+    $.ajax({
+        url: '/User/Mess/sendNewTinNhan',
+        type: 'POST',
+        data: { maNN: messUserReceived, noidung: noidung.value },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+            }
+            else {
+                connection.invoke("SendToUser", messUserReceived, noidung.value);
+                setChat('me', data.img_Avt, data.noi_Dung, data.thoi_Gian);
+                noidung.value = null;
+            }
 
-//            //Thanh cuộn cuối phần tử tin nhắn
-//            var messContent = document.getElementById('mess-content');
-//            messContent.scrollTop = messContent.scrollHeight - messContent.clientHeight;
-//        },
-//        error: function () {
-//            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
-//        }
-//    })
-//})
+            //Thanh cuộn cuối phần tử tin nhắn
+            var messContent = document.getElementById('mess-content');
+            messContent.scrollTop = messContent.scrollHeight - messContent.clientHeight;
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
 
 //Xử lý gửi tin nhắn từ trang info
 function infoSendMess(gui, nhan) {
