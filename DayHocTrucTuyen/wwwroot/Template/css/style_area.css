@@ -2768,7 +2768,7 @@ span.status {
 }
 
     span.status::after {
-        background: white none repeat scroll 0 0;
+        background: unset none repeat scroll 0 0;
         border-radius: 100%;
         content: "";
         height: 2px;
@@ -2780,7 +2780,7 @@ span.status {
     }
 
     span.status.f-online {
-        background: #7FBA00;
+        background: #28a745;
     }
 
 

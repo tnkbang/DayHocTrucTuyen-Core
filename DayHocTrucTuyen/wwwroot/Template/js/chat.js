@@ -10,6 +10,24 @@ connection.on('Send', (nick, message) => {
     console.log(nick + " : " + message);
 });
 
+//Khi có người dùng kết nối và ngắt kết nối
+connection.on('UserConnect', (ma, name) => {
+    if ($('#mess-user-name').text() === name) {
+        $('#mess-user-status').removeClass('f-off').addClass('f-online');
+    }
+})
+connection.on('UserDisconnect', (ma, name) => {
+    if ($('#mess-user-name').text() === name) {
+        $('#mess-user-status').removeClass('f-online').addClass('f-off');
+    }
+})
+
+//Kiểm tra người dùng đang có online hay không
+connection.on('CheckOnline', (trangthai) => {
+    if (trangthai) { $('#mess-user-status').removeClass('f-off').addClass('f-online') }
+    else { $('#mess-user-status').removeClass('f-online').addClass('f-off') }
+})
+
 //Tự động nhận chat trên popup
 connection.on('ReceivedChat', (ma, img, mess, time) => {
     setChat('you', img, mess, time);
@@ -84,6 +102,10 @@ $('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('cl
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
         }
     })
+
+    //Kiểm tra online
+    connection.invoke('CheckOnline', messUserReceived);
+
     $('.chat-box').addClass("show");
     return false;
 });
