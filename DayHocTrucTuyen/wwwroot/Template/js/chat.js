@@ -253,3 +253,25 @@ $('.close-mesage').on('click', function () {
     $('.chat-box').removeClass("show");
     return false;
 });
+
+//Hàm set đã xem tất cả tin nhắn
+function setXemTatCaTinNhan(maND) {
+    event.preventDefault();
+    $.ajax({
+        url: '/User/Mess/setXemTatCaTinNhan',
+        type: 'POST',
+        data: { maND: maND },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+            }
+            else {
+                getPingMess();
+                getThongBao('success', 'Thành công !', 'Đã đánh dấu là đã xem tất cả thông báo !');
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+}
