@@ -157,11 +157,10 @@ connection.on('ListOnline', (list) => {
 
 //Gán thông báo cho tin nhắn
 function addPingMess(usend, img, name, noidung, time) {
-    $('#dropdown-ping-mess').append(
-        '<ul class="drops-menu">' +
+    $('#menu-ping-mess').append(
         '<li>' +
-        '<a class="show-mesg" title="">' +
-        '<figure id="' + usend + '">' +
+        '<a class="show-mesg" title="" id="' + usend + '">' +
+        '<figure>' +
         '<img width="40" height="40" src="' + img + '" alt="" />' +
         '</figure>' +
         '<div class="mesg-meta">' +
@@ -170,8 +169,7 @@ function addPingMess(usend, img, name, noidung, time) {
         '<i class="timeago" title="' + time + '">' + time + '</i>' +
         '</div>' +
         '</a>' +
-        '</li>' +
-        '</ul>'
+        '</li>'
     );
 }
 
@@ -181,31 +179,27 @@ function getPingMess() {
         type: 'POST',
         success: function (data) {
 
-            $('#dropdown-ping-mess').html('');
             $('#dot-tin-nhan').html(data.sl);
+            $('.sl-ping-mess').html(data.sl);
+            $('#menu-ping-mess').html('');
 
             if (data.sl == 0) {
                 $('#dot-tin-nhan').hide();
 
-                $('#dropdown-ping-mess').append(
-                    '<span>Hiện không có tin nhắn mới nào!</span>' +
-                    '<a href="~/User/Messenger/Detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>'
+                $('#menu-ping-mess').append(
+                    '<span class="d-flex justify-content-center">Hiện không có tin nhắn mới nào!</span>'
                 );
             }
             else {
                 $('#dot-tin-nhan').show();
 
-                $('#dropdown-ping-mess').append('<span>' + data.sl + ' tin nhắn mới <a href="" title="" onclick="setXemTatCaTinNhan("' + data.ugive + '")">Đã xem hết</a></span>');
                 $.each(data.list, function (index, value) {
                     addPingMess(value.usend, value.img, value.name, value.noidung, value.time);
                 })
-                $('#dropdown-ping-mess').append('<a href="~/User/Mess/Detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>');
 
                 //Hiển thị theo khoảng thời gian
                 $("i.timeago").timeago();
             }
-
-            
         },
         error: function () {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
@@ -213,14 +207,8 @@ function getPingMess() {
     })
 }
 
-//Đóng popup mini chat
-$('.close-mesage').on('click', function () {
-    $('.chat-box').removeClass("show");
-    return false;
-});
-
 //Hiển thị popup chat khi nhấn trên thông báo chat
-$('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('click', function () {
+$('#menu-ping-mess').on('click', 'li', function () {
     var maNG = this.children[0].id;
     messUserReceived = maNG;
 
@@ -245,6 +233,9 @@ $('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('cl
             //Thanh cuộn cuối phần tử tin nhắn
             var messContent = document.getElementById('mess-content');
             messContent.scrollTop = messContent.scrollHeight - messContent.clientHeight;
+
+            //Nhận lại ping mess
+            getPingMess();
         },
         error: function () {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
@@ -254,8 +245,11 @@ $('.friendz-list > li, .chat-users > li, .drops-menu > li > a.show-mesg').on('cl
     //Kiểm tra online
     connection.invoke('CheckOnline', messUserReceived);
 
-    //Nhận lại ping mess
-    getPingMess();
-
     $('.chat-box').addClass("show");
+});
+
+//Đóng popup mini chat
+$('.close-mesage').on('click', function () {
+    $('.chat-box').removeClass("show");
+    return false;
 });

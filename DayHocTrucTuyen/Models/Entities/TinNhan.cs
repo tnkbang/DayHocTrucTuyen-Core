@@ -25,32 +25,16 @@ namespace DayHocTrucTuyen.Models.Entities
         public List<TinNhan> getTinNhanChuaXem(string maND)
         {
             var tn = db.TinNhans.Where(x => x.NguoiNhan == maND && x.TrangThai == false).ToList();
-            List<TinNhan> list = new List<TinNhan>();
-            for (int i = 0; i < tn.Count; i++)
-            {
-                list.Add(tn[i]);
-                if (i > 0 && tn[i - 1].NguoiGui == tn[i].NguoiGui)
-                {
-                    list.Remove(tn[i - 1]);
-                }
-            }
 
-            return list;
+            tn = tn.OrderByDescending(x => x.ThoiGian).DistinctBy(x => x.NguoiGui).ToList();
+
+            return tn;
         }
         public int getSLTinNhanChuaXem(string maND)
         {
             var tn = db.TinNhans.Where(x => x.NguoiNhan == maND && x.TrangThai == false).ToList();
-            int dem = 0;
-            for (var i = 0; i < tn.Count; i++)
-            {
-                dem++;
-                if (i > 0 && tn[i - 1].NguoiGui == tn[i].NguoiGui)
-                {
-                    dem--;
-                }
-            }
 
-            return dem;
+            return tn.DistinctBy(x => x.NguoiGui).Count();
         }
         public NguoiDung getUser(string maND)
         {

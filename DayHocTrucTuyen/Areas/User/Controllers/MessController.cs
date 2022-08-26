@@ -112,7 +112,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         {
             var maUser = User.Claims.First().Value;
             List<dynamic> tinnhan = new List<dynamic>();
-            foreach (var t in new TinNhan().getTinNhanChuaXem(maUser))
+            foreach (var t in new TinNhan().getTinNhanChuaXem(maUser).OrderByDescending(x => x.ThoiGian))
             {
                 var temp = new
                 {
