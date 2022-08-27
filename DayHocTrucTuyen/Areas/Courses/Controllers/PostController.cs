@@ -65,7 +65,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
             foreach (var tvl in thanhvienlop)
             {
-                notification.setThongBao(tvl.MaNd, "Bài đăng mới", "post" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?Room=" + lop.MaLop);
+                notification.setThongBao(tvl.MaNd, "Bài đăng mới", "post" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?id=" + lop.MaLop);
             }
 
             return Json(new { mess = "Thành công" });

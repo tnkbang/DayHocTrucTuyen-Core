@@ -26,10 +26,10 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Danh sách bài thi của lớp
         [Authorize(Roles = "03")]
-        public IActionResult List(string Room, string q)
+        public IActionResult List(string id, string q)
         {
-            LopHoc lp = db.LopHocs.FirstOrDefault(x => x.MaLop == Room);
-            if (Room == null || lp == null)
+            LopHoc lp = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
+            if (id == null || lp == null)
             {
                 return NotFound();
             }
@@ -50,7 +50,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var mem = db.HocSinhThuocLops.FirstOrDefault(x => x.MaNd == User.Claims.First().Value && x.MaLop == pt.MaLop);
             if (mem == null)
             {
-                return Redirect("~/Courses/Room/Detail?Room=" + pt.MaLop);
+                return Redirect("~/Courses/Room/Detail?id=" + pt.MaLop);
             }
             return View(pt);
         }
@@ -124,7 +124,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
             foreach (var tvl in thanhvienlop)
             {
-                notification.setThongBao(tvl.MaNd, "Bài thi mới", "exam" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?Room=" + lop.MaLop);
+                notification.setThongBao(tvl.MaNd, "Bài thi mới", "exam" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?id=" + lop.MaLop);
             }
 
             return Json(new { tt = true, exam = newPT.MaPhong });

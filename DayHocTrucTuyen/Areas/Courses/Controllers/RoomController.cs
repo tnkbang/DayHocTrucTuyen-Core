@@ -23,11 +23,11 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Giao diện chính lớp học
-        public IActionResult Detail(string Room)
+        public IActionResult Detail(string id)
         {
-            LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == Room);
-            LopHoc roomBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == Room);
-            if (Room == null || room == null && roomBD == null)
+            LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
+            LopHoc roomBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == id);
+            if (id == null || room == null && roomBD == null)
             {
                 return NotFound();
             }
@@ -41,11 +41,11 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Trang chỉnh sửa lớp học
-        public IActionResult editRoom(string Room)
+        public IActionResult editRoom(string id)
         {
             string maUser = User.Claims.First().Value;
-            LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == Room && x.MaNd == maUser);
-            if (room == null || Room == null)
+            LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == id && x.MaNd == maUser);
+            if (room == null || id == null)
             {
                 return NotFound();
             }

@@ -78,7 +78,7 @@
                             {
                                 foreach(var l in userAccount.getListJoin())
                                 {
-                                    <li><a href="~/Courses/Room/Detail?Room=@l.MaLop" title="">@l.TenLop</a></li>
+                                    <li><a href="~/Courses/Room/Detail?id=@l.MaLop" title="">@l.TenLop</a></li>
                                 }
                             }
                         </ul>
@@ -122,7 +122,7 @@
                                                     <img width="40" height="40" src="@r.getImage()" alt="@r.TenLop" />
                                                 </figure>
                                                 <div class="mesg-meta">
-                                                    <h6><a href="~/Courses/Room/Detail?Room=@r.MaLop" title="Đi đến lớp @r.TenLop">@r.TenLop</a></h6>
+                                                    <h6><a href="~/Courses/Room/Detail?id=@r.MaLop" title="Đi đến lớp @r.TenLop">@r.TenLop</a></h6>
                                                     <span><b>@r.getOwner().Ten</b> là giáo viên</span>
                                                     <i>@r.getMembers() thành viên</i>
                                                 </div>
@@ -215,8 +215,8 @@
                     <span class="status f-online"></span>
                     <div class="user-setting">
                         <ul class="log-out">
-                            <li><a href="/Profile/Info?User=@maUser" title=""><i class="ti-user"></i> Trang của tôi</a></li>
-                            <li><a href="/Profile/Change?User=@maUser" title=""><i class="ti-pencil-alt"></i>Chỉnh sửa thông tin</a></li>
+                            <li><a href="/Profile/Info?id=@maUser" title=""><i class="ti-user"></i> Trang của tôi</a></li>
+                            <li><a href="/Profile/Change?id=@maUser" title=""><i class="ti-pencil-alt"></i>Chỉnh sửa thông tin</a></li>
                             <li><a title="" onclick="dangxuat()"><i class="ti-power-off"></i>Đăng xuất</a></li>
                         </ul>
                     </div>

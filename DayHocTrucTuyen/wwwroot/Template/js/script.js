@@ -1484,7 +1484,7 @@ $('#form-create-room').on('submit', function () {
                 getThongBao('error', 'Lỗi !', data.mess);
             }
             else {
-                location.replace('/Courses/Room/Detail?Room=' + data.room);
+                location.replace('/Courses/Room/Detail?id=' + data.room);
             }
         },
         error: function () {
@@ -1522,7 +1522,7 @@ $('#form-edit-room').on('submit', function () {
                 getThongBao('error', 'Lỗi !', data.mess);
             }
             else {
-                location.replace('/Courses/Room/Detail?Room=' + data.room);
+                location.replace('/Courses/Room/Detail?id=' + data.room);
             }
         },
         error: function () {
@@ -1871,11 +1871,11 @@ function setTrangThaiPost() {
 }
 //Hàm chuyển về trang chỉnh sửa lớp học
 function editRoom(room) {
-    location.replace('/Courses/Room/editRoom?Room=' + room)
+    location.replace('/Courses/Room/editRoom?id=' + room)
 }
 //Hàm hủy chỉnh sửa lớp
 function editRoomCanel(room) {
-    location.replace('/Courses/Room/Detail?Room=' + room)
+    location.replace('/Courses/Room/Detail?id=' + room)
 }
 //Ghim hoặc bỏ ghim bài đăng
 function setGhim(dom, maPost) {
@@ -1944,7 +1944,7 @@ $('#form-create-exam').on('submit', function () {
 //Tìm kiếm bài thi
 $('#form-search-exam').on('submit', function () {
     event.preventDefault();
-    location.replace('/Courses/Exam/List?Room=' + document.getElementById('search-exam-room').title + '&q=' + document.getElementById('search-exam-name').value);
+    location.replace('/Courses/Exam/List?id=' + document.getElementById('search-exam-room').title + '&q=' + document.getElementById('search-exam-name').value);
 })
 
 //Xử lý chỉnh sửa bài thi
