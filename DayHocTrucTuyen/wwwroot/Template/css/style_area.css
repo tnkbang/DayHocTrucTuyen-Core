@@ -5184,6 +5184,17 @@ canvas {
         cursor: pointer;
     }
 
+.mess-scroll-bottom {
+    z-index: 100;
+    position: relative;
+    display: none;
+    background: aliceblue;
+    border-radius: 6px;
+    border: none;
+    color: lightseagreen;
+    top: -30px;
+}
+
 
 /*--- New home page ---*/
 

@@ -42,7 +42,12 @@ connection.on('ReceivedChat', (ma, img, mess, time) => {
     if (messUserReceived == ma) {
         setChat('you', img, mess, time);
     }
+
+    //Làm mới thông báo
     getPingMess();
+
+    //Báo có tin trong mini chat
+    $('.mess-scroll-bottom').html('<i class="fa fa-angle-double-down"></i> Tin nhắn mới');
 })
 
 //add tin nhắn
@@ -75,9 +80,6 @@ function setChat(user, avt, mess, time) {
 
     //Hiển thị theo khoảng thời gian
     $("i.timeago").timeago();
-
-    //Thanh cuộn về cuối trang
-    main.scrollTop = main.scrollHeight - main.clientHeight;
 }
 
 //Mã người nhận tin nhắn
@@ -233,6 +235,7 @@ $('#menu-ping-mess').on('click', 'li', function () {
             //Thanh cuộn cuối phần tử tin nhắn
             var messContent = document.getElementById('mess-content');
             messContent.scrollTop = messContent.scrollHeight - messContent.clientHeight;
+            document.querySelector('.mess-scroll-bottom').style.display = 'none';
 
             //Nhận lại ping mess
             getPingMess();
@@ -280,3 +283,21 @@ function setXemTatCaTinNhan(maND) {
         }
     })
 }
+
+//Bắt sự kiện khi scroll mini chat
+$('#mess-content').on('scroll', function () {
+    var main = document.getElementById('mess-content');
+    var down = document.querySelector('.mess-scroll-bottom');
+    if (main.scrollTop + 1 < main.scrollHeight - main.clientHeight) {
+        down.style.display = 'inline-block';
+    } else {
+        down.style.display = 'none';
+        $('.mess-scroll-bottom').html('<i class="fa fa-angle-double-down"></i> Về cuối');
+    }
+});
+
+//Bắt sự kiện đi cuối mini chat
+$('.mess-scroll-bottom').on('click', function () {
+    var main = document.getElementById('mess-content');
+    $("#mess-content").animate({ scrollTop: main.scrollHeight - main.clientHeight }, "slow");
+})
