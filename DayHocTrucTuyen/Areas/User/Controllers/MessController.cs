@@ -59,7 +59,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
 
         //Gửi tin nhắn cho người khác
         [HttpPost]
-        public IActionResult sendNewTinNhan(string maNN, string noidung)
+        public IActionResult sendNewTinNhan(string maNN, string noidung, bool trangthai)
         {
             if (maNN == "" || noidung == "") return Json(new { tt = false });
 
@@ -73,6 +73,12 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
 
             db.TinNhans.Add(tn);
             db.SaveChanges();
+
+            //Đánh dấu đã xem tin
+            if (trangthai)
+            {
+                setXemTinNhan(tn.NguoiGui, tn.NguoiNhan);
+            }
 
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.MaNd = User.Claims.First().Value;

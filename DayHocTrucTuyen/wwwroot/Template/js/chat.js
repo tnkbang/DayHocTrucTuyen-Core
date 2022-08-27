@@ -93,7 +93,7 @@ $('#mess-send').on('click', function () {
     $.ajax({
         url: '/User/Mess/sendNewTinNhan',
         type: 'POST',
-        data: { maNN: messUserReceived, noidung: noidung.value },
+        data: { maNN: messUserReceived, noidung: noidung.value, trangthai: true },
         success: function (data) {
             if (!data.tt) {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
@@ -129,7 +129,7 @@ function infoSendMess(gui, nhan) {
     $.ajax({
         url: '/User/Mess/sendNewTinNhan',
         type: 'POST',
-        data: { maNN: nhan, noidung: noidung.value },
+        data: { maNN: nhan, noidung: noidung.value, trangthai: false },
         success: function (data) {
             if (!data.tt) {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
@@ -253,6 +253,11 @@ $('.close-mesage').on('click', function () {
     $('.chat-box').removeClass("show");
     return false;
 });
+
+//Làm mới thông báo tin nhắn
+$('#icon-tin-nhan').on('click', function () {
+    getPingMess();
+})
 
 //Hàm set đã xem tất cả tin nhắn
 function setXemTatCaTinNhan(maND) {
