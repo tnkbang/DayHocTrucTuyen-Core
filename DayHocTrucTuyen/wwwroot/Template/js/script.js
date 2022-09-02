@@ -1197,10 +1197,7 @@ jQuery(document).ready(function ($) {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    var comment_HTML = '<li><div class="comet-avatar"><img alt="" src="/Content/Img/userAvt/' + data.anh + '"></div><div class="we-comment"><h5><a title="" href="/Profile/Info?User=' + data.ma + '">' + data.hoten + '</a></h5><p>' + comment.val() + '</p><div class="inline-itms"><span class="timeago" style="text-transform: none" title="' + data.postTimeCus + '">' + data.postTime + '</span><a title="Trả lời" class="we-reply">Trả lời</a><a title="Xóa bình luận" data-toggle="modal" data-target="#confirmDeleteComment" onclick="setComment(this,' + "'" + data.postId + "','" + data.postTime + "'" + ')">Xóa</a></div></div></li>';
-                    if (data.anh == null) {
-                        comment_HTML = '<li><div class="comet-avatar"><img alt="" src="/Content/Img/userAvt/avt-default.png"></div><div class="we-comment"><h5><a title="" href="/Profile/Info?User=' + data.ma + '">' + data.hoten + '</a></h5><p>' + comment.val() + '</p><div class="inline-itms"><span class="timeago" style="text-transform: none" title="' + data.postTimeCus + '">' + data.postTime + '</span><a title="Trả lời" class="we-reply">Trả lời</a><a title="Xóa bình luận" data-toggle="modal" data-target="#confirmDeleteComment" onclick="setComment(this,' + "'" + data.postId + "','" + data.postTime + "'" + ')">Xóa</a></div></div></li>';
-                    }
+                    var comment_HTML = '<li><div class="comet-avatar"><img alt="" src="' + data.anh + '"></div><div class="we-comment"><h5><a title="" href="/Profile/Info?User=' + data.ma + '">' + data.hoten + '</a></h5><p>' + comment.val() + '</p><div class="inline-itms"><span class="timeago" style="text-transform: none" title="' + data.postTimeCus + '">' + data.postTime + '</span><a title="Trả lời" class="we-reply">Trả lời</a><a title="Xóa bình luận" data-toggle="modal" data-target="#confirmDeleteComment" onclick="setComment(this,' + "'" + data.postId + "','" + data.postTime + "'" + ')">Xóa</a></div></div></li>';
                     $(comment_HTML).insertBefore(parent);
                     $("span.timeago").timeago();
                     slComment.textContent++;

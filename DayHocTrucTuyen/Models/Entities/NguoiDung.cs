@@ -18,7 +18,7 @@ namespace DayHocTrucTuyen.Models.Entities
             DanhGiaLops = new HashSet<DanhGiaLop>();
             HocSinhThuocLops = new HashSet<HocSinhThuocLop>();
             LopHocs = new HashSet<LopHoc>();
-            PhieuDanhGia = new HashSet<PhieuDanhGium>();
+            PhieuDanhGias = new HashSet<PhieuDanhGia>();
             ThichTrangNguoiDungNavigations = new HashSet<ThichTrang>();
             ThichTrangNguoiThichNavigations = new HashSet<ThichTrang>();
             ThoiGianLamBais = new HashSet<ThoiGianLamBai>();
@@ -56,7 +56,7 @@ namespace DayHocTrucTuyen.Models.Entities
         public virtual ICollection<DanhGiaLop> DanhGiaLops { get; set; }
         public virtual ICollection<HocSinhThuocLop> HocSinhThuocLops { get; set; }
         public virtual ICollection<LopHoc> LopHocs { get; set; }
-        public virtual ICollection<PhieuDanhGium> PhieuDanhGia { get; set; }
+        public virtual ICollection<PhieuDanhGia> PhieuDanhGias { get; set; }
         public virtual ICollection<ThichTrang> ThichTrangNguoiDungNavigations { get; set; }
         public virtual ICollection<ThichTrang> ThichTrangNguoiThichNavigations { get; set; }
         public virtual ICollection<ThoiGianLamBai> ThoiGianLamBais { get; set; }
@@ -111,7 +111,7 @@ namespace DayHocTrucTuyen.Models.Entities
 
         public string getTenLoai()
         {
-            var loai = db.LoaiNds.FirstOrDefault(x=>x.MaLoai == this.MaLoai);
+            var loai = db.LoaiNds.FirstOrDefault(x => x.MaLoai == this.MaLoai);
             if (loai.MaLoai.Equals("01")) return "Quản trị viên";
             if (loai.MaLoai.Equals("02")) return "Tài khoản khách";
 

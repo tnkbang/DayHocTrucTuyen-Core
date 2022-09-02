@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DayHocTrucTuyen.Models.Entities
 {
-    public partial class PhieuDanhGium
+    public partial class PhieuDanhGia
     {
         public string MaPhieu { get; set; } = null!;
         public string? MaNd { get; set; }

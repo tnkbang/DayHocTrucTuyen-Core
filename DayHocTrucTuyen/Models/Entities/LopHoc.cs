@@ -127,9 +127,9 @@ namespace DayHocTrucTuyen.Models.Entities
         public List<Tag> getTag()
         {
             List<Tag> tags = (from t in db.Tags
-                             join ltt in db.LopThuocTags on t.MaTag equals ltt.MaTag
-                             where ltt.MaLop == this.MaLop
-                             select t).ToList();
+                              join ltt in db.LopThuocTags on t.MaTag equals ltt.MaTag
+                              where ltt.MaLop == this.MaLop
+                              select t).ToList();
             return tags;
         }
         public bool isTag(string maTag)
