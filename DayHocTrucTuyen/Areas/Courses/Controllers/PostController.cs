@@ -62,7 +62,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             //Gửi thông báo đến tất cả thành viên thuộc lớp
             NotificationController notification = new NotificationController();
             var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == malop);
-            var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
+            var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop && x.MaNd != newPost.MaNd);
             foreach (var tvl in thanhvienlop)
             {
                 notification.setThongBao(tvl.MaNd, "Bài đăng mới", "post" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?id=" + lop.MaLop);
