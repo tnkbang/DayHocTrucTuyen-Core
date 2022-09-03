@@ -18,7 +18,7 @@ namespace DayHocTrucTuyen.Models.Entities
             DanhGiaLops = new HashSet<DanhGiaLop>();
             HocSinhThuocLops = new HashSet<HocSinhThuocLop>();
             LopHocs = new HashSet<LopHoc>();
-            PhieuDanhGias = new HashSet<PhieuDanhGia>();
+            PhieuBinhChons = new HashSet<PhieuBinhChon>();
             ThichTrangNguoiDungNavigations = new HashSet<ThichTrang>();
             ThichTrangNguoiThichNavigations = new HashSet<ThichTrang>();
             ThoiGianLamBais = new HashSet<ThoiGianLamBai>();
@@ -56,7 +56,7 @@ namespace DayHocTrucTuyen.Models.Entities
         public virtual ICollection<DanhGiaLop> DanhGiaLops { get; set; }
         public virtual ICollection<HocSinhThuocLop> HocSinhThuocLops { get; set; }
         public virtual ICollection<LopHoc> LopHocs { get; set; }
-        public virtual ICollection<PhieuDanhGia> PhieuDanhGias { get; set; }
+        public virtual ICollection<PhieuBinhChon> PhieuBinhChons { get; set; }
         public virtual ICollection<ThichTrang> ThichTrangNguoiDungNavigations { get; set; }
         public virtual ICollection<ThichTrang> ThichTrangNguoiThichNavigations { get; set; }
         public virtual ICollection<ThoiGianLamBai> ThoiGianLamBais { get; set; }

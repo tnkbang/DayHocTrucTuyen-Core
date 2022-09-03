@@ -2583,3 +2583,40 @@ function setXemTatCaThongBao(maND) {
         }
     })
 }
+
+//Mã bài đăng báo cáo
+var postReportCode;
+
+//Hàm lấy mã bài đăng cần báo cáo
+function getReportPost(ma) {
+    postReportCode = ma;
+}
+
+//Xử lý báo cáo bài đăng
+$('#frm-rpt-post').on('submit', function () {
+    event.preventDefault();
+
+    var cm = postReportCode;
+    var nd = $("input[name='rptPost']:checked").parent()[0].textContent.trim();
+    var gc = $('#rpt-post-areas').val();
+
+    $.ajax({
+        url: '/Courses/Report/createReport',
+        type: 'POST',
+        data: { chimuc: cm, noidung: nd, ghichu: gc },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+            }
+            else {
+                getThongBao('success', 'Thành công !', 'Đã gửi báo cáo đến quản trị viên !');
+                $('#rpt-post-areas').val(null)
+
+                $('.popup-reportPost').removeClass('active');
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
