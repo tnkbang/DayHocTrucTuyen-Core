@@ -644,8 +644,8 @@ else
         </div>
     </div>
 </div>
-<!--Popup Báo cáo bình luận-->
-<div class="popup-reportComment">
+<!--Popup Báo cáo lớp học-->
+<div class="popup-reportRoom">
     <div class="popup">
         <span class="popup-closed"><i class="ti-close"></i></span>
         <div class="popup-meta">
@@ -653,48 +653,43 @@ else
                 <h5 style="font-size: 20px">Có gì đó không ổn?</h5>
             </div>
             <div class="Rpt-meta">
-                <span>Hãy cho chúng tôi biết bạn gặp vấn đề gì với bình luận này?</span>
-                <form method="post" class="c-form">
+                <span>Hãy cho chúng tôi biết bạn gặp vấn đề gì với lớp học này?</span>
+                <form method="post" class="c-form" id="frm-rpt-room">
                     <div class="form-radio">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio" checked="checked"><i class="check-box"></i>Spam
+                                <input type="radio" name="rptRoom" checked="checked"><i class="check-box"></i>Dừng hoạt động
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio"><i class="check-box"></i>Nội dung xuyên tạc
+                                <input type="radio" name="rptRoom"><i class="check-box"></i>Nội dung xuyên tạc
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio"><i class="check-box"></i>Mạo danh người khác
+                                <input type="radio" name="rptRoom"><i class="check-box"></i>Mạo danh người khác
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio"><i class="check-box"></i>Quảng cáo trá hình
+                                <input type="radio" name="rptRoom"><i class="check-box"></i>Quảng cáo trá hình
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio"><i class="check-box"></i>Ngôn từ xúc phạm
+                                <input type="radio" name="rptRoom"><i class="check-box"></i>Chứa nội dung nhạy cảm
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio"><i class="check-box"></i>Chứa nội dung nhạy cảm
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="radio"><i class="check-box"></i>Vấn đề khác
+                                <input type="radio" name="rptRoom"><i class="check-box"></i>Vấn đề khác
                             </label>
                         </div>
                     </div>
                     <div>
                         <label>Viết nội dung báo cáo</label>
-                        <textarea placeholder="Hãy cho chúng tôi biết cụ thể hơn về vấn đề bạn gặp..." rows="2"></textarea>
+                        <textarea id="rpt-room-areas" placeholder="Hãy cho chúng tôi biết cụ thể hơn về vấn đề bạn gặp..." rows="2"></textarea>
                     </div>
                     <div>
                         <button data-ripple="" type="submit" class="btn btn-outline-success my-btn">Gửi</button>

@@ -181,13 +181,13 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    // popup report comment
-    $('.rpt-comment').on('click', function () {
-        $('.popup-reportComment').addClass('active');
+    // popup report room
+    $('.rpt-room').on('click', function () {
+        $('.popup-reportRoom').addClass('active');
         return false;
     });
     $('.popup-closed, .cancel').on('click', function () {
-        $('.popup-reportComment').removeClass('active');
+        $('.popup-reportRoom').removeClass('active');
         return false;
     });
     // popup create bài thi
@@ -2584,6 +2584,8 @@ function setXemTatCaThongBao(maND) {
     })
 }
 
+//Xử lý báo cáo bài đăng
+
 //Mã bài đăng báo cáo
 var postReportCode;
 
@@ -2613,6 +2615,45 @@ $('#frm-rpt-post').on('submit', function () {
                 $('#rpt-post-areas').val(null)
 
                 $('.popup-reportPost').removeClass('active');
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
+
+//Xử lý báo cáo lớp học
+
+//Mã lớp học báo cáo
+var roomReportCode;
+
+//Hàm lấy mã lớp học cần báo cáo
+function getReportRoom(ma) {
+    roomReportCode = ma;
+}
+
+//Xử lý báo cáo lớp học
+$('#frm-rpt-room').on('submit', function () {
+    event.preventDefault();
+
+    var cm = roomReportCode;
+    var nd = $("input[name='rptRoom']:checked").parent()[0].textContent.trim();
+    var gc = $('#rpt-room-areas').val();
+
+    $.ajax({
+        url: '/Courses/Report/createReport',
+        type: 'POST',
+        data: { chimuc: cm, noidung: nd, ghichu: gc },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+            }
+            else {
+                getThongBao('success', 'Thành công !', 'Đã gửi báo cáo đến quản trị viên !');
+                $('#rpt-room-areas').val(null)
+
+                $('.popup-reportRoom').removeClass('active');
             }
         },
         error: function () {

@@ -8628,7 +8628,7 @@ input[type="checkbox"]:checked + label {
     }
 
 /*--- Upload popup ---*/
-.popup-reportComment,
+.popup-reportRoom,
 .popup-createExam,
 .popup-editExam,
 .popup-createQuest,
@@ -8658,7 +8658,7 @@ input[type="checkbox"]:checked + label {
     transition: all 0.25s linear 0s;
 }
 
-    .popup-reportComment.active,
+    .popup-reportRoom.active,
     .popup-createExam.active,
     .popup-editExam.active,
     .popup-createQuest.active,
