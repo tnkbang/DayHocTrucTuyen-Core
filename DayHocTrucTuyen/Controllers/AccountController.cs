@@ -222,5 +222,12 @@ namespace DayHocTrucTuyen.Controllers
 
             return Json(new { tt = true, mess = "Chọn chức vụ thành công !" });
         }
+
+        //Nâng cấp tài khoản
+        [Authorize]
+        public IActionResult Upgrade()
+        {
+            return View();
+        }
     }
 }
