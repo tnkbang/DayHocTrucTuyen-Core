@@ -75,12 +75,8 @@
                                                 <input class="form-edit-room" type="text" pattern="[a-z]{1,20}" maxlength="20" placeholder="laptrinhweb" value="@Model.BiDanh" />
                                             </div>
                                             <div>
-                                                <label>Mật khẩu</label>
-                                                <input class="form-edit-room passInput" type="password" placeholder="abc123" value="@Model.MatKhau" />
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input viewPass" id="viewPass">
-                                                    <label class="custom-control-label" style="text-transform: none" for="viewPass">Hiển thị mật khẩu</label>
-                                                </div>
+                                                <label>Giá Tiền</label>
+                                                <input class="form-edit-room" type="number" required placeholder="10000" min="1000" max="900000" value="@Model.GiaTien" />
                                             </div>
                                             <div>
                                                 <label>Mô Tả</label>

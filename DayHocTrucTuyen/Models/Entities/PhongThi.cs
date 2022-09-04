@@ -10,26 +10,23 @@ namespace DayHocTrucTuyen.Models.Entities
         public PhongThi()
         {
             BiCamThis = new HashSet<BiCamThi>();
-            CauHoiBaoMats = new HashSet<CauHoiBaoMat>();
             CauHoiThis = new HashSet<CauHoiThi>();
             ThoiGianLamBais = new HashSet<ThoiGianLamBai>();
         }
 
         public string MaPhong { get; set; } = null!;
-        public string? MaLop { get; set; }
+        public string MaLop { get; set; } = null!;
         public string TenPhong { get; set; } = null!;
         public DateTime NgayTao { get; set; }
         public string? MatKhau { get; set; }
         public DateTime NgayMo { get; set; }
         public DateTime NgayDong { get; set; }
         public int LuotThi { get; set; }
-        public bool XacThuc { get; set; }
         public bool XemLai { get; set; }
         public int ThoiLuong { get; set; }
 
-        public virtual LopHoc? MaLopNavigation { get; set; }
+        public virtual LopHoc MaLopNavigation { get; set; } = null!;
         public virtual ICollection<BiCamThi> BiCamThis { get; set; }
-        public virtual ICollection<CauHoiBaoMat> CauHoiBaoMats { get; set; }
         public virtual ICollection<CauHoiThi> CauHoiThis { get; set; }
         public virtual ICollection<ThoiGianLamBai> ThoiGianLamBais { get; set; }
 

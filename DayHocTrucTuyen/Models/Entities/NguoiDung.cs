@@ -17,6 +17,7 @@ namespace DayHocTrucTuyen.Models.Entities
             CauTraLois = new HashSet<CauTraLoi>();
             DanhGiaLops = new HashSet<DanhGiaLop>();
             HocSinhThuocLops = new HashSet<HocSinhThuocLop>();
+            LichSuGiaoDiches = new HashSet<LichSuGiaoDich>();
             LopHocs = new HashSet<LopHoc>();
             PhieuBinhChons = new HashSet<PhieuBinhChon>();
             ThichTrangNguoiDungNavigations = new HashSet<ThichTrang>();
@@ -30,7 +31,7 @@ namespace DayHocTrucTuyen.Models.Entities
         }
 
         public string MaNd { get; set; } = null!;
-        public string? MaLoai { get; set; }
+        public string MaLoai { get; set; } = null!;
         public string? HoLot { get; set; }
         public string Ten { get; set; } = null!;
         public DateTime? NgaySinh { get; set; }
@@ -46,7 +47,9 @@ namespace DayHocTrucTuyen.Models.Entities
         public DateTime NgayTao { get; set; }
         public string? BiDanh { get; set; }
 
-        public virtual LoaiNd? MaLoaiNavigation { get; set; }
+        public virtual LoaiNd MaLoaiNavigation { get; set; } = null!;
+        public virtual TrangThaiNangCap TrangThaiNangCap { get; set; } = null!;
+        public virtual ViNguoiDung ViNguoiDung { get; set; } = null!;
         public virtual ICollection<BaiDang> BaiDangs { get; set; }
         public virtual ICollection<BaoCao> BaoCaos { get; set; }
         public virtual ICollection<BiCamThi> BiCamThis { get; set; }
@@ -55,6 +58,7 @@ namespace DayHocTrucTuyen.Models.Entities
         public virtual ICollection<CauTraLoi> CauTraLois { get; set; }
         public virtual ICollection<DanhGiaLop> DanhGiaLops { get; set; }
         public virtual ICollection<HocSinhThuocLop> HocSinhThuocLops { get; set; }
+        public virtual ICollection<LichSuGiaoDich> LichSuGiaoDiches { get; set; }
         public virtual ICollection<LopHoc> LopHocs { get; set; }
         public virtual ICollection<PhieuBinhChon> PhieuBinhChons { get; set; }
         public virtual ICollection<ThichTrang> ThichTrangNguoiDungNavigations { get; set; }
@@ -195,10 +199,6 @@ namespace DayHocTrucTuyen.Models.Entities
                        where hs.MaNd == this.MaNd
                        orderby hs.NgayThamGia descending
                        select c;
-            foreach (var r in room)
-            {
-                r.MatKhau = null;
-            }
             return room.ToList();
         }
     }

@@ -95,7 +95,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Tạo mới phòng thi
         [HttpPost]
-        public IActionResult createExam(string malop, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xacthuc, bool xemlai)
+        public IActionResult createExam(string malop, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xemlai)
         {
             var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == malop);
             if (lop == null) return Json(new { tt = false });
@@ -112,7 +112,6 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             newPT.NgayMo = new DateTime(int.Parse(mo.Substring(0, 4)), int.Parse(mo.Substring(5, 2)), int.Parse(mo.Substring(8, 2)), int.Parse(mo.Substring(11, 2)), int.Parse(mo.Substring(14, 2)), 0);
             newPT.NgayDong = new DateTime(int.Parse(dong.Substring(0, 4)), int.Parse(dong.Substring(5, 2)), int.Parse(dong.Substring(8, 2)), int.Parse(dong.Substring(11, 2)), int.Parse(dong.Substring(14, 2)), 0);
             newPT.LuotThi = lanthu;
-            newPT.XacThuc = xacthuc;
             newPT.XemLai = xemlai;
             newPT.ThoiLuong = thoiluong;
 
@@ -131,7 +130,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
         //Chỉnh sửa phòng thi
         [HttpPost]
-        public IActionResult editExam(string maphong, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xacthuc, bool xemlai)
+        public IActionResult editExam(string maphong, string ten, int thoiluong, string mo, string dong, int lanthu, string matkhau, bool xemlai)
         {
             var phongthi = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong);
             if (phongthi == null) return Json(new { tt = false });
@@ -144,7 +143,6 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             phongthi.NgayMo = new DateTime(int.Parse(mo.Substring(0, 4)), int.Parse(mo.Substring(5, 2)), int.Parse(mo.Substring(8, 2)), int.Parse(mo.Substring(11, 2)), int.Parse(mo.Substring(14, 2)), 0);
             phongthi.NgayDong = new DateTime(int.Parse(dong.Substring(0, 4)), int.Parse(dong.Substring(5, 2)), int.Parse(dong.Substring(8, 2)), int.Parse(dong.Substring(11, 2)), int.Parse(dong.Substring(14, 2)), 0);
             phongthi.LuotThi = lanthu;
-            phongthi.XacThuc = xacthuc;
             phongthi.XemLai = xemlai;
             phongthi.ThoiLuong = thoiluong;
 

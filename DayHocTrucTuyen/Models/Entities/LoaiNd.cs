@@ -11,7 +11,7 @@ namespace DayHocTrucTuyen.Models.Entities
         }
 
         public string MaLoai { get; set; } = null!;
-        public string? TenLoai { get; set; }
+        public string TenLoai { get; set; } = null!;
 
         public virtual ICollection<NguoiDung> NguoiDungs { get; set; }
     }

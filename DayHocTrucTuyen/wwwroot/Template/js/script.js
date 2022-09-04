@@ -1500,8 +1500,8 @@ $('#form-edit-room').on('submit', function () {
     form_data.append('tl', text[0].value);
     if (text[1].value) form_data.append('bd', text[1].value);
     else form_data.append('bd', null);
-    if (text[2].value) form_data.append('mk', text[2].value);
-    else form_data.append('mk', null);
+    if (text[2].value) form_data.append('gt', text[2].value);
+    else form_data.append('gt', null);
     if (text[3].value) form_data.append('mt', text[3].value);
     else form_data.append('mt', null);
     form_data.append('tag', $('#room-edit-tag').val());
@@ -1915,8 +1915,7 @@ $('#form-create-exam').on('submit', function () {
     form_data.append('dong', text[3].value);
     form_data.append('lanthu', text[4].value);
     form_data.append('matkhau', text[5].value);
-    form_data.append('xacthuc', text[6].checked);
-    form_data.append('xemlai', text[7].checked);
+    form_data.append('xemlai', text[6].checked);
 
     $.ajax({
         url: '/Courses/Exam/createExam',
@@ -1958,8 +1957,7 @@ $('#form-edit-exam').on('submit', function () {
     form_data.append('dong', text[3].value);
     form_data.append('lanthu', text[4].value);
     form_data.append('matkhau', text[5].value);
-    form_data.append('xacthuc', text[6].checked);
-    form_data.append('xemlai', text[7].checked);
+    form_data.append('xemlai', text[6].checked);
 
     $.ajax({
         url: '/Courses/Exam/editExam',

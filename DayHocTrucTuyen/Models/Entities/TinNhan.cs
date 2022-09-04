@@ -6,14 +6,14 @@ namespace DayHocTrucTuyen.Models.Entities
     public partial class TinNhan
     {
         public int Id { get; set; }
-        public string? NguoiGui { get; set; }
-        public string? NguoiNhan { get; set; }
+        public string NguoiGui { get; set; } = null!;
+        public string NguoiNhan { get; set; } = null!;
         public DateTime ThoiGian { get; set; }
         public string NoiDung { get; set; } = null!;
         public bool TrangThai { get; set; }
 
-        public virtual NguoiDung? NguoiGuiNavigation { get; set; }
-        public virtual NguoiDung? NguoiNhanNavigation { get; set; }
+        public virtual NguoiDung NguoiGuiNavigation { get; set; } = null!;
+        public virtual NguoiDung NguoiNhanNavigation { get; set; } = null!;
 
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 

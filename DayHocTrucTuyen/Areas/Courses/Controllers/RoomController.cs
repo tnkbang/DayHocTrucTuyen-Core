@@ -130,7 +130,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Cập nhật thông tin lớp học
         [HttpPost]
-        public async Task<IActionResult> editRoom(string ml, string tl, string bd, string mk, string mt, string tag, IFormFile img)
+        public async Task<IActionResult> editRoom(string ml, string tl, string bd, int gt, string mt, string tag, IFormFile img)
         {
             var maUser = User.Claims.First().Value;
             var update = db.LopHocs.FirstOrDefault(x => x.MaLop == ml && x.MaNd == maUser);
@@ -141,6 +141,8 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             }
 
             update.TenLop = tl;
+            update.GiaTien = gt;
+
             if (bd != "null")
             {
                 LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
@@ -152,8 +154,6 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 update.BiDanh = bd;
             }
             else { update.BiDanh = null; }
-            if (mk != "null") { update.MatKhau = mk; }
-            else { update.MatKhau = null; }
             if (mt != "null") { update.MoTa = mt; }
             else { update.MoTa = null; }
 

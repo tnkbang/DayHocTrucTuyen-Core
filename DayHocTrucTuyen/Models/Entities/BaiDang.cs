@@ -12,15 +12,15 @@ namespace DayHocTrucTuyen.Models.Entities
         }
 
         public string MaBai { get; set; } = null!;
-        public string? MaLop { get; set; }
-        public string? MaNd { get; set; }
+        public string MaLop { get; set; } = null!;
+        public string MaNd { get; set; } = null!;
         public DateTime ThoiGian { get; set; }
         public string? NoiDung { get; set; }
         public string? DinhKem { get; set; }
         public bool TrangThai { get; set; }
 
-        public virtual LopHoc? MaLopNavigation { get; set; }
-        public virtual NguoiDung? MaNdNavigation { get; set; }
+        public virtual LopHoc MaLopNavigation { get; set; } = null!;
+        public virtual NguoiDung MaNdNavigation { get; set; } = null!;
         public virtual Ghim Ghim { get; set; } = null!;
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         public virtual ICollection<CamXuc> CamXucs { get; set; }
