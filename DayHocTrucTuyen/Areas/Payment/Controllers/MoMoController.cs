@@ -4,6 +4,7 @@ using DayHocTrucTuyen.Models.Payment.MoMo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace DayHocTrucTuyen.Areas.Payment.Controllers
 {
@@ -101,6 +102,8 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
 
                 db.SaveChanges();
             }
+
+            base.Response.StatusCode = (int)HttpStatusCode.NoContent;
         }
     }
 }
