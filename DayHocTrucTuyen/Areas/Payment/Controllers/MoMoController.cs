@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models.Payment.Momo;
+﻿using DayHocTrucTuyen.Models.Entities;
+using DayHocTrucTuyen.Models.Payment.Momo;
 using DayHocTrucTuyen.Models.Payment.MoMo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,8 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
 
     public class MoMoController : Controller
     {
+        DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
+
         public IActionResult Pay(string pak, string money)
         {
             //request params need to request to MoMo system
@@ -76,7 +79,28 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
         [HttpPost]
         public void SavePay(MoMoResult result)
         {
-            
+            var pak = db.GoiNangCaps.FirstOrDefault(x => x.GiaTien.ToString().Equals(result.amount));
+
+            if (pak != null)
+            {
+                var upgrade = db.TrangThaiNangCaps.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+
+                if (upgrade == null)
+                {
+                    TrangThaiNangCap newUG = new TrangThaiNangCap();
+                    newUG.MaNd = User.Claims.First().Value;
+                    newUG.NgayDangKy = DateTime.Now;
+                    newUG.MaGoi = pak.MaGoi;
+
+                    db.TrangThaiNangCaps.Add(newUG);
+                }
+                else
+                {
+                    upgrade.NgayDangKy = DateTime.Now;
+                }
+
+                db.SaveChanges();
+            }
         }
     }
 }

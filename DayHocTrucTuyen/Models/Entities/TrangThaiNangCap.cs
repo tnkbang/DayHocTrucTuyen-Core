@@ -5,7 +5,7 @@ namespace DayHocTrucTuyen.Models.Entities
 {
     public partial class TrangThaiNangCap
     {
-        public string NguoiDung { get; set; } = null!;
+        public string MaNd { get; set; } = null!;
         public int MaGoi { get; set; }
         public DateTime NgayDangKy { get; set; }
 

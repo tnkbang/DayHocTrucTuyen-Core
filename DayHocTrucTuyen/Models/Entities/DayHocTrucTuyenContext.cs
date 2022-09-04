@@ -980,15 +980,15 @@ namespace DayHocTrucTuyen.Models.Entities
 
             modelBuilder.Entity<TrangThaiNangCap>(entity =>
             {
-                entity.HasKey(e => e.NguoiDung)
+                entity.HasKey(e => e.MaNd)
                     .HasName("PK__TrangTha__F5150F312CF119B9");
 
                 entity.ToTable("TrangThaiNangCap");
 
-                entity.Property(e => e.NguoiDung)
+                entity.Property(e => e.MaNd)
                     .HasMaxLength(7)
                     .IsUnicode(false)
-                    .HasColumnName("Nguoi_Dung")
+                    .HasColumnName("Ma_ND")
                     .IsFixedLength();
 
                 entity.Property(e => e.MaGoi).HasColumnName("Ma_Goi");
@@ -1005,7 +1005,7 @@ namespace DayHocTrucTuyen.Models.Entities
 
                 entity.HasOne(d => d.NguoiDungNavigation)
                     .WithOne(p => p.TrangThaiNangCap)
-                    .HasForeignKey<TrangThaiNangCap>(d => d.NguoiDung)
+                    .HasForeignKey<TrangThaiNangCap>(d => d.MaNd)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__TrangThai__Nguoi__3E52440B");
             });

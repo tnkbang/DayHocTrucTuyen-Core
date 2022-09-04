@@ -91,7 +91,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 }
             }
 
-            if (bd != "null")
+            if (!String.IsNullOrEmpty(bd))
             {
                 LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
                 if (checkBD != null)
@@ -100,11 +100,8 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 }
                 newLop.BiDanh = bd;
             }
-            else
-            {
-                newLop.BiDanh = newLop.MaLop;
-            }
-            if (mt != "null") { newLop.MoTa = mt; }
+
+            if (!String.IsNullOrEmpty(mt)) { newLop.MoTa = mt; }
 
             db.LopHocs.Add(newLop);
 
@@ -143,7 +140,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             update.TenLop = tl;
             update.GiaTien = gt;
 
-            if (bd != "null")
+            if (!String.IsNullOrEmpty(bd))
             {
                 LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
                 LopHoc bidanhThis = db.LopHocs.FirstOrDefault(x => x.MaLop == update.MaLop && x.BiDanh == bd);
@@ -153,8 +150,8 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 }
                 update.BiDanh = bd;
             }
-            else { update.BiDanh = null; }
-            if (mt != "null") { update.MoTa = mt; }
+
+            if (!String.IsNullOrEmpty(mt)) { update.MoTa = mt; }
             else { update.MoTa = null; }
 
             if (img != null)
