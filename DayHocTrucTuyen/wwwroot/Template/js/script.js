@@ -1313,6 +1313,9 @@ jQuery(document).ready(function ($) {
 
 //JS xử lý các sự kiện
 
+//Định dạng số tiền
+$('.formatNumber').number(true, 0, ',', '.');
+
 //Kiểm tra nhập lại mật khẩu
 function passValidate(id_pass, re_pass, kt_pass) {
     var pass = document.getElementById(id_pass);
@@ -1489,6 +1492,7 @@ $('#form-create-room').on('submit', function () {
         }
     })
 })
+
 //Xử lý edit room
 $('#form-edit-room').on('submit', function () {
     event.preventDefault();
@@ -1498,13 +1502,11 @@ $('#form-edit-room').on('submit', function () {
 
     form_data.append('ml', document.getElementById('viewroom-Name').title);
     form_data.append('tl', text[0].value);
-    if (text[1].value) form_data.append('bd', text[1].value);
-    else form_data.append('bd', null);
-    if (text[2].value) form_data.append('gt', text[2].value);
-    else form_data.append('gt', null);
-    if (text[3].value) form_data.append('mt', text[3].value);
-    else form_data.append('mt', null);
+    form_data.append('bd', text[1].value);
+    form_data.append('gt', $('#editRoomGiaTien').val());
+    form_data.append('mt', text[3].value);
     form_data.append('tag', $('#room-edit-tag').val());
+
     if ($('#img-room').prop('files')[0]) form_data.append("img", $('#img-room').prop('files')[0]);
     else form_data.append("img", null)
 

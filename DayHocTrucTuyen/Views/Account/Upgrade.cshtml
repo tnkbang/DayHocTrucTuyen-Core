@@ -33,7 +33,7 @@
                         <span class="bg-blue">@Model[0].MoTa</span>
                         <div class="pricings">
                             <h2>@Model[0].TenGoi</h2>
-                            <h1>@Model[0].GiaTien VNĐ <span>@Model[0].getHieuLuc()</span></h1>
+                            <h1>@Model[0].GiaTien.ToString("n0") VNĐ <span>@Model[0].getHieuLuc()</span></h1>
                             <p>
                                 Đến với gói nâng cấp này, bạn được mở một số chức năng sau.
                             </p>
@@ -53,7 +53,7 @@
                         <span class="bg-purple">@Model[1].MoTa</span>
                         <div class="pricings">
                             <h2>@Model[1].TenGoi</h2>
-                            <h1>@Model[1].GiaTien VNĐ <span>@Model[1].getHieuLuc()</span></h1>
+                            <h1>@Model[1].GiaTien.ToString("n0") VNĐ <span>@Model[1].getHieuLuc()</span></h1>
                             <p>
                                 Đến với gói nâng cấp này, bạn được mở một số chức năng sau.
                             </p>
@@ -73,7 +73,7 @@
                         <span class="bg-red">@Model[2].MoTa</span>
                         <div class="pricings">
                             <h2>@Model[2].TenGoi</h2>
-                            <h1>@Model[2].GiaTien VNĐ <span>@Model[2].getHieuLuc()</span></h1>
+                            <h1>@Model[2].GiaTien.ToString("n0") VNĐ <span>@Model[2].getHieuLuc()</span></h1>
                             <p>
                                 Bạn nhận được toàn bộ đặc quyền đối với gói nâng cấp này.
                             </p>

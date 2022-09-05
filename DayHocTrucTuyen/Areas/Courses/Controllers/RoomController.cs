@@ -150,6 +150,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 }
                 update.BiDanh = bd;
             }
+            else { update.BiDanh = null; }
 
             if (!String.IsNullOrEmpty(mt)) { update.MoTa = mt; }
             else { update.MoTa = null; }
