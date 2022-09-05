@@ -3,6 +3,8 @@
     ViewBag.Main = "Nâng cấp tài khoản";
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
 }
+@using DayHocTrucTuyen.Models.Entities
+@model List<GoiNangCap>
 
 <section>
     <div class="page-header">
@@ -28,10 +30,10 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="price-box">
-                        <span class="bg-blue">Khách hàng thân thiết</span>
+                        <span class="bg-blue">@Model[0].MoTa</span>
                         <div class="pricings">
-                            <h2>Vip</h2>
-                            <h1>10.000 VNĐ <span>6 tháng</span></h1>
+                            <h2>@Model[0].TenGoi</h2>
+                            <h1>@Model[0].GiaTien VNĐ <span>@Model[0].getHieuLuc()</span></h1>
                             <p>
                                 Đến với gói nâng cấp này, bạn được mở một số chức năng sau.
                             </p>
@@ -42,19 +44,18 @@
                                 <li><i class="ti-close"></i> Giới hạn upload file 50MB.</li>
                                 <li><i class="ti-close"></i> Hỗ trợ trực tiếp 24/7.</li>
                             </ul>
-                            @{string url = "Gói nâng cấp thân thiết";}
-                            <a class="main-btn" href="~/Payment/MoMo/Pay?pak=@url&money=10000" title="" data-ripple="">Mua Ngay</a>
+                            <a class="main-btn" href="~/Payment/MoMo/Pay?id=@Model[0].MaGoi" title="" data-ripple="">Mua Ngay</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="price-box">
-                        <span class="bg-purple">Khách hàng tin cậy</span>
+                        <span class="bg-purple">@Model[1].MoTa</span>
                         <div class="pricings">
-                            <h2>SVip</h2>
-                            <h1>30.000 VNĐ <span>6 tháng</span></h1>
+                            <h2>@Model[1].TenGoi</h2>
+                            <h1>@Model[1].GiaTien VNĐ <span>@Model[1].getHieuLuc()</span></h1>
                             <p>
-                                Đối với khách hàng tin cậy, đây là những đặc quyền dành cho bạn.
+                                Đến với gói nâng cấp này, bạn được mở một số chức năng sau.
                             </p>
                             <ul class="price-features">
                                 <li><i class="ti-check"></i> Khung dành riêng cho SVip.</li>
@@ -63,17 +64,16 @@
                                 <li><i class="ti-check"></i> Giới hạn upload file 50MB.</li>
                                 <li><i class="ti-close"></i> Hỗ trợ trực tiếp 24/7.</li>
                             </ul>
-                            @{url = "Gói nâng cấp tin cậy";}
-                            <a class="main-btn" href="~/Payment/MoMo/Pay?pak=@url&money=30000" title="" data-ripple="">Mua Ngay</a>
+                            <a class="main-btn" href="~/Payment/MoMo/Pay?id=@Model[1].MaGoi" title="" data-ripple="">Mua Ngay</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="price-box">
-                        <span class="bg-red">Khách hàng tri kỷ</span>
+                        <span class="bg-red">@Model[2].MoTa</span>
                         <div class="pricings">
-                            <h2>Premium</h2>
-                            <h1>50.000 VNĐ <span>Năm</span></h1>
+                            <h2>@Model[2].TenGoi</h2>
+                            <h1>@Model[2].GiaTien VNĐ <span>@Model[2].getHieuLuc()</span></h1>
                             <p>
                                 Bạn nhận được toàn bộ đặc quyền đối với gói nâng cấp này.
                             </p>
@@ -84,10 +84,10 @@
                                 <li><i class="ti-check"></i> Giới hạn upload file 100MB.</li>
                                 <li><i class="ti-check"></i> Hỗ trợ trực tiếp 24/7.</li>
                             </ul>
-                            @{url = "Gói nâng cấp tri kỷ";}
-                            <a class="main-btn" href="~/Payment/MoMo/Pay?pak=@url&money=50000" title="" data-ripple="">Mua Ngay</a>
+                            <a class="main-btn" href="~/Payment/MoMo/Pay?id=@Model[2].MaGoi" title="" data-ripple="">Mua Ngay</a>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

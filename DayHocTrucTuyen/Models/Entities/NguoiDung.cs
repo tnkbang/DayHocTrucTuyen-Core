@@ -201,5 +201,19 @@ namespace DayHocTrucTuyen.Models.Entities
                        select c;
             return room.ToList();
         }
+
+        public bool isUpgrade()
+        {
+            var upgrade = db.TrangThaiNangCaps.FirstOrDefault(x => x.MaNd == this.MaNd);
+            if (upgrade != null)
+            {
+                var pak = db.GoiNangCaps.FirstOrDefault(x => x.MaGoi == upgrade.MaGoi);
+                if(upgrade.NgayDangKy.AddDays(pak.HieuLuc * 30) > DateTime.Now)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -19,20 +19,23 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
         static List<UserPayment> userPayments = new List<UserPayment>();
 
-        public IActionResult Pay(string pak, string money)
+        public IActionResult Pay(int id)
         {
+            var pak = db.GoiNangCaps.FirstOrDefault(x => x.MaGoi == id);
+            if (pak == null) return Redirect("/");
+
             //request params need to request to MoMo system
             string endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
             string partnerCode = "MOMOBW8K20220903";
             string accessKey = "jjuT3W0pPODOW7Cg";
             string serectkey = "dJTcUi9ROvZGCakIJuFzQfBK69QaHJKh";
-            string orderInfo = pak;
+            string orderInfo = pak.MoTa;
 
             string redirectUrl = "https://localhost:44354/Profile/Info?id=" + User.Claims.First().Value;
             string ipnUrl = "https://cead-2402-800-63b5-a749-b0f8-561e-a288-b0e8.ap.ngrok.io/Payment/MoMo/SavePay";
             string requestType = "captureWallet";
 
-            string amount = money;
+            string amount = pak.GiaTien.ToString();
             string orderId = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();
             string extraData = "";
@@ -81,7 +84,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             {
                 id = orderId,
                 maNd = User.Claims.First().Value,
-                money = double.Parse(money)
+                money = double.Parse(amount)
             });
 
             return Redirect(jmessage.GetValue("payUrl").ToString());

@@ -227,7 +227,11 @@ namespace DayHocTrucTuyen.Controllers
         [Authorize]
         public IActionResult Upgrade()
         {
-            return View();
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            if (user.isUpgrade()) return Redirect("/");
+
+            var model = db.GoiNangCaps.ToList();
+            return View(model);
         }
     }
 }
