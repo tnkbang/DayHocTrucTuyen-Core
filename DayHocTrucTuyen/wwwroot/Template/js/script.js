@@ -1313,9 +1313,6 @@ jQuery(document).ready(function ($) {
 
 //JS xử lý các sự kiện
 
-//Định dạng số tiền
-$('.formatNumber').number(true, 0, ',', '.');
-
 //Kiểm tra nhập lại mật khẩu
 function passValidate(id_pass, re_pass, kt_pass) {
     var pass = document.getElementById(id_pass);
