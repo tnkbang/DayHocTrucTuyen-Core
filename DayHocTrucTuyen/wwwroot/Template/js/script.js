@@ -1416,8 +1416,8 @@ $('.viewPass').on('click', function () {
 })
 
 //Bắt sự kiện chọn nghề nghiệp
-function choseRole(uid, cv) {
-    $.getJSON('/Account/choseEducation?uid=' + uid + '&cv=' + cv, function (data) {
+function choseRole(cv) {
+    $.getJSON('/Account/choseEducation?cv=' + cv, function (data) {
         if (data.tt) {
             if (cv == '03') {
                 location.replace('/User/GiaoVien/Index');
@@ -1425,6 +1425,9 @@ function choseRole(uid, cv) {
             else {
                 location.replace('/User/HocSinh/Index');
             }
+        }
+        else {
+            getThongBao('error', 'Lỗi !', data.mess);
         }
     })
 }

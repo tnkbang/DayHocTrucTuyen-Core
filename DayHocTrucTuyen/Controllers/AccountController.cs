@@ -35,7 +35,7 @@ namespace DayHocTrucTuyen.Controllers
         }
 
         //Trang chọn giáo viên hoặc học sinh
-        [Authorize]
+        [Authorize(Roles = "02")]
         public IActionResult Education()
         {
             ViewBag.members = db.NguoiDungs.Count();
@@ -43,7 +43,7 @@ namespace DayHocTrucTuyen.Controllers
 
             var userLogin = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
 
-            return userLogin.MaLoai.Equals("02") ? LocalRedirect("/") : View();
+            return View();
         }
 
         //Xác thực đăng nhập
@@ -195,30 +195,13 @@ namespace DayHocTrucTuyen.Controllers
 
         //Chọn giáo viên hoặc học sinh
         [Authorize]
-        public async Task<IActionResult> choseEducation(string uid, string cv)
+        public async Task<IActionResult> choseEducation(string cv)
         {
+            if (!cv.Equals("03") && !cv.Equals("04")) return Json(new { tt = false, mess = "Tham số không hợp lệ" });
             //Cập nhật loại người dùng
-            var user = await db.NguoiDungs.FirstOrDefaultAsync(x => x.MaNd == uid);
+            var user = await db.NguoiDungs.FirstOrDefaultAsync(x => x.MaNd == User.Claims.First().Value);
             user.MaLoai = cv;
             db.SaveChanges();
-
-            //Tạo list lưu chủ thể đăng nhập
-            var claims = new List<Claim>() {
-                        new Claim("MaNd", user.MaNd),
-                        new Claim("LoaiNd", cv.Equals("03") ? "GiaoVien" : "HocSinh"),
-                        new Claim("HoTen", user.HoLot + " " + user.Ten),
-                        new Claim("ImgAvt", user.getImageAvt())
-                    };
-
-            //Tạo Identity để xác thực và xác nhận
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            //Gọi hàm đăng nhập bất đồng bộ của HttpContext để đăng nhập lại cập nhật cookie
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties()
-            {
-                IsPersistent = false
-            });
 
             return Json(new { tt = true, mess = "Chọn chức vụ thành công !" });
         }

@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
     ViewBag.Title = "Chọn nghề nghiệp";
     ViewBag.NoiDung = "Để tối ưu trong việc triển khai và cung cấp các nội dung phù hợp với nhu cầu sử dụng bạn nên cho biết mình là ai.";
-    var userLogin = User.Claims.ToList()[0].Value;
 }
 @using DayHocTrucTuyen.Models
 
@@ -14,8 +13,8 @@
             <span>Bạn không thể thay đổi sau khi hoàn thành. Nên cân nhắc kỹ trước khi chọn.</span>
         </div>
         <form class="we-form">
-            <input type="button" class="login-register" value="Tôi là giáo viên" onclick="choseRole('@userLogin','03')">
-            <input type="button" class="login-register" value="Tôi là học sinh" onclick="choseRole('@userLogin','04')">
+            <input type="button" class="login-register" value="Tôi là giáo viên" onclick="choseRole('03')">
+            <input type="button" class="login-register" value="Tôi là học sinh" onclick="choseRole('04')">
         </form>
     </div>
 </div>
