@@ -14,6 +14,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.SlidingExpiration = true;
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Login";
+    options.AccessDeniedPath = "/Access/Denied";
 });
 
 //Using custom authen role

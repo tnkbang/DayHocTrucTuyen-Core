@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Truy cập bị từ chối";
+    ViewBag.Body = "Bạn không có quyền truy cập trang này !";
+    Layout = "~/Views/Shared/_LayoutError.cshtml";
+}
+
+@section loadingError {
+    <script>
+        loopError(4, 0, 3);
+    </script>
+}
