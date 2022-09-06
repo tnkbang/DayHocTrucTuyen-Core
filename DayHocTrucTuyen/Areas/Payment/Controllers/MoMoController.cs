@@ -84,6 +84,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             {
                 id = orderId,
                 maNd = User.Claims.First().Value,
+                pak = pak.MaGoi,
                 money = double.Parse(amount)
             });
 
@@ -102,7 +103,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             //Nếu giao dịch thành công
             if (jmessage.GetValue("resultCode").ToString().Equals("0"))
             {
-                var pak = db.GoiNangCaps.FirstOrDefault(x => x.GiaTien == user.money);
+                var pak = db.GoiNangCaps.FirstOrDefault(x => x.MaGoi == user.pak);
 
                 if (pak != null)
                 {
