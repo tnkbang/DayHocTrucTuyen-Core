@@ -117,7 +117,6 @@ namespace DayHocTrucTuyen.Models.Entities
         {
             var loai = db.LoaiNds.FirstOrDefault(x => x.MaLoai == this.MaLoai);
             if (loai.MaLoai.Equals("01")) return "Quản trị viên";
-            if (loai.MaLoai.Equals("02")) return "Tài khoản khách";
 
             return loai.TenLoai;
         }

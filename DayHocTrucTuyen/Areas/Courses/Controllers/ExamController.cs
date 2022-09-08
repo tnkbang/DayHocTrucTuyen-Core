@@ -14,7 +14,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
         //Quản lý phòng thi
-        [Authorize(Roles = "03")]
+        [Authorize(Roles = "02")]
         public IActionResult Manage(string id)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == id);
@@ -25,7 +25,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             return View(pt);
         }
         //Danh sách bài thi của lớp
-        [Authorize(Roles = "03")]
+        [Authorize(Roles = "02")]
         public IActionResult List(string id, string q)
         {
             LopHoc lp = db.LopHocs.FirstOrDefault(x => x.MaLop == id);

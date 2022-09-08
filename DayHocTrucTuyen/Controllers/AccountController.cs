@@ -34,18 +34,6 @@ namespace DayHocTrucTuyen.Controllers
             return View();
         }
 
-        //Trang chọn giáo viên hoặc học sinh
-        [Authorize(Roles = "02")]
-        public IActionResult Education()
-        {
-            ViewBag.members = db.NguoiDungs.Count();
-            ViewBag.classroom = db.LopHocs.Count();
-
-            var userLogin = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
-
-            return View();
-        }
-
         //Xác thực đăng nhập
         public async Task<bool> setLogin(string email, string pass, bool re, bool useLink)
         {
@@ -177,7 +165,7 @@ namespace DayHocTrucTuyen.Controllers
 
             NguoiDung newUser = new NguoiDung();
             newUser.MaNd = newUser.setMaUser();
-            newUser.MaLoai = "02";
+            newUser.MaLoai = "03";
             newUser.HoLot = holot;
             newUser.Ten = ten;
             newUser.Email = email;
@@ -191,19 +179,6 @@ namespace DayHocTrucTuyen.Controllers
 
             await setLogin(newUser.Email, matkhau, false, false);
             return Json(new { tt = true, mess = "Đăng ký tài khoản thành công !" });
-        }
-
-        //Chọn giáo viên hoặc học sinh
-        [Authorize]
-        public async Task<IActionResult> choseEducation(string cv)
-        {
-            if (!cv.Equals("03") && !cv.Equals("04")) return Json(new { tt = false, mess = "Tham số không hợp lệ" });
-            //Cập nhật loại người dùng
-            var user = await db.NguoiDungs.FirstOrDefaultAsync(x => x.MaNd == User.Claims.First().Value);
-            user.MaLoai = cv;
-            db.SaveChanges();
-
-            return Json(new { tt = true, mess = "Chọn chức vụ thành công !" });
         }
 
         //Nâng cấp tài khoản

@@ -25,10 +25,6 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         //Giao diện chính lớp học
         public IActionResult Detail(string id)
         {
-            //Nếu người dùng chưa chọn chức vụ thì bắt buộc chọn
-            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
-            if (user.MaLoai.Equals("02")) return Redirect("/Account/Education");
-
             LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
             LopHoc roomBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == id);
             if (id == null || room == null && roomBD == null)

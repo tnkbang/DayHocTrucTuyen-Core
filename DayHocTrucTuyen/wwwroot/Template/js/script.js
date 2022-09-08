@@ -1415,23 +1415,6 @@ $('.viewPass').on('click', function () {
     }
 })
 
-//Bắt sự kiện chọn nghề nghiệp
-function choseRole(cv) {
-    $.getJSON('/Account/choseEducation?cv=' + cv, function (data) {
-        if (data.tt) {
-            if (cv == '03') {
-                location.replace('/User/GiaoVien/Index');
-            }
-            else {
-                location.replace('/User/HocSinh/Index');
-            }
-        }
-        else {
-            getThongBao('error', 'Lỗi !', data.mess);
-        }
-    })
-}
-
 //Bắt sự kiện thích trang
 function like(nd, nt) {
     $.getJSON('/Profile/setThichTrang?nd=' + nd + '&nt=' + nt, function (data) {
