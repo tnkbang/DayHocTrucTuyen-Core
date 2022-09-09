@@ -1956,6 +1956,12 @@ form button {
             width: 100%;
         }
 
+        .post-meta > figure > a > div{
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+        }
+
     .post-meta .description:first-child {
         margin-top: 10px;
     }
