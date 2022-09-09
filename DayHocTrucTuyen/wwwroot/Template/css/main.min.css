@@ -36471,7 +36471,8 @@ em.mm-counter + a.mm-next + label.mm-check, em.mm-counter + a.mm-next + label.mm
 
     .strp-side-right .strp-pages {
         top: 0;
-        right: 0
+        right: 0;
+        border: solid 2px black;
     }
 
     .strp-side-right .strp-page {
