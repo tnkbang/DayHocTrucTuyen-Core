@@ -5201,6 +5201,16 @@ canvas {
     top: -30px;
 }
 
+.hidden-chat {
+    width: 180px;
+    height: 25px;
+    background: red;
+    position: fixed;
+    right: 12vw;
+    bottom: 2px;
+    z-index: 100;
+}
+
 
 /*--- New home page ---*/
 
