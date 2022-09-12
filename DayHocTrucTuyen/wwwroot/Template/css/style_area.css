@@ -4999,7 +4999,7 @@ canvas {
 
 /*--- side chat message box ---*/
 
-.chat-box {
+.chat-box, .hidden-chat {
     background: #fbfbfb none repeat scroll 0 0;
     border-radius: 3px;
     bottom: -2px;
@@ -5007,7 +5007,7 @@ canvas {
     right: 50px;
     width: 300px;
     z-index: 100;
-    transform: translate(40px) scale(0);
+    transform: translate(0, 100%) scale(0);
     opacity: 0;
     visibility: hidden;
     transition: all 0.2s linear 0s;
@@ -5016,7 +5016,7 @@ canvas {
     box-shadow: -15px -15px 20px rgba(0, 0, 0, 0.2);
 }
 
-    .chat-box.show {
+    .chat-box.show, .hidden-chat.show {
         transform: translate(0) scale(1);
         opacity: 1;
         visibility: visible;
@@ -5199,16 +5199,6 @@ canvas {
     border: none;
     color: lightseagreen;
     top: -30px;
-}
-
-.hidden-chat {
-    width: 180px;
-    height: 25px;
-    background: red;
-    position: fixed;
-    right: 12vw;
-    bottom: 2px;
-    z-index: 100;
 }
 
 

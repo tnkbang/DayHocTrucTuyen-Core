@@ -15,6 +15,7 @@ connection.on('UserConnect', (ma) => {
     //Gán trạng thái online tại popup mini chat
     if (messUserReceived == ma) {
         $('#mess-user-status').removeClass('f-off').addClass('f-online');
+        $('#hidden-mess-user-status').removeClass('f-off').addClass('f-online');
     }
 
     //Gán trạng thái online tại lớp học
@@ -25,6 +26,7 @@ connection.on('UserDisconnect', (ma) => {
     //Xóa trạng thái online tại mini chat
     if (messUserReceived == ma) {
         $('#mess-user-status').removeClass('f-online').addClass('f-off');
+        $('#hidden-mess-user-status').removeClass('f-online').addClass('f-off');
     }
 
     //Xóa trạng thái online tại lớp học
@@ -33,8 +35,14 @@ connection.on('UserDisconnect', (ma) => {
 
 //Kiểm tra người dùng đang có online hay không (mini chat)
 connection.on('CheckOnline', (trangthai) => {
-    if (trangthai) { $('#mess-user-status').removeClass('f-off').addClass('f-online') }
-    else { $('#mess-user-status').removeClass('f-online').addClass('f-off') }
+    if (trangthai) {
+        $('#mess-user-status').removeClass('f-off').addClass('f-online');
+        $('#hidden-mess-user-status').removeClass('f-off').addClass('f-online')
+    }
+    else {
+        $('#mess-user-status').removeClass('f-online').addClass('f-off');
+        $('#hidden-mess-user-status').removeClass('f-online').addClass('f-off')
+    }
 })
 
 //Tự động nhận chat trên popup
@@ -47,7 +55,15 @@ connection.on('ReceivedChat', (ma, img, mess, time) => {
     getPingMess();
 
     //Báo có tin trong mini chat
-    $('.mess-scroll-bottom').html('<i class="fa fa-angle-double-down"></i> Tin nhắn mới');
+    var main = document.getElementById('mess-content');
+    var down = document.querySelector('.mess-scroll-bottom');
+    if (main.scrollTop + 100 < main.scrollHeight - main.clientHeight) {
+        down.style.display = 'inline-block';
+        down.innerHTML = '<i class="fa fa-angle-double-down"></i> Tin nhắn mới';
+    } else {
+        down.style.display = 'none';
+        $("#mess-content").animate({ scrollTop: main.scrollHeight - main.clientHeight }, "slow");
+    }
 })
 
 //add tin nhắn
@@ -225,6 +241,8 @@ $('#menu-ping-mess').on('click', 'li', function () {
             else {
                 document.getElementById('mess-content').innerHTML = null;
                 document.getElementById('mess-user-name').innerHTML = data.uSend.ho_Lot + " " + data.uSend.ten;
+                document.getElementById('hidden-mess-user-name').innerHTML = data.uSend.ho_Lot + " " + data.uSend.ten;
+
                 $.each(data.tinNhan, function (index, value) {
                     if (value.nguoi_Gui == maNG) setChat('you', data.uSend.img_Avt, value.noi_Dung, value.thoi_Gian);
                     else setChat('me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
@@ -251,9 +269,22 @@ $('#menu-ping-mess').on('click', 'li', function () {
     $('.chat-box').addClass("show");
 });
 
+//Tạm ẩn mini chat
+$('.temp-hide-chat').on('click', function () {
+    $('.chat-box').removeClass("show");
+    $('.hidden-chat').addClass("show");
+});
+
+//Hiển thị mini chat từ trạng thái tạm ẩn
+$('.temp-show-chat').on('click', function () {
+    $('.chat-box').addClass("show");
+    $('.hidden-chat').removeClass("show");
+});
+
 //Đóng popup mini chat
 $('.close-mesage').on('click', function () {
     $('.chat-box').removeClass("show");
+    $('.hidden-chat').removeClass("show");
     return false;
 });
 

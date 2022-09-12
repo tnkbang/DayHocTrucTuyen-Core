@@ -236,7 +236,8 @@
                             <li>Xóa hết tin</li>
                         </ul>
                     </div>
-                    <span class="close-mesage"><i class="ti-close"></i></span>
+                    <span title="Tạm ẩn chat" class="temp-hide-chat" ><i class="ti-angle-down"></i></span>
+                    <span title="Tắt chat" class="close-mesage"><i class="ti-close"></i></span>
                 </div>
             </div>
             <div class="chat-list">
@@ -252,7 +253,16 @@
             </div>
         </div><!-- popup user chat -->
         <!--Show when chat hidden-->
-        <div class="hidden-chat"></div>
+        <div class="hidden-chat hide">
+            <div class="chat-head">
+                <span id="hidden-mess-user-status" class="status f-off"></span>
+                <h6 id="hidden-mess-user-name">@userAccount.getFullName()</h6>
+                <div class="more">
+                    <span title="Hiển thị chat" class="temp-show-chat"><i class="ti-angle-up"></i></span>
+                    <span title="Tắt chat" class="close-mesage"><i class="ti-close"></i></span>
+                </div>
+            </div>
+        </div>
 
         @RenderBody()
 
