@@ -7113,6 +7113,12 @@ button.createoredit {
         width: 100%;
     }
 
+    .user-profile figure div{
+        max-height: 300px;
+        overflow: hidden;
+        margin-bottom: -5px;
+    }
+
     .user-profile figure img {
         display: inline-block;
         width: 100%;
