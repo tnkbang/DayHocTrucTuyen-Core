@@ -214,5 +214,32 @@ namespace DayHocTrucTuyen.Models.Entities
             }
             return false;
         }
+
+        public double getSoDu()
+        {
+            var vi = db.ViNguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
+            if(vi != null)
+            {
+                return vi.SoDu;
+            }
+
+            return 0;
+        }
+        public List<NguoiDung> lstMemView()
+        {
+            List<NguoiDung> user = (from u in db.NguoiDungs
+                                    join xt in db.XemTrangs on u.MaNd equals xt.NguoiXem
+                                    where xt.NguoiDung == this.MaNd
+                                    select u).ToList();
+            return user.DistinctBy(x => x.MaNd).ToList();
+        }
+        public List<NguoiDung> lstMemLike()
+        {
+            List<NguoiDung> user = (from u in db.NguoiDungs
+                                    join yt in db.ThichTrangs on u.MaNd equals yt.NguoiThich
+                                    where yt.NguoiDung == this.MaNd
+                                    select u).ToList();
+            return user.DistinctBy(x => x.MaNd).ToList();
+        }
     }
 }

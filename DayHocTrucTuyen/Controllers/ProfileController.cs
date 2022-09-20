@@ -23,13 +23,9 @@ namespace DayHocTrucTuyen.Controllers
             if (userMa == null)
             {
                 setXemTrang(userBiDanh.MaNd, User.Claims.First().Value);
-                ViewData["userView"] = userView(userBiDanh.MaNd);
-                ViewData["userLike"] = userLike(userBiDanh.MaNd);
                 return View(userBiDanh);
             }
             setXemTrang(userMa.MaNd, User.Claims.First().Value);
-            ViewData["userView"] = userView(userMa.MaNd);
-            ViewData["userLike"] = userLike(userMa.MaNd);
             return View(userMa);
         }
         //Hàm set xem trang
@@ -96,22 +92,6 @@ namespace DayHocTrucTuyen.Controllers
                 db.SaveChanges();
             }
             return Json(new { tt = true });
-        }
-        public List<NguoiDung> userView(string nd)
-        {
-            List<NguoiDung> user = (from u in db.NguoiDungs
-                                    join xt in db.XemTrangs on u.MaNd equals xt.NguoiXem
-                                    where xt.NguoiDung == nd
-                                    select u).ToList();
-            return user;
-        }
-        public List<NguoiDung> userLike(string nd)
-        {
-            List<NguoiDung> user = (from u in db.NguoiDungs
-                                    join yt in db.ThichTrangs on u.MaNd equals yt.NguoiThich
-                                    where yt.NguoiDung == nd
-                                    select u).ToList();
-            return user;
         }
     }
 }

@@ -15,7 +15,18 @@
                     <div class="row merged20" id="page-contents">
                         <div class="user-profile">
                             <figure>
-                                <img src="@Model.getImageBG()" alt="" />
+                                <div>
+                                    <img src="@Model.getImageBG()" alt="" />
+                                </div>
+                                <ul class="profile-controls">
+                                    <li><a href="#" title="Nạp tiền" data-toggle="tooltip"><i class="fa fa-dollar"></i></a></li>
+                                </ul>
+                                @if (!Model.isUpgrade())
+                                {
+                                    <ol class="pit-rate">
+                                        <li><a href="~/Account/Upgrade" title="" class="main-btn" data-ripple="">Nâng cấp tài khoản</a></li>
+                                    </ol>
+                                }
                             </figure>
                             <div class="profile-section">
                                 <div class="row">
@@ -30,13 +41,48 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-9 col-md-9">
+                                        <ul class="profile-menu"></ul>
+                                        <ol class="folw-detail">
+                                            <li><span>Số dư ví</span><ins>@Model.getSoDu()</ins></li>
+                                        </ol>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!--Pitpoint list-->
+                        <div class="col-lg-9">
+                            <div class="central-meta">
+                                <div class="editing-interest">
+                                    <div class="notification-box">
+                                        <ul>
+                                            <li>
+                                                <div class="notifi-meta">
+                                                    <p>Nội dung</p>
+                                                </div>
+                                                <div class="more">
+                                                    <i class="ti-more-alt"></i>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="notifi-meta">
+                                                    <p>Nội dung</p>
+                                                </div>
+                                                <div class="more">
+                                                    <i class="ti-more-alt"></i>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Menu right-->
+                        @await Html.PartialAsync("~/Views/Shared/Menu/_ViewLike.cshtml", Model)
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section><!-- nội dung chính -->
+</section>

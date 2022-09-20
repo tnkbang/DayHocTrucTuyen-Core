@@ -1,0 +1,45 @@
+﻿@using DayHocTrucTuyen.Models.Entities
+@model NguoiDung
+
+<div class="col-lg-3">
+    <aside class="sidebar static right">
+        <div class="widget">
+            <h4 class="widget-title">Thống kê</h4>
+            <div class="your-page">
+                <div class="page-likes">
+                    <ul class="nav nav-tabs likes-btn">
+                        <li class="nav-item"><a class="active" href="#memlike" data-toggle="tab" data-ripple="">Yêu thích</a></li>
+                        <li class="nav-item"><a class="" href="#memview" data-toggle="tab" data-ripple="">Ghé thăm</a></li>
+                    </ul>
+                    <!-- chi tiết like and view -->
+                    <div class="tab-content">
+                        <div class="tab-pane active fade show " id="memlike">
+                            <span><i class="ti-heart"></i>@Model.getYeuThich()</span>
+                            <a style="text-decoration:none" title="Lượt thích mới">@Model.getYeuThichTheoTuan() lượt yêu thích gần đây</a>
+                            <div class="users-thumb-list">
+                                @foreach (var u in Model.lstMemLike())
+                                {
+                                    <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
+                                        <img alt="" src="@u.getImageAvt()" width="35" height="35" />
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="memview">
+                            <span><i class="fa fa-eye"></i>@Model.getXemTrang()</span>
+                            <a style="text-decoration:none" title="Lượt xem mới">@Model.getXemTrangTheoTuan() lượt ghé thăm gần đây</a>
+                            <div class="users-thumb-list">
+                                @foreach (var u in Model.lstMemView())
+                                {
+                                    <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
+                                        <img alt="" src="@u.getImageAvt()" width="35" height="35">
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div><!-- thanh phải -->
