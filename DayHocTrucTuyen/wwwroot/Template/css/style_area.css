@@ -1114,7 +1114,7 @@ header.sticky {
     width: 250px;
 }
 
-.popup-roomhelp {
+.popup-get-help {
     position: absolute;
     z-index: 100;
     top: 50px;
@@ -4460,6 +4460,7 @@ a.forgot-pwd {
     }
 
 .notifi-meta {
+    cursor: pointer;
     display: inline-block;
     line-height: initial;
     vertical-align: middle;
@@ -20925,3 +20926,7 @@ footer {
 #control-quest a {
     margin-bottom: 4px;
 }
+
+
+/************/
+

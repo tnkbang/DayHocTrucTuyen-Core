@@ -36,11 +36,11 @@ jQuery(document).ready(function ($) {
     });
 
     $('.popup-wraper4').on('click', function (e) {
-        if (e.target.id != 'createRoomHelp') {
-            $(".popup-roomhelp").removeClass('active');
+        if (e.target.id != 'get-help') {
+            $(".popup-get-help").removeClass('active');
         }
         else {
-            $(".popup-roomhelp").toggleClass('active');
+            $(".popup-get-help").toggleClass('active');
         }
     })
     $('.popup-createExam').on('click', function (e) {
@@ -110,6 +110,11 @@ jQuery(document).ready(function ($) {
     });
     $('.popup-closed').on('click', function () {
         $('.popup-wraper, .popup-wraper1').removeClass('active');
+    });
+
+    // choose pay
+    $('.choose-pay').on('click', function () {
+        $('.popup-wraper4').addClass('active');
     });
 
     // Create class room

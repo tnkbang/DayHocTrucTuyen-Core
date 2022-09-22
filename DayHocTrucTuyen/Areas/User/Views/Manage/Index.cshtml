@@ -19,7 +19,7 @@
                                     <img src="@Model.getImageBG()" alt="" />
                                 </div>
                                 <ul class="profile-controls">
-                                    <li><a href="#" title="Nạp tiền" data-toggle="tooltip"><i class="fa fa-dollar"></i></a></li>
+                                    <li><a href="javascript:void(0)" class="choose-pay" title="Nạp tiền" data-toggle="tooltip"><i class="fa fa-dollar"></i></a></li>
                                 </ul>
                                 @if (!Model.isUpgrade())
                                 {
@@ -86,3 +86,50 @@
         </div>
     </div>
 </section>
+
+<!-- Choose pay -->
+<div class="popup-wraper4">
+    <div class="popup choose-pay">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5>Chọn mệnh giá nạp <i title="Trợ giúp" id="get-help" class="fa fa-question-circle active" style="cursor: pointer"></i></h5>
+            </div>
+            <div class="dropdowns helps popup-get-help">
+                <span>Làm sao để nạp tiền?</span>
+                <ul class="help-drop">
+                    <li>Bạn cần chọn mệnh giá mà bạn muốn nạp vào tài khoản.</li>
+                    <li>Sau đó tiến hành nhấn nạp tiền và thực hiện các thao tác quét mã QR để xác thực.</li>
+                    <li>Xác thực thành công thì bạn chờ 5 đến 10 giây tiền sẽ về tài khoản của bạn.</li>
+                </ul>
+            </div>
+            <div class="upload-boxes">
+                <form id="form-pay" method="post">
+                    <div class="form-radio">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio" checked="checked"><i class="check-box"></i>It's spam or abuse
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio"><i class="check-box"></i>It breaks r/technology's rules
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio"><i class="check-box"></i>Not Related
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio"><i class="check-box"></i>Other issues
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="main-btn">Nạp tiền</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
