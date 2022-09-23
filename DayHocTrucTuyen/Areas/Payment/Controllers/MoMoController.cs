@@ -21,7 +21,6 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
 
 
         //Xử lý nạp tiền
-        [HttpPost]
         public IActionResult Pay(string money)
         {
             //request params need to request to MoMo system
@@ -31,7 +30,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             string serectkey = "dJTcUi9ROvZGCakIJuFzQfBK69QaHJKh";
             string orderInfo = "Nạp tiền vào tài khoản";
 
-            string redirectUrl = "https://localhost:44354/Profile/Info?id=" + User.Claims.First().Value;
+            string redirectUrl = "https://localhost:44354/User/Manage/Index";
             string ipnUrl = "https://cead-2402-800-63b5-a749-b0f8-561e-a288-b0e8.ap.ngrok.io/Payment/MoMo/SavePay";
             string requestType = "captureWallet";
 
@@ -104,7 +103,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             string serectkey = "dJTcUi9ROvZGCakIJuFzQfBK69QaHJKh";
             string orderInfo = pak.MoTa;
 
-            string redirectUrl = "https://localhost:44354/Profile/Info?id=" + User.Claims.First().Value;
+            string redirectUrl = "https://localhost:44354/User/Manage/Index";
             string ipnUrl = "https://cead-2402-800-63b5-a749-b0f8-561e-a288-b0e8.ap.ngrok.io/Payment/MoMo/SavePay";
             string requestType = "captureWallet";
 

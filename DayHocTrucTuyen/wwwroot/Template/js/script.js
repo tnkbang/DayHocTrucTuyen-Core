@@ -2653,15 +2653,5 @@ $('#frm-rpt-room').on('submit', function () {
 //Xử lý chọn giá tiền thanh toán
 $('#form-pay').on('submit', function () {
     event.preventDefault();
-
-    $.ajax({
-        url: '/Payment/MoMo/Pay',
-        type: 'POST',
-        data: { money: $('input.rdo-pay:checked').val() },
-        success: function (data) {
-        },
-        error: function () {
-            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
-        }
-    })
+    window.location.replace('/Payment/MoMo/Pay?money=' + $('input.rdo-pay:checked').val())
 })
