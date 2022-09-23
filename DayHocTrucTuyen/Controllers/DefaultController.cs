@@ -22,9 +22,17 @@ namespace DayHocTrucTuyen.Controllers
 
         //Trang danh sách lớp học
         [AllowAnonymous]
-        public IActionResult Courses()
+        public IActionResult Courses(string q)
         {
             List<LopHoc> room = db.LopHocs.OrderByDescending(x => x.NgayTao).ToList();
+
+            if (!String.IsNullOrEmpty(q))
+            {
+                room = room.Where(x => x.TenLop.Contains(q)).ToList();
+            }
+
+            ViewBag.Search = q;
+
             return View(room);
         }
 

@@ -6,12 +6,22 @@
 }
 @model List<DayHocTrucTuyen.Models.Entities.LopHoc>
 
+<!-- Banner -->
 <div class="breadcrumbs">
     <div class="container">
         <h2>Khóa Học Phổ Biến</h2>
         <p>Tại đây, chúng tôi cung cấp danh sách các khóa học mới nhất và phù hợp nhất với bạn. Tuy nhiên, để việc đề xuất được chính nhu cầu của bạn thì bạn nên đăng nhập vào hệ thống. Dữ liệu đề xuất được dựa trên các khóa học bạn đã gia nhập trước đây.</p>
     </div>
 </div>
+
+<!-- Search -->
+<form autocomplete="off">
+    <div class="col-12 search-container autocomplete">
+        <input id="mySearchCourses" name="mySearchCourses" class="search-input" type="text" placeholder="Tìm kiếm khóa học phù hợp..." value="@ViewBag.Search" >
+    </div>
+</form>
+
+<!-- Main -->
 <section id="courses" class="courses">
     <div class="container" data-aos="fade-up">
         <div class="row">
@@ -50,3 +60,8 @@
         </div>
     </div>
 </section>
+
+@section SearchRoom{
+    <!-- Xử lý đề xuất tìm kiếm lớp học-->
+    <script src="~/Template/js/search-room.js" asp-append-version="true"></script>
+}

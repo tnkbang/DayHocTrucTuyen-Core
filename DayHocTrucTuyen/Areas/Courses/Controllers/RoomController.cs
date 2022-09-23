@@ -221,5 +221,19 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
             return Json(new { tt = true });
         }
+
+        //Lấy tên tất cả các lớp học
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult getAllCourses()
+        {
+            List<string> name = new List<string>();
+            foreach(var i in db.LopHocs.ToList())
+            {
+                name.Add(i.TenLop);
+            }
+
+            return Json(new { tt = true, lst = name });
+        }
     }
 }

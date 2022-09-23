@@ -36,6 +36,9 @@
 
     <!--Toastr thông báo-->
     <link rel="stylesheet" href="~/Template/css/toastr.css" asp-append-version="true" />
+
+    <!-- Gợi ý và tự động điền cho form-->
+    <link rel="stylesheet" href="~/Template/css/search-room.css" asp-append-version="true" />
 </head>
 
 <body>
@@ -149,5 +152,8 @@
 
     <!--Toastr thông báo-->
     <script src="~/Template/js/toastr.js" asp-append-version="true"></script>
+
+    <!-- Xử lý tìm kiếm -->
+    @RenderSection("SearchRoom", required:false)
 </body>
 </html>
