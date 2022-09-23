@@ -28,7 +28,7 @@ namespace DayHocTrucTuyen.Controllers
 
             if (!String.IsNullOrEmpty(q))
             {
-                room = room.Where(x => x.TenLop.Contains(q)).ToList();
+                room = room.Where(x => x.TenLop.ToLower().Contains(q.ToLower())).ToList();
             }
 
             ViewBag.Search = q;
