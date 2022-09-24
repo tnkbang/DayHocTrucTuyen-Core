@@ -49,6 +49,9 @@
 
                     //Khi nhấn vào thì xóa hết gợi ý
                     closeAllLists();
+
+                    //Sau khi đã chọn kết quả gợi ý thì cho phép tìm kiếm
+                    isSearch = true;
                 });
                 a.appendChild(b);
             }
@@ -64,15 +67,21 @@
         if (e.keyCode == 40) {
             currentFocus++;
             addActive(x);
+
+            //Khi di chuyển mũi tên thì không kích hoạt tìm kiếm
+            isSearch = false;
         }
 
         //Nếu mũi tên xuống thì giảm vị trí trỏ
         else if (e.keyCode == 38) {
             currentFocus--;
             addActive(x);
+
+            //Khi di chuyển mũi tên thì không kích hoạt tìm kiếm
+            isSearch = false;
         }
 
-        //Nếu nhấn enter thì chọn giá trị vào input
+        //Nếu nhấn enter thì gọi sự kiện click
         else if (e.keyCode == 13) {
             e.preventDefault();
             if (currentFocus > -1) {
@@ -119,6 +128,9 @@
     });
 }
 
+//Biến kiểm tra gọi hàm tìm kiếm
+var isSearch = true;
+
 //Tự khởi động khi load xong
 $(document).ready(function () {
     $.ajax({
@@ -141,8 +153,10 @@ $(document).ready(function () {
     //Tìm kiếm khi nhấn enter
     $('#mySearchCourses').on('keydown', function (e) {
         if (e.keyCode == 13) {
-            e.preventDefault();
-            window.location.replace('/Default/Courses?q=' + $('#mySearchCourses').val());
+            if (isSearch) {
+                e.preventDefault();
+                window.location.replace('/Default/Courses?q=' + $('#mySearchCourses').val());
+            }
         }
     });
 });
