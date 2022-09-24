@@ -150,13 +150,45 @@ $(document).ready(function () {
         }
     })
 
+
+    //Hàm set tìm kiếm
+    function setTimLopHoc(e){
+        e.preventDefault();
+
+        var link = window.location.href;
+        var key = $('#mySearchCourses').val();
+
+        //Nếu chưa tìm kiếm
+        if (link.indexOf('?') == -1) {
+            //Nếu nhấn tìm kiếm và không nhập gì
+            if (!key) {
+                window.location.replace(link);
+            }
+            else {
+                window.location.replace(link + '?q=' + key);
+            }
+        }
+        else {
+            if (!key) {
+                window.location.replace(link.slice(0, link.indexOf('?')));
+            }
+            else {
+                window.location.replace(link.slice(0, link.indexOf('?')) + '?q=' + key);
+            }
+        }
+    }
+
     //Tìm kiếm khi nhấn enter
     $('#mySearchCourses').on('keydown', function (e) {
         if (e.keyCode == 13) {
             if (isSearch) {
-                e.preventDefault();
-                window.location.replace('/Default/Courses?q=' + $('#mySearchCourses').val());
+                setTimLopHoc(e);
             }
         }
     });
+
+    //Tìm kiếm khi nhấn nút tìm
+    $('#form-search-room').on('submit', function (e) {
+        setTimLopHoc(e);
+    })
 });

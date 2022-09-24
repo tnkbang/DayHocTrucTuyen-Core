@@ -38,8 +38,8 @@
                                     <div class="col-lg-6">
                                         <div class="row merged20">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <form method="post" id="form-search-room">
-                                                    <input id="search-room-name" type="text" placeholder="Nhập tên lớp..." value="@ViewBag.Search">
+                                                <form autocomplete="off" id="form-search-room">
+                                                    <input id="mySearchCourses" name="mySearchCourses" type="text" placeholder="Nhập tên lớp..." value="@ViewBag.Search">
                                                     <button type="submit"><i class="fa fa-search"></i></button>
                                                 </form>
                                             </div>
@@ -447,6 +447,7 @@
         </div>
     </div>
 </div><!-- Thêm mới lớp học -->
+
 <script>
     //Xử lý lấy tên thẻ vào select box
     VirtualSelect.init({
@@ -461,3 +462,8 @@
         optionsCount: 5
     });
 </script>
+
+@section SearchRoom{
+    <!-- Xử lý đề xuất tìm kiếm lớp học-->
+    <script src="~/Template/js/search-room.js" asp-append-version="true"></script>
+}

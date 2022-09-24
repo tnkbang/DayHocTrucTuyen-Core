@@ -1517,11 +1517,6 @@ $('#form-edit-room').on('submit', function () {
         }
     })
 })
-//Tìm kiếm lớp học
-$('#form-search-room').on('submit', function () {
-    event.preventDefault();
-    location.replace('/Courses/Room/List?q=' + document.getElementById('search-room-name').value);
-})
 //Hiển thị xem trước ảnh bg room
 $('.edit-phto').on('change', '#img-room', function () {
     var anh = /(\.jpg|\.jpeg|\.png)$/i;

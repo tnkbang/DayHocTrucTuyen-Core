@@ -1627,12 +1627,14 @@ section {
 /* Custom search input */
 
 .search-container {
+    width: 60%;
+    left:20%;
     padding-top: 30px;
     text-align: center;
 }
 
 .search-input {
-    width: 60%;
+    width: 100%;
     padding: 12px 24px;
     background-color: transparent;
     transition: transform 250ms ease-in-out;
