@@ -29,3 +29,10 @@
     background-color: DodgerBlue !important;
     color: #ffffff;
 }
+
+.close-record {
+    right: 5px;
+    position: absolute;
+    top: 5px;
+    cursor: pointer;
+}

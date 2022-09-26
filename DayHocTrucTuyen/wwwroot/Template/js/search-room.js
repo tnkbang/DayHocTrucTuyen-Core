@@ -218,6 +218,8 @@ function speech_recognition() {
 
         //Xử lý khi nhấn vào mic
         micBtn.addEventListener("click", function () {
+            $('.text-record').text('Đang nghe...');
+
             //Nếu mic chưa mở thì bắt đầu
             if (micIcon.classList.contains("fa-microphone")) {
                 recognition.start();
@@ -232,6 +234,7 @@ function speech_recognition() {
             micIcon.classList.remove("fa-microphone");
             micIcon.classList.add("fa-microphone-slash");
             searchFormInput.focus();
+            $('.call-wraper').addClass('active');
             //console.log("Đang lắng nghe");
         });
 
@@ -240,6 +243,7 @@ function speech_recognition() {
             micIcon.classList.remove("fa-microphone-slash");
             micIcon.classList.add("fa-microphone");
             searchFormInput.focus();
+            $('.call-wraper').removeClass('active');
             //console.log("Đã kết thúc lắng nghe");
         });
 
@@ -248,21 +252,31 @@ function speech_recognition() {
             const current = event.resultIndex;
             const transcript = event.results[current][0].transcript;
 
-            if (transcript.toLowerCase().trim() === "kết thúc") {
+            if (transcript.toLowerCase().trim() === "dừng lại") {
                 recognition.stop();
             }
             else if (transcript.toLowerCase().trim() === "làm mới") {
                 searchFormInput.value = "";
+                $('.text-record').text('Đang nghe...');
             }
-            else{
+            else {
+                $('.text-record').text(transcript);
+
                 searchFormInput.value = transcript;
-                recognition.stop();
+                setTimeout(() => {
+                    recognition.stop();
+                }, 500)
             }
 
             // setTimeout(() => {
             //   searchForm.submit();
             // }, 500);
         });
+
+        //Xử lý nút tắt popup
+        $('.close-record').on('click', function () {
+            recognition.stop();
+        })
     }
     else {
         getThongBao('error', 'Lỗi', 'Trình duyệt của bạn không hỗ trợ tính năng này !')

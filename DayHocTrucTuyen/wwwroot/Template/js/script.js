@@ -244,14 +244,6 @@ jQuery(document).ready(function ($) {
         $('.popup-wraper2').removeClass('active');
     });
 
-    // messenger call popup
-    $('.audio-call, .video-call').on('click', function () {
-        $('.call-wraper').addClass('active');
-    });
-    $('.decline-call, .later-rmnd').on('click', function () {
-        $('.call-wraper').removeClass('active');
-    });
-
     // Touch Spin cart qty number
     if ($.isFunction($.fn.TouchSpin)) {
         $('.qty').TouchSpin({});
