@@ -191,4 +191,80 @@ $(document).ready(function () {
     $('#form-search-room').on('submit', function (e) {
         setTimLopHoc(e);
     })
+
+
+    //Gọi hàm xử lý nhận diện giọng nói khi web load xong
+    speech_recognition();
 });
+
+
+//Hàm xử lý nhận diện giọng nói
+function speech_recognition() {
+    const searchForm = document.querySelector("#form-search-room");
+    const searchFormInput = searchForm.querySelector("input");
+    //Sử dụng nhận diện giọng nói dựa trên web API
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    //Nếu trình duyệt hỗ trợ
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        // recognition.lang = "en-US";
+
+        //Thêm micro vào input
+        searchForm.insertAdjacentHTML("beforeend", '<button class="record" style="right: 40px" type="button"><i class="fa fa-microphone"></i></button>');
+        const micBtn = searchForm.querySelector(".record");
+        const micIcon = micBtn.firstElementChild;
+
+        //Xử lý khi nhấn vào mic
+        micBtn.addEventListener("click", function () {
+            //Nếu mic chưa mở thì bắt đầu
+            if (micIcon.classList.contains("fa-microphone")) {
+                recognition.start();
+            }
+            else {
+                recognition.stop();
+            }
+        });
+
+        //Bắt sự kiện onstart
+        recognition.addEventListener("start", function () {
+            micIcon.classList.remove("fa-microphone");
+            micIcon.classList.add("fa-microphone-slash");
+            searchFormInput.focus();
+            //console.log("Đang lắng nghe");
+        });
+
+        //Bắt sự kiện kết thúc lắng nghe
+        recognition.addEventListener("end", function () {
+            micIcon.classList.remove("fa-microphone-slash");
+            micIcon.classList.add("fa-microphone");
+            searchFormInput.focus();
+            //console.log("Đã kết thúc lắng nghe");
+        });
+
+        //Bắt sự kiện kết quả trả về trong quá trình lắng nghe
+        recognition.addEventListener("result", function () {
+            const current = event.resultIndex;
+            const transcript = event.results[current][0].transcript;
+
+            if (transcript.toLowerCase().trim() === "kết thúc") {
+                recognition.stop();
+            }
+            else if (transcript.toLowerCase().trim() === "làm mới") {
+                searchFormInput.value = "";
+            }
+            else{
+                searchFormInput.value = transcript;
+                recognition.stop();
+            }
+
+            // setTimeout(() => {
+            //   searchForm.submit();
+            // }, 500);
+        });
+    }
+    else {
+        getThongBao('error', 'Lỗi', 'Trình duyệt của bạn không hỗ trợ tính năng này !')
+    }
+}
