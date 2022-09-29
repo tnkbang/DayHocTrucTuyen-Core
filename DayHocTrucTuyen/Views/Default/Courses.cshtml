@@ -15,11 +15,12 @@
 </div>
 
 <!-- Search -->
-<form autocomplete="off">
-    <div class="search-container autocomplete">
-        <input id="mySearchCourses" name="mySearchCourses" class="search-input" type="text" placeholder="Tìm kiếm khóa học phù hợp..." value="@ViewBag.Search" >
-    </div>
-</form>
+<div class="title-block search-room autocomplete">
+    <form autocomplete="off" id="form-search-room">
+        <input class="search-input" autocomplete="off" id="mySearchCourses" name="mySearchCourses" type="text" placeholder="Nhập tên lớp..." value="@ViewBag.Search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
 
 <!-- Main -->
 <section id="courses" class="courses">

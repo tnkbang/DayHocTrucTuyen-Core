@@ -30,6 +30,7 @@
     <link href="~/Template/boxicons/css/boxicons.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/Template/remixicon/remixicon.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/Template/swiper/swiper-bundle.min.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Template/css/icon_style.css" asp-append-version="true" />
 
     <!-- Template Main CSS File -->
     <link href="~/Template/css/style.css" rel="stylesheet" asp-append-version="true" />
@@ -119,6 +120,24 @@
             </div>
         </div>
     </header><!-- End Header -->
+
+    <!-- popup record micro -->
+    <div class="call-wraper">
+        <div class="m-live-call">
+            <span title="Dừng lắng nghe" class="close-record"><i class="bi bi-x-lg"></i></span>
+            <div class="call-box">
+                <span class="text-record"></span>
+                <i class="bi bi-mic"></i>
+                <div class="wave">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <ins class="later-rmnd">Lệnh: "Dừng lại", "Làm mới".</ins>
+            </div>
+        </div>
+    </div>
+
     @RenderBody()
     <!-- ======= Footer ======= -->
     <footer id="footer">
