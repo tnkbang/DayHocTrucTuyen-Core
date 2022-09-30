@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Danh sách người dùng";
+    ViewBag.Main = "Quản lý người dùng";
+    Layout = "~/Views/Shared/_LayoutArea.cshtml";
+}
+@using DayHocTrucTuyen.Models.Entities
+@model List<NguoiDung>
+
+<section>
+    <div class="gap2 gray-bg">
+        <div class="container-fluid">
+            <div class="row merged20">
+                <div class="col-lg-9">
+                    <!-- Tiêu đề và điều hướng -->
+                    <div class="forum-warper">
+                        <div class="central-meta">
+                            <div class="title-block">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="align-left">
+                                            <h5>Danh sách người dùng</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row merged20">
+                                            <div class="col-lg-7 col-md-7 col-sm-7">
+                                                <form method="post">
+                                                    <input type="text" placeholder="Tìm kiếm người dùng...">
+                                                    <button type="submit"><i class="fa fa-search"></i></button>
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                                <div class="select-options">
+                                                    <select class="select">
+                                                        <option>Sắp xếp theo</option>
+                                                        <option>Giáo viên</option>
+                                                        <option>Học sinh</option>
+                                                        <option>Ngày tạo</option>
+                                                        <option>A to Z</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1 col-md-1 col-sm-1">
+                                                <div class="option-list">
+                                                    <i class="fa fa-ellipsis-v"></i>
+                                                    <ul>
+                                                        <li class="active"><i class="fa fa-check"></i><a title="" href="#">Show Public</a></li>
+                                                        <li><a title="" href="#">Show only Friends</a></li>
+                                                        <li><a title="" href="#">Hide all Posts</a></li>
+                                                        <li><a title="" href="#">Mute Notifications</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danh sách -->
+                    <div class="central-meta">
+                        <div class="custom-list">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Mã</th>
+                                        <th scope="col">Ảnh</th>
+                                        <th scope="col">Họ Tên</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Ngày tạo</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var user in Model)
+                                    {
+                                        <tr>
+                                            <td>@user.MaNd</td>
+                                            <td><img width="40" height="40" src="@user.getImageAvt()" alt="@user.HoLot @user.Ten" /></td>
+                                            <td>@user.getFullName()</td>
+                                            <td>@user.Email</td>
+                                            <td>@user.NgayTao.ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                @{
+                                                    var tt = user.TrangThai ? "Hoạt động" : "Bị khóa";
+                                                }@tt
+                                            </td>
+                                            <td>
+                                                <button data-toggle="tooltip" title="Xem" class="pd-setting-ed" onclick="window.location.href='/Admin/User/Profile?id=@user.MaNd'"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                                @*<button data-toggle="tooltip" title="Sửa" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>*@
+                                                @if (user.TrangThai)
+                                                {
+                                                    <button data-toggle="tooltip" title="Khóa" class="pd-setting-ed"><i data-toggle="modal" data-target="#modal-lock-user" onclick="setUserLock('@user.MaNd', this)" class="fa fa-lock" aria-hidden="true"></i></button>
+                                                }
+                                                else
+                                                {
+                                                    <button data-toggle="tooltip" title="Mở khóa" class="pd-setting-ed"><i data-toggle="modal" data-target="#modal-lock-user" onclick="setUserLock('@user.MaNd', this)" class="fa fa-unlock" aria-hidden="true"></i></button>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    @if (Model.Count == 0)
+                                    {
+                                        <tr><td colspan="7">Rất tiếc không có kết quả trả về hợp lệ !</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

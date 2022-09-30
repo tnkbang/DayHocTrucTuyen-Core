@@ -1458,7 +1458,8 @@ header.sticky {
     vertical-align: text-top;
 }
 
-.central-meta .forum-list > table {
+.central-meta .forum-list > table,
+.central-meta .custom-list > table{
     margin-bottom: 30px;
 }
 
@@ -6135,6 +6136,60 @@ button.createoredit {
     text-transform: capitalize;
     vertical-align: middle;
 }
+
+/*--- custom table ---*/
+
+.custom-list table thead tr th {
+    vertical-align: central;
+    text-align: center;
+    border-top: 0 none;
+    color: #535165;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px 10px;
+    text-transform: capitalize;
+}
+
+.custom-list table tbody tr td {
+    padding: 20px 5px;
+    text-align: center;
+    border-top: 1px dashed #d6dce5;
+}
+
+.custom-list table tbody tr td:nth-child(2){
+    padding: 10px 0;
+}
+
+    .custom-list table tbody tr td:first-child {
+        text-align: left;
+    }
+
+.custom-list table tbody tr:last-child td {
+    padding-bottom: 0;
+}
+
+.custom-list table tbody tr td i {
+}
+
+.custom-list table tbody tr td > a {
+    font-size: 15px;
+    color: #535165;
+}
+
+.custom-list table tbody tr td p {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.custom-list table tbody tr td h6 {
+    font-size: 11.5px;
+    padding-left: 26px;
+    padding-top: 6px;
+    font-weight: 400;
+}
+
 /*--- login sidebar ---*/
 
 .singin > form {
