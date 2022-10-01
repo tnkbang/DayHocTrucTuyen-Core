@@ -6849,7 +6849,6 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .pagination {
     display: -ms-flexbox;
-    display: flex;
     padding-left: 0;
     list-style: none;
     border-radius: .25rem
@@ -6902,7 +6901,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     color: #6c757d;
     pointer-events: none;
     cursor: auto;
-    background-color: #fff;
+    background: #eee none repeat scroll 0 0;
     border-color: #dee2e6
 }
 

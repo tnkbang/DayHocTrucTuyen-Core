@@ -1,6 +1,8 @@
-﻿using DayHocTrucTuyen.Models.Entities;
+﻿using DayHocTrucTuyen.Areas.Admin.Models;
+using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DayHocTrucTuyen.Areas.Admin.Controllers
 {
@@ -11,10 +13,31 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
-        public IActionResult List()
+        public async Task<IActionResult> List(string? q, int? p, int? s, string? l)
         {
-            var mems = db.NguoiDungs.Where(x => x.MaLoai != "01").ToList();
-            return View(mems);
+            var mems = db.NguoiDungs.Where(x => x.MaLoai != "01");
+
+            //Lọc người dùng theo các tiêu chí họ tên, email, mã,...
+            if (!String.IsNullOrEmpty(q))
+            {
+                mems = mems.Where(s => string.Concat(s.HoLot, " ", s.Ten).Contains(q) || s.MaNd.Contains(q) || s.Email.Contains(q));
+            }
+
+            //Select trả về khác rỗng và khác 01 (01 là trường hợp admin không hiển thị, thay vào đó là hiển thị tất cả)
+            if (!String.IsNullOrEmpty(l) && l != "01")
+            {
+                mems = mems.Where(s => s.MaLoai == l);
+            }
+
+            //Số lượng người dùng được trả về trên một trang
+            int pageSize = s ?? 1;
+
+            //Chờ đợi xử lý phân trang rồi mới trả về view
+            //Các tham số của phân trang như sau:
+            //      nd.AsNoTracking() là danh sách người dùng chỉ xem
+            //      p là trang muốn hiển thị, ở đây nếu không nhập thì ngầm hiểu trang hiển thị là 1 tức là trang đầu
+            //      pageSize là số số lượng người hiển thị trên trang
+            return View(await PaginatedList<NguoiDung>.CreateAsync(mems.OrderByDescending(x => x.NgayTao).AsNoTracking(), p ?? 1, pageSize));
         }
     }
 }

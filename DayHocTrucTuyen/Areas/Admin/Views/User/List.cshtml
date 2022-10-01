@@ -3,8 +3,10 @@
     ViewBag.Main = "Quản lý người dùng";
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
 }
+@addTagHelper *,LazZiya.TagHelpers
+@using DayHocTrucTuyen.Areas.Admin.Models
 @using DayHocTrucTuyen.Models.Entities
-@model List<NguoiDung>
+@model PaginatedList<NguoiDung>
 
 <section>
     <div class="gap2 gray-bg">
@@ -61,7 +63,7 @@
                     <!-- Danh sách -->
                     <div class="central-meta">
                         <div class="custom-list">
-                            <table class="table table-responsive">
+                            <table class="table table-responsive w-100 d-block d-md-table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Mã</th>
@@ -78,7 +80,7 @@
                                     {
                                         <tr>
                                             <td>@user.MaNd</td>
-                                            <td><img width="40" height="40" src="@user.getImageAvt()" alt="@user.HoLot @user.Ten" /></td>
+                                            <td><img src="@user.getImageAvt()" alt="@user.HoLot @user.Ten" /></td>
                                             <td>@user.getFullName()</td>
                                             <td>@user.Email</td>
                                             <td>@user.NgayTao.ToString("dd/MM/yyyy")</td>
@@ -108,6 +110,16 @@
                                 </tbody>
                             </table>
                         </div>
+                        <paging class="pagination"
+                                total-records="Model.TotalRecords"
+                                page-no="Model.PageIndex"
+                                page-size="Model.Pagesize"
+                                show-total-pages="false"
+                                show-total-records="false"
+                                show-page-size-nav="true"
+                                page-size-dropdown-items="5-10-15-25-50-100"
+                                max-displayed-pages="5">
+                        </paging>
                     </div>
                 </div>
             </div>
