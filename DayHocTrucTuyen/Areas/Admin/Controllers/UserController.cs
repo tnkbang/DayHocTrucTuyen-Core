@@ -30,7 +30,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             }
 
             //Số lượng người dùng được trả về trên một trang
-            int pageSize = s ?? 1;
+            int pageSize = s ?? 5;
 
             //Chờ đợi xử lý phân trang rồi mới trả về view
             //Các tham số của phân trang như sau:
@@ -38,6 +38,21 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             //      p là trang muốn hiển thị, ở đây nếu không nhập thì ngầm hiểu trang hiển thị là 1 tức là trang đầu
             //      pageSize là số số lượng người hiển thị trên trang
             return View(await PaginatedList<NguoiDung>.CreateAsync(mems.OrderByDescending(x => x.NgayTao).AsNoTracking(), p ?? 1, pageSize));
+        }
+
+        //Khóa hoặc mở khóa người dùng
+        [HttpPost]
+        public async Task<IActionResult> LockUser(string ma)
+        {
+            var user = await db.NguoiDungs.FirstOrDefaultAsync(x => x.MaNd == ma);
+            if (user.TrangThai)
+            {
+                user.TrangThai = false;
+            }
+            else user.TrangThai = true;
+            db.SaveChanges();
+
+            return Json(new { tt = user.TrangThai });
         }
     }
 }

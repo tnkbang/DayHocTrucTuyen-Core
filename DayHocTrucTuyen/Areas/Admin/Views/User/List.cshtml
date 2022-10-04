@@ -90,15 +90,15 @@
                                                 }@tt
                                             </td>
                                             <td>
-                                                <button data-toggle="tooltip" title="Xem" class="pd-setting-ed" onclick="window.location.href='/Admin/User/Profile?id=@user.MaNd'"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                                <button data-toggle="tooltip" title="Xem" class="pd-setting-ed" onclick="window.location.href='/Profile/Info?id=@user.MaNd'"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                                 @*<button data-toggle="tooltip" title="Sửa" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>*@
                                                 @if (user.TrangThai)
                                                 {
-                                                    <button data-toggle="tooltip" title="Khóa" class="pd-setting-ed"><i data-toggle="modal" data-target="#modal-lock-user" onclick="setUserLock('@user.MaNd', this)" class="fa fa-lock" aria-hidden="true"></i></button>
+                                                    <button data-toggle="tooltip" title="Khóa" class="pd-setting-ed" onclick="setUserLock('@user.MaNd', this)" ><i data-toggle="modal" class="fa fa-lock" aria-hidden="true"></i></button>
                                                 }
                                                 else
                                                 {
-                                                    <button data-toggle="tooltip" title="Mở khóa" class="pd-setting-ed"><i data-toggle="modal" data-target="#modal-lock-user" onclick="setUserLock('@user.MaNd', this)" class="fa fa-unlock" aria-hidden="true"></i></button>
+                                                    <button data-toggle="tooltip" title="Mở khóa" class="pd-setting-ed" onclick="setUserLock('@user.MaNd', this)" ><i data-toggle="modal" class="fa fa-unlock" aria-hidden="true"></i></button>
                                                 }
                                             </td>
                                         </tr>
@@ -126,3 +126,24 @@
         </div>
     </div>
 </section>
+
+<!-- popup khóa hoặc mở khóa người dùng -->
+<div class="popup-wraper1">
+    <div class="popup direct-mesg">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5 id="modal-lock-user-title">Tiêu đề cảnh báo</h5>
+            </div>
+            <div class="Rpt-meta">
+                <form class="c-form">
+                    <p id="modal-lock-user-content">Nội dung cảnh báo</p>
+                    <div>
+                        <button id="confirm-lock-user" data-ripple="" type="submit" class="btn btn-outline-success my-btn">Gửi</button>
+                        <a id="cancel-lock-user" data-ripple="" class="btn btn-outline-dark my-btn cancel">Đóng</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
