@@ -20,25 +20,42 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="align-left">
-                                            <h5>Danh sách người dùng</h5>
+                                            @if (String.IsNullOrEmpty(@ViewBag.Search))
+                                            {
+                                                <h5>Danh sách người dùng</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5>Tìm kiếm: "@ViewBag.Search"</h5>
+                                            }
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="row merged20">
                                             <div class="col-lg-7 col-md-7 col-sm-7">
-                                                <form method="post">
-                                                    <input type="text" placeholder="Tìm kiếm người dùng...">
+                                                <form method="post" class="list-user-search">
+                                                    <input class="inp-list-user-search" type="text" value="@ViewBag.Search" placeholder="Tìm kiếm người dùng...">
                                                     <button type="submit"><i class="fa fa-search"></i></button>
                                                 </form>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4">
                                                 <div class="select-options">
-                                                    <select class="select">
-                                                        <option>Sắp xếp theo</option>
-                                                        <option>Giáo viên</option>
-                                                        <option>Học sinh</option>
-                                                        <option>Ngày tạo</option>
-                                                        <option>A to Z</option>
+                                                    <select class="select user-role">
+                                                        @{
+                                                            string[] noidung = new string[] {"Sắp xếp theo", "Giáo viên", "Học sinh", "Ngày tạo", "A đến Z"};
+                                                            for (var i = 0; i < noidung.Length; i++)
+                                                            {
+                                                                var temp = "0" + i;
+                                                                if(String.Concat("0", i.ToString()).Equals(ViewBag.Loai))
+                                                                {
+                                                                    <option selected value="@temp">@noidung[i]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@temp">@noidung[i]</option>
+                                                                }
+                                                            }
+                                                        }
                                                     </select>
                                                 </div>
                                             </div>

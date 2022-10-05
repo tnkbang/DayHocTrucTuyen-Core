@@ -2703,3 +2703,22 @@ $('#confirm-lock-user').on('click', function () {
         }
     })
 })
+
+//Xử lý chọn hiển thị trong danh sách người dùng của admin
+$('.user-role').on('change', () => {
+    var q = $('.inp-list-user-search').val();
+    window.location.href = '/Admin/User/List?q=' + q + '&l=' + $('.user-role').val();
+})
+
+//Xử lý tìm kiếm người dùng trong danh sách người dùng của admin
+$('.list-user-search').on('submit', () => {
+    event.preventDefault();
+    console.log($('.user-role').val())
+    var q = $('.inp-list-user-search').val();
+    if ($('.user-role').val() != "00") {
+        window.location.href = '/Admin/User/List?q=' + q + '&l=' + $('.user-role').val();
+    }
+    else {
+        window.location.href = '/Admin/User/List?q=' + q;
+    }
+})

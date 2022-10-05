@@ -13,20 +13,27 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
-        public async Task<IActionResult> List(string? q, int? p, int? s, string? l)
+        public async Task<IActionResult> List(string? q, string? l, int? p, int? s)
         {
+            //Người dùng dưới vai trò admin có role là 01 nhưng không được liệt kê trong danh sách này
             var mems = db.NguoiDungs.Where(x => x.MaLoai != "01");
 
             //Lọc người dùng theo các tiêu chí họ tên, email, mã,...
             if (!String.IsNullOrEmpty(q))
             {
                 mems = mems.Where(s => string.Concat(s.HoLot, " ", s.Ten).Contains(q) || s.MaNd.Contains(q) || s.Email.Contains(q));
+                ViewBag.Search = q;
             }
 
-            //Select trả về khác rỗng và khác 01 (01 là trường hợp admin không hiển thị, thay vào đó là hiển thị tất cả)
-            if (!String.IsNullOrEmpty(l) && l != "01")
+            //Select trả về khác rỗng và khác 00 (00 là trường hợp mặc định, là hiển thị tất cả)
+            if (!String.IsNullOrEmpty(l) && l != "00")
             {
-                mems = mems.Where(s => s.MaLoai == l);
+                if (l == "01") mems = mems.Where(s => s.MaLoai == "02");
+                if (l == "02") mems = mems.Where(s => s.MaLoai == "03");
+                if (l == "03") mems = mems.OrderByDescending(s => s.NgayTao);
+                if (l == "04") mems = mems.OrderBy(s => s.Ten);
+
+                ViewBag.Loai = l ?? "00";
             }
 
             //Số lượng người dùng được trả về trên một trang
@@ -37,7 +44,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             //      nd.AsNoTracking() là danh sách người dùng chỉ xem
             //      p là trang muốn hiển thị, ở đây nếu không nhập thì ngầm hiểu trang hiển thị là 1 tức là trang đầu
             //      pageSize là số số lượng người hiển thị trên trang
-            return View(await PaginatedList<NguoiDung>.CreateAsync(mems.OrderByDescending(x => x.NgayTao).AsNoTracking(), p ?? 1, pageSize));
+            return View(await PaginatedList<NguoiDung>.CreateAsync(mems.AsNoTracking(), p ?? 1, pageSize));
         }
 
         //Khóa hoặc mở khóa người dùng
