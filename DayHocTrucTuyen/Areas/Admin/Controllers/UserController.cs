@@ -35,6 +35,11 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
 
                 ViewBag.Loai = l ?? "00";
             }
+            //Ngược lại sắp xếp mặc định theo ngày tạo
+            else
+            {
+                mems = mems.OrderByDescending(x => x.NgayTao);
+            }
 
             //Số lượng người dùng được trả về trên một trang
             int pageSize = s ?? 5;
