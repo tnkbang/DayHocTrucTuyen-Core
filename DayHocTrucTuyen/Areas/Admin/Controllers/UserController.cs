@@ -41,6 +41,9 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                 mems = mems.OrderByDescending(x => x.NgayTao);
             }
 
+            //ViewBag thể hiện trang đang được hiển thị trên layout
+            ViewBag.UserList = "active";
+
             //Số lượng người dùng được trả về trên một trang
             int pageSize = s ?? 5;
 
