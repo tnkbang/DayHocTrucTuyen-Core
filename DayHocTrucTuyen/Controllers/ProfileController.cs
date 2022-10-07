@@ -28,6 +28,78 @@ namespace DayHocTrucTuyen.Controllers
             setXemTrang(userMa.MaNd, User.Claims.First().Value);
             return View(userMa);
         }
+
+        //Kiểm tra người dùng có đủ thông tin chưa
+        [HttpPost]
+        public IActionResult checkInfo()
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            if(String.IsNullOrEmpty(user.Sdt) || user.NgaySinh == null || user.GioiTinh == null)
+            {
+                return Json(new { tt = false });
+            }
+
+            return Json(new { tt = true });
+        }
+
+        //Cập nhật thông tin cá nhân
+        public IActionResult Update()
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            return View(user);
+        }
+
+        //Set cập nhật thông tin
+        [HttpPost]
+        public async Task<IActionResult> setUpdate(string hl, string ten, DateTime ns, int gt, string sdt, string mt, string bd, IFormFile avt)
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+
+            user.HoLot = hl;
+            user.Ten = ten;
+            user.NgaySinh = ns;
+            user.GioiTinh = gt;
+            user.Sdt = sdt;
+            user.MoTa = mt;
+            user.BiDanh = bd;
+
+            //Xử lý avt
+            if (avt != null)
+            {
+                //Khai báo đường dẫn lưu file
+                var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Content\\Img\\userAvt\\");
+                bool basePathExists = Directory.Exists(basePath);
+
+                //Nếu thư mục không có thì tạo mới
+                if (!basePathExists) Directory.CreateDirectory(basePath);
+
+                string file_extension = Path.GetFileName(avt.FileName).Substring(Path.GetFileName(avt.FileName).LastIndexOf('.'));
+                var fileName = "avt-" + user.MaNd + "-" + DateTime.Now.Millisecond + file_extension;
+                var filePath = Path.Combine(basePath, fileName);
+
+                //Xóa file cũ khỏi server
+                if (!String.IsNullOrEmpty(user.ImgAvt) && System.IO.File.Exists(Path.Combine(basePath, user.ImgAvt)))
+                {
+                    System.IO.File.Delete(basePath + user.ImgAvt);
+                }
+
+                //Thêm file vào server và cập nhật vào csdl
+                if (fileName != null && !System.IO.File.Exists(filePath))
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await avt.CopyToAsync(stream);
+                    }
+
+                    user.ImgAvt = fileName;
+                }
+            }
+
+            db.SaveChanges();
+
+            return Json(new { tt = true });
+        }
+
         //Hàm set xem trang
         public void setXemTrang(string nd, string nx)
         {

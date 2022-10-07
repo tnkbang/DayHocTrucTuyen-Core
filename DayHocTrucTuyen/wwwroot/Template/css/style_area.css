@@ -8853,7 +8853,7 @@ input[type="checkbox"]:checked + label {
     .popup-head > h5 {
         color: #515365;
         display: inline-block;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 500;
         margin-bottom: 0;
         width: 100%;
@@ -20921,4 +20921,58 @@ footer {
 
 #control-quest a {
     margin-bottom: 4px;
+}
+
+/* custom btn */
+
+.custom-btn {
+    transition: all 0.2s linear 0s;
+    background-color: #fa6342;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 4px 7px 12px 0 rgb(250 99 66 / 20%);
+    color: #ffffff;
+    display: inline-block;
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: 13px;
+    padding: 10px 26px;
+    text-align: right
+}
+
+.custom-btn:hover{
+    background: #613fe5;
+}
+
+/* custom scoll */
+.custom-scroll{
+    height: 200px;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+    .custom-scroll::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+        border-radius: 6px;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+        background-color: #aaa;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        border-radius: 6px;
+        background-color: #aaa;
+    }
+
+/* custom accept rules input*/
+.custom-rules {
+    text-transform: none !important;
+    line-height: normal !important;
+    font-weight: unset !important;
+    font-size: 14px !important;
 }

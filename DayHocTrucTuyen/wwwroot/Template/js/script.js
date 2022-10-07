@@ -2722,3 +2722,64 @@ $('.list-user-search').on('submit', () => {
         window.location.href = '/Admin/User/List?q=' + q;
     }
 })
+
+//Xử lý nhấn đăng ký giáo viên
+$('.set-teacher').on('click', () => {
+    $.ajax({
+        url: '/Profile/checkInfo',
+        type: 'POST',
+        success: function (data) {
+            if (data.tt) {
+                //Chỉnh sửa trạng thái popup hiển thị phù hợp khung nhìn
+                $('.popup').removeClass('direct-mesg')
+                $('#check-teacher-content').parent().addClass('custom-scroll')
+                $('#confirm-teacher').prop("disabled", true);
+                $('.teacher-rules').show()
+
+                //Thay đổi thông tin trên popup
+                $('#check-teacher-title').html('Đăng ký giáo viên')
+                $('#check-teacher-content').html('<b>ĐIỀU KHOẢN VÀ CHÍNH SÁCH</b><br>Cám ơn quý khách hàng đã sử dụng dịch vụ chúng tôi trong thời gian qua. Khi bạn đăng ký làm giáo viên của chúng tôi có nghĩa là bạn đã đồng ý với các điều khoản này. Trang web có quyền thay đổi, chỉnh sửa, thêm hoặc lược bỏ bất ký phần nào trong Quy định và điều kiện sử dụng vào bất cứ lúc nào. Các thay đổi có hiệu lực ngay khi được đăng trên trang web mà không cần thông báo trước. Và khi bạn tiếp tục sử dụng trang web, sau khi các thay đổi về quy định và điều kiện được đăng tải, có nghĩa là bạn chấp nhận với những thay đổi đó. Vui lòng kiểm tra thường xuyên để cập nhật những thay đổi mới của Công ty chúng tôi.<br><b>1. Hướng dẫn sử dụng Web</b><br>Khi vào trang web của chúng tôi, người sử dụng tối thiểu phải từ 18 tuổi trở lên hoặc truy cập dưới sự giám sát của Cha/Mẹ hay người giám hộ hợp pháp. Khi khách hàng muốn mua sản phẩm chúng tôi có thể ghi thông tin và gửi mail hoặc đặt hàng trực tuyến trên website. Sau khi thông tin đặt hàng được gửi chúng tôi thì nhân viên chúng tôi sẽ liên hệ lại khách hàng (từ thông tin khách hàng gửi). Sau khi thống nhất và được sự đồng ý của khách hàng, nhân viên giao hàng chúng tôi sẽ giao hàng và quý khách hàng kiểm tra. Nếu các mặt hàng như quý khách hàng đặt và đúng như giá bán thì quý khách hàng thanh toán tiền mặt và nhận hàng.<br><b>2. Ý kiến khách hàng</b><br>Tất cả các thông tin phản hồi hoặc phê bình từ quý khách hàng là những thông tin quý giá để giúp Công ty chúng tôi hoàn thiện hơn, chuyên nghiệp hơn trong giao dịch cũng như dịch vụ khách hàng. Chúng tôi luôn luôn lắng nghe các ý kiến khách hàng để giúp chúng tôi hoàn thiện hơn trong kinh tế thị trường hiện này.<br><b>3. Chấp nhận đơn hàng và giá cả</b><br>Chúng tôi có quyền tự chối hoặc hủy đơn hàng của bạn vì bất kỳ lý do gì, bất kỳ lúc nào. Chúng tôi có thể hỏi thêm về số điện thoại, địa chỉ hoặc một số thông tin khác trước khi nhận đơn hàng. Nếu mặt hàng nào hết thì nhân viên chúng tôi sẽ liên hệ đến quý khách hàng đổi hoặc hủy mặt hàng đó không giao. Sau khi được sự đồng ý của khách hàng thì xem như đơn hàng đã được chấp nhận. Chúng tôi cam kết sẽ cung cấp thông tin giá cả chính xác nhất cho người tiêu dùng. Tuy nhiên, đôi khi vẫn xảy ra việc sai xót về giá cả hay cập nhật thông tin bị nhầm. Nhân viên công ty chúng tôi sẽ liên hệ với khách hàng, nếu khách hàng đồng ý thì đơn hàng được chấp nhận. Trong trường hợp khách hàng không đồng ý thì xem như đơn hàng bị hủy và chúng tôi sẽ báo với khách hàng.<br><b>4. Quy định về bảo mật</b><br>Trang web của chúng tôi xem trọng việc bảo mật các thông tin đặt hàng của quý khách hàng. Sau khi chúng tôi nhận đơn hàng sẽ liên hệ với khách hàng để xác nhận lại đơn hàng. Sau khi khách hàng đồng ý thì xem như đơn hàng đã được chấp nhận và nhân viên chúng tôi sẽ giao hàng với quý khách hàng. Bạn không được sử dụng bất kỳ chương trình, công cụ hay hình thức nào khác để can thiệp vào hệ thống hay làm thay đổi cấu trúc dữ liệu. Trang web cũng nghiêm cấm việc phát tán, truyền bá hay cổ vũ cho bất kỳ hoạt động nào nhằm can thiệp, phá hoại hay xâm nhập vào dữ liệu của hệ thống. Cá nhân hay tổ chức vi phạm sẽ bị tước bỏ mọi quyền lợi cũng như sẽ bị truy tố trước phát luật nếu cần thiết. Mọi thông tin giao dịch sẽ được bảo mật nhưng trong trường hợp cơ quan pháp luật yêu cầu, chúng tôi sẽ buộc phải cung cấp những thông tin này cho các cơ quan pháp luật.<br><b>5. Hình thức thanh toán</b><br>Khách hàng chỉ thanh toán bằng tiền mặt khi nhân viên chúng tôi giao hàng. Quý khách hàng phải kiểm tra các mặt hàng, số lượng, chất lượng có như quý khách hàng đặt không. Sau khi khách hàng kiểm tra và đồng ý thì thanh toán tiền mặt cho nhân viên giao hàng. Trong trường hợp, nhân viên giao hàng không đúng với số lượng cũng như chất lượng thì quý khách hàng được quyền từ chối không nhận hàng và đồng nghĩa với việc không phải thanh toán cho nhân viên giao hàng của công ty chúng tôi.')
+                $('#confirm-teacher').html('Đăng ký')
+
+                //Bắt sự kiện khi nhấn xác nhận
+                $('#confirm-teacher').on('click', () => {
+                    event.preventDefault()
+                    getThongBao('success', 'Thành công', 'Đã đăng ký, chờ xét duyệt !')
+                })
+            }
+            else {
+                //Thay đổi thông tin trên popup
+                $('.teacher-rules').hide()
+                $('#check-teacher-title').html('Thiếu thông tin')
+                $('#check-teacher-content').html('Thông tin cá nhân của bạn chưa đầy đủ để đáp ứng yêu cầu đăng ký giáo viên. Vui lòng cập nhật đầy đủ thông tin và tiến hành đăng ký lại!')
+                $('#confirm-teacher').html('Cập nhật')
+
+                //Bắt sự kiện khi nhấn xác nhận
+                $('#confirm-teacher').on('click', () => {
+                    event.preventDefault()
+                    window.location.href = '/Profile/updateInfo';
+                })
+            }
+            //Hiển thị popup
+            $('.popup-wraper1').addClass('active');
+
+            //Bắt sự kiện khi nhấn hủy
+            $('#cancel-teacher').on('click', function () {
+                $('.popup-wraper1').removeClass('active');
+            })
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
+
+//Xử lý chấp nhận điều khoản khi nâng cấp giáo viên
+$('#accept-rules').on('change', () => {
+    if ($('#accept-rules').prop("checked") == true) {
+        $('#confirm-teacher').prop("disabled", false);
+    }
+    else {
+        $('#confirm-teacher').prop("disabled", true);
+    }
+})
