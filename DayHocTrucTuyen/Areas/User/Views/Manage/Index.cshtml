@@ -51,15 +51,34 @@
                             </div>
                         </div>
                         <div class="col-lg-9">
-                            <div class="central-meta">
-                                <div class="title-block">
-                                    <div class="row">
-                                        <div class="w-100 text-right">
-                                            <button class="custom-btn set-teacher">Đăng ký giáo viên</button>
+                            @if (Model.hasPheDuyet())
+                            {
+                                if (Model.disPheDuyet())
+                                {
+                                    <div class="alert alert-warning inline-block">
+                                        Yêu cầu nâng cấp lên giáo viên của bạn bị từ chối.
+                                        <button class="custom-btn view-reason">Xem chi tiết</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-info">
+                                        Yêu cầu nâng cấp lên giáo viên của bạn đang chờ được xét duyệt. Vui lòng đợi.
+                                    </div>
+                                }
+                            }
+                            @if(Model.MaLoai == "03" && !Model.hasPheDuyet())
+                            {
+                                <div class="central-meta">
+                                    <div class="title-block">
+                                        <div class="row">
+                                            <div class="w-100 text-right">
+                                                <button class="custom-btn set-teacher">Đăng ký giáo viên</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                             <div class="central-meta">
                                 <h5 class="f-title"><i class="fa fa-line-chart"></i>Statistics <span class="more-options"><i class="fa fa-ellipsis-h"></i></span></h5>
                                 <div class="insight-box">

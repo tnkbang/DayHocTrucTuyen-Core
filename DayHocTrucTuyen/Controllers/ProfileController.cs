@@ -100,6 +100,52 @@ namespace DayHocTrucTuyen.Controllers
             return Json(new { tt = true });
         }
 
+        //Đăng ký giáo viên
+        [HttpPost]
+        public IActionResult regisTeacher()
+        {
+            //Kiểm tra nếu tài khoản không phải là học sinh thì không được đăng ký làm giáo viên
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            if (user.MaLoai != "03") return Json(new { tt = false, mess = "Tài khoản của bạn không thể đăng làm giáo viên." });
+
+            //Kiểm tra nếu tài khoản đang chờ phê duyệt thì không thể tiếp tục đăng ký
+            var gv = db.PheDuyets.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            if (gv != null) return Json(new { tt = false, mess = "Bạn đã đăng ký và đang chờ phê duyệt." });
+
+            PheDuyet newPD = new PheDuyet();
+            newPD.MaNd = User.Claims.First().Value;
+            newPD.NgayDangKy = DateTime.Now;
+            newPD.TrangThai = true;
+
+            db.PheDuyets.Add(newPD);
+            db.SaveChanges();
+
+            return Json(new { tt = true, mess = "Yêu cầu của bạn đang chờ xét duyệt." });
+        }
+
+        //Lấy lý do bị từ chối phê duyệt
+        [HttpPost]
+        public IActionResult viewReason()
+        {
+            var pd = db.PheDuyets.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            if (pd == null) return Json(new { tt = false });
+
+            return Json(new { tt = true, mess = pd.GhiChu });
+        }
+
+        //Hủy yêu cầu lên giáo viên
+        [HttpPost]
+        public IActionResult cancelTeacher()
+        {
+            var pd = db.PheDuyets.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            if(pd != null)
+            {
+                db.PheDuyets.Remove(pd);
+                db.SaveChanges();
+            }
+            return Json(new { tt = true });
+        }
+
         //Hàm set xem trang
         public void setXemTrang(string nd, string nx)
         {

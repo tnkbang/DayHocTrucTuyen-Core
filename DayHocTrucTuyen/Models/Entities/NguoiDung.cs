@@ -242,5 +242,18 @@ namespace DayHocTrucTuyen.Models.Entities
                                     select u).ToList();
             return user.DistinctBy(x => x.MaNd).ToList();
         }
+        public bool hasPheDuyet()
+        {
+            var user = db.PheDuyets.FirstOrDefault(x => x.MaNd == this.MaNd);
+            if (user != null) return true;
+            return false;
+        }
+
+        public bool disPheDuyet()
+        {
+            var user = db.PheDuyets.FirstOrDefault(x => x.MaNd == this.MaNd);
+            if (user != null && !user.TrangThai) return true;
+            return false;
+        }
     }
 }
