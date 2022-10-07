@@ -48,6 +48,7 @@ namespace DayHocTrucTuyen.Models.Entities
         public string? BiDanh { get; set; }
 
         public virtual LoaiNd MaLoaiNavigation { get; set; } = null!;
+        public virtual PheDuyet PheDuyet { get; set; } = null!;
         public virtual TrangThaiNangCap TrangThaiNangCap { get; set; } = null!;
         public virtual ViNguoiDung ViNguoiDung { get; set; } = null!;
         public virtual ICollection<BaiDang> BaiDangs { get; set; }
@@ -207,7 +208,7 @@ namespace DayHocTrucTuyen.Models.Entities
             if (upgrade != null)
             {
                 var pak = db.GoiNangCaps.FirstOrDefault(x => x.MaGoi == upgrade.MaGoi);
-                if(upgrade.NgayDangKy.AddDays(pak.HieuLuc * 30) > DateTime.Now)
+                if (upgrade.NgayDangKy.AddDays(pak.HieuLuc * 30) > DateTime.Now)
                 {
                     return true;
                 }
@@ -218,7 +219,7 @@ namespace DayHocTrucTuyen.Models.Entities
         public double getSoDu()
         {
             var vi = db.ViNguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
-            if(vi != null)
+            if (vi != null)
             {
                 return vi.SoDu;
             }
