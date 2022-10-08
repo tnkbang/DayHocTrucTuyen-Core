@@ -146,6 +146,23 @@ namespace DayHocTrucTuyen.Controllers
             return Json(new { tt = true });
         }
 
+        //Xem trạng thái nâng cấp lên giáo viên
+        [HttpPost]
+        public IActionResult getStateTeacher()
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            var pd = db.PheDuyets.FirstOrDefault(x => x.MaNd == user.MaNd);
+
+            if(pd != null)
+            {
+                if (pd.TrangThai) return Json(new { mess = "waiting" });
+                else return Json(new { mess = "refuse" });
+            }
+            if (user.MaLoai == "03" && pd == null) return Json(new { mess = "none" });
+
+            return Json(new { mess = "not allow" });
+        }
+
         //Hàm set xem trang
         public void setXemTrang(string nd, string nx)
         {

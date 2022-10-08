@@ -2674,7 +2674,6 @@ $('#cancel-lock-user').on('click', function () {
 
 $('#confirm-lock-user').on('click', function () {
     event.preventDefault();
-    var elmLock = $(btnUserLock).find(">:first-child");
 
     $.ajax({
         url: '/Admin/User/LockUser',
@@ -2723,6 +2722,9 @@ $('.list-user-search').on('submit', () => {
     }
 })
 
+//Biến trạng thái điều khiển khi thực hiện đăng ký giáo viên
+var controlStateTeacher = '';
+
 //Xử lý nhấn đăng ký giáo viên
 $('.set-teacher').on('click', () => {
     $.ajax({
@@ -2741,6 +2743,9 @@ $('.set-teacher').on('click', () => {
                 $('#check-teacher-title').html('Đăng ký giáo viên')
                 $('#check-teacher-content').html('<b>ĐIỀU KHOẢN VÀ CHÍNH SÁCH</b><br>Cám ơn quý khách hàng đã sử dụng dịch vụ chúng tôi trong thời gian qua. Khi bạn đăng ký làm giáo viên của chúng tôi có nghĩa là bạn đã đồng ý với các điều khoản này. Trang web có quyền thay đổi, chỉnh sửa, thêm hoặc lược bỏ bất ký phần nào trong Quy định và điều kiện sử dụng vào bất cứ lúc nào. Các thay đổi có hiệu lực ngay khi được đăng trên trang web mà không cần thông báo trước. Và khi bạn tiếp tục sử dụng trang web, sau khi các thay đổi về quy định và điều kiện được đăng tải, có nghĩa là bạn chấp nhận với những thay đổi đó. Vui lòng kiểm tra thường xuyên để cập nhật những thay đổi mới của Công ty chúng tôi.<br><b>1. Hướng dẫn sử dụng Web</b><br>Khi vào trang web của chúng tôi, người sử dụng tối thiểu phải từ 18 tuổi trở lên hoặc truy cập dưới sự giám sát của Cha/Mẹ hay người giám hộ hợp pháp. Khi khách hàng muốn mua sản phẩm chúng tôi có thể ghi thông tin và gửi mail hoặc đặt hàng trực tuyến trên website. Sau khi thông tin đặt hàng được gửi chúng tôi thì nhân viên chúng tôi sẽ liên hệ lại khách hàng (từ thông tin khách hàng gửi). Sau khi thống nhất và được sự đồng ý của khách hàng, nhân viên giao hàng chúng tôi sẽ giao hàng và quý khách hàng kiểm tra. Nếu các mặt hàng như quý khách hàng đặt và đúng như giá bán thì quý khách hàng thanh toán tiền mặt và nhận hàng.<br><b>2. Ý kiến khách hàng</b><br>Tất cả các thông tin phản hồi hoặc phê bình từ quý khách hàng là những thông tin quý giá để giúp Công ty chúng tôi hoàn thiện hơn, chuyên nghiệp hơn trong giao dịch cũng như dịch vụ khách hàng. Chúng tôi luôn luôn lắng nghe các ý kiến khách hàng để giúp chúng tôi hoàn thiện hơn trong kinh tế thị trường hiện này.<br><b>3. Chấp nhận đơn hàng và giá cả</b><br>Chúng tôi có quyền tự chối hoặc hủy đơn hàng của bạn vì bất kỳ lý do gì, bất kỳ lúc nào. Chúng tôi có thể hỏi thêm về số điện thoại, địa chỉ hoặc một số thông tin khác trước khi nhận đơn hàng. Nếu mặt hàng nào hết thì nhân viên chúng tôi sẽ liên hệ đến quý khách hàng đổi hoặc hủy mặt hàng đó không giao. Sau khi được sự đồng ý của khách hàng thì xem như đơn hàng đã được chấp nhận. Chúng tôi cam kết sẽ cung cấp thông tin giá cả chính xác nhất cho người tiêu dùng. Tuy nhiên, đôi khi vẫn xảy ra việc sai xót về giá cả hay cập nhật thông tin bị nhầm. Nhân viên công ty chúng tôi sẽ liên hệ với khách hàng, nếu khách hàng đồng ý thì đơn hàng được chấp nhận. Trong trường hợp khách hàng không đồng ý thì xem như đơn hàng bị hủy và chúng tôi sẽ báo với khách hàng.<br><b>4. Quy định về bảo mật</b><br>Trang web của chúng tôi xem trọng việc bảo mật các thông tin đặt hàng của quý khách hàng. Sau khi chúng tôi nhận đơn hàng sẽ liên hệ với khách hàng để xác nhận lại đơn hàng. Sau khi khách hàng đồng ý thì xem như đơn hàng đã được chấp nhận và nhân viên chúng tôi sẽ giao hàng với quý khách hàng. Bạn không được sử dụng bất kỳ chương trình, công cụ hay hình thức nào khác để can thiệp vào hệ thống hay làm thay đổi cấu trúc dữ liệu. Trang web cũng nghiêm cấm việc phát tán, truyền bá hay cổ vũ cho bất kỳ hoạt động nào nhằm can thiệp, phá hoại hay xâm nhập vào dữ liệu của hệ thống. Cá nhân hay tổ chức vi phạm sẽ bị tước bỏ mọi quyền lợi cũng như sẽ bị truy tố trước phát luật nếu cần thiết. Mọi thông tin giao dịch sẽ được bảo mật nhưng trong trường hợp cơ quan pháp luật yêu cầu, chúng tôi sẽ buộc phải cung cấp những thông tin này cho các cơ quan pháp luật.<br><b>5. Hình thức thanh toán</b><br>Khách hàng chỉ thanh toán bằng tiền mặt khi nhân viên chúng tôi giao hàng. Quý khách hàng phải kiểm tra các mặt hàng, số lượng, chất lượng có như quý khách hàng đặt không. Sau khi khách hàng kiểm tra và đồng ý thì thanh toán tiền mặt cho nhân viên giao hàng. Trong trường hợp, nhân viên giao hàng không đúng với số lượng cũng như chất lượng thì quý khách hàng được quyền từ chối không nhận hàng và đồng nghĩa với việc không phải thanh toán cho nhân viên giao hàng của công ty chúng tôi.')
                 $('#confirm-teacher').html('Đăng ký')
+
+                //Cập nhật biến trạng thái
+                controlStateTeacher = 'register';
             }
             else {
                 //Thay đổi thông tin trên popup
@@ -2748,6 +2753,9 @@ $('.set-teacher').on('click', () => {
                 $('#check-teacher-title').html('Thiếu thông tin')
                 $('#check-teacher-content').html('Thông tin cá nhân của bạn chưa đầy đủ để đáp ứng yêu cầu đăng ký giáo viên. Vui lòng cập nhật đầy đủ thông tin và tiến hành đăng ký lại!')
                 $('#confirm-teacher').html('Cập nhật')
+
+                //Cập nhật biến trạng thái
+                controlStateTeacher = 'info';
             }
             //Hiển thị popup
             $('.popup-wraper1').addClass('active');
@@ -2761,14 +2769,16 @@ $('.set-teacher').on('click', () => {
 //Bắt sự kiện khi nhấn xác nhận trên popup đăng ký giáo viên
 $('#confirm-teacher').on('click', () => {
     event.preventDefault()
-    var text = $('#confirm-teacher').text()
-    if (text == 'Đăng ký') {
+    if (controlStateTeacher == 'register') {
+        controlStateTeacher = '';
         regisTeacher()
     }
-    if (text == 'Cập nhật') {
+    if (controlStateTeacher == 'info') {
+        controlStateTeacher = '';
         window.location.href = '/Profile/updateInfo';
     }
-    if (text == 'Hủy yêu cầu') {
+    if (controlStateTeacher == 'cancel') {
+        controlStateTeacher = '';
         cancelTeacher()
     }
 })
@@ -2796,7 +2806,7 @@ function regisTeacher() {
         success: function (data) {
             if (data.tt) {
                 getThongBao('success', 'Thành công', data.mess)
-                window.location.reload()
+                setStateTeacher();
             }
             else {
                 getThongBao('error', 'Lỗi', data.mess)
@@ -2822,6 +2832,9 @@ $('.view-reason').on('click', () => {
                 $('#check-teacher-content').html('Yêu cầu nâng cấp tài khoản lên giáo viên của bạn bị từ chối với lý do: <b>' + data.mess + '</b>')
                 $('#confirm-teacher').html('Hủy yêu cầu')
                 $('.popup-wraper1').addClass('active');
+
+                //Cập nhật biến trạng thái
+                controlStateTeacher = 'cancel';
             }
             else {
                 getThongBao('error', 'Lỗi', "Không tìm thấy thông tin!")
@@ -2841,12 +2854,37 @@ function cancelTeacher() {
         success: function (data) {
             if (data.tt) {
                 getThongBao('success', 'Thành công', "Bạn đã hủy yêu cầu nâng cấp giáo viên")
-                window.location.reload()
+                setStateTeacher()
             }
             $('.popup-wraper1').removeClass('active');
         },
         error: function () {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+}
+
+//Hàm xử lý dom khi thực hiện các yêu cầu nâng cấp giáo viên
+function setStateTeacher() {
+    $.ajax({
+        url: '/Profile/getStateTeacher',
+        type: 'POST',
+        success: function (data) {
+            if (data.mess == 'waiting') {
+                $('state-teacher').html('<div class="alert alert-info"> Yêu cầu nâng cấp lên giáo viên của bạn đang chờ được xét duyệt. Vui lòng đợi. </div>')
+            }
+            if (data.mess == 'refuse') {
+                $('state-teacher').html('<div class="alert alert-warning inline-block"> Yêu cầu nâng cấp lên giáo viên của bạn bị từ chối. <button class="custom-btn view-reason">Xem chi tiết</button> </div>')
+            }
+            if (data.mess == 'none') {
+                $('state-teacher').html('<div class="central-meta"> <div class="title-block"> <div class="row"> <div class="w-100 text-right"> <button class="custom-btn set-teacher">Đăng ký giáo viên</button> </div> </div> </div> </div>')
+            }
+            if (data.mess == 'not allow') {
+                $('state-teacher').hide()
+            }
+        },
+        error: function () {
+            window.location.reload()
         }
     })
 }
