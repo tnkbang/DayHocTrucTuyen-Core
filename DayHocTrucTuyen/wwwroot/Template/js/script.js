@@ -2725,13 +2725,13 @@ $('.list-user-search').on('submit', () => {
 //Biến trạng thái điều khiển khi thực hiện đăng ký giáo viên
 var controlStateTeacher = '';
 
-//Xử lý nhấn đăng ký giáo viên
-$('.set-teacher').on('click', () => {
+//Hàm xử lý nhấn đăng ký giáo viên
+function getRegisTeacher() {
     $.ajax({
         url: '/Profile/checkInfo',
         type: 'POST',
         success: function (data) {
-            if (data.tt) {
+            if (!data.tt) {
                 //Chỉnh sửa trạng thái popup hiển thị phù hợp khung nhìn
                 $('.popup').removeClass('direct-mesg')
                 $('#check-teacher-content').parent().addClass('custom-scroll')
@@ -2764,7 +2764,7 @@ $('.set-teacher').on('click', () => {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
         }
     })
-})
+}
 
 //Bắt sự kiện khi nhấn xác nhận trên popup đăng ký giáo viên
 $('#confirm-teacher').on('click', () => {
@@ -2871,16 +2871,16 @@ function setStateTeacher() {
         type: 'POST',
         success: function (data) {
             if (data.mess == 'waiting') {
-                $('state-teacher').html('<div class="alert alert-info"> Yêu cầu nâng cấp lên giáo viên của bạn đang chờ được xét duyệt. Vui lòng đợi. </div>')
+                $('.state-teacher').html('<div class="alert alert-info"> Yêu cầu nâng cấp lên giáo viên của bạn đang chờ được xét duyệt. Vui lòng đợi. </div>')
             }
             if (data.mess == 'refuse') {
-                $('state-teacher').html('<div class="alert alert-warning inline-block"> Yêu cầu nâng cấp lên giáo viên của bạn bị từ chối. <button class="custom-btn view-reason">Xem chi tiết</button> </div>')
+                $('.state-teacher').html('<div class="alert alert-warning inline-block"> Yêu cầu nâng cấp lên giáo viên của bạn bị từ chối. <button class="custom-btn view-reason">Xem chi tiết</button> </div>')
             }
             if (data.mess == 'none') {
-                $('state-teacher').html('<div class="central-meta"> <div class="title-block"> <div class="row"> <div class="w-100 text-right"> <button class="custom-btn set-teacher">Đăng ký giáo viên</button> </div> </div> </div> </div>')
+                $('.state-teacher').html('<div class="central-meta"> <div class="title-block"> <div class="row"> <div class="w-100 text-right"> <button class="custom-btn" onclick="getRegisTeacher()">Đăng ký giáo viên</button> </div> </div> </div> </div>')
             }
             if (data.mess == 'not allow') {
-                $('state-teacher').hide()
+                $('.state-teacher').hide()
             }
         },
         error: function () {
