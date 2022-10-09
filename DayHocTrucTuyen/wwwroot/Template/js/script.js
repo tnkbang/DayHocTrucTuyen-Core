@@ -285,7 +285,7 @@ jQuery(document).ready(function ($) {
 
     //------ scrollbar plugin
     if ($.isFunction($.fn.perfectScrollbar)) {
-        $('.dropdowns, .twiter-feed, .invition, .followers, .chatting-area, .peoples, #people-list, .chat-list > ul, .message-list, .chat-users, .left-menu, .sugestd-photo-caro, .popup.events, .related-tube-psts, .music-list, .more-songs, .media > ul, .conversations, .msg-pepl-list, .menu-slide, .frnds-stories, .modal-body .we-comet').perfectScrollbar();
+        $('.dropdowns, .twiter-feed, .invition, .followers, .chatting-area, .peoples, #people-list, .message-list, .chat-users, .left-menu, .sugestd-photo-caro, .popup.events, .related-tube-psts, .music-list, .more-songs, .media > ul, .conversations, .msg-pepl-list, .menu-slide, .frnds-stories, .modal-body .we-comet').perfectScrollbar();
     }
 
     /*--- socials menu scritp ---*/
@@ -2731,7 +2731,7 @@ function getRegisTeacher() {
         url: '/Profile/checkInfo',
         type: 'POST',
         success: function (data) {
-            if (!data.tt) {
+            if (data.tt) {
                 //Chỉnh sửa trạng thái popup hiển thị phù hợp khung nhìn
                 $('.popup').removeClass('direct-mesg')
                 $('#check-teacher-content').parent().addClass('custom-scroll')
