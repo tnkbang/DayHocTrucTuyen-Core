@@ -312,10 +312,9 @@
     <!--Chat-->
     <script src="~/Template/js/chat.js" asp-append-version="true"></script>
 
-    <!-- Xử lý tìm kiếm -->
+    <!-- Các section có trong view -->
+    @RenderSection("CustomSelectBox", required:false)
     @RenderSection("SearchRoom", required:false)
-
-    <!-- Thống kê -->
     @RenderSection("Statistics", required:false)
 </body>
 </html>

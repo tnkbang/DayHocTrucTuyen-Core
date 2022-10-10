@@ -448,20 +448,22 @@
     </div>
 </div><!-- Thêm mới lớp học -->
 
-<script>
-    //Xử lý lấy tên thẻ vào select box
-    VirtualSelect.init({
-        ele: '#room-create-tag',
-        multiple: true,
-        disableSelectAll: true,
-        searchPlaceholderText: 'Tìm kiếm...',
-        noOptionsText: 'Không có dữ liệu',
-        noSearchResultsText: 'Không có kết quả hợp lệ',
-        showValueAsTags: true,
-        clearButtonText: 'Xóa',
-        optionsCount: 5
-    });
-</script>
+@section CustomSelectBox{
+    <script>
+        //Xử lý lấy tên thẻ vào select box
+        VirtualSelect.init({
+            ele: '#room-create-tag',
+            multiple: true,
+            disableSelectAll: true,
+            searchPlaceholderText: 'Tìm kiếm...',
+            noOptionsText: 'Không có dữ liệu',
+            noSearchResultsText: 'Không có kết quả hợp lệ',
+            showValueAsTags: true,
+            clearButtonText: 'Xóa',
+            optionsCount: 5
+        });
+    </script>
+}
 
 @section SearchRoom{
     <!-- Xử lý đề xuất tìm kiếm lớp học-->

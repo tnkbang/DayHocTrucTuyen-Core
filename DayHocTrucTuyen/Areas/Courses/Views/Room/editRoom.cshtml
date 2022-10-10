@@ -116,17 +116,20 @@
         </div>
     </div>
 </section><!-- content -->
-<script>
-    //Xử lý lấy tên thẻ vào select box
-    VirtualSelect.init({
-        ele: '#room-edit-tag',
-        multiple: true,
-        disableSelectAll: true,
-        searchPlaceholderText: 'Tìm kiếm...',
-        noOptionsText: 'Không có dữ liệu',
-        noSearchResultsText: 'Không có kết quả hợp lệ',
-        showValueAsTags: true,
-        clearButtonText: 'Xóa',
-        optionsCount: 5
-    });
-</script>
+
+@section CustomSelectBox{
+    <script>
+        //Xử lý lấy tên thẻ vào select box
+        VirtualSelect.init({
+            ele: '#room-edit-tag',
+            multiple: true,
+            disableSelectAll: true,
+            searchPlaceholderText: 'Tìm kiếm...',
+            noOptionsText: 'Không có dữ liệu',
+            noSearchResultsText: 'Không có kết quả hợp lệ',
+            showValueAsTags: true,
+            clearButtonText: 'Xóa',
+            optionsCount: 5
+        });
+    </script>
+}
