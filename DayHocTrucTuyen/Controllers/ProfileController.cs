@@ -51,13 +51,13 @@ namespace DayHocTrucTuyen.Controllers
 
         //Set cập nhật thông tin
         [HttpPost]
-        public async Task<IActionResult> setUpdate(string hl, string ten, DateTime ns, int gt, string sdt, string mt, string bd, IFormFile avt)
+        public async Task<IActionResult> setUpdate(string hl, string ten, string ns, int gt, string sdt, string mt, string bd, IFormFile avt)
         {
             var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
 
             user.HoLot = hl;
             user.Ten = ten;
-            user.NgaySinh = ns;
+            user.NgaySinh = new DateTime(int.Parse(ns.Substring(0, 4)), int.Parse(ns.Substring(5, 2)), int.Parse(ns.Substring(8, 2)));
             user.GioiTinh = gt;
             user.Sdt = sdt;
             user.MoTa = mt;

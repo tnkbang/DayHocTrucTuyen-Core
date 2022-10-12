@@ -2888,3 +2888,37 @@ function setStateTeacher() {
         }
     })
 }
+
+//Cập nhật thông tin người dùng
+$('#frm-update-user').on('submit', () => {
+    event.preventDefault()
+    var text = document.getElementsByClassName('inp-update-user');
+    var form_data = new FormData();
+
+    form_data.append('hl', text[0].value);
+    form_data.append('ten', text[1].value);
+    form_data.append('ns', text[2].value);
+    form_data.append('gt', text[3].value);
+    form_data.append('sdt', text[4].value);
+    form_data.append('bd', text[5].value);
+    form_data.append('mt', text[6].value);
+
+    $.ajax({
+        url: '/Profile/setUpdate',
+        type: 'POST',
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+            }
+            else {
+                window.location.reload()
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
