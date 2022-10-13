@@ -57,7 +57,7 @@ namespace DayHocTrucTuyen.Controllers
 
             user.HoLot = hl;
             user.Ten = ten;
-            user.NgaySinh = new DateTime(int.Parse(ns.Substring(0, 4)), int.Parse(ns.Substring(5, 2)), int.Parse(ns.Substring(8, 2)));
+            user.NgaySinh = DateTime.Parse(ns);
             user.GioiTinh = gt;
             user.Sdt = sdt;
             user.MoTa = mt;
