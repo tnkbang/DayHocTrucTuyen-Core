@@ -3,7 +3,7 @@
     ViewBag.Title = Model.TenLop;
     ViewBag.Main = Model.TenLop;
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
-    NguoiDung uLogin = new NguoiDung(User.Claims.First().Value);
+    NguoiDung uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
     var roomImg = "";
     if (Model.ImgBia == null) { roomImg = "cover-default.jpg"; }
     else { roomImg = Model.ImgBia; }

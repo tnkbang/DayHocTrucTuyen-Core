@@ -17,12 +17,6 @@ namespace DayHocTrucTuyen.Models.Entities
 
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
-        public ThongBao() { }
-        public ThongBao(string ma_ND)
-        {
-            this.MaNd = ma_ND;
-        }
-
         public string setMa(string maND)
         {
             var tb = db.ThongBaos.Where(x => x.MaNd == maND);

@@ -80,8 +80,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
                 setXemTinNhan(tn.NguoiGui, tn.NguoiNhan);
             }
 
-            NguoiDung nguoiDung = new NguoiDung();
-            nguoiDung.MaNd = User.Claims.First().Value;
+            NguoiDung nguoiDung = new NguoiDung().getNguoiDung(User.Claims.First().Value);
 
             return Json(new { tt = true, Img_Avt = nguoiDung.getImageAvt(), Noi_Dung = tn.NoiDung, Thoi_Gian = tn.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss") });
         }

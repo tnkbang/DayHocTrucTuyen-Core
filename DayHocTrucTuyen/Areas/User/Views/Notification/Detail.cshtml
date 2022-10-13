@@ -5,8 +5,7 @@
     ViewBag.Title = "Thông báo";
     ViewBag.Main = "Thông báo";
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
-    NguoiDung uLogin = new NguoiDung();
-    uLogin.MaNd = User.Claims.First().Value;
+    NguoiDung uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
 }
 
 <section>

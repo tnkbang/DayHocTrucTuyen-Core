@@ -3,8 +3,7 @@
     ViewBag.Title = Model.TenPhong;
     ViewBag.Main = Model.TenPhong;
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
-    NguoiDung uLogin = new NguoiDung();
-    uLogin.MaNd = User.Claims.First().Value;
+    NguoiDung uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
 }
 @model PhongThi
 @using DayHocTrucTuyen.Models.Entities

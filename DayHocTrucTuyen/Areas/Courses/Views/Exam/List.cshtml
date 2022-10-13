@@ -3,8 +3,7 @@
     ViewBag.Main = "Quản lý bài thi";
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
     PhongThi phongThi = new PhongThi();
-    NguoiDung uLogin = new NguoiDung();
-    uLogin.MaNd = User.Claims.First().Value;
+    NguoiDung uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
     List<PhongThi> examQuest = phongThi.searchPhongThi(uLogin.MaNd, ViewBag.Search);
 }
 @using DayHocTrucTuyen.Models

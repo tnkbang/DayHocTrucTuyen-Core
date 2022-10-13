@@ -73,14 +73,15 @@ namespace DayHocTrucTuyen.Models.Entities
 
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
-        public NguoiDung(string ma_ND)
+        public NguoiDung getNguoiDung(string ma)
         {
-            this.MaNd = ma_ND;
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == ma);
+            return nd;
         }
 
         public string setMaUser()
         {
-            NguoiDung nd = db.NguoiDungs.OrderByDescending(x => x.MaNd).FirstOrDefault();
+            var nd = db.NguoiDungs.OrderByDescending(x => x.MaNd).FirstOrDefault();
             if (nd == null)
             {
                 return "U000001";
@@ -109,9 +110,8 @@ namespace DayHocTrucTuyen.Models.Entities
         }
         public string getImageAvt()
         {
-            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
-            if (String.IsNullOrEmpty(nd.ImgAvt)) return "/Content/Img/userAvt/avt-default.png";
-            return "/Content/Img/userAvt/" + nd.ImgAvt;
+            if (String.IsNullOrEmpty(this.ImgAvt)) return "/Content/Img/userAvt/avt-default.png";
+            return "/Content/Img/userAvt/" + this.ImgAvt;
         }
 
         public string getTenLoai()
@@ -124,31 +124,36 @@ namespace DayHocTrucTuyen.Models.Entities
 
         public string getFullName()
         {
-            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
-            return user.HoLot + " " + user.Ten;
+            return this.HoLot + " " + this.Ten;
         }
 
         public string getName()
         {
-            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
-            return user.Ten;
+            return this.Ten;
         }
 
         public string getImageBG()
         {
-            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
-            if (nd.ImgBg == null) return "/Content/Img/userBG/bg-default.jpg";
-            if (nd.ImgAvt.ToLower().StartsWith("http")) return nd.ImgBg;
-            return "/Content/Img/userBG/" + nd.ImgBg;
+            if (this.ImgBg == null) return "/Content/Img/userBG/bg-default.jpg";
+            if (this.ImgBg.ToLower().StartsWith("http")) return this.ImgBg;
+            return "/Content/Img/userBG/" + this.ImgBg;
         }
 
-        public int getTuoi(DateTime birthDate)
+        public int getTuoi()
         {
             DateTime n = DateTime.Now;
+            DateTime birthDate = this.NgaySinh ?? DateTime.Now;
             int age = n.Year - birthDate.Year;
             if (n.Month < birthDate.Month || (n.Month == birthDate.Month && n.Day < birthDate.Day))
                 age--;
             return age;
+        }
+        public string getGioiTinh()
+        {
+            if (this.GioiTinh == 1) return "Nam";
+            if (this.GioiTinh == 2) return "Nữ";
+            if (this.GioiTinh == 3) return "Khác";
+            return "Chưa chọn giới tính";
         }
         public int getYeuThich()
         {

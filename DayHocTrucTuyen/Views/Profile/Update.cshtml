@@ -1,7 +1,6 @@
 ﻿@model NguoiDung
 @using DayHocTrucTuyen.Models.Entities
 @{
-    NguoiDung uLogin = new NguoiDung(User.Claims.First().Value);
     ViewBag.Title = "Cập nhật thông tin";
     ViewBag.Main = "Hồ sơ: " + Model.getFullName();
     Layout = "~/Views/Shared/_LayoutArea.cshtml";

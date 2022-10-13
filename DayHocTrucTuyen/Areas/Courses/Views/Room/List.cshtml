@@ -3,7 +3,7 @@
     ViewBag.Title = "Danh sách lớp học";
     ViewBag.Main = "Danh sách lớp học";
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
-    NguoiDung uLogin = new NguoiDung(User.Claims.First().Value);
+    NguoiDung uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
     LopHoc lopHoc = new LopHoc();
     List<LopHoc> roomQuest = lopHoc.searchLopHoc(uLogin.MaNd, ViewBag.Search);
 }

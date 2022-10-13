@@ -121,9 +121,8 @@ namespace DayHocTrucTuyen.Models.Entities
 
         public bool traLoiDung(string maND, int lanthu)
         {
-            var cauhoi = db.CauHoiThis.FirstOrDefault(x => x.Stt == this.Stt && x.MaPhong == this.MaPhong);
             var traloi = db.CauTraLois.FirstOrDefault(x => x.Stt == this.Stt && x.MaPhong == this.MaPhong && x.MaNd == maND && x.LanThu == lanthu);
-            if (traloi != null && traloi.DapAn.Equals(cauhoi.LoiGiai)) return true;
+            if (traloi != null && traloi.DapAn.Equals(this.LoiGiai)) return true;
 
             return false;
         }

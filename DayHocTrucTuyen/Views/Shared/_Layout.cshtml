@@ -1,7 +1,12 @@
 ﻿@using DayHocTrucTuyen.Models
+@using DayHocTrucTuyen.Models.Entities
 @{
     Layout = null;
-    var UserLogin = User.Claims.ToList();
+    NguoiDung uLogin = new NguoiDung();
+    if (User.Identity.IsAuthenticated)
+    {
+        uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
+    }
 }
 
 <!DOCTYPE html>
@@ -89,18 +94,11 @@
                 {
                     <div class="dropdown">
                         <a class="btn get-started-a dropdown-toggle" id="dropdownUser">
-                            Xin chào, @UserLogin[3].Value
+                            Xin chào, @uLogin.Ten
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                @if (UserLogin[1].Equals("User"))
-                                {
-                                    <a href="~/Default/Education" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
-                                }
-                                else
-                                {
-                                    <a href="~/User/Manage/Index" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
-                                }
+                                <a href="~/User/Manage/Index" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
                                 <button type="button" id="logoutAccount" class="dropdown-item text-danger" onclick="dangxuat()"><i class="bi bi-power"> Đăng xuất</i></button>
                             </li>
                         </ul>

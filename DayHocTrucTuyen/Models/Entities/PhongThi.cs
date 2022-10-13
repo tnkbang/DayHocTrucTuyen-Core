@@ -92,12 +92,11 @@ namespace DayHocTrucTuyen.Models.Entities
         }
         public int getDiemThi(string maND, int lanthu)
         {
-            var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == this.MaPhong);
             int diem = 0;
-            for (int i = 1; i <= pt.getSLCauHoi(); i++)
+            for (int i = 1; i <= this.getSLCauHoi(); i++)
             {
-                var cauhoi = db.CauHoiThis.FirstOrDefault(x => x.Stt == i && x.MaPhong == pt.MaPhong);
-                var traloi = db.CauTraLois.FirstOrDefault(x => x.Stt == i && x.MaPhong == pt.MaPhong && x.MaNd == maND && x.LanThu == lanthu);
+                var cauhoi = db.CauHoiThis.FirstOrDefault(x => x.Stt == i && x.MaPhong == this.MaPhong);
+                var traloi = db.CauTraLois.FirstOrDefault(x => x.Stt == i && x.MaPhong == this.MaPhong && x.MaNd == maND && x.LanThu == lanthu);
                 if (traloi != null && traloi.DapAn.Equals(cauhoi.LoiGiai))
                 {
                     diem++;

@@ -61,20 +61,18 @@ namespace DayHocTrucTuyen.Models.Entities
             {
                 ma = randomString();
                 temp = db.LopHocs.FirstOrDefault(x => x.MaLop == ma);
-            } while (temp != null);
+            } while (temp.MaNd != null);
             return ma;
         }
         public string getImage()
         {
-            var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == this.MaLop);
-            if (lop.ImgBia == null) return "/Content/Img/roomCover/cover-default.jpg";
-            return "/Content/Img/roomCover/" + lop.ImgBia;
+            if (this.ImgBia == null) return "/Content/Img/roomCover/cover-default.jpg";
+            return "/Content/Img/roomCover/" + this.ImgBia;
         }
 
         public NguoiDung getOwner()
         {
-            LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == this.MaLop);
-            NguoiDung temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == room.MaNd);
+            NguoiDung temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
             NguoiDung user = new NguoiDung();
 
             user.MaNd = temp.MaNd;
@@ -138,12 +136,6 @@ namespace DayHocTrucTuyen.Models.Entities
             if (tags != null) return true;
             return false;
         }
-        //public string randomColorTag()
-        //{
-        //    string[] color = { "", "blu", "rad" };
-        //    Random rand = new Random();
-        //    return color[rand.Next(color.Length)];
-        //}
         public List<NguoiDung> listMembers()
         {
             var mem = from n in db.NguoiDungs

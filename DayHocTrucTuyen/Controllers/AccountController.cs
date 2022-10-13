@@ -55,7 +55,6 @@ namespace DayHocTrucTuyen.Controllers
                 var claims = new List<Claim>() {
                         new Claim("MaNd", user.MaNd),
                         new Claim("LoaiNd", user.MaLoai),
-                        new Claim("TenLoai", user.MaLoai.Equals("01") ? "Admin" : "User"),
                         new Claim("Ten", user.Ten)
                     };
 

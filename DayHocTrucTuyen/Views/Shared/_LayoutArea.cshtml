@@ -3,8 +3,9 @@
     Layout = null;
 
     var maUser = User.Claims.First().Value;
-    NguoiDung userAccount = new NguoiDung(maUser);
-    ThongBao thongbao = new ThongBao(maUser);
+    NguoiDung userAccount = new NguoiDung().getNguoiDung(maUser);
+    ThongBao thongbao = new ThongBao();
+    thongbao.MaNd = maUser;
     TinNhan tinnhan = new TinNhan();
 }
 @using DayHocTrucTuyen.Models

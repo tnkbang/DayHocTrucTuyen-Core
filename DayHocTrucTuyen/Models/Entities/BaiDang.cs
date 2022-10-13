@@ -42,8 +42,7 @@ namespace DayHocTrucTuyen.Models.Entities
         }
         public NguoiDung getOwner()
         {
-            BaiDang post = db.BaiDangs.FirstOrDefault(x => x.MaBai == this.MaBai);
-            NguoiDung temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == post.MaNd);
+            NguoiDung temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
             NguoiDung user = new NguoiDung();
 
             user.MaNd = temp.MaNd;

@@ -2,7 +2,7 @@
 @model NguoiDung
 @using DayHocTrucTuyen.Models.Entities
 @{
-    NguoiDung uLogin = new NguoiDung(User.Claims.First().Value);
+    NguoiDung uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
     ViewBag.Title = "Thông tin của " + Model.Ten;
     ViewBag.Main = "Hồ sơ: " + Model.getFullName();
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
@@ -152,7 +152,7 @@
                                         }
                                         else
                                         {
-                                            <p>@Model.getTuoi(DateTime.Parse(Model.NgaySinh.ToString()))</p>
+                                            <p>@Model.getTuoi()</p>
                                         }
                                     </li>
                                     <li>

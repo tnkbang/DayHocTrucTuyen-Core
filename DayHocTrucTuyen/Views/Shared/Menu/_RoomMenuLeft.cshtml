@@ -2,7 +2,7 @@
 @model LopHoc
 
 @{
-    NguoiDung uLogin = new NguoiDung(User.Claims.First().Value);
+    NguoiDung uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
 }
 
 <div class="col-lg-3">
