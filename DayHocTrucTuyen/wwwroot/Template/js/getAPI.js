@@ -80,7 +80,14 @@ function getUserInfo() {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    window.location.href = $('#urlreturnLogin').val();
+                    if (data.tt) {
+                        window.location.href = $('#urlreturnLogin').val();
+                    }
+                    else {
+                        document.getElementById('erroLogin').innerHTML = data.mess;
+                        $('#erroLogin').show('slow');
+                        $('#erroLogin').delay(3000).hide('slow');
+                    }
                 },
                 error: function () {
                     getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')

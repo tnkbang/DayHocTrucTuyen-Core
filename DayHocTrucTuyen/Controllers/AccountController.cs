@@ -35,8 +35,13 @@ namespace DayHocTrucTuyen.Controllers
         }
 
         //Xác thực đăng nhập
-        public async Task<bool> setLogin(string email, string pass, bool re, bool useLink)
+        public async Task<int> setLogin(string email, string pass, bool re, bool useLink)
         {
+            //Trạng thái của return:
+            // 0 - Email hoặc mật khẩu không chính xác
+            // 1 - Tài khoản bị khóa
+            // 2 - Đăng nhập thành công
+
             NguoiDung temp = new NguoiDung();
             NguoiDung user = new NguoiDung();
 
@@ -51,6 +56,10 @@ namespace DayHocTrucTuyen.Controllers
             
             if (user != null)
             {
+                if (!user.TrangThai)
+                {
+                    return 1;
+                }
                 //Tạo list lưu chủ thể đăng nhập
                 var claims = new List<Claim>() {
                         new Claim("MaNd", user.MaNd),
@@ -68,10 +77,10 @@ namespace DayHocTrucTuyen.Controllers
                     IsPersistent = re
                 });
 
-                return true;
+                return 2;
             }
 
-            return false;
+            return 0;
         }
 
         //Gọi đăng nhập
@@ -79,9 +88,13 @@ namespace DayHocTrucTuyen.Controllers
         public async Task<IActionResult> getLogin(string email, string pass, bool re)
         {
             var login = await setLogin(email, pass, re, false);
-            if (login)
+            if (login == 2)
             {
                 return Json(new { tt = true });
+            }
+            if(login == 1)
+            {
+                return Json(new { tt = false, mess = "Tài khoản của bạn bị khóa !" });
             }
             return Json(new { tt = false, mess = "Email hoặc mật khẩu không chính xác !" });
         }
@@ -144,7 +157,11 @@ namespace DayHocTrucTuyen.Controllers
 
                 return Json(new { tt = true, mess = "Đăng nhập thành công !" });
             }
-            await setLogin(email, "", false, true);
+            var login = await setLogin(email, "", false, true);
+            if (login == 1)
+            {
+                return Json(new { tt = false, mess = "Tài khoản của bạn bị khóa !" });
+            }
             return Json(new { tt = true, mess = "Đăng nhập thành công !" });
         }
 
