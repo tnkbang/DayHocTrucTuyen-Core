@@ -71,34 +71,29 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
-.back-to-top {
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
-    right: 15px;
-    bottom: 15px;
-    z-index: 996;
-    background: #52c3ff;
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-    transition: all 0.4s;
+@font-face {
+    font-family: themify;
+    src: url(../fonts/themify9f24.eot?-fvbane);
+    src: url(../fonts/themifyd41d.eot?#iefix-fvbane) format('embedded-opentype'),url(../fonts/themify9f24.woff?-fvbane) format('woff'),url(../fonts/themify9f24.ttf?-fvbane) format('truetype'),url(../fonts/themify9f24.svg?-fvbane#themify) format('svg');
+    font-weight: 400;
+    font-style: normal
 }
 
-    .back-to-top i {
-        font-size: 28px;
-        color: #fff;
-        line-height: 0;
-        transform: rotate(-15deg);
-    }
+#topcontrol {
+    border-radius: 100%;
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    transform: rotate(-15deg);
+    transition: all 0.2s linear 0s;
+    width: 40px;
+    z-index: 99;
+}
 
-        .back-to-top i:hover {
-            transform: rotate(0);
-        }
-
-    .back-to-top.active {
-        visibility: visible;
-        opacity: 1;
+    #topcontrol:hover {
+        transform: rotate(0);
     }
 
 /*--------------------------------------------------------------

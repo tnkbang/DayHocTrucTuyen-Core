@@ -45,20 +45,6 @@ $(window).load(function () {
     }
 
     /**
-     * Back to top button
-     */
-    let backtotop = select('.back-to-top')
-    $(function () {
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 100) backtotop.classList.add('active')
-            else backtotop.classList.remove('active')
-        });
-        $(".back-to-top").click(function () {
-            $("body,html").animate({ scrollTop: 0 }, 'slow');
-        });
-    });
-
-    /**
      * Mobile nav toggle
      */
     on('click', '.mobile-nav-toggle', function (e) {
