@@ -64,6 +64,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             newLop.MaNd = maUser;
             newLop.NgayTao = DateTime.Now;
             newLop.TenLop = tl;
+            newLop.GiaTien = 0;
             newLop.TrangThai = true;
 
             if (img != null)
