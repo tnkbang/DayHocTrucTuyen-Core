@@ -1697,7 +1697,7 @@ textarea {
     border-bottom: 0;
 }
 
-form button {
+form button, button.btn-popup {
     border: medium none;
     border-radius: 30px;
     color: #fff;
@@ -1706,6 +1706,30 @@ form button {
     font-weight: 500;
     padding: 6px 25px;
     transition: all 0.2s linear 0s;
+}
+
+    form button:disabled, .btn-popup:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+        form button:disabled:hover, .btn-popup:disabled:hover {
+            background: #fa6342;
+        }
+
+button.btn-popup {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+    .btn-popup.is-cancel {
+        box-shadow: none;
+        float: right;
+        background: #888da8;
+    }
+
+button.main-color {
+    background: #fa6342;
 }
 
 .new-postbox .post-btn {
@@ -9861,12 +9885,12 @@ input[type="checkbox"]:checked + label {
     background: #888da8;
 }
 
-    .main-btn.cancel:hover {
-        background: #613fe5;
+    .main-btn.cancel:hover, .btn-popup.is-cancel:hover {
+        background: #5b6391;
     }
 
-.main-btn:hover {
-    background: #613fe5;
+.main-btn:hover, .custom-btn:hover, .btn-popup:hover {
+    background: #e82d05;
 }
 
 .main-btn2:hover {
@@ -20939,10 +20963,6 @@ footer {
     line-height: 13px;
     padding: 10px 26px;
     text-align: right
-}
-
-.custom-btn:hover{
-    background: #613fe5;
 }
 
 /* custom scoll */
