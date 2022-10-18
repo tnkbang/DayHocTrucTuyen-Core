@@ -38,6 +38,9 @@
     
     <!-- Gợi ý và tự động điền cho form-->
     <link rel="stylesheet" href="~/Template/css/search-room.css" asp-append-version="true" />
+
+    <!-- style nhận về từ các cshtlm con -->
+    @RenderSection("ChildStyle", required:false)
 </head>
 <body>
     <!-- Loading animation -->
@@ -317,5 +320,6 @@
     @RenderSection("CustomSelectBox", required:false)
     @RenderSection("SearchRoom", required:false)
     @RenderSection("Statistics", required:false)
+    @RenderSection("ChildScript", required:false)
 </body>
 </html>

@@ -13,46 +13,107 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
-        public async Task<IActionResult> List(string? q, string? l, int? p, int? s)
+        public IActionResult List()
         {
-            //Người dùng dưới vai trò admin có role là 01 nhưng không được liệt kê trong danh sách này
-            var mems = db.NguoiDungs.Where(x => x.MaLoai != "01");
-
-            //Lọc người dùng theo các tiêu chí họ tên, email, mã,...
-            if (!String.IsNullOrEmpty(q))
-            {
-                mems = mems.Where(s => string.Concat(s.HoLot, " ", s.Ten).Contains(q) || s.MaNd.Contains(q) || s.Email.Contains(q));
-                ViewBag.Search = q;
-            }
-
-            //Select trả về khác rỗng và khác 00 (00 là trường hợp mặc định, là hiển thị tất cả)
-            if (!String.IsNullOrEmpty(l) && l != "00")
-            {
-                if (l == "01") mems = mems.Where(s => s.MaLoai == "02");
-                if (l == "02") mems = mems.Where(s => s.MaLoai == "03");
-                if (l == "03") mems = mems.OrderByDescending(s => s.NgayTao);
-                if (l == "04") mems = mems.OrderBy(s => s.Ten);
-
-                ViewBag.Loai = l ?? "00";
-            }
-            //Ngược lại sắp xếp mặc định theo ngày tạo
-            else
-            {
-                mems = mems.OrderByDescending(x => x.NgayTao);
-            }
-
             //ViewBag thể hiện trang đang được hiển thị trên layout
             ViewBag.UserList = "active";
 
-            //Số lượng người dùng được trả về trên một trang
-            int pageSize = s ?? 5;
+            return View();
+        }
+        [HttpGet]
+        public IActionResult getList(string? search, string? sort, string? order, int? offset, int? limit)
+        {
+            var lst = db.NguoiDungs.Where(x => x.MaLoai != "01");
 
-            //Chờ đợi xử lý phân trang rồi mới trả về view
+            //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, họ tên, email,....
+            if (!string.IsNullOrEmpty(search))
+            {
+                lst = db.NguoiDungs.Where(
+                                s => string.Concat(s.HoLot, " ", s.Ten).Contains(search) 
+                                || s.MaNd.Contains(search) 
+                                || s.Email.Contains(search));
+            }
+
+            //Xử lý sắp xếp
+            if (!string.IsNullOrEmpty(sort) && !string.IsNullOrEmpty(order))
+            {
+                switch (sort)
+                {
+                    case "maNd":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.MaNd);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.MaNd);
+                        }
+                        break;
+                    case "hoTen":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.Ten).ThenBy(x => x.HoLot);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.Ten).ThenByDescending(x => x.HoLot);
+                        }
+                        break;
+                    case "email":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.Email);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.Email);
+                        }
+                        break;
+                    case "ngayTao":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.NgayTao);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.NgayTao);
+                        }
+                        break;
+                    case "trangThai":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.TrangThai);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.TrangThai);
+                        }
+                        break;
+                }
+            }
+
+            List<dynamic> lstResult = new List<dynamic>();
+            foreach (var item in lst.ToList())
+            {
+                var temp = new
+                {
+                    maNd = item.MaNd,
+                    imgAvt = item.getImageAvt(),
+                    hoTen = item.HoLot + " " + item.Ten,
+                    email = item.Email,
+                    ngayTao = item.NgayTao.ToString("g"),
+                    trangThai = item.TrangThai
+                };
+                lstResult.Add(temp);
+            }
+
             //Các tham số của phân trang như sau:
-            //      nd.AsNoTracking() là danh sách người dùng chỉ xem
-            //      p là trang muốn hiển thị, ở đây nếu không nhập thì ngầm hiểu trang hiển thị là 1 tức là trang đầu
-            //      pageSize là số số lượng người hiển thị trên trang
-            return View(await PaginatedList<NguoiDung>.CreateAsync(mems.AsNoTracking(), p ?? 1, pageSize));
+            //      đầu tiên là danh sách truyền vào phân trang
+            //      tham số thứ 2 là vị trí phân trang
+            //      tham số cuối là số lượng trang
+            var result = PaginatedList<dynamic>.CreateAsync(lstResult, offset ?? 0, limit ?? 10);
+
+            return Json(new { total = lst.ToList().Count, totalNotFiltered = lst.ToList().Count, rows = result });
         }
 
         //Khóa hoặc mở khóa người dùng

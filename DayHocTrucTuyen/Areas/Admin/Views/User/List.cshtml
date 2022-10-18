@@ -3,129 +3,39 @@
     ViewBag.Main = "Quản lý người dùng";
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
 }
-@addTagHelper *,LazZiya.TagHelpers
-@using DayHocTrucTuyen.Areas.Admin.Models
-@using DayHocTrucTuyen.Models.Entities
-@model PaginatedList<NguoiDung>
 
 <section>
     <div class="gap2 gray-bg">
         <div class="container-fluid">
             <div class="row merged20">
                 <div class="col-lg-9">
-                    <!-- Tiêu đề và điều hướng -->
-                    <div class="forum-warper">
-                        <div class="central-meta">
-                            <div class="title-block">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="align-left">
-                                            @if (String.IsNullOrEmpty(@ViewBag.Search))
-                                            {
-                                                <h5>Danh sách người dùng</h5>
-                                            }
-                                            else
-                                            {
-                                                <h5>Tìm kiếm: "@ViewBag.Search"</h5>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="row merged20">
-                                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                                <form method="post" class="list-user-search">
-                                                    <input class="inp-list-user-search" type="text" value="@ViewBag.Search" placeholder="Tìm kiếm người dùng...">
-                                                    <button type="submit"><i class="fa fa-search"></i></button>
-                                                </form>
-                                            </div>
-                                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                                <div class="select-options">
-                                                    <select class="select user-role">
-                                                        @{
-                                                            string[] noidung = new string[] {"Sắp xếp theo", "Giáo viên", "Học sinh", "Ngày tạo", "A đến Z"};
-                                                            for (var i = 0; i < noidung.Length; i++)
-                                                            {
-                                                                var temp = "0" + i;
-                                                                if(String.Concat("0", i.ToString()).Equals(ViewBag.Loai))
-                                                                {
-                                                                    <option selected value="@temp">@noidung[i]</option>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <option value="@temp">@noidung[i]</option>
-                                                                }
-                                                            }
-                                                        }
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Danh sách -->
                     <div class="central-meta">
+                        <div id="toolbar-control"></div>
                         <div class="custom-list">
-                            <table class="table table-responsive w-100 d-block d-md-table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mã</th>
-                                        <th scope="col">Ảnh</th>
-                                        <th scope="col">Họ Tên</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Ngày tạo</th>
-                                        <th scope="col">Trạng thái</th>
-                                        <th scope="col">Thao tác</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach(var user in Model)
-                                    {
-                                        <tr>
-                                            <td>@user.MaNd</td>
-                                            <td><img src="@user.getImageAvt()" alt="@user.HoLot @user.Ten" /></td>
-                                            <td>@user.getFullName()</td>
-                                            <td>@user.Email</td>
-                                            <td>@user.NgayTao.ToString("dd/MM/yyyy")</td>
-                                            <td>
-                                                @{
-                                                    var tt = user.TrangThai ? "Hoạt động" : "Bị khóa";
-                                                }@tt
-                                            </td>
-                                            <td>
-                                                <button data-toggle="tooltip" title="Xem" class="pd-setting-ed" onclick="window.location.href='/Profile/Info?id=@user.MaNd'"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                                                @*<button data-toggle="tooltip" title="Sửa" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>*@
-                                                @if (user.TrangThai)
-                                                {
-                                                    <button data-toggle="tooltip" title="Khóa" class="pd-setting-ed" onclick="setUserLock('@user.MaNd', this)" ><i data-toggle="modal" class="fa fa-lock" aria-hidden="true"></i></button>
-                                                }
-                                                else
-                                                {
-                                                    <button data-toggle="tooltip" title="Mở khóa" class="pd-setting-ed" onclick="setUserLock('@user.MaNd', this)" ><i data-toggle="modal" class="fa fa-unlock" aria-hidden="true"></i></button>
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
-                                    @if (Model.Count == 0)
-                                    {
-                                        <tr><td colspan="7">Rất tiếc không có kết quả trả về hợp lệ !</td></tr>
-                                    }
-                                </tbody>
+                            <table id="table-user-list"
+                                   class="table table-responsive w-100 d-block d-md-table"
+                                   data-toolbar="#toolbar-control"
+                                   data-search="true"
+                                   data-search-highlight="true"
+                                   data-search-align="left"
+                                   data-show-refresh="true"
+                                   data-show-toggle="true"
+                                   data-show-columns="true"
+                                   data-show-columns-toggle-all="true"
+                                   data-show-export="true"
+                                   data-show-pagination-switch="true"
+                                   data-sort-class="table-active"
+                                   data-pagination="true"
+                                   data-id-field="maNd"
+                                   data-unique-id="maNd"
+                                   data-page-list="[2, 10, 15, 100, all]"
+                                   data-side-pagination="server"
+                                   data-locale="vi-VN"
+                                   data-toggle="table"
+                                   data-ajax="ajaxRequest">
                             </table>
                         </div>
-                        <paging class="pagination"
-                                total-records="Model.TotalRecords"
-                                page-no="Model.PageIndex"
-                                page-size="Model.Pagesize"
-                                show-total-pages="false"
-                                show-total-records="false"
-                                show-page-size-nav="true"
-                                page-size-dropdown-items="5-10-15-25-50-100"
-                                max-displayed-pages="5">
-                        </paging>
                     </div>
                 </div>
 
@@ -135,6 +45,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- popup khóa hoặc mở khóa người dùng -->
 <div class="popup-wraper1">
@@ -156,3 +67,17 @@
         </div>
     </div>
 </div>
+
+@section ChildStyle{
+    <link href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/Template/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" asp-append-version="true">
+}
+
+@section ChildScript{
+    <script src="~/Template/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table-locale-all.min.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/extensions/export/bootstrap-table-export.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/admin.js" asp-append-version="true"></script>
+}

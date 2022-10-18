@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-//Phân trang sử dụng danh sách bình thường
+//Phân trang sử dụng IQueryable of database
 namespace DayHocTrucTuyen.Areas.Admin.Models
 {
-    public class PaginatedList<T> : List<T>
+    public class PaginatedListAsync<T> : List<T>
     {
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
@@ -11,7 +11,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Models
 
         public int TotalRecords { get; private set; }
 
-        public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
+        public PaginatedListAsync(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             TotalRecords = count;
@@ -37,11 +37,11 @@ namespace DayHocTrucTuyen.Areas.Admin.Models
             }
         }
 
-        public static PaginatedList<T> CreateAsync(List<T> source, int pageIndex, int pageSize)
+        public static async Task<PaginatedListAsync<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
         {
-            var count = source.Count;
-            var items = source.Skip(pageIndex).Take(pageSize).ToList();
-            return new PaginatedList<T>(items, count, pageIndex, pageSize);
+            var count = await source.CountAsync();
+            var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            return new PaginatedListAsync<T>(items, count, pageIndex, pageSize);
         }
     }
 }
