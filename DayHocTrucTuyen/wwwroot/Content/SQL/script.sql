@@ -237,8 +237,8 @@ create table ThoiGianLamBai(
 
 GO
 INSERT [dbo].[LoaiND] ([Ma_Loai], [Ten_Loai]) VALUES (N'01', N'Admin')
-INSERT [dbo].[LoaiND] ([Ma_Loai], [Ten_Loai]) VALUES (N'02', N'GiaoVien')
-INSERT [dbo].[LoaiND] ([Ma_Loai], [Ten_Loai]) VALUES (N'03', N'HocSinh')
+INSERT [dbo].[LoaiND] ([Ma_Loai], [Ten_Loai]) VALUES (N'02', N'Giáo viên')
+INSERT [dbo].[LoaiND] ([Ma_Loai], [Ten_Loai]) VALUES (N'03', N'Học sinh')
 
 INSERT [dbo].[GoiNangCap] ([Ma_Goi], [Ten_Goi], [Gia_Tien], [Hieu_Luc], [Mo_Ta]) VALUES (1, N'Vip', 10000, 1, N'Gói nâng cấp thân thiết')
 INSERT [dbo].[GoiNangCap] ([Ma_Goi], [Ten_Goi], [Gia_Tien], [Hieu_Luc], [Mo_Ta]) VALUES (2, N'SVip', 30000, 6, N'Gói nâng cấp tin cậy')

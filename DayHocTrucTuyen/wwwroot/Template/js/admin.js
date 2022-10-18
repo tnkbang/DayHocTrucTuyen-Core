@@ -1,33 +1,7 @@
 ﻿
 var $userlist = $('#table-user-list')
 
-function thaotacFormatter(value, row, index) {
-    var result = '<button data-toggle="tooltip" title="Xem" class="pd-setting-ed mr-1" onclick="window.location.href=\'/Profile/Info?id=' + row.maNd + '\'"><i class="fa fa-eye" aria-hidden="true"></i></button>';
-    if (row.trangThai) {
-        result += '<button data-toggle="tooltip" title="Khóa" class="pd-setting-ed" onclick="setUserLock(\'' + row.maNd + '\', this)" ><i data-toggle="modal" class="fa fa-lock" aria-hidden="true"></i></button>'
-    }
-    else {
-        result += '<button data-toggle="tooltip" title="Mở khóa" class="pd-setting-ed" onclick="setUserLock(\'' + row.maNd + '\', this)" ><i data-toggle="modal" class="fa fa-unlock" aria-hidden="true"></i></button>'
-    }
-    return result;
-}
-
-window.operateEvents = {
-    'click .like': function (e, value, row, index) {
-        alert('You click like action, row: ' + JSON.stringify(row))
-    },
-    'click .remove': function (e, value, row, index) {
-        console.log(row.maNd)
-        $userlist.bootstrapTable('updateByUniqueId', {
-            id: row.maNd,
-            row: {
-                hoLot: 'đã thay đổi',
-                email: 'email đã đổi'
-            }
-        })
-    }
-}
-// your custom ajax request here
+//Thêm các th row cho bảng danh sách người dùng
 $userlist.bootstrapTable({
     columns: [{
         field: 'maNd',
@@ -46,23 +20,22 @@ $userlist.bootstrapTable({
         sortable: true,
         title: 'Email'
     }, {
-        field: 'ngayTao',
+        field: 'loai',
         sortable: true,
-        title: 'Ngày tạo'
+        title: 'Loại'
     }, {
         field: 'trangThai',
         sortable: true,
-        title: 'Trạng thái',
-        formatter: (value, row, index) => { return row.trangThai ? 'Hoạt động' : 'Bị khóa' }
+        title: 'Trạng thái'
     }, {
         field: 'thaoTac',
         title: 'Thao tác',
         align: 'center',
-        clickToSelect: false,
-        events: window.operateEvents,
-        formatter: thaotacFormatter
+        clickToSelect: false
     }]
 })
+
+//Gọi ajax về server lấy dữ liệu cho danh sách người dùng
 function ajaxRequest(params) {
     var url = '/Admin/User/getList'
     $.get(url + '?' + $.param(params.data)).then(function (res) {
@@ -70,3 +43,72 @@ function ajaxRequest(params) {
         $('[data-toggle="tooltip"]').tooltip();
     })
 }
+
+//Xử lý khóa hoặc mở khóa người dùng
+var thisUserLock;
+function setUserLock(maUser, elm) {
+    thisUserLock = maUser;
+
+    var title = document.getElementById('modal-lock-user-title');
+    var content = document.getElementById('modal-lock-user-content');
+    var btn = document.getElementById('confirm-lock-user');
+
+    if ($(elm).find(">:first-child").hasClass('fa-lock')) {
+        title.innerHTML = 'Bạn thật sự muốn khóa?'
+        content.innerHTML = 'Khi khóa người dùng, tài khoản này sẽ không thể đăng nhập vào hệ thống và thực hiện các chức năng. Bạn thật sự chắc chắn về hành động này ?'
+        btn.innerHTML = 'Khóa'
+    }
+    else {
+        title.innerHTML = 'Bạn thật sự muốn mở khóa?'
+        content.innerHTML = 'Khi mở khóa người dùng, tài khoản này sẽ khôi phục hoạt động và có thể thao tác với các chức năng trong hệ thống. Bạn thật sự chắc chắn về hành động này ?'
+        btn.innerHTML = 'Mở khóa'
+    }
+
+    $('.popup-wraper1').addClass('active');
+}
+
+$('#cancel-lock-user').on('click', function () {
+    thisUserLock = null;
+    $('.popup-wraper1').removeClass('active');
+})
+
+$('#confirm-lock-user').on('click', function () {
+    event.preventDefault();
+
+    $.ajax({
+        url: '/Admin/User/LockUser',
+        type: 'POST',
+        data: { ma: thisUserLock },
+        success: function (data) {
+            if (data.tt) {
+                $userlist.bootstrapTable('updateByUniqueId', {
+                    id: thisUserLock,
+                    row: {
+                        trangThai: 'Hoạt động',
+                        thaoTac: data.thaoTac
+                    }
+                })
+
+                getThongBao('success', 'Thành công', 'Mở khóa người dùng thành công !')
+            }
+            else {
+                $userlist.bootstrapTable('updateByUniqueId', {
+                    id: thisUserLock,
+                    row: {
+                        trangThai: 'Bị khóa',
+                        thaoTac: data.thaoTac
+                    }
+                })
+
+                getThongBao('success', 'Thành công', 'Khóa người dùng thành công !')
+            }
+
+            thisUserLock = null;
+            $('[data-toggle="tooltip"]').tooltip();
+            $('.popup-wraper1').removeClass('active');
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})

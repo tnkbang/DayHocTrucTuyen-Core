@@ -25,12 +25,16 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         {
             var lst = db.NguoiDungs.Where(x => x.MaLoai != "01");
 
-            //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, họ tên, email,....
+            //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, họ tên, email, loại,....
             if (!string.IsNullOrEmpty(search))
             {
-                lst = db.NguoiDungs.Where(
-                                s => string.Concat(s.HoLot, " ", s.Ten).Contains(search) 
+                var maLoai = "";
+                if (search.ToLower().Equals("giáo viên")) { maLoai = "02"; }
+                if (search.ToLower().Equals("học sinh")) { maLoai = "03"; }
+
+                lst = lst.Where(s => string.Concat(s.HoLot, " ", s.Ten).Contains(search) 
                                 || s.MaNd.Contains(search) 
+                                || s.MaLoai.Equals(maLoai)
                                 || s.Email.Contains(search));
             }
 
@@ -47,6 +51,16 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                         else
                         {
                             lst = lst.OrderByDescending(x => x.MaNd);
+                        }
+                        break;
+                    case "loai":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.MaLoai);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.MaLoai);
                         }
                         break;
                     case "hoTen":
@@ -69,16 +83,6 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                             lst = lst.OrderByDescending(x => x.Email);
                         }
                         break;
-                    case "ngayTao":
-                        if (order.Equals("asc"))
-                        {
-                            lst = lst.OrderBy(x => x.NgayTao);
-                        }
-                        else
-                        {
-                            lst = lst.OrderByDescending(x => x.NgayTao);
-                        }
-                        break;
                     case "trangThai":
                         if (order.Equals("asc"))
                         {
@@ -98,11 +102,13 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                 var temp = new
                 {
                     maNd = item.MaNd,
+                    loai = item.getTenLoai(),
                     imgAvt = item.getImageAvt(),
                     hoTen = item.HoLot + " " + item.Ten,
                     email = item.Email,
-                    ngayTao = item.NgayTao.ToString("g"),
-                    trangThai = item.TrangThai
+                    trangThai = item.TrangThai ? "Hoạt động" : "Bị khóa",
+                    ttBool = item.TrangThai,
+                    thaoTac = customThaoTac(item.MaNd, item.TrangThai)
                 };
                 lstResult.Add(temp);
             }
@@ -114,6 +120,21 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             var result = PaginatedList<dynamic>.CreateAsync(lstResult, offset ?? 0, limit ?? 10);
 
             return Json(new { total = lst.ToList().Count, totalNotFiltered = lst.ToList().Count, rows = result });
+        }
+
+        //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng các này
+        public string customThaoTac(string ma, bool tt)
+        {
+            var result = "<button data-toggle=\"tooltip\" title=\"Xem\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"window.location.href=\'/Profile/Info?id=" + ma + "\'\"><i class=\"fa fa-eye\" aria-hidden=\"true\"></i></button>";
+            if (tt)
+            {
+                result += "<button data-toggle=\"tooltip\" title=\"Khóa\" class=\"pd-setting-ed mt-1\" onclick=\"setUserLock(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-lock\" aria-hidden=\"true\"></i></button>";
+            }
+            else
+            {
+                result += "<button data-toggle=\"tooltip\" title=\"Mở khóa\" class=\"pd-setting-ed pressed-size mt-1\" onclick=\"setUserLock(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-unlock\" aria-hidden=\"true\"></i></button>";
+            }
+            return result;
         }
 
         //Khóa hoặc mở khóa người dùng
@@ -128,7 +149,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             else user.TrangThai = true;
             db.SaveChanges();
 
-            return Json(new { tt = user.TrangThai });
+            return Json(new { tt = user.TrangThai, thaoTac = customThaoTac(user.MaNd, user.TrangThai) });
         }
     }
 }
