@@ -83,6 +83,16 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                             lst = lst.OrderByDescending(x => x.Email);
                         }
                         break;
+                    case "gioiTinh":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.GioiTinh);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.GioiTinh);
+                        }
+                        break;
                     case "trangThai":
                         if (order.Equals("asc"))
                         {
@@ -106,6 +116,9 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                     imgAvt = item.getImageAvt(),
                     hoTen = item.HoLot + " " + item.Ten,
                     email = item.Email,
+                    gioiTinh = item.GioiTinh == 1 ? "Nam" : item.GioiTinh == 2 ? "Nữ" : item.GioiTinh == 3 ? "Thứ 3" : null,
+                    sdt = item.Sdt,
+                    biDanh = item.BiDanh == item.MaNd ? null : item.BiDanh,
                     trangThai = item.TrangThai ? "Hoạt động" : "Bị khóa",
                     ttBool = item.TrangThai,
                     thaoTac = customThaoTac(item.MaNd, item.TrangThai)

@@ -20,6 +20,19 @@ $userlist.bootstrapTable({
         sortable: true,
         title: 'Email'
     }, {
+        field: 'gioiTinh',
+        sortable: true,
+        title: 'Giới tính',
+        visible: false
+    }, {
+        field: 'sdt',
+        title: 'Sđt',
+        visible: false
+    }, {
+        field: 'biDanh',
+        title: 'Bí danh',
+        visible: false
+    }, {
         field: 'loai',
         sortable: true,
         title: 'Loại'
@@ -42,6 +55,7 @@ function ajaxRequest(params) {
         params.success(res)
         $('[data-toggle="tooltip"]').tooltip();
     })
+    $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
 }
 
 //Xử lý khóa hoặc mở khóa người dùng
