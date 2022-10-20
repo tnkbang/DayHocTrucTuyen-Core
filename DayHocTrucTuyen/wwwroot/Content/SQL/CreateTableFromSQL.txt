@@ -1,0 +1,13 @@
+Packet:
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+
+Create:
+Scaffold-DbContext "Data Source=KHANHBANG\MSSQL;Initial Catalog=DayHocTrucTuyen;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -outputDir Models\Entities
+
+Update:
+Scaffold-DbContext "Data Source=KHANHBANG\MSSQL;Initial Catalog=DayHocTrucTuyen;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -outputDir Models\Entities -force
+
+
+Account:
+Scaffold-DbContext "Data Source=KHANHBANG\MSSQL;Initial Catalog=DayHocTrucTuyen;Persist Security Info=True;User ID=sa;Password=khanhbang" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models\Entities
