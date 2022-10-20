@@ -6201,6 +6201,15 @@ button.createoredit {
         height: 40px;
     }
 
+    .custom-list table tbody tr td a {
+        text-decoration: underline;
+    }
+
+    .custom-list table tbody tr td a:hover {
+        color: #fa6342;
+        text-decoration-color: #fa6342;
+    }
+
     .custom-list table tbody tr td button {
         padding: 5px 10px;
         font-size: 14px;

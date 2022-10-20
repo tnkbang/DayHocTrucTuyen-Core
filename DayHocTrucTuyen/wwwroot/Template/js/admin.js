@@ -1,4 +1,4 @@
-﻿
+﻿//Xử lý trang quản lý người dùng
 var $userlist = $('#table-user-list')
 
 //Thêm các th row cho bảng danh sách người dùng
@@ -49,7 +49,7 @@ $userlist.bootstrapTable({
 })
 
 //Gọi ajax về server lấy dữ liệu cho danh sách người dùng
-function ajaxRequest(params) {
+function ajaxGetListUser(params) {
     var url = '/Admin/User/getList'
     $.get(url + '?' + $.param(params.data)).then(function (res) {
         params.success(res)
@@ -118,6 +118,132 @@ $('#confirm-lock-user').on('click', function () {
             }
 
             thisUserLock = null;
+            $('[data-toggle="tooltip"]').tooltip();
+            $('.popup-wraper1').removeClass('active');
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
+
+//Xử lý trang quản lý lớp học
+var $roomlist = $('#table-room-list')
+
+//Thêm các th row cho bảng danh sách lớp học
+$roomlist.bootstrapTable({
+    columns: [{
+        field: 'maLop',
+        sortable: true,
+        title: 'Mã'
+    }, {
+        field: 'tenLop',
+        sortable: true,
+        title: 'Tên lớp'
+    }, {
+        field: 'tenOwner',
+        title: 'Tác giả',
+        formatter: (value, row, index) => { return '<a href="/Profile/Info?id=' + row.maOwner + '">' + row.tenOwner + '</a>' },
+        visible: false
+    }, {
+        field: 'giaTien',
+        sortable: true,
+        title: 'Giá tiền',
+        formatter: (value, row, index) => { return row.giaTien + " VNĐ" },
+    }, {
+        field: 'moTa',
+        title: 'Mô tả',
+        visible: false
+    }, {
+        field: 'ngayTao',
+        sortable: true,
+        title: 'Ngày tạo'
+    }, {
+        field: 'biDanh',
+        title: 'Bí danh',
+        visible: false
+    }, {
+        field: 'trangThai',
+        sortable: true,
+        title: 'Trạng thái'
+    }, {
+        field: 'thaoTac',
+        title: 'Thao tác',
+        align: 'center',
+        clickToSelect: false
+    }]
+})
+
+//Gọi ajax về server lấy dữ liệu cho danh sách lớp học
+function ajaxGetListRoom(params) {
+    var url = '/Admin/Room/getList'
+    $.get(url + '?' + $.param(params.data)).then(function (res) {
+        params.success(res)
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
+}
+
+//Xử lý khóa hoặc mở khóa lớp học
+var thisRoomLock;
+function setRoomLock(maLop, elm) {
+    thisRoomLock = maLop;
+
+    var title = document.getElementById('modal-lock-room-title');
+    var content = document.getElementById('modal-lock-room-content');
+    var btn = document.getElementById('confirm-lock-room');
+
+    if ($(elm).find(">:first-child").hasClass('fa-lock')) {
+        title.innerHTML = 'Bạn thật sự muốn khóa?'
+        content.innerHTML = 'Khi khóa lớp học, những thành viên thuộc lớp sẽ không thấy nội dung của lớp và thực hiện các chức năng. Bạn thật sự chắc chắn về hành động này ?'
+        btn.innerHTML = 'Khóa'
+    }
+    else {
+        title.innerHTML = 'Bạn thật sự muốn mở khóa?'
+        content.innerHTML = 'Khi mở khóa lớp học, những thành viên thuộc lớp có thể thấy nội dung của lớp và tiến hành thực hiện các chức năng của lớp. Bạn thật sự chắc chắn về hành động này ?'
+        btn.innerHTML = 'Mở khóa'
+    }
+
+    $('.popup-wraper1').addClass('active');
+}
+
+$('#cancel-lock-room').on('click', function () {
+    thisRoomLock = null;
+    $('.popup-wraper1').removeClass('active');
+})
+
+$('#confirm-lock-room').on('click', function () {
+    event.preventDefault();
+
+    $.ajax({
+        url: '/Admin/Room/LockRoom',
+        type: 'POST',
+        data: { ma: thisRoomLock },
+        success: function (data) {
+            if (data.tt) {
+                $roomlist.bootstrapTable('updateByUniqueId', {
+                    id: thisRoomLock,
+                    row: {
+                        trangThai: 'Hoạt động',
+                        thaoTac: data.thaoTac
+                    }
+                })
+
+                getThongBao('success', 'Thành công', 'Mở khóa lớp học thành công !')
+            }
+            else {
+                $roomlist.bootstrapTable('updateByUniqueId', {
+                    id: thisRoomLock,
+                    row: {
+                        trangThai: 'Bị khóa',
+                        thaoTac: data.thaoTac
+                    }
+                })
+
+                getThongBao('success', 'Thành công', 'Khóa lớp học thành công !')
+            }
+
+            thisRoomLock = null;
             $('[data-toggle="tooltip"]').tooltip();
             $('.popup-wraper1').removeClass('active');
         },
