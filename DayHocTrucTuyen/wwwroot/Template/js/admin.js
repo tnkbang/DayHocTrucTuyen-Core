@@ -143,6 +143,7 @@ $roomlist.bootstrapTable({
     }, {
         field: 'tenOwner',
         title: 'Tác giả',
+        sortable: true,
         formatter: (value, row, index) => { return '<a href="/Profile/Info?id=' + row.maOwner + '">' + row.tenOwner + '</a>' },
         visible: false
     }, {

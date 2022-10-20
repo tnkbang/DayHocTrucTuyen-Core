@@ -68,6 +68,16 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                             lst = lst.OrderByDescending(x => x.TenLop);
                         }
                         break;
+                    case "tenOwner":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.MaNd);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.MaNd);
+                        }
+                        break;
                     case "ngayTao":
                         if (order.Equals("asc"))
                         {
