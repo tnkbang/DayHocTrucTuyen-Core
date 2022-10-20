@@ -10,7 +10,7 @@ $userlist.bootstrapTable({
     }, {
         field: 'imgAvt',
         title: 'Ảnh',
-        formatter: (value, row, index) => { return '<img src="' + row.imgAvt + '" alt="' + row.hoLot + ' ' + row.ten + '" />' }
+        formatter: (value, row, index) => { return '<img src="' + row.imgAvt + '" alt="' + row.hoTen + '" />' }
     }, {
         field: 'hoTen',
         sortable: true,
