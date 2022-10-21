@@ -101,8 +101,8 @@ function setChat(user, avt, mess, time) {
 //Mã người nhận tin nhắn
 var messUserReceived;
 
-//Xử lý nút gửi tin trên popup tin nhắn
-$('#mess-send').on('click', function () {
+//Hàm gửi tin nhắn
+function send_mess() {
     var noidung = document.getElementById('mess-new-text');
     if (!noidung.value) {
         getThongBao('error', 'Lỗi', 'Nội dung tin nhắn không được để trống!');
@@ -130,7 +130,19 @@ $('#mess-send').on('click', function () {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
         }
     })
+}
+//Xử lý nút gửi tin trên popup tin nhắn
+$('#mess-send').on('click', function () {
+    send_mess()
 })
+
+//Xử lý nhấn enter gửi tin
+$('#mess-new-text').keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13') {
+        send_mess()
+    }
+});
 
 //Xử lý gửi tin nhắn từ trang info
 function infoSendMess(gui, nhan) {
