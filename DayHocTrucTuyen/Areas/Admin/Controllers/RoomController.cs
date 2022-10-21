@@ -12,6 +12,8 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
     public class RoomController : Controller
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
+
+        //Trang danh sách lớp học
         public IActionResult List()
         {
             //ViewBag thể hiện trang đang được hiển thị trên layout
@@ -20,6 +22,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             return View();
         }
 
+        //Lấy danh sách lớp học
         [HttpGet]
         public IActionResult getList(string? search, string? sort, string? order, int? offset, int? limit)
         {

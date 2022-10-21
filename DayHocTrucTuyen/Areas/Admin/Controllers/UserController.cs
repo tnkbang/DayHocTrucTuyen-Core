@@ -13,6 +13,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
+        //Trang danh sách người dùng
         public IActionResult List()
         {
             //ViewBag thể hiện trang đang được hiển thị trên layout
@@ -20,6 +21,8 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
 
             return View();
         }
+
+        //Lấy danh sách người dùng
         [HttpGet]
         public IActionResult getList(string? search, string? sort, string? order, int? offset, int? limit)
         {
@@ -164,5 +167,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
 
             return Json(new { tt = user.TrangThai, thaoTac = customThaoTac(user.MaNd, user.TrangThai) });
         }
+
+        //
     }
 }
