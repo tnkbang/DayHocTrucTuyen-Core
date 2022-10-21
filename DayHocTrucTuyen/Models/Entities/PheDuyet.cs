@@ -11,5 +11,13 @@ namespace DayHocTrucTuyen.Models.Entities
         public string? GhiChu { get; set; }
 
         public virtual NguoiDung MaNdNavigation { get; set; } = null!;
+
+        DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
+
+        public NguoiDung getNguoiDung()
+        {
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
+            return nd;
+        }
     }
 }
