@@ -257,7 +257,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
         public string customApprove(string ma)
         {
-            var result = "<button data-toggle=\"tooltip\" title=\"Đồng ý\" class=\"pd-setting-ed ml-1 mr-1\" onclick=\"approveAccept(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-check\" aria-hidden=\"true\"></i></button>";
+            var result = "<button data-toggle=\"tooltip\" title=\"Đồng ý\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"approveAccept(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-check\" aria-hidden=\"true\"></i></button>";
             result += "<button data-toggle=\"tooltip\" title=\"Từ chối\" class=\"pd-setting-ed mt-1\" onclick=\"approveRefuse(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-close\" aria-hidden=\"true\"></i></button>";
             return result;
         }
