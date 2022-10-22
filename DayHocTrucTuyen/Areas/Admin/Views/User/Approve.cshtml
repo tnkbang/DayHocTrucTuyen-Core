@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Phê duyệt";
+    ViewBag.Main = "Phê duyệt người dùng";
+    Layout = "~/Views/Shared/_LayoutArea.cshtml";
+}
+
+<section>
+    <div class="gap2 gray-bg">
+        <div class="container-fluid">
+            <div class="row merged20">
+                <div class="col-lg-9">
+                    <!-- Danh sách -->
+                    <div class="central-meta">
+                        <div id="toolbar-control"></div>
+                        <div class="custom-list">
+                            <table id="table-approve"
+                                   class="table table-responsive w-100 d-block d-md-table"
+                                   data-toolbar="#toolbar-control"
+                                   data-search="true"
+                                   data-search-highlight="true"
+                                   data-search-align="left"
+                                   data-show-refresh="true"
+                                   data-show-toggle="true"
+                                   data-show-columns="true"
+                                   data-show-columns-toggle-all="true"
+                                   data-show-export="true"
+                                   data-show-pagination-switch="true"
+                                   data-sort-class="table-active"
+                                   data-pagination="true"
+                                   data-id-field="maNd"
+                                   data-unique-id="maNd"
+                                   data-page-list="[2, 10, 20, 40, 100, All]"
+                                   data-side-pagination="server"
+                                   data-locale="vi-VN"
+                                   data-toggle="table"
+                                   data-cache="false"
+                                   data-ajax="ajaxGetApprove">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu thao tác nhanh-->
+                @await Html.PartialAsync("~/Views/Shared/Menu/_AdminQuickAction.cshtml")
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- popup khóa hoặc mở khóa người dùng -->
+<div class="popup-wraper1">
+    <div class="popup direct-mesg">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5 id="modal-approve-title">Tiêu đề cảnh báo</h5>
+            </div>
+            <div class="Rpt-meta">
+                <form class="c-form">
+                    <p id="modal-approve-content">Nội dung cảnh báo</p>
+                    <div>
+                        <button id="confirm-approve" data-ripple="" type="submit" class="main-btn">Gửi</button>
+                        <button id="cancel-approve" data-ripple="" type="button" class="main-btn cancel">Đóng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ChildStyle{
+    <link href="/Template/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/Template/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" asp-append-version="true">
+}
+
+@section ChildScript{
+    <script src="~/Template/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/tableExport.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/bootstrap-table.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/bootstrap-table-locale-all.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/bootstrap-table-export.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/admin.js" asp-append-version="true"></script>
+}

@@ -253,3 +253,126 @@ $('#confirm-lock-room').on('click', function () {
         }
     })
 })
+
+//Xử lý trang phê duyệt người dùng
+var $tableApprove = $('#table-approve')
+
+//Thêm các th row cho bảng phê duyệt người dùng
+$tableApprove.bootstrapTable({
+    columns: [{
+        field: 'maNd',
+        sortable: true,
+        title: 'Mã'
+    }, {
+        field: 'hoTen',
+        sortable: true,
+        title: 'Họ tên'
+    }, {
+        field: 'email',
+        sortable: true,
+        title: 'Email',
+        visible: false
+    }, {
+        field: 'gioiTinh',
+        sortable: true,
+        title: 'Giới tính'
+    }, {
+        field: 'sdt',
+        title: 'Sđt'
+    }, {
+        field: 'ngaySinh',
+        title: 'Ngày sinh'
+    }, {
+        field: 'biDanh',
+        title: 'Bí danh',
+        visible: false
+    }, {
+        field: 'trangThai',
+        sortable: true,
+        title: 'Trạng thái'
+    }, {
+        field: 'thaoTac',
+        title: 'Thao tác',
+        align: 'center',
+        clickToSelect: false
+    }]
+})
+
+//Gọi ajax về server lấy dữ liệu cho danh sách phê duyệt
+function ajaxGetApprove(params) {
+    var url = '/Admin/User/getApprove'
+    $.get(url + '?' + $.param(params.data)).then(function (res) {
+        params.success(res)
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
+}
+
+//Xử lý khóa hoặc mở khóa lớp học
+//var thisRoomLock;
+//function setRoomLock(maLop, elm) {
+//    thisRoomLock = maLop;
+
+//    var title = document.getElementById('modal-lock-room-title');
+//    var content = document.getElementById('modal-lock-room-content');
+//    var btn = document.getElementById('confirm-lock-room');
+
+//    if ($(elm).find(">:first-child").hasClass('fa-lock')) {
+//        title.innerHTML = 'Bạn thật sự muốn khóa?'
+//        content.innerHTML = 'Khi khóa lớp học, những thành viên thuộc lớp sẽ không thấy nội dung của lớp và thực hiện các chức năng. Bạn thật sự chắc chắn về hành động này ?'
+//        btn.innerHTML = 'Khóa'
+//    }
+//    else {
+//        title.innerHTML = 'Bạn thật sự muốn mở khóa?'
+//        content.innerHTML = 'Khi mở khóa lớp học, những thành viên thuộc lớp có thể thấy nội dung của lớp và tiến hành thực hiện các chức năng của lớp. Bạn thật sự chắc chắn về hành động này ?'
+//        btn.innerHTML = 'Mở khóa'
+//    }
+
+//    $('.popup-wraper1').addClass('active');
+//}
+
+//$('#cancel-lock-room').on('click', function () {
+//    thisRoomLock = null;
+//    $('.popup-wraper1').removeClass('active');
+//})
+
+//$('#confirm-lock-room').on('click', function () {
+//    event.preventDefault();
+
+//    $.ajax({
+//        url: '/Admin/Room/LockRoom',
+//        type: 'POST',
+//        data: { ma: thisRoomLock },
+//        success: function (data) {
+//            if (data.tt) {
+//                $roomlist.bootstrapTable('updateByUniqueId', {
+//                    id: thisRoomLock,
+//                    row: {
+//                        trangThai: 'Hoạt động',
+//                        thaoTac: data.thaoTac
+//                    }
+//                })
+
+//                getThongBao('success', 'Thành công', 'Mở khóa lớp học thành công !')
+//            }
+//            else {
+//                $roomlist.bootstrapTable('updateByUniqueId', {
+//                    id: thisRoomLock,
+//                    row: {
+//                        trangThai: 'Bị khóa',
+//                        thaoTac: data.thaoTac
+//                    }
+//                })
+
+//                getThongBao('success', 'Thành công', 'Khóa lớp học thành công !')
+//            }
+
+//            thisRoomLock = null;
+//            $('[data-toggle="tooltip"]').tooltip();
+//            $('.popup-wraper1').removeClass('active');
+//        },
+//        error: function () {
+//            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+//        }
+//    })
+//})
