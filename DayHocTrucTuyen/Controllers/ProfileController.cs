@@ -12,13 +12,18 @@ namespace DayHocTrucTuyen.Controllers
 
         #region Thông tin cá nhân
         //Trang thông tin người dùng
-        public IActionResult Info(string id)
+        public IActionResult Info(string? id)
         {
             NguoiDung userMa = db.NguoiDungs.FirstOrDefault(x => x.MaNd == id);
             NguoiDung userBiDanh = db.NguoiDungs.FirstOrDefault(x => x.BiDanh == id);
-            if (userMa == null && userBiDanh == null || User == null)
+
+            if (id == null)
             {
-                //Response.StatusCode = 404;
+                userMa = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            }
+
+            if (userMa == null && userBiDanh == null)
+            {
                 return NotFound();
             }
             if (userMa == null)

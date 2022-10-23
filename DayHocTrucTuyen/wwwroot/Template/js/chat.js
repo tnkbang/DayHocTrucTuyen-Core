@@ -191,7 +191,7 @@ function addPingMess(usend, img, name, noidung, time) {
         '<li>' +
         '<a class="show-mesg" title="" id="' + usend + '">' +
         '<figure>' +
-        '<img width="40" height="40" src="' + img + '" alt="" />' +
+        '<img class="wh-35" src="' + img + '" alt="" />' +
         '</figure>' +
         '<div class="mesg-meta">' +
         '<h6>' + name + '</h6>' +

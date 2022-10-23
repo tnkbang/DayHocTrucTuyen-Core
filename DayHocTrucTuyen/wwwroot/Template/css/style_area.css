@@ -7470,6 +7470,8 @@ button.createoredit {
         min-width: 155px;
         width: 155px;
         height: 155px;
+        object-fit: cover;
+        object-position: center;
         display: inline-block;
     }
 
@@ -13496,6 +13498,8 @@ aside.sidebar .friend-box .frnd-meta {
         display: inline-block;
         max-width: 25px;
         height: 25px;
+        object-fit: cover;
+        object-position: center;
         vertical-align: middle;
         width: auto;
     }
@@ -20970,6 +20974,16 @@ footer {
 }
 
 /* custom img */
+img.wh-30,
+img.wh-32,
+img.wh-35,
+img.wh-40,
+img.wh-42,
+img.wh-45 {
+    object-position: center;
+    object-fit: cover;
+}
+
 img.wh-30 {
     width: 30px;
     height: 30px
@@ -20995,7 +21009,7 @@ img.wh-42 {
     height: 42px
 }
 
-img.wh-45{
+img.wh-45 {
     width: 45px;
     height: 45px
 }
