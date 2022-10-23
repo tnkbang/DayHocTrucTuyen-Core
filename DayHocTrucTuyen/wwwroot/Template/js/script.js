@@ -2696,7 +2696,7 @@ $('#confirm-teacher').on('click', () => {
     }
     if (controlStateTeacher == 'info') {
         controlStateTeacher = '';
-        window.location.href = '/Profile/updateInfo';
+        window.location.href = '/Profile/Update';
     }
     if (controlStateTeacher == 'cancel') {
         controlStateTeacher = '';
