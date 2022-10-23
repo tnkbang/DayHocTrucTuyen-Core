@@ -2835,7 +2835,7 @@ $('#frm-update-user').on('submit', () => {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                window.location.reload()
+                getThongBao('success', 'Thành công', "Bạn đã cập nhật thông tin của bản thân !")
             }
         },
         error: function () {
