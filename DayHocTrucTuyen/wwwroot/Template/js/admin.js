@@ -265,16 +265,13 @@ $tableApprove.bootstrapTable({
         title: 'Mã'
     }, {
         field: 'hoTen',
-        sortable: true,
         title: 'Họ tên'
     }, {
         field: 'email',
-        sortable: true,
         title: 'Email',
         visible: false
     }, {
         field: 'gioiTinh',
-        sortable: true,
         title: 'Giới tính'
     }, {
         field: 'sdt',

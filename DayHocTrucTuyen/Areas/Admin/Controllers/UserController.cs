@@ -195,6 +195,10 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                 {
                     lst = lst.Where(s => s.MaNd == nd.MaNd);
                 }
+                else
+                {
+                    lst = lst.Where(s => s.MaNd.Contains(search));
+                }
             }
 
             //Xử lý sắp xếp
@@ -220,6 +224,16 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                         else
                         {
                             lst = lst.OrderByDescending(x => x.NgayDangKy);
+                        }
+                        break;
+                    case "trangThai":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.TrangThai);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.TrangThai);
                         }
                         break;
                 }
