@@ -823,7 +823,8 @@ section {
 }
 
     .courses .trainer .trainer-profile img {
-        max-width: 50px;
+        width: 35px;
+        height: 35px;
         border-radius: 50px;
     }
 

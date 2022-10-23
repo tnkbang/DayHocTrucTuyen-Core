@@ -20,7 +20,7 @@
                                 @foreach (var u in Model.lstMemLike())
                                 {
                                     <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
-                                        <img alt="" src="@u.getImageAvt()" width="35" height="35" />
+                                        <img alt="" src="@u.getImageAvt()" class="wh-35" />
                                     </a>
                                 }
                             </div>
@@ -32,7 +32,7 @@
                                 @foreach (var u in Model.lstMemView())
                                 {
                                     <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
-                                        <img alt="" src="@u.getImageAvt()" width="35" height="35">
+                                        <img alt="" src="@u.getImageAvt()" class="wh-35">
                                     </a>
                                 }
                             </div>

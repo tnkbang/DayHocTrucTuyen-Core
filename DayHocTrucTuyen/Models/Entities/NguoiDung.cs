@@ -260,5 +260,12 @@ namespace DayHocTrucTuyen.Models.Entities
             if (user != null && !user.TrangThai) return true;
             return false;
         }
+
+        public string getIntro()
+        {
+            if (this.MaLoai == "01") return "Người dùng đảm nhiệm vai trò quản lý toàn hệ thống. Có quyền quyết định cao nhất đối với tất cả thành viên của hệ thống.";
+            if (this.MaLoai == "02") return "Lực lượng nòng cốt của hệ thống. Có thể tạo ra các bài thi và khóa học, từ đó thu về lợi nhuận cho bản thân và hệ thống.";
+            return "Người dùng cơ bản của hệ thống, không có nhiều quyền lực đặc biệt nhưng là nguồn nhân tố chính giúp duy trì sự hoạt động của hệ thống.";
+        }
     }
 }

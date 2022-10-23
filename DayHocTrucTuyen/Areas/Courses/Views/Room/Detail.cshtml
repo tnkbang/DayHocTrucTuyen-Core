@@ -75,7 +75,7 @@ else
                                     <span class="create-post tran-bottom">Bài đăng mới</span>
                                     <div class="new-postbox">
                                         <figure>
-                                            <img width="40" height="40" src="@uLogin.getImageAvt()" alt="Ảnh đại diện của @uLogin.getFullName()" title="@uLogin.getFullName()" />
+                                            <img class="wh-40" src="@uLogin.getImageAvt()" alt="Ảnh đại diện của @uLogin.getFullName()" title="@uLogin.getFullName()" />
                                         </figure>
                                         <div class="newpst-input">
                                             <form method="post" id="form-create-post">
@@ -122,7 +122,7 @@ else
                                                 <div class="user-post">
                                                     <div class="friend-info">
                                                         <figure>
-                                                            <img width="40" height="40" src="@post.getOwner().getImageAvt()" alt="" />
+                                                            <img class="wh-40" src="@post.getOwner().getImageAvt()" alt="" />
                                                         </figure>
                                                         <div class="friend-name">
                                                             <div class="more">
@@ -326,7 +326,7 @@ else
                                                                                         <div class="file-post">
                                                                                             <div class="row">
                                                                                                 <div class="col-3 icon-type">
-                                                                                                    <img width="42" height="42" src="~/Content/Img/Resources/pdf.jpg" />
+                                                                                                    <img class="wh-42" src="~/Content/Img/Resources/pdf.jpg" />
                                                                                                 </div>
                                                                                                 <div class="col-9">
                                                                                                     <div class="col-12">
@@ -355,31 +355,31 @@ else
                                                                                                     @switch (i.Substring(i.LastIndexOf('.') + 1))
                                                                                                     {
                                                                                                         case "docx":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/word.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/word.png" />
                                                                                                             break;
                                                                                                         case "doc":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/word.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/word.png" />
                                                                                                             break;
                                                                                                         case "xlsx":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/excel.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/excel.png" />
                                                                                                             break;
                                                                                                         case "xls":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/excel.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/excel.png" />
                                                                                                             break;
                                                                                                         case "ppt":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/powerpoint.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/powerpoint.png" />
                                                                                                             break;
                                                                                                         case "pptx":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/powerpoint.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/powerpoint.png" />
                                                                                                             break;
                                                                                                         case "rar":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/rar.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/rar.png" />
                                                                                                             break;
                                                                                                         case "zip":
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/rar.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/rar.png" />
                                                                                                             break;
                                                                                                         default:
-                                                                                                            <img width="42" height="42" src="~/Content/Img/Resources/file.png" />
+                                                                                                            <img class="wh-42" src="~/Content/Img/Resources/file.png" />
                                                                                                             break;
                                                                                                     }
                                                                                                 </div>
@@ -424,7 +424,7 @@ else
                                                                             if (i < 5)
                                                                             {
                                                                                 <a data-toggle="tooltip" title="@post.getMemsCamXuc()[i].getFullName()" href="~/Profile/Info?id=@post.getMemsCamXuc()[i].MaNd">
-                                                                                    <img width="36" height="36" alt="" src="@post.getMemsCamXuc()[i].getImageAvt()" />
+                                                                                    <img class="wh-35" alt="" src="@post.getMemsCamXuc()[i].getImageAvt()" />
                                                                                 </a>
                                                                             }
                                                                             if (i > 1) { slcx++; }
@@ -461,7 +461,7 @@ else
                                                                         {
                                                                             <li>
                                                                                 <div class="comet-avatar">
-                                                                                    <img width="42" height="42" src="@post.getTTMember(bl.MaNd).getImageAvt()" alt="" />
+                                                                                    <img class="wh-32" src="@post.getTTMember(bl.MaNd).getImageAvt()" alt="" />
                                                                                 </div>
                                                                                 <div class="we-comment">
                                                                                     <h5><a href="~/Profile/Info?id=@bl.MaNd" title="">@post.getTTMember(bl.MaNd).getFullName()</a></h5>
@@ -480,7 +480,7 @@ else
                                                                     }
                                                                     <li class="post-comment">
                                                                         <div class="comet-avatar">
-                                                                            <img width="42" height="40" src="@post.getOwner().getImageAvt()" alt="" />
+                                                                            <img class="wh-32" src="@post.getOwner().getImageAvt()" alt="" />
                                                                         </div>
                                                                         <div class="post-comt-box">
                                                                             <form method="post">

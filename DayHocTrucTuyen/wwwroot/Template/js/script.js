@@ -2843,3 +2843,85 @@ $('#frm-update-user').on('submit', () => {
         }
     })
 })
+
+//Cập nhật avt người dùng
+$('.edit-dp').on('change', '#user-edit-avt', function () {
+    var anh = /(\.jpg|\.jpeg|\.png)$/i;
+
+    if ($('#user-edit-avt').val()) {
+        if (!anh.exec($('#user-edit-avt').prop('files')[0].name)) {
+            getThongBao('error', 'Lỗi', 'Định dạng ảnh không chính xác !')
+            document.getElementById('user-edit-avt').value = null;
+            return;
+        }
+
+        var form_data = new FormData();
+        form_data.append("avt", $('#user-edit-avt').prop('files')[0]);
+
+        $.ajax({
+            url: '/Profile/setAvt',
+            type: 'POST',
+            data: form_data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (!data.tt) {
+                    getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+                }
+                else {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById("img-user-avt").src = e.target.result;
+                    };
+                    reader.readAsDataURL($('#user-edit-avt').prop('files')[0]);
+
+                    getThongBao('success', 'Thành công', "Cập nhật ảnh đại diện thành công !")
+                }
+            },
+            error: function () {
+                getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+            }
+        })
+    }
+});
+
+//Cập nhật avt người dùng
+$('.edit-pp').on('change', '#user-edit-bg', function () {
+    var anh = /(\.jpg|\.jpeg|\.png)$/i;
+
+    if ($('#user-edit-bg').val()) {
+        if (!anh.exec($('#user-edit-bg').prop('files')[0].name)) {
+            getThongBao('error', 'Lỗi', 'Định dạng ảnh không chính xác !')
+            document.getElementById('user-edit-bg').value = null;
+            return;
+        }
+
+        var form_data = new FormData();
+        form_data.append("bg", $('#user-edit-bg').prop('files')[0]);
+
+        $.ajax({
+            url: '/Profile/setBg',
+            type: 'POST',
+            data: form_data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (!data.tt) {
+                    getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+                }
+                else {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById("img-user-bg").src = e.target.result;
+                    };
+                    reader.readAsDataURL($('#user-edit-bg').prop('files')[0]);
+
+                    getThongBao('success', 'Thành công', "Cập nhật ảnh bìa thành công !")
+                }
+            },
+            error: function () {
+                getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+            }
+        })
+    }
+});

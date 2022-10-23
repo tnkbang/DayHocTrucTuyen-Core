@@ -7469,6 +7469,7 @@ button.createoredit {
         max-width: 155px;
         min-width: 155px;
         width: 155px;
+        height: 155px;
         display: inline-block;
     }
 
@@ -13494,6 +13495,7 @@ aside.sidebar .friend-box .frnd-meta {
         border-radius: 100%;
         display: inline-block;
         max-width: 25px;
+        height: 25px;
         vertical-align: middle;
         width: auto;
     }
@@ -20965,6 +20967,37 @@ footer {
     line-height: 13px;
     padding: 10px 26px;
     text-align: right
+}
+
+/* custom img */
+img.wh-30 {
+    width: 30px;
+    height: 30px
+}
+
+img.wh-32 {
+    width: 32px;
+    height: 32px
+}
+
+img.wh-35 {
+    width: 35px;
+    height: 35px
+}
+
+img.wh-40 {
+    width: 40px;
+    height: 40px
+}
+
+img.wh-42 {
+    width: 42px;
+    height: 42px
+}
+
+img.wh-45{
+    width: 45px;
+    height: 45px
 }
 
 /* custom scoll */

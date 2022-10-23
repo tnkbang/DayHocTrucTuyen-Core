@@ -13,7 +13,7 @@
                 <li>
                     <figure>
                         <span class="room-member-status status f-off @Model.getOwner().MaNd"></span>
-                        <img width="40" height="40" src="@Model.getOwner().getImageAvt()" data-toggle="tooltip" title="@Model.getOwner().getFullName()" />
+                        <img class="wh-40" src="@Model.getOwner().getImageAvt()" data-toggle="tooltip" title="@Model.getOwner().getFullName()" />
                         <a href="~/Profile/Info?id=@Model.getOwner().MaNd" title="Xem trang của @Model.getOwner().Ten">@Model.getOwner().Ten</a>
                         <a data-toggle="tooltip" title="Giáo viên"><i class="fa fa-mortar-board"></i></a>
                     </figure>
@@ -24,7 +24,7 @@
                     <li>
                         <figure>
                             <span class="room-member-status status f-off @mem.MaNd"></span>
-                            <img width="40" height="40" src="@mem.getImageAvt()" data-toggle="tooltip" title="@mem.getFullName()" />
+                            <img class="wh-40" src="@mem.getImageAvt()" data-toggle="tooltip" title="@mem.getFullName()" />
                             <a href="~/Profile/Info?id=@mem.MaNd" title="Xem trang của @mem.Ten">@mem.Ten</a>
                             @if (mem.MaLoai.Equals("02"))
                             {

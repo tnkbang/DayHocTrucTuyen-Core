@@ -10,6 +10,7 @@ namespace DayHocTrucTuyen.Controllers
         // GET: Profile
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
+        #region Thông tin cá nhân
         //Trang thông tin người dùng
         public IActionResult Info(string id)
         {
@@ -41,7 +42,9 @@ namespace DayHocTrucTuyen.Controllers
 
             return Json(new { tt = true });
         }
+        #endregion Thông tin cá nhân
 
+        #region Cập nhật thông tin
         //Cập nhật thông tin cá nhân
         public IActionResult Update()
         {
@@ -51,7 +54,7 @@ namespace DayHocTrucTuyen.Controllers
 
         //Set cập nhật thông tin
         [HttpPost]
-        public async Task<IActionResult> setUpdate(string hl, string ten, string ns, int gt, string sdt, string mt, string bd, IFormFile avt)
+        public IActionResult setUpdate(string hl, string ten, string ns, int gt, string sdt, string mt, string bd)
         {
             var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
 
@@ -63,7 +66,16 @@ namespace DayHocTrucTuyen.Controllers
             user.MoTa = mt;
             user.BiDanh = bd;
 
-            //Xử lý avt
+            db.SaveChanges();
+
+            return Json(new { tt = true });
+        }
+
+        //Cập nhật avt
+        public async Task<IActionResult> setAvt(IFormFile avt)
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+
             if (avt != null)
             {
                 //Khai báo đường dẫn lưu file
@@ -92,14 +104,53 @@ namespace DayHocTrucTuyen.Controllers
                     }
 
                     user.ImgAvt = fileName;
+                    db.SaveChanges();
                 }
             }
-
-            db.SaveChanges();
-
             return Json(new { tt = true });
         }
 
+        //Cập nhật ảnh bìa
+        public async Task<IActionResult> setBg(IFormFile bg)
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+
+            if (bg != null)
+            {
+                //Khai báo đường dẫn lưu file
+                var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Content\\Img\\userBG\\");
+                bool basePathExists = Directory.Exists(basePath);
+
+                //Nếu thư mục không có thì tạo mới
+                if (!basePathExists) Directory.CreateDirectory(basePath);
+
+                string file_extension = Path.GetFileName(bg.FileName).Substring(Path.GetFileName(bg.FileName).LastIndexOf('.'));
+                var fileName = "bg-" + user.MaNd + "-" + DateTime.Now.Millisecond + file_extension;
+                var filePath = Path.Combine(basePath, fileName);
+
+                //Xóa file cũ khỏi server
+                if (!String.IsNullOrEmpty(user.ImgBg) && System.IO.File.Exists(Path.Combine(basePath, user.ImgBg)))
+                {
+                    System.IO.File.Delete(basePath + user.ImgBg);
+                }
+
+                //Thêm file vào server và cập nhật vào csdl
+                if (fileName != null && !System.IO.File.Exists(filePath))
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await bg.CopyToAsync(stream);
+                    }
+
+                    user.ImgBg = fileName;
+                    db.SaveChanges();
+                }
+            }
+            return Json(new { tt = true });
+        }
+        #endregion Cập nhật thông tin
+
+        #region Đăng ký giáo viên
         //Đăng ký giáo viên
         [HttpPost]
         public IActionResult regisTeacher()
@@ -162,7 +213,9 @@ namespace DayHocTrucTuyen.Controllers
 
             return Json(new { mess = "not allow" });
         }
+        #endregion Đăng ký giáo viên
 
+        #region Hàm xử lý cục bộ
         //Hàm set xem trang
         public void setXemTrang(string nd, string nx)
         {
@@ -228,5 +281,6 @@ namespace DayHocTrucTuyen.Controllers
             }
             return Json(new { tt = true });
         }
+        #endregion Hàm xử lý cục bộ
     }
 }

@@ -21,12 +21,12 @@
                                     <div class="edit-pp">
                                         <label class="fileContainer">
                                             <i class="fa fa-camera"></i>
-                                            <input id="edit-cover" type="file" title="Thay đổi ảnh bìa">
+                                            <input id="user-edit-bg" type="file" title="Thay đổi ảnh bìa">
                                         </label>
                                     </div>
                                 }
                                 <div>
-                                    <img src="@Model.getImageBG()" alt="" />
+                                    <img id="img-user-bg" src="@Model.getImageBG()" alt="" />
                                 </div>
                             <ul class="profile-controls">
                                 @if (Model.liked(uLogin.MaNd))
@@ -50,11 +50,11 @@
                                                     <div class="edit-dp">
                                                         <label class="fileContainer">
                                                             <i class="fa fa-camera"></i>
-                                                            <input id="edit-avt" type="file" title="Thay đổi ảnh đại diện">
+                                                            <input id="user-edit-avt" type="file" title="Thay đổi ảnh đại diện">
                                                         </label>
                                                     </div>
                                                 }
-                                                <img alt="@Model.getFullName()" src="@Model.getImageAvt()" />
+                                                <img id="img-user-avt" alt="@Model.getFullName()" src="@Model.getImageAvt()" />
                                             </div>
                                             <div class="author-content">
                                                 <div class="h4 author-name">@Model.getFullName()</div>
