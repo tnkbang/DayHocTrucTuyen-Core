@@ -238,6 +238,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                     sdt = user.Sdt,
                     ngaySinh = user.NgaySinh?.ToString("g"),
                     biDanh = user.BiDanh == user.MaNd ? null : user.BiDanh,
+                    ngayDK = item.NgayDangKy.ToString("g"),
                     trangThai = item.TrangThai ? "Chờ phê duyệt" : "Bị từ chối",
                     ttBool = item.TrangThai,
                     thaoTac = customApprove(item.MaNd)
@@ -257,8 +258,8 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
         public string customApprove(string ma)
         {
-            var result = "<button data-toggle=\"tooltip\" title=\"Đồng ý\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"approveAccept(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-check\" aria-hidden=\"true\"></i></button>";
-            result += "<button data-toggle=\"tooltip\" title=\"Từ chối\" class=\"pd-setting-ed mt-1\" onclick=\"approveRefuse(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-close\" aria-hidden=\"true\"></i></button>";
+            var result = "<button data-toggle=\"tooltip\" title=\"Đồng ý\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"approveAccept(\'" + ma + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-check\" aria-hidden=\"true\"></i></button>";
+            result += "<button data-toggle=\"tooltip\" title=\"Từ chối\" class=\"pd-setting-ed mt-1\" onclick=\"approveRefuse(\'" + ma + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-close\" aria-hidden=\"true\"></i></button>";
             return result;
         }
 
@@ -266,11 +267,13 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult setApprove(string ma, bool tt, string gc)
         {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == ma);
             var pd = db.PheDuyets.FirstOrDefault(x => x.MaNd == ma);
-            if(pd != null)
+            if(pd != null && user != null)
             {
                 if (tt)
                 {
+                    user.MaLoai = "02";
                     db.PheDuyets.Remove(pd);
                 }
                 else

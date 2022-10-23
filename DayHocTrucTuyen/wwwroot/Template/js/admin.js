@@ -287,6 +287,11 @@ $tableApprove.bootstrapTable({
         title: 'Bí danh',
         visible: false
     }, {
+        field: 'ngayDK',
+        title: 'Ngày đăng ký',
+        sortable: true,
+        visible: false
+    }, {
         field: 'trangThai',
         sortable: true,
         title: 'Trạng thái'
@@ -308,71 +313,74 @@ function ajaxGetApprove(params) {
     $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
 }
 
-//Xử lý khóa hoặc mở khóa lớp học
-//var thisRoomLock;
-//function setRoomLock(maLop, elm) {
-//    thisRoomLock = maLop;
+//Xử lý khóa đồng ý hoặc không đồng ý phê duyệt giáo viên
+var thisApprove, userApprove;
 
-//    var title = document.getElementById('modal-lock-room-title');
-//    var content = document.getElementById('modal-lock-room-content');
-//    var btn = document.getElementById('confirm-lock-room');
+//Đồng ý phê duyệt
+function approveAccept(maUser) {
+    thisApprove = true;
+    userApprove = maUser;
 
-//    if ($(elm).find(">:first-child").hasClass('fa-lock')) {
-//        title.innerHTML = 'Bạn thật sự muốn khóa?'
-//        content.innerHTML = 'Khi khóa lớp học, những thành viên thuộc lớp sẽ không thấy nội dung của lớp và thực hiện các chức năng. Bạn thật sự chắc chắn về hành động này ?'
-//        btn.innerHTML = 'Khóa'
-//    }
-//    else {
-//        title.innerHTML = 'Bạn thật sự muốn mở khóa?'
-//        content.innerHTML = 'Khi mở khóa lớp học, những thành viên thuộc lớp có thể thấy nội dung của lớp và tiến hành thực hiện các chức năng của lớp. Bạn thật sự chắc chắn về hành động này ?'
-//        btn.innerHTML = 'Mở khóa'
-//    }
+    var title = document.getElementById('modal-approve-title');
+    var content = document.getElementById('modal-approve-content');
 
-//    $('.popup-wraper1').addClass('active');
-//}
+    title.innerHTML = 'Đồng ý nâng cấp giáo viên?'
+    content.innerHTML = 'Khi người dùng thành giáo viên thì họ có thể tự do tạo lớp học và tiến hành thu phí lớp học. Bạn thật sự chắc chắn về hành động này ?'
 
-//$('#cancel-lock-room').on('click', function () {
-//    thisRoomLock = null;
-//    $('.popup-wraper1').removeClass('active');
-//})
+    $('.popup-wraper1').addClass('active');
+}
 
-//$('#confirm-lock-room').on('click', function () {
-//    event.preventDefault();
+//Từ chối phê duyệt
+function approveRefuse(maUser) {
+    thisApprove = false;
+    userApprove = maUser;
 
-//    $.ajax({
-//        url: '/Admin/Room/LockRoom',
-//        type: 'POST',
-//        data: { ma: thisRoomLock },
-//        success: function (data) {
-//            if (data.tt) {
-//                $roomlist.bootstrapTable('updateByUniqueId', {
-//                    id: thisRoomLock,
-//                    row: {
-//                        trangThai: 'Hoạt động',
-//                        thaoTac: data.thaoTac
-//                    }
-//                })
+    var title = document.getElementById('modal-approve-title');
+    var content = document.getElementById('modal-approve-content');
 
-//                getThongBao('success', 'Thành công', 'Mở khóa lớp học thành công !')
-//            }
-//            else {
-//                $roomlist.bootstrapTable('updateByUniqueId', {
-//                    id: thisRoomLock,
-//                    row: {
-//                        trangThai: 'Bị khóa',
-//                        thaoTac: data.thaoTac
-//                    }
-//                })
+    title.innerHTML = 'Từ chối nâng cấp giáo viên?'
+    content.innerHTML = 'Hãy nêu lý do từ chối:'
+        + '<textarea class="main-inp" id="approve-text" maxlength="200" placeholder="Nhập nội dung..."></textarea>'
 
-//                getThongBao('success', 'Thành công', 'Khóa lớp học thành công !')
-//            }
+    $('.popup-wraper1').addClass('active');
+}
 
-//            thisRoomLock = null;
-//            $('[data-toggle="tooltip"]').tooltip();
-//            $('.popup-wraper1').removeClass('active');
-//        },
-//        error: function () {
-//            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
-//        }
-//    })
-//})
+$('#cancel-approve').on('click', function () {
+    thisApprove = userApprove = null;
+    $('.popup-wraper1').removeClass('active');
+})
+
+$('#confirm-approve').on('click', function () {
+    event.preventDefault();
+
+    if (!thisApprove && $('#approve-text').val() == '') {
+        getThongBao('error', 'Lỗi', 'Hãy nhập nội dung ghi chú !')
+        return;
+    }
+
+    $.ajax({
+        url: '/Admin/User/setApprove',
+        type: 'POST',
+        data: { ma: userApprove, tt: thisApprove, gc: $('#approve-text').val() },
+        success: function (data) {
+
+            $tableApprove.bootstrapTable('remove', {
+                field: 'maNd',
+                values: userApprove
+            })
+
+            if (thisApprove) {
+                getThongBao('success', 'Thành công', 'Người dùng được nâng cấp thành giáo viên !')
+            }
+            else {
+                getThongBao('success', 'Thành công', 'Đã từ chối nâng cấp lên giáo viên !')
+            }
+
+            thisApprove = userApprove = null;
+            $('.popup-wraper1').removeClass('active');
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})

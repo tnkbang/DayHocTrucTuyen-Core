@@ -8018,6 +8018,7 @@ input[type="checkbox"]:checked + label {
         text-transform: capitalize;
     }
 
+    .main-inp,
     .c-form > div input,
     .c-form > div textarea,
     .c-form > input,
