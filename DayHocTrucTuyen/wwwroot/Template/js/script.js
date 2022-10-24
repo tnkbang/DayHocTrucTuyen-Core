@@ -1307,9 +1307,7 @@ jQuery(document).ready(function ($) {
     };
 })();
 
-
 //JS xử lý các sự kiện
-
 //Kiểm tra nhập lại mật khẩu
 function passValidate(id_pass, re_pass, kt_pass) {
     var pass = document.getElementById(id_pass);
@@ -1509,6 +1507,7 @@ $('#form-edit-room').on('submit', function () {
         }
     })
 })
+
 //Hiển thị xem trước ảnh bg room
 $('.edit-phto').on('change', '#img-room', function () {
     var anh = /(\.jpg|\.jpeg|\.png)$/i;
@@ -1769,7 +1768,6 @@ $('.we-reply').on('click', function () {
     node.textContent = text;
 })
 
-
 //Phần tử dom bài đăng
 var domPost;
 var maPost;
@@ -1779,6 +1777,7 @@ function setDelPost(post, ma) {
     domPost = post;
     maPost = ma;
 }
+
 //Hàm xóa bài đăng
 function deletePost() {
     var form_data = new FormData();
@@ -1802,6 +1801,7 @@ function deletePost() {
         }
     })
 }
+
 //Hàm gán giá trị cho popup set trạng thái bài đăng
 function setContentTrangThai(dom, ma) {
     domPost = dom;
@@ -1816,6 +1816,7 @@ function setContentTrangThai(dom, ma) {
         popup[1].innerHTML = 'Sau khi bạn mở khóa, mọi người có thể bình luận và xem các bình luận trước đó. Bạn xác nhận muốn mở khóa?';
     }
 }
+
 //Hàm khóa hoặc mở khóa bài đăng
 function setTrangThaiPost() {
     var form_data = new FormData();
@@ -1843,14 +1844,17 @@ function setTrangThaiPost() {
         }
     })
 }
+
 //Hàm chuyển về trang chỉnh sửa lớp học
 function editRoom(room) {
     location.replace('/Courses/Room/editRoom?id=' + room)
 }
+
 //Hàm hủy chỉnh sửa lớp
 function editRoomCanel(room) {
     location.replace('/Courses/Room/Detail?id=' + room)
 }
+
 //Ghim hoặc bỏ ghim bài đăng
 function setGhim(dom, maPost) {
     var form_data = new FormData();
@@ -1878,6 +1882,7 @@ function setGhim(dom, maPost) {
         }
     })
 }
+
 //Xử lý tạo bài thi mới
 $('#form-create-exam').on('submit', function () {
     event.preventDefault();
@@ -2559,8 +2564,6 @@ function setXemTatCaThongBao(maND) {
     })
 }
 
-//Xử lý báo cáo bài đăng
-
 //Mã bài đăng báo cáo
 var postReportCode;
 
@@ -2597,8 +2600,6 @@ $('#frm-rpt-post').on('submit', function () {
         }
     })
 })
-
-//Xử lý báo cáo lớp học
 
 //Mã lớp học báo cáo
 var roomReportCode;
