@@ -13,6 +13,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
+        #region Quản lý lớp học
         //Trang danh sách lớp học
         public IActionResult List()
         {
@@ -173,5 +174,134 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
 
             return Json(new { tt = lp.TrangThai, thaoTac = customThaoTac(lp.MaLop, lp.TrangThai) });
         }
+        #endregion Quản lý lớp học
+
+        #region Quản lý báo cáo
+        public IActionResult Report()
+        {
+            //ViewBag thể hiện trang đang được hiển thị trên layout
+            ViewBag.ReportList = "active";
+
+            return View();
+        }
+
+        //Lấy danh sách báo cáo
+        [HttpGet]
+        public IActionResult getReport(string? search, string? sort, string? order, int? offset, int? limit)
+        {
+            var lst = db.BaoCaos.Where(x => x.MaBaoCao != null);
+
+            //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, chỉ mục, nội dung, ghi chú,....
+            if (!string.IsNullOrEmpty(search))
+            {
+                lst = lst.Where(s => s.MaBaoCao.Contains(search)
+                                || s.ChiMuc.Contains(search)
+                                || s.NoiDung.ToString().Contains(search)
+                                || s.GhiChu.Contains(search));
+            }
+
+            //Xử lý sắp xếp
+            if (!string.IsNullOrEmpty(sort) && !string.IsNullOrEmpty(order))
+            {
+                switch (sort)
+                {
+                    case "maBaoCao":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.MaBaoCao);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.MaBaoCao);
+                        }
+                        break;
+                    case "tenOwner":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.MaNd);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.MaNd);
+                        }
+                        break;
+                    case "chiMuc":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.ChiMuc);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.ChiMuc);
+                        }
+                        break;
+                    case "noiDung":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.NoiDung);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.NoiDung);
+                        }
+                        break;
+                    case "thoiGian":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.ThoiGian);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.ThoiGian);
+                        }
+                        break;
+                }
+            }
+
+            List<dynamic> lstResult = new List<dynamic>();
+            foreach (var item in lst.ToList())
+            {
+                var temp = new
+                {
+                    maBaoCao = item.MaBaoCao,
+                    maOwner = item.MaNd,
+                    tenOwner = item.getOwner().getFullName(),
+                    chiMuc = item.ChiMuc,
+                    loaiChiMuc = item.ChiMuc.Count() == 15 ? "post" : "room",
+                    noiDung = item.NoiDung,
+                    ghiChu = item.GhiChu,
+                    thoiGian = item.ThoiGian,
+                    thaoTac = reportThaoTac(item.MaNd, item.ChiMuc)
+                };
+                lstResult.Add(temp);
+            }
+
+            //Các tham số của phân trang như sau:
+            //      đầu tiên là danh sách truyền vào phân trang
+            //      tham số thứ 2 là vị trí phân trang
+            //      tham số cuối là số lượng trang
+            var result = PaginatedList<dynamic>.CreateAsync(lstResult, offset ?? 0, limit ?? 10);
+
+            return Json(new { total = lst.ToList().Count, totalNotFiltered = lst.ToList().Count, rows = result });
+        }
+
+        //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
+        public string reportThaoTac(string ma, string cm)
+        {
+            var result = "<button data-toggle=\"tooltip\" title=\"Gửi thông báo\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"setSendNoti(\'" + ma + "\', \'" + cm + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-send\" aria-hidden=\"true\"></i></button>";
+            result += "<button data-toggle=\"tooltip\" title=\"Xóa\" class=\"pd-setting-ed mt-1\" onclick=\"setRemoveReport(\'" + ma + "\', \'" + cm + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
+            
+            return result;
+        }
+
+        //Khóa hoặc mở khóa lớp học
+        [HttpPost]
+        public async Task<IActionResult> sendNoti(string ma)
+        {
+            
+            return Json(new { tt = true });
+        }
+
+        #endregion Quản lý báo cáo
     }
 }

@@ -381,3 +381,52 @@ $('#confirm-approve').on('click', function () {
         }
     })
 })
+
+//Xử lý trang xem phản hồi và báo cáo
+var $reportlist = $('#table-report-list')
+
+//Thêm các th row cho bảng phản hồi và báo cáo
+$reportlist.bootstrapTable({
+    columns: [{
+        field: 'maBaoCao',
+        sortable: true,
+        title: 'Mã'
+    }, {
+        field: 'tenOwner',
+        sortable: true,
+        title: 'Người báo cáo',
+        formatter: (value, row, index) => { return '<a href="/Profile/Info?id=' + row.maOwner + '">' + row.tenOwner + '</a>' },
+        visible: false
+    }, {
+        field: 'chiMuc',
+        sortable: true,
+        title: 'Chỉ mục'
+    }, {
+        field: 'noiDung',
+        sortable: true,
+        title: 'Nội dung'
+    }, {
+        field: 'ghiChu',
+        title: 'Ghi chú',
+        visible: false
+    }, {
+        field: 'thoiGian',
+        sortable: true,
+        title: 'Thời gian'
+    }, {
+        field: 'thaoTac',
+        title: 'Thao tác',
+        align: 'center',
+        clickToSelect: false
+    }]
+})
+
+//Gọi ajax về server lấy dữ liệu cho danh sách báo cáo
+function ajaxGetListReport(params) {
+    var url = '/Admin/Room/getReport'
+    $.get(url + '?' + $.param(params.data)).then(function (res) {
+        params.success(res)
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
+}

@@ -29,5 +29,18 @@ namespace DayHocTrucTuyen.Models.Entities
 
             return ma;
         }
+        public NguoiDung getOwner()
+        {
+            NguoiDung temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
+            NguoiDung user = new NguoiDung();
+
+            user.MaNd = temp.MaNd;
+            user.HoLot = temp.HoLot;
+            user.Ten = temp.Ten;
+            user.ImgAvt = temp.ImgAvt;
+            user.ImgBg = temp.ImgBg;
+
+            return user;
+        }
     }
 }
