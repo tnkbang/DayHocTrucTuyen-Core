@@ -92,7 +92,7 @@ create table XemTrang(
 create table BaoCao(
 	Ma_Bao_Cao char(10) primary key,
 	Ma_ND char(7) references NguoiDung(Ma_ND),
-	Chi_Muc char(15) not null,
+	Chi_Muc varchar(15) not null,
 	Noi_Dung nvarchar(150) not null,
 	Ghi_Chu nvarchar(500),
 	Thoi_Gian datetime not null
