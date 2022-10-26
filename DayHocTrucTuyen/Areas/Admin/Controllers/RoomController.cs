@@ -1,4 +1,5 @@
 ﻿using DayHocTrucTuyen.Areas.Admin.Models;
+using DayHocTrucTuyen.Areas.User.Controllers;
 using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -286,19 +287,21 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         }
 
         //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
-        public string reportThaoTac(string ma, string cm)
+        public string reportThaoTac(string maUser, string chimuc)
         {
-            var result = "<button data-toggle=\"tooltip\" title=\"Gửi thông báo\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"setSendNoti(\'" + ma + "\', \'" + cm + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-send\" aria-hidden=\"true\"></i></button>";
-            result += "<button data-toggle=\"tooltip\" title=\"Xóa\" class=\"pd-setting-ed mt-1\" onclick=\"setRemoveReport(\'" + ma + "\', \'" + cm + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
+            var result = "<button data-toggle=\"tooltip\" title=\"Gửi thông báo\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"setSendNoti(\'" + maUser + "\', \'" + chimuc + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-send\" aria-hidden=\"true\"></i></button>";
+            result += "<button data-toggle=\"tooltip\" title=\"Xóa\" class=\"pd-setting-ed mt-1\" onclick=\"setRemoveReport(\'" + maUser + "\', \'" + chimuc + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
             
             return result;
         }
 
-        //Khóa hoặc mở khóa lớp học
+        //Gửi thông báo cho người dùng
         [HttpPost]
-        public async Task<IActionResult> sendNoti(string ma)
+        public IActionResult sendNoti(string maUser, string nd)
         {
-            
+            NotificationController notification = new NotificationController();
+            notification.setThongBao(maUser, "Thông báo từ Admin", nd, "");
+
             return Json(new { tt = true });
         }
 
