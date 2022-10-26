@@ -305,6 +305,20 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             return Json(new { tt = true });
         }
 
+        //Xóa báo cáo
+        [HttpPost]
+        public IActionResult removeReport(string ma)
+        {
+            var rp = db.BaoCaos.FirstOrDefault(x => x.MaBaoCao == ma);
+            if(rp != null)
+            {
+                db.BaoCaos.Remove(rp);
+                db.SaveChanges();
+                return Json(new { tt = true });
+            }
+            return Json(new { tt = false });
+        }
+
         #endregion Quản lý báo cáo
     }
 }
