@@ -52,5 +52,9 @@ namespace DayHocTrucTuyen.Models.Entities
         {
             return db.ThongBaos.Where(x => x.MaNd == this.MaNd && x.TrangThai == true).Count();
         }
+        public string getLienKet()
+        {
+            return String.IsNullOrEmpty(this.LienKet) ? "#" : "/" + this.LienKet;
+        }
     }
 }

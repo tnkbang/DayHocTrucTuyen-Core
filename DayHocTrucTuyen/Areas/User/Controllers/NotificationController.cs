@@ -22,7 +22,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             newTB.NoiDung = noidung;
             newTB.ThoiGian = DateTime.Now;
             newTB.TrangThai = false;
-            newTB.LienKet = lienket;
+            newTB.LienKet = String.IsNullOrEmpty(lienket) ? null : lienket;
 
             db.ThongBaos.Add(newTB);
             db.SaveChanges();

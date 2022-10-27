@@ -154,7 +154,7 @@
                                     @foreach (var tb in thongbao.getThongBaoChuaXem())
                                     {
                                         <li>
-                                            <a href="~/@tb.LienKet" title="" onclick="setDaXemThongBao('@tb.MaTb', '@tb.MaNd')">
+                                            <a href="@tb.getLienKet()" title="" onclick="setDaXemThongBao('@tb.MaTb', '@tb.MaNd')">
                                                 <figure>
                                                     @switch (tb.NoiDung.Split('\\')[0])
                                                     {
