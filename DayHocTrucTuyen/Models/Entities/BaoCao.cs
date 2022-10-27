@@ -25,7 +25,7 @@ namespace DayHocTrucTuyen.Models.Entities
             {
                 ma = StringGenerator.Alphabet(10);
                 temp = db.BaoCaos.FirstOrDefault(x => x.MaBaoCao == ma);
-            } while (temp.MaBaoCao != null);
+            } while (temp != null);
 
             return ma;
         }

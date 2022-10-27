@@ -307,16 +307,16 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
 
         //Xóa báo cáo
         [HttpPost]
-        public IActionResult removeReport(string ma)
+        public IActionResult removeReport(List<string> ma)
         {
-            var rp = db.BaoCaos.FirstOrDefault(x => x.MaBaoCao == ma);
-            if(rp != null)
+            foreach(var i in ma)
             {
-                db.BaoCaos.Remove(rp);
-                db.SaveChanges();
-                return Json(new { tt = true });
+                var rp = db.BaoCaos.FirstOrDefault(x => x.MaBaoCao == i);
+                if (rp != null) db.BaoCaos.Remove(rp);
             }
-            return Json(new { tt = false });
+            db.SaveChanges();
+
+            return Json(new { tt = true });
         }
 
         #endregion Quản lý báo cáo

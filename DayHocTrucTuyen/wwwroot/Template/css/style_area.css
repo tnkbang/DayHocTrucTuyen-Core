@@ -1709,8 +1709,8 @@ form button, button.btn-popup {
 }
 
     form button:disabled, .btn-popup:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
+        opacity: 0.5;
+        cursor: default;
     }
 
         form button:disabled:hover, .btn-popup:disabled:hover {
@@ -20961,7 +20961,7 @@ footer {
     background-color: #fa6342;
     border: none;
     border-radius: 30px;
-    box-shadow: 4px 7px 12px 0 rgb(250 99 66 / 20%);
+    box-shadow: 2px 4px 6px 0 rgb(250 99 66 / 20%);
     color: #ffffff;
     display: inline-block;
     font-family: Roboto;
@@ -20971,6 +20971,15 @@ footer {
     line-height: 13px;
     padding: 10px 26px;
     text-align: right
+}
+
+.custom-btn:disabled{
+    opacity: 0.5;
+    cursor: default
+}
+
+.custom-btn:disabled:hover{
+    background: #fa6342
 }
 
 /* custom img */

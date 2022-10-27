@@ -396,6 +396,10 @@ function setChiMucReport(value, row, index) {
 //Thêm các th row cho bảng phản hồi và báo cáo
 $reportlist.bootstrapTable({
     columns: [{
+        field: 'state',
+        checkbox: true,
+        valign: 'middle'
+    }, {
         field: 'maBaoCao',
         sortable: true,
         title: 'Mã',
@@ -508,3 +512,48 @@ function setRemoveReport(maBaoCao, elm) {
         }
     })
 }
+
+//Xử lý xóa nhiều phần tử đã chọn cho danh sách báo cáo
+var $reportRemoveButton = $('#remove-report-select')
+var reportSelections = []
+
+//Hàm lấy list mã báo cáo đã chọn
+function getReportSelections() {
+    return $.map($reportlist.bootstrapTable('getSelections'), function (row) {
+        return row.maBaoCao
+    })
+}
+
+//Gán hoặc xóa mã báo cáo cần xóa vào list khi chọn
+$reportlist.on('check.bs.table uncheck.bs.table ' + 'check-all.bs.table uncheck-all.bs.table', function () {
+    $reportRemoveButton.prop('disabled', !$reportlist.bootstrapTable('getSelections').length)
+    reportSelections = getReportSelections()
+})
+
+//Sự kiện nhấn nút xóa
+$reportRemoveButton.click(function () {
+    var listMaBaoCao = getReportSelections()
+
+    $.ajax({
+        url: '/Admin/Room/removeReport',
+        type: 'POST',
+        data: { ma: listMaBaoCao },
+        success: function (data) {
+            if (data.tt) {
+                $reportlist.bootstrapTable('remove', {
+                    field: 'maBaoCao',
+                    values: listMaBaoCao
+                })
+
+                getThongBao('success', 'Thành công', 'Đã xóa các báo cáo đã chọn !')
+                $reportRemoveButton.prop('disabled', true)
+            }
+            else {
+                getThongBao('error', 'Lỗi', 'Source code bị thay đổi !')
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
