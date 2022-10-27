@@ -272,7 +272,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                     noiDung = item.NoiDung,
                     ghiChu = item.GhiChu,
                     thoiGian = item.ThoiGian,
-                    thaoTac = reportThaoTac(item.MaNd, item.ChiMuc)
+                    thaoTac = reportThaoTac(item.MaNd)
                 };
                 lstResult.Add(temp);
             }
@@ -287,10 +287,10 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         }
 
         //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
-        public string reportThaoTac(string maUser, string chimuc)
+        public string reportThaoTac(string maUser)
         {
-            var result = "<button data-toggle=\"tooltip\" title=\"Gửi thông báo\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"setSendNoti(\'" + maUser + "\', \'" + chimuc + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-send\" aria-hidden=\"true\"></i></button>";
-            result += "<button data-toggle=\"tooltip\" title=\"Xóa\" class=\"pd-setting-ed mt-1\" onclick=\"setRemoveReport(\'" + maUser + "\', \'" + chimuc + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
+            var result = "<button data-toggle=\"tooltip\" title=\"Gửi thông báo\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"setSendNoti(\'" + maUser + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-send\" aria-hidden=\"true\"></i></button>";
+            result += "<button data-toggle=\"tooltip\" title=\"Xóa\" class=\"pd-setting-ed mt-1\" onclick=\"setRemoveReport()\" ><i data-toggle=\"modal\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
             
             return result;
         }
@@ -300,7 +300,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         public IActionResult sendNoti(string maUser, string nd)
         {
             NotificationController notification = new NotificationController();
-            notification.setThongBao(maUser, "Thông báo từ Admin", nd, "");
+            notification.setThongBao(maUser, "Thông báo từ Admin","admin\\" + nd, "");
 
             return Json(new { tt = true });
         }

@@ -390,13 +390,13 @@ $reportlist.bootstrapTable({
     columns: [{
         field: 'maBaoCao',
         sortable: true,
-        title: 'Mã'
+        title: 'Mã',
+        visible: false
     }, {
         field: 'tenOwner',
         sortable: true,
         title: 'Người báo cáo',
-        formatter: (value, row, index) => { return '<a href="/Profile/Info?id=' + row.maOwner + '">' + row.tenOwner + '</a>' },
-        visible: false
+        formatter: (value, row, index) => { return '<a href="/Profile/Info?id=' + row.maOwner + '">' + row.tenOwner + '</a>' }
     }, {
         field: 'chiMuc',
         sortable: true,
@@ -430,3 +430,49 @@ function ajaxGetListReport(params) {
     })
     $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
 }
+
+//Biến lưu người dùng để gửi tin
+var thisUserReport;
+
+//Gửi tin nhắn cho người dùng báo cáo
+function setSendNoti(maUser) {
+    thisUserReport = maUser;
+
+    var title = document.getElementById('modal-send-noti-title');
+    var content = document.getElementById('modal-send-noti-content');
+
+    title.innerHTML = 'Gửi thông báo cho người dùng?'
+    content.innerHTML = 'Nhập nội dung tin nhắn:'
+        + '<textarea class="main-inp mb-0" id="send-noti-text" maxlength="200" placeholder="Nhập nội dung..."></textarea>'
+
+    $('.popup-wraper1').addClass('active');
+}
+
+$('#cancel-send-noti').on('click', function () {
+    thisUserReport = null;
+    $('.popup-wraper1').removeClass('active');
+})
+
+$('#confirm-send-noti').on('click', function () {
+    event.preventDefault();
+
+    if (!thisUserReport && $('#send-noti-text').val() == '') {
+        getThongBao('error', 'Lỗi', 'Hãy nhập nội dung thông báo !')
+        return;
+    }
+
+    $.ajax({
+        url: '/Admin/Room/sendNoti',
+        type: 'POST',
+        data: { maUser: thisUserReport, nd: $('#send-noti-text').val() },
+        success: function (data) {
+            getThongBao('success', 'Thành công', 'Đã gửi thông báo đến người dùng !')
+
+            thisUserReport = null;
+            $('.popup-wraper1').removeClass('active');
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})

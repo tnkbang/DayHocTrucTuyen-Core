@@ -8861,7 +8861,7 @@ input[type="checkbox"]:checked + label {
 }
 
 .popup form textarea {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     width: 100%;
 }
 
