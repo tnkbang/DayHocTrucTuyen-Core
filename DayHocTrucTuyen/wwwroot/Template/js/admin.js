@@ -385,6 +385,14 @@ $('#confirm-approve').on('click', function () {
 //Xử lý trang xem phản hồi và báo cáo
 var $reportlist = $('#table-report-list')
 
+//Hàm set hiển thị chỉ mục báo cáo
+function setChiMucReport(value, row, index) {
+    if (row.chiMuc.length == 11) {
+        return 'Lớp ' + '<a href="/Courses/Room/Detail?id=' + row.chiMuc + '">' + row.tenLop + '</a>';
+    }
+    return 'Bài đăng của ' + '<a href="/Courses/Room/Detail?id=' + row.chiMuc.slice(0, 11) + '#' + row.chiMuc + '">' + row.tenLop + '</a>';
+}
+
 //Thêm các th row cho bảng phản hồi và báo cáo
 $reportlist.bootstrapTable({
     columns: [{
@@ -400,19 +408,20 @@ $reportlist.bootstrapTable({
     }, {
         field: 'chiMuc',
         sortable: true,
-        title: 'Chỉ mục'
+        title: 'Chỉ mục',
+        formatter: setChiMucReport
     }, {
         field: 'noiDung',
         sortable: true,
         title: 'Nội dung'
     }, {
         field: 'ghiChu',
-        title: 'Ghi chú',
-        visible: false
+        title: 'Ghi chú'
     }, {
         field: 'thoiGian',
         sortable: true,
-        title: 'Thời gian'
+        title: 'Thời gian',
+        visible: false
     }, {
         field: 'thaoTac',
         title: 'Thao tác',
@@ -476,3 +485,26 @@ $('#confirm-send-noti').on('click', function () {
         }
     })
 })
+
+//Hàm xóa báo cáo người dùng
+function setRemoveReport(maBaoCao, elm) {
+    $.ajax({
+        url: '/Admin/Room/removeReport',
+        type: 'POST',
+        data: { ma: maBaoCao },
+        success: function (data) {
+            $reportlist.bootstrapTable('remove', {
+                field: 'maBaoCao',
+                values: maBaoCao
+            })
+
+            getThongBao('success', 'Thành công', 'Đã xóa báo cáo !')
+
+            $(elm).tooltip("hide");
+            $('[data-toggle="tooltip"]').tooltip();
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+}

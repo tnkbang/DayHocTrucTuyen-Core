@@ -25,7 +25,7 @@ namespace DayHocTrucTuyen.Models.Entities
             {
                 ma = StringGenerator.Alphabet(10);
                 temp = db.BaoCaos.FirstOrDefault(x => x.MaBaoCao == ma);
-            } while (temp != null);
+            } while (temp.MaBaoCao != null);
 
             return ma;
         }
@@ -41,6 +41,12 @@ namespace DayHocTrucTuyen.Models.Entities
             user.ImgBg = temp.ImgBg;
 
             return user;
+        }
+        public LopHoc getRoom()
+        {
+            var maLop = this.ChiMuc.Substring(0, 11);
+            var lp = db.LopHocs.FirstOrDefault(x => x.MaLop == maLop);
+            return lp;
         }
     }
 }

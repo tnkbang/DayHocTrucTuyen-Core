@@ -197,7 +197,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             {
                 lst = lst.Where(s => s.MaBaoCao.Contains(search)
                                 || s.ChiMuc.Contains(search)
-                                || s.NoiDung.ToString().Contains(search)
+                                || s.NoiDung.Contains(search)
                                 || s.GhiChu.Contains(search));
             }
 
@@ -268,11 +268,11 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                     maOwner = item.MaNd,
                     tenOwner = item.getOwner().getFullName(),
                     chiMuc = item.ChiMuc,
-                    loaiChiMuc = item.ChiMuc.Count() == 15 ? "post" : "room",
+                    tenLop = item.getRoom().TenLop,
                     noiDung = item.NoiDung,
                     ghiChu = item.GhiChu,
                     thoiGian = item.ThoiGian,
-                    thaoTac = reportThaoTac(item.MaNd)
+                    thaoTac = reportThaoTac(item.MaNd, item.MaBaoCao)
                 };
                 lstResult.Add(temp);
             }
@@ -287,10 +287,10 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         }
 
         //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
-        public string reportThaoTac(string maUser)
+        public string reportThaoTac(string maUser, string maBaoCao)
         {
             var result = "<button data-toggle=\"tooltip\" title=\"Gửi thông báo\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"setSendNoti(\'" + maUser + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-send\" aria-hidden=\"true\"></i></button>";
-            result += "<button data-toggle=\"tooltip\" title=\"Xóa\" class=\"pd-setting-ed mt-1\" onclick=\"setRemoveReport()\" ><i data-toggle=\"modal\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
+            result += "<button data-toggle=\"tooltip\" title=\"Xóa\" class=\"pd-setting-ed mt-1\" onclick=\"setRemoveReport(\'" + maBaoCao + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
             
             return result;
         }
