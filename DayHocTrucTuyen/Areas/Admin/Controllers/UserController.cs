@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DayHocTrucTuyen.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
-    [Route("Admin/[controller]/[action]")]
+    [Route("Admin/[controller]/[action]/{id?}")]
     [Authorize(Roles = "01")]
     public class UserController : Controller
     {

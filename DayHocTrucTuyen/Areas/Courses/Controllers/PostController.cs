@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Areas.Courses.Controllers
 {
     [Area(nameof(Courses))]
-    [Route("Courses/[controller]/[action]")]
+    [Route("Courses/[controller]/[action]/{id?}")]
     [Authorize]
     public class PostController : Controller
     {

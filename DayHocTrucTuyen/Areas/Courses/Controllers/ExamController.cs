@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Areas.Courses.Controllers
 {
     [Area(nameof(Courses))]
-    [Route("Courses/[controller]/[action]")]
+    [Route("Courses/[controller]/[action]/{id?}")]
     [Authorize]
     public class ExamController : Controller
     {
@@ -50,7 +50,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var mem = db.HocSinhThuocLops.FirstOrDefault(x => x.MaNd == User.Claims.First().Value && x.MaLop == pt.MaLop);
             if (mem == null)
             {
-                return Redirect("~/Courses/Room/Detail?id=" + pt.MaLop);
+                return Redirect("~/Courses/Room/Detail/" + pt.MaLop);
             }
             return View(pt);
         }
@@ -70,7 +70,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             DateTime thoiluong = work.BatDau;
             if (thoiluong.Add(thoigianthi) < DateTime.Now || work.KetThuc != null)
             {
-                return Redirect("~/Courses/Exam/preExam?id=" + pt.MaPhong);
+                return Redirect("~/Courses/Exam/preExam/" + pt.MaPhong);
             }
 
             ViewBag.ThoiGianThi = work.BatDau.Add(thoigianthi).ToString("yyyy-MM-dd HH:mm:ss");
