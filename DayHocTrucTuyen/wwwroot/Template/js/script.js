@@ -1685,7 +1685,7 @@ function getChoose(fileName) {
     filePdfNameOfRoom = fileName;
 }
 function chooseView() {
-    window.open('/Courses/Post/ViewPDF?fileName=' + encodeURIComponent(filePdfNameOfRoom));
+    window.open('/Courses/Post/ViewPDF/' + encodeURIComponent(filePdfNameOfRoom));
 }
 function chooseDownload() {
     location = '/Courses/Post/getFile?fileName=' + encodeURIComponent(filePdfNameOfRoom);

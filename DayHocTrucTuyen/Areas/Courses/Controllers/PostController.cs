@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Areas.Courses.Controllers
 {
     [Area(nameof(Courses))]
-    [Route("Courses/[controller]/[action]/{id?}")]
+    [Route("Courses/[controller]/[action]")]
     [Authorize]
     public class PostController : Controller
     {
@@ -280,6 +280,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Xem file pdf trên trình duyệt
+        [Route("{fileName?}")]
         public IActionResult ViewPDF(string fileName)
         {
             if (fileName == null)

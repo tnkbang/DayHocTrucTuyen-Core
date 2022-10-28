@@ -200,7 +200,7 @@
                                         <h4>@t.TenTag</h4>
                                     }
                                 </div>
-                                <h3><a href="~/Courses/Room/Detail?id=@room.MaLop">@room.TenLop</a></h3>
+                                <h3><a href="~/Courses/Room/Detail/@room.MaLop">@room.TenLop</a></h3>
                                 @if (room.MoTa == null)
                                 {
                                     <p>Lớp chưa có thông tin mô tả !</p>
@@ -213,7 +213,7 @@
                                     <div class="trainer-profile d-flex align-items-center">
                                         <img src="@room.getOwner().getImageAvt()" class="img-fluid" alt="" />
                                         &nbsp;
-                                        <a href="~/Profile/Info?id=@room.getOwner().MaNd" data-toggle="tooltip" title="@room.getOwner().HoLot @room.getOwner().Ten">@room.getOwner().Ten</a>
+                                        <a href="~/Profile/Info/@room.getOwner().MaNd" data-toggle="tooltip" title="@room.getOwner().HoLot @room.getOwner().Ten">@room.getOwner().Ten</a>
                                     </div>
                                     <div class="trainer-rank d-flex align-items-center">
                                         <i class="bx bx-user"></i> &nbsp;@room.getMembers()

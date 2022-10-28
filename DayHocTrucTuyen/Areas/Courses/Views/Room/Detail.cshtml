@@ -20,7 +20,7 @@
                         <h2 id="viewroom-Name" title="@Model.MaLop"><b>@Model.TenLop</b></h2>
                         <i>@Model.getMembers() thành viên</i>
                         @{ var userOwner = Model.getOwner(); }
-                        <h4><a href="~/Profile/Info?id=@userOwner.MaNd">@userOwner.getFullName()</a> là giáo viên</h4>
+                        <h4><a href="~/Profile/Info/@userOwner.MaNd">@userOwner.getFullName()</a> là giáo viên</h4>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4">
@@ -161,7 +161,7 @@ else
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                            <ins><a href="~/Profile/Info?id=@post.getOwner().MaNd" title="">@post.getOwner().getFullName()</a></ins>
+                                                            <ins><a href="~/Profile/Info/@post.getOwner().MaNd" title="">@post.getOwner().getFullName()</a></ins>
                                                             <span style="text-transform: none"><i class="fa fa-clock-o"></i> <span class="timeago" title="@post.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@post.ThoiGian.ToString()</span></span>
                                                         </div>
                                                         <div class="post-meta">
@@ -423,7 +423,7 @@ else
                                                                         {
                                                                             if (i < 5)
                                                                             {
-                                                                                <a data-toggle="tooltip" title="@post.getMemsCamXuc()[i].getFullName()" href="~/Profile/Info?id=@post.getMemsCamXuc()[i].MaNd">
+                                                                                <a data-toggle="tooltip" title="@post.getMemsCamXuc()[i].getFullName()" href="~/Profile/Info/@post.getMemsCamXuc()[i].MaNd">
                                                                                     <img class="wh-35" alt="" src="@post.getMemsCamXuc()[i].getImageAvt()" />
                                                                                 </a>
                                                                             }
@@ -464,7 +464,7 @@ else
                                                                                     <img class="wh-32" src="@post.getTTMember(bl.MaNd).getImageAvt()" alt="" />
                                                                                 </div>
                                                                                 <div class="we-comment">
-                                                                                    <h5><a href="~/Profile/Info?id=@bl.MaNd" title="">@post.getTTMember(bl.MaNd).getFullName()</a></h5>
+                                                                                    <h5><a href="~/Profile/Info/@bl.MaNd" title="">@post.getTTMember(bl.MaNd).getFullName()</a></h5>
                                                                                     <p>@bl.NoiDung</p>
                                                                                     <div class="inline-itms">
                                                                                         <span class="timeago" style="text-transform: none" title="@bl.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@bl.ThoiGian.ToString()</span>

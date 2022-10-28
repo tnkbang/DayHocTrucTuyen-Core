@@ -53,11 +53,11 @@ app.MapHub<ChatHub>($"/Models/{nameof(ChatHub)}");
 app.MapAreaControllerRoute(
     name: "MyAreas",
     areaName: "Areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=Index}");
 
 //Default Map Route
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Default}/{action=Index}/{id?}");
+    pattern: "{controller=Default}/{action=Index}");
 
 app.Run();

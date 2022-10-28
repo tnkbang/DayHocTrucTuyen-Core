@@ -18,7 +18,7 @@ namespace DayHocTrucTuyen.Controllers
             NguoiDung userMa = db.NguoiDungs.FirstOrDefault(x => x.MaNd == id);
             NguoiDung userBiDanh = db.NguoiDungs.FirstOrDefault(x => x.BiDanh == id);
 
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 userMa = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
             }

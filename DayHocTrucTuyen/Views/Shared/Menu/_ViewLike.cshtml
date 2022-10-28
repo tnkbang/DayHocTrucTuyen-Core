@@ -19,7 +19,7 @@
                             <div class="users-thumb-list">
                                 @foreach (var u in Model.lstMemLike())
                                 {
-                                    <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
+                                    <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info/@u.MaNd">
                                         <img alt="" src="@u.getImageAvt()" class="wh-35" />
                                     </a>
                                 }
@@ -31,7 +31,7 @@
                             <div class="users-thumb-list">
                                 @foreach (var u in Model.lstMemView())
                                 {
-                                    <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info?User=@u.MaNd">
+                                    <a data-toggle="tooltip" title="@u.HoLot @u.Ten" href="/Profile/Info/@u.MaNd">
                                         <img alt="" src="@u.getImageAvt()" class="wh-35">
                                     </a>
                                 }
