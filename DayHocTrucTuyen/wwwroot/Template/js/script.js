@@ -1194,7 +1194,7 @@ jQuery(document).ready(function ($) {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    var comment_HTML = '<li><div class="comet-avatar"><img class="wh-32" alt="" src="' + data.anh + '"></div><div class="we-comment"><h5><a title="" href="/Profile/Info?User=' + data.ma + '">' + data.hoten + '</a></h5><p>' + comment.val() + '</p><div class="inline-itms"><span class="timeago" style="text-transform: none" title="' + data.postTimeCus + '">' + data.postTime + '</span><a title="Trả lời" class="we-reply">Trả lời</a><a title="Xóa bình luận" data-toggle="modal" data-target="#confirmDeleteComment" onclick="setComment(this,' + "'" + data.postId + "','" + data.postTime + "'" + ')">Xóa</a></div></div></li>';
+                    var comment_HTML = '<li><div class="comet-avatar"><img class="wh-32" alt="" src="' + data.anh + '"></div><div class="we-comment"><h5><a title="" href="/Profile/Info/' + data.ma + '">' + data.hoten + '</a></h5><p>' + comment.val() + '</p><div class="inline-itms"><span class="timeago" style="text-transform: none" title="' + data.postTimeCus + '">' + data.postTime + '</span><a title="Trả lời" class="we-reply">Trả lời</a><a title="Xóa bình luận" data-toggle="modal" data-target="#confirmDeleteComment" onclick="setComment(this,' + "'" + data.postId + "','" + data.postTime + "'" + ')">Xóa</a></div></div></li>';
                     $(comment_HTML).insertBefore(parent);
                     $("span.timeago").timeago();
                     slComment.textContent++;
@@ -1462,7 +1462,7 @@ $('#form-create-room').on('submit', function () {
                 getThongBao('error', 'Lỗi !', data.mess);
             }
             else {
-                location.replace('/Courses/Room/Detail?id=' + data.room);
+                location.replace('/Courses/Room/Detail/' + data.room);
             }
         },
         error: function () {
@@ -1499,7 +1499,7 @@ $('#form-edit-room').on('submit', function () {
                 getThongBao('error', 'Lỗi !', data.mess);
             }
             else {
-                location.replace('/Courses/Room/Detail?id=' + data.room);
+                location.replace('/Courses/Room/Detail/' + data.room);
             }
         },
         error: function () {
@@ -1847,12 +1847,12 @@ function setTrangThaiPost() {
 
 //Hàm chuyển về trang chỉnh sửa lớp học
 function editRoom(room) {
-    location.replace('/Courses/Room/editRoom?id=' + room)
+    location.replace('/Courses/Room/editRoom/' + room)
 }
 
 //Hàm hủy chỉnh sửa lớp
 function editRoomCanel(room) {
-    location.replace('/Courses/Room/Detail?id=' + room)
+    location.replace('/Courses/Room/Detail/' + room)
 }
 
 //Ghim hoặc bỏ ghim bài đăng
@@ -1910,7 +1910,7 @@ $('#form-create-exam').on('submit', function () {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                location.replace('/Courses/Exam/Manage?id=' + data.exam);
+                location.replace('/Courses/Exam/Manage/' + data.exam);
             }
         },
         error: function () {
@@ -1922,7 +1922,7 @@ $('#form-create-exam').on('submit', function () {
 //Tìm kiếm bài thi
 $('#form-search-exam').on('submit', function () {
     event.preventDefault();
-    location.replace('/Courses/Exam/List?id=' + document.getElementById('search-exam-room').title + '&q=' + document.getElementById('search-exam-name').value);
+    location.replace('/Courses/Exam/List/' + document.getElementById('search-exam-room').title + '?q=' + document.getElementById('search-exam-name').value);
 })
 
 //Xử lý chỉnh sửa bài thi
@@ -2387,7 +2387,7 @@ function setWorkExam(maPhong, matkhau) {
                 getThongBao('error', 'Lỗi !', 'Mật khẩu chưa chính xác !');
             }
             else {
-                location.replace('/Courses/Exam/workExam?id=' + data.work.ma_Phong + '&re=' + data.work.lan_Thu);
+                location.replace('/Courses/Exam/workExam/' + data.work.ma_Phong + '?re=' + data.work.lan_Thu);
             }
         },
         error: function () {
@@ -2510,7 +2510,7 @@ function setEndExam(maphong, lanthu) {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                location.replace('/Courses/Exam/preExam?id=' + data.id);
+                location.replace('/Courses/Exam/preExam/' + data.id);
             }
         },
         error: function () {
@@ -2521,7 +2521,7 @@ function setEndExam(maphong, lanthu) {
 
 //Hàm chuyển đến trang xem lại bài thi
 function getviewExam(maphong, lanthu) {
-    location.replace('/Courses/Exam/viewExam?id=' + maphong + '&re=' + lanthu);
+    location.replace('/Courses/Exam/viewExam/' + maphong + '?re=' + lanthu);
 }
 
 //Hàm set đã xem thông báo

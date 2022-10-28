@@ -144,7 +144,7 @@ $roomlist.bootstrapTable({
         field: 'tenOwner',
         title: 'Tác giả',
         sortable: true,
-        formatter: (value, row, index) => { return '<a href="/Profile/Info?id=' + row.maOwner + '">' + row.tenOwner + '</a>' },
+        formatter: (value, row, index) => { return '<a href="/Profile/Info/' + row.maOwner + '">' + row.tenOwner + '</a>' },
         visible: false
     }, {
         field: 'giaTien',
@@ -388,9 +388,9 @@ var $reportlist = $('#table-report-list')
 //Hàm set hiển thị chỉ mục báo cáo
 function setChiMucReport(value, row, index) {
     if (row.chiMuc.length == 11) {
-        return 'Lớp ' + '<a href="/Courses/Room/Detail?id=' + row.chiMuc + '">' + row.tenLop + '</a>';
+        return 'Lớp ' + '<a href="/Courses/Room/Detail/' + row.chiMuc + '">' + row.tenLop + '</a>';
     }
-    return 'Bài đăng của ' + '<a href="/Courses/Room/Detail?id=' + row.chiMuc.slice(0, 11) + '#' + row.chiMuc + '">' + row.tenLop + '</a>';
+    return 'Bài đăng của ' + '<a href="/Courses/Room/Detail/' + row.chiMuc.slice(0, 11) + '#' + row.chiMuc + '">' + row.tenLop + '</a>';
 }
 
 //Thêm các th row cho bảng phản hồi và báo cáo
@@ -408,7 +408,7 @@ $reportlist.bootstrapTable({
         field: 'tenOwner',
         sortable: true,
         title: 'Người báo cáo',
-        formatter: (value, row, index) => { return '<a href="/Profile/Info?id=' + row.maOwner + '">' + row.tenOwner + '</a>' }
+        formatter: (value, row, index) => { return '<a href="/Profile/Info/' + row.maOwner + '">' + row.tenOwner + '</a>' }
     }, {
         field: 'chiMuc',
         sortable: true,

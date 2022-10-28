@@ -260,7 +260,7 @@ $('#menu-ping-mess').on('click', 'li', function () {
                     else setChat('me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
                 })
             }
-            document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info?id=' + data.uSend.ma_ND) }
+            document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info/' + data.uSend.ma_ND) }
 
             //Thanh cuộn cuối phần tử tin nhắn
             var messContent = document.getElementById('mess-content');
