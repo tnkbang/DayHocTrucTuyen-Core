@@ -1776,6 +1776,9 @@ $('#confirm-room').on('click', function () {
                 $('.popup-wraper1').removeClass('active');
                 location.reload()
             }
+            else {
+                getThongBao('error', 'Số dư không đủ', 'Vui lòng nạp thêm tiền vào tài khoản !')
+            }
         },
         error: function () {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')

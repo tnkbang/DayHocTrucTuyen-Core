@@ -1,4 +1,5 @@
 ﻿using DayHocTrucTuyen.Areas.Payment.Models;
+using DayHocTrucTuyen.Areas.User.Controllers;
 using DayHocTrucTuyen.Models.Entities;
 using DayHocTrucTuyen.Models.Payment.Momo;
 using DayHocTrucTuyen.Models.Payment.MoMo;
@@ -219,13 +220,8 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
                     //Nếu chưa có ví thì tạo ví mới
                     if(vi == null)
                     {
-                        ViNguoiDung newVi = new ViNguoiDung();
-                        newVi.MaNd = user.maNd;
-                        newVi.NgayMo = DateTime.Now;
-                        newVi.SoDu = user.money;
-                        newVi.TrangThai = true;
-
-                        db.ViNguoiDungs.Add(newVi);
+                        ViController vicontrol = new ViController();
+                        vicontrol.setNew(user.maNd, user.money);
 
                         //Thông tin giao dịch
                         lichSu.SoTien = user.money;

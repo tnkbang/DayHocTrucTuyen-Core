@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models.Entities;
+﻿using DayHocTrucTuyen.Areas.User.Controllers;
+using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -212,8 +213,16 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         [HttpPost]
         public IActionResult setJoinRoom(string maLop)
         {
+            var maUser = User.Claims.First().Value;
+            var lp = db.LopHocs.FirstOrDefault(x => x.MaLop == maLop);
+            ViController vinguoidung = new ViController();
+            if(lp != null && vinguoidung.getSoDu(maUser) < lp.GiaTien)
+            {
+                return Json(new { tt = false });
+            }
+
             HocSinhThuocLop hs = new HocSinhThuocLop();
-            hs.MaNd = User.Claims.First().Value;
+            hs.MaNd = maUser;
             hs.MaLop = maLop;
             hs.NgayThamGia = DateTime.Now;
 
