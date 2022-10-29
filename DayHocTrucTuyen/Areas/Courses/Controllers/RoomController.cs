@@ -228,6 +228,20 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
                     //Thực hiện thanh toán
                     vinguoidung.setThayDoiSoDu(maUser, false, lp.GiaTien, "Phí tham gia lớp: " + lp.TenLop);
+
+                    //Thực hiện thêm tiền vào tài khoản giáo viên
+                    //Có khấu trừ 10% phí duy trì
+                    var gv = db.NguoiDungs.FirstOrDefault(x => x.MaNd == lp.MaNd);
+                    if(gv != null)
+                    {
+                        //Nếu giáo viên chưa có ví thì tạo ví mới cho giáo viên
+                        if (!vinguoidung.hasVi(gv.MaNd))
+                            vinguoidung.setNew(gv.MaNd, 0);
+
+                        //Tiến hành thêm tiền cho giáo viên, có khấu trừ 10% phí duy trì
+                        var tempSoTien = lp.GiaTien - lp.GiaTien * 10 / 100;
+                        vinguoidung.setThayDoiSoDu(gv.MaNd, true, tempSoTien, "Thu từ học sinh tham gia lớp: " + lp.TenLop);
+                    }
                 }
 
                 //Thêm người dùng vào lớp

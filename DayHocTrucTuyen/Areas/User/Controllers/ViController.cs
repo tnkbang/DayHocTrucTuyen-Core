@@ -24,6 +24,13 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             db.SaveChanges();
         }
 
+        //Kiểm tra đã có ví hay chưa
+        public bool hasVi(string maNd)
+        {
+            var vi = db.ViNguoiDungs.FirstOrDefault(x => x.MaNd == maNd);
+            return vi != null;
+        }
+
         //Kiểm tra số dư
         public double getSoDu(string maNd)
         {
