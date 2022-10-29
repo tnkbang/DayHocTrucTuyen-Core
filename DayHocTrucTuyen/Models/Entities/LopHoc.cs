@@ -180,5 +180,11 @@ namespace DayHocTrucTuyen.Models.Entities
 
             return lst;
         }
+
+        public string getGiaTien()
+        {
+            if (this.GiaTien == 0) return "Miễn phí";
+            return this.GiaTien.ToString("n0") + " VNĐ";
+        }
     }
 }

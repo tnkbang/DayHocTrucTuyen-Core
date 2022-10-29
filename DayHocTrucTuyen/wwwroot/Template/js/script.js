@@ -1741,14 +1741,39 @@ function deleteComment() {
     })
 }
 
-//Hàm gán thành viên tham gia lớp
-function setJoinRoom(maLop) {
+//Xử lý thành viên tham gia lớp
+var thisRoomJoin;
+
+function setJoinRoom(maLop, sotien) {
+    thisRoomJoin = maLop;
+
+    var title = document.getElementById('modal-room-title');
+    var content = document.getElementById('modal-room-content');
+    var btn = document.getElementById('confirm-room');
+
+    title.innerHTML = 'Bạn muốn tham gia lớp học này?'
+    content.innerHTML = 'Khi nhấn đồng ý, bạn phải tốn <b>' + sotien + '</b> để tham gia lớp học này. Bạn chắc chắn chứ?'
+    btn.innerHTML = 'Đồng ý'
+
+    $('.popup-wraper1').addClass('active');
+}
+
+$('#cancel-room').on('click', function () {
+    thisRoomJoin = null;
+    $('.popup-wraper1').removeClass('active');
+})
+
+$('#confirm-room').on('click', function () {
+    event.preventDefault();
+
     $.ajax({
         url: '/Courses/Room/setJoinRoom',
         type: 'POST',
-        data: { maLop },
+        data: { maLop: thisRoomJoin },
         success: function (data) {
             if (data.tt) {
+                thisRoomJoin = null;
+                $('.popup-wraper1').removeClass('active');
                 location.reload()
             }
         },
@@ -1756,7 +1781,7 @@ function setJoinRoom(maLop) {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
         }
     })
-}
+})
 
 //Gán nội dung cho trả lời bình luận
 $('.we-reply').on('click', function () {
