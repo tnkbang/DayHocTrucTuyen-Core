@@ -208,7 +208,8 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
 
                     //Thông tin giao dịch
                     lichSu.ThuVao = false;
-                    lichSu.SoTien = 0;
+                    lichSu.SoTien = user.money;
+                    lichSu.SoDu = -1;
                     lichSu.GhiChu = "Nâng cấp tài khoản với gói: " + pak.TenGoi;
                 }
 

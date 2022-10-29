@@ -28,7 +28,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         public double getSoDu(string maNd)
         {
             var vi = db.ViNguoiDungs.FirstOrDefault(x => x.MaNd == maNd);
-            if (vi != null) return vi.SoDu;
+            if (vi != null && vi.TrangThai) return vi.SoDu;
             return 0;
         }
 
@@ -41,7 +41,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         }
 
         //Thêm bớt số tiền trong ví
-        public bool setBienDongSoDu(string maNd, bool congthem, double sotien)
+        public bool setThayDoiSoDu(string maNd, bool congthem, double sotien, string ghichu)
         {
             var vi = db.ViNguoiDungs.FirstOrDefault(x => x.MaNd == maNd);
             if(vi != null)
@@ -58,6 +58,16 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
                     }
                     else return false;
                 }
+
+                //Lưu lịch sử giao dịch
+                LichSuGiaoDich ls = new LichSuGiaoDich();
+                ls.MaNd = maNd;
+                ls.ThoiGian = DateTime.Now;
+                ls.ThuVao = congthem;
+                ls.SoTien = sotien;
+                ls.SoDu = vi.SoDu;
+                ls.GhiChu = ghichu;
+                db.LichSuGiaoDiches.Add(ls);
 
                 //Lưu lại khi hoàn tất
                 db.SaveChanges();

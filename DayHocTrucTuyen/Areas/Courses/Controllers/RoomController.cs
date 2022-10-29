@@ -215,19 +215,30 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         {
             var maUser = User.Claims.First().Value;
             var lp = db.LopHocs.FirstOrDefault(x => x.MaLop == maLop);
-            ViController vinguoidung = new ViController();
-            if(lp != null && vinguoidung.getSoDu(maUser) < lp.GiaTien)
+            if(lp != null)
             {
-                return Json(new { tt = false });
+                //Nếu giá tiền của lớp lớn hơn 0 thì tiến hành kiểm tra và thanh toán
+                if(lp.GiaTien > 0)
+                {
+                    ViController vinguoidung = new ViController();
+
+                    //Nếu số tiền có trong ví nhỏ hơn số tiền cần thanh toán thì trả về false
+                    if (vinguoidung.getSoDu(maUser) < lp.GiaTien)
+                        return Json(new { tt = false });
+
+                    //Thực hiện thanh toán
+                    vinguoidung.setThayDoiSoDu(maUser, false, lp.GiaTien, "Phí tham gia lớp: " + lp.TenLop);
+                }
+
+                //Thêm người dùng vào lớp
+                HocSinhThuocLop hs = new HocSinhThuocLop();
+                hs.MaNd = maUser;
+                hs.MaLop = maLop;
+                hs.NgayThamGia = DateTime.Now;
+
+                db.HocSinhThuocLops.Add(hs);
+                db.SaveChanges();
             }
-
-            HocSinhThuocLop hs = new HocSinhThuocLop();
-            hs.MaNd = maUser;
-            hs.MaLop = maLop;
-            hs.NgayThamGia = DateTime.Now;
-
-            db.HocSinhThuocLops.Add(hs);
-            db.SaveChanges();
 
             return Json(new { tt = true });
         }

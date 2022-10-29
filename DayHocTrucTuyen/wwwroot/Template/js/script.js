@@ -1752,8 +1752,10 @@ function setJoinRoom(maLop, sotien) {
     var btn = document.getElementById('confirm-room');
 
     title.innerHTML = 'Bạn muốn tham gia lớp học này?'
-    content.innerHTML = 'Khi nhấn đồng ý, bạn phải tốn <b>' + sotien + '</b> để tham gia lớp học này. Bạn chắc chắn chứ?'
     btn.innerHTML = 'Đồng ý'
+
+    if (sotien != 'Miễn phí') content.innerHTML = 'Khi nhấn đồng ý, bạn phải tốn <b>' + sotien + '</b> để tham gia lớp học này. Bạn chắc chắn chứ?'
+    else content.innerHTML = 'Lớp học này được miễn phí tham gia, bạn sẽ không phải tốn bất cứ phí nào khi tham gia. Bạn đồng ý chứ?'
 
     $('.popup-wraper1').addClass('active');
 }
