@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-//Phân trang sử dụng IQueryable of database
+//Phân trang sử dụng IQueryable of database với index và limit page
 namespace DayHocTrucTuyen.Areas.Admin.Models
 {
     public class PaginatedListAsync<T> : List<T>
