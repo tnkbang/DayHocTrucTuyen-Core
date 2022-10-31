@@ -10,8 +10,19 @@ namespace DayHocTrucTuyen.Controllers
 
         //Trang chủ hệ thống
         [AllowAnonymous]
-        public IActionResult Index()
+        [Route("{id?}")]
+        public IActionResult Index(string? id)
         {
+            //Chuyển hướng khi có nhập ký tự
+            if (!String.IsNullOrEmpty(id))
+            {
+                var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == id);
+                var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
+
+                if(user != null) return Redirect("/Profile/Info/" + user.MaNd);
+                if (lop != null) return Redirect("/Courses/Room/Detail/" + lop.MaLop);
+            }
+
             ViewBag.Courses = db.LopHocs.Count();
             ViewBag.GV = db.NguoiDungs.Where(x => x.MaLoai == "03").Count();
             ViewBag.HS = db.NguoiDungs.Where(x => x.MaLoai == "04").Count();

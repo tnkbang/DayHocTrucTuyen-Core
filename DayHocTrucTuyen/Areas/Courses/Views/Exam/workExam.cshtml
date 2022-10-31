@@ -153,7 +153,9 @@
 </section><!-- content -->
 
 @section ChildScript{
-    window.addEventListener("load", function () {
-        countdown('@ViewBag.ThoiGianThi', '@Model.MaPhong', '@ViewBag.LanThu');
-    });
+    <script>
+        window.addEventListener("load", function () {
+            countdown('@ViewBag.ThoiGianThi', '@Model.MaPhong', '@ViewBag.LanThu');
+        });
+    </script>
 }
