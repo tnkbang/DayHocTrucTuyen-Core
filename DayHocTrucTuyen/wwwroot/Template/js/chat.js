@@ -48,7 +48,7 @@ connection.on('CheckOnline', (trangthai) => {
 //Tự động nhận chat trên popup
 connection.on('ReceivedChat', (ma, img, mess, time) => {
     if (messUserReceived == ma) {
-        setChat('you', img, mess, time);
+        setChat('app', 'you', img, mess, time);
     }
 
     //Làm mới thông báo
@@ -67,7 +67,7 @@ connection.on('ReceivedChat', (ma, img, mess, time) => {
 })
 
 //add tin nhắn
-function setChat(user, avt, mess, time) {
+function setChat(type, user, avt, mess, time) {
     var main = document.getElementById('mess-content');
     var li = document.createElement('li');
     li.classList = user;
@@ -75,6 +75,7 @@ function setChat(user, avt, mess, time) {
     user.classList = 'chat-thumb';
     var img = document.createElement('img');
     img.src = avt;
+    img.classList = 'wh-30';
     user.appendChild(img);
     li.appendChild(user);
     var model = document.createElement('div');
@@ -92,14 +93,25 @@ function setChat(user, avt, mess, time) {
     spntime.appendChild(i);
     model.appendChild(spntime);
     li.appendChild(model);
-    main.appendChild(li);
+
+    if (type == 'pre') {
+        main.prepend(li);
+    }
+    else {
+        main.appendChild(li);
+    }
+
+    //Tăng số lượng tin nhắn
+    offsetChat++
 
     //Hiển thị theo khoảng thời gian
     $("i.timeago").timeago();
 }
 
-//Mã người nhận tin nhắn
+//Biến toàn cục
 var messUserReceived;
+var isLoad = true;
+var offsetChat = 0;
 
 //Hàm gửi tin nhắn
 function send_mess() {
@@ -118,7 +130,7 @@ function send_mess() {
             }
             else {
                 connection.invoke("SendToUser", messUserReceived, noidung.value);
-                setChat('me', data.img_Avt, data.noi_Dung, data.thoi_Gian);
+                setChat('app', 'me', data.img_Avt, data.noi_Dung, data.thoi_Gian);
                 noidung.value = null;
             }
 
@@ -242,6 +254,10 @@ $('#menu-ping-mess').on('click', 'li', function () {
     var maNG = this.children[0].id;
     messUserReceived = maNG;
 
+    //Làm mới lại tin nhắn
+    isLoad = true;
+    offsetChat = 0;
+
     $.ajax({
         url: '/User/Mess/getTinNhanTuUser',
         type: 'POST',
@@ -256,8 +272,8 @@ $('#menu-ping-mess').on('click', 'li', function () {
                 document.getElementById('hidden-mess-user-name').innerHTML = data.uSend.ho_Lot + " " + data.uSend.ten;
 
                 $.each(data.tinNhan, function (index, value) {
-                    if (value.nguoi_Gui == maNG) setChat('you', data.uSend.img_Avt, value.noi_Dung, value.thoi_Gian);
-                    else setChat('me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
+                    if (value.nguoi_Gui == maNG) setChat('app', 'you', data.uSend.img_Avt, value.noi_Dung, value.thoi_Gian);
+                    else setChat('app', 'me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
                 })
             }
             document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info/' + data.uSend.ma_ND) }
@@ -279,6 +295,7 @@ $('#menu-ping-mess').on('click', 'li', function () {
     connection.invoke('CheckOnline', messUserReceived);
 
     $('.chat-box').addClass("show");
+    $('.hidden-chat').removeClass("show");
 });
 
 //Tạm ẩn mini chat
@@ -336,6 +353,43 @@ $('#mess-content').on('scroll', function () {
     } else {
         down.style.display = 'none';
         $('.mess-scroll-bottom').html('<i class="fa fa-angle-double-down"></i> Về cuối');
+    }
+
+    //Xử lý tải thêm tin nhắn
+    if (main.scrollTop == 0 && isLoad) {
+
+        //Lưu trữ vị trí scoll trước khi lấy tin mới
+        var tempscoll = main.scrollHeight;
+
+        //Gọi về server lấy tin
+        $.ajax({
+            url: '/User/Mess/getTinNhanTuUser',
+            type: 'POST',
+            data: { maNG: messUserReceived, offset: offsetChat, limit: 10 },
+            success: function (data) {
+                if (!data.tt) {
+                    getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
+                }
+                else {
+                    $.each(data.tinNhan, function (index, value) {
+                        if (value.nguoi_Gui == messUserReceived) setChat('pre', 'you', data.uSend.img_Avt, value.noi_Dung, value.thoi_Gian);
+                        else setChat('pre', 'me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
+                    })
+
+                    //Trả scoll về vị trí trước khi lấy thêm tin nhắn
+                    main.scrollTop = main.scrollHeight - tempscoll;
+
+                    //Set trạng thái load
+                    if (data.tinNhan.length == 0) {
+                        isLoad = false;
+                        main.firstChild.insertAdjacentHTML('beforebegin', '<p class="full-chat">Đã hết tin</p>')
+                    }
+                }
+            },
+            error: function () {
+                getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+            }
+        })
     }
 });
 

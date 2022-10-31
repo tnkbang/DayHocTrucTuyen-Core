@@ -20,7 +20,8 @@ namespace DayHocTrucTuyen.Models.Entities
         public int setID()
         {
             var tn = db.TinNhans.OrderByDescending(x => x.Id).FirstOrDefault();
-            return tn.Id + 1;
+            if (tn != null) return tn.Id + 1;
+            return 1;
         }
         public List<TinNhan> getTinNhanChuaXem(string maND)
         {
@@ -39,12 +40,14 @@ namespace DayHocTrucTuyen.Models.Entities
         public NguoiDung getUser(string maND)
         {
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == maND);
-            nd.Sdt = null;
-            nd.Email = null;
-            nd.MatKhau = null;
-            nd.ImgNhanDien = null;
-
-            return nd;
+            if (nd != null)
+            {
+                nd.Sdt = null;
+                nd.Email = "";
+                nd.MatKhau = "";
+                nd.ImgNhanDien = null;
+            }
+            return nd ?? new NguoiDung();
         }
         public List<TinNhan> getTinNhanTuUser(string nguoigui, string nguoinhan)
         {
@@ -59,7 +62,7 @@ namespace DayHocTrucTuyen.Models.Entities
             tinNhans.AddRange(tn1);
             tinNhans.AddRange(tn2);
 
-            return tinNhans.OrderBy(x => x.ThoiGian).ToList();
+            return tinNhans;
         }
     }
 }

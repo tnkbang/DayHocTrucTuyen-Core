@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models.Entities;
+﻿using DayHocTrucTuyen.Areas.Admin.Models;
+using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
 
         //Lấy tin nhắn từ người gửi cụ thể đến user login
         [HttpPost]
-        public IActionResult getTinNhanTuUser(string maNG)
+        public IActionResult getTinNhanTuUser(string maNG, int? offset, int? limit)
         {
             TinNhan tn = new TinNhan();
             NguoiDung Usend = tn.getUser(maNG);
@@ -39,8 +40,25 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
                 Ten = Ureceived.Ten,
                 Img_Avt = Ureceived.getImageAvt()
             };
-            List<dynamic> list = new List<dynamic>();
-            foreach (var m in tn.getAllTinNhan(maNG, User.Claims.First().Value))
+
+            List<dynamic> result = new List<dynamic>();
+
+            //Phân đoạn cho tin nhắn
+            offset = offset ?? 0;
+            var tempListChat = tn.getAllTinNhan(maNG, User.Claims.First().Value)
+                                .OrderByDescending(x => x.ThoiGian)
+                                .Skip(offset ?? 0).Take(limit ?? 10).ToList();
+
+            //Nếu tin nhắn nằm ở phân đoạn đầu tiên thì phải sắp xếp theo thời gian tăng dần
+            //Lý do vì bên js sử dụng append() để add tin
+            //Ngược lại thì sử dụng prepend() để add tin nên phải đảo ngược lại thời gian 
+            if(offset == 0)
+            {
+                tempListChat = tempListChat.OrderBy(x => x.ThoiGian).ToList();
+            }
+
+            //Custom lại list tin nhắn trước khi return
+            foreach (var m in tempListChat)
             {
                 var temp = new
                 {
@@ -51,10 +69,13 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
                     Noi_Dung = m.NoiDung,
                     Trang_Thai = m.TrangThai
                 };
-                list.Add(temp);
+                result.Add(temp);
             }
+
+            //Gán đã xem tin tất cả tin của người nhắn đã gửi đến cho user login
             setXemTinNhan(User.Claims.First().Value, maNG);
-            return Json(new { tt = true, USend = usersend, UReceived = userreceived, TinNhan = list });
+
+            return Json(new { tt = true, USend = usersend, UReceived = userreceived, TinNhan = result });
         }
 
         //Gửi tin nhắn cho người khác
@@ -91,25 +112,28 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         {
             var tn = db.TinNhans.Where(x => x.NguoiNhan == maND && x.TrangThai == false);
             if (tn == null) Json(new { tt = false });
-
-            foreach (var t in tn)
+            else
             {
-                t.TrangThai = true;
+                foreach (var t in tn)
+                {
+                    t.TrangThai = true;
+                }
+                db.SaveChanges();
             }
-            db.SaveChanges();
 
             return Json(new { tt = true });
         }
         public void setXemTinNhan(string maNN, string maNG)
         {
             var tn = db.TinNhans.Where(x => x.NguoiNhan == maNN && x.NguoiGui == maNG && x.TrangThai == false);
-            if (tn == null) Json(new { tt = false });
-
-            foreach (var t in tn)
+            if (tn != null)
             {
-                t.TrangThai = true;
+                foreach (var t in tn)
+                {
+                    t.TrangThai = true;
+                }
+                db.SaveChanges();
             }
-            db.SaveChanges();
         }
 
         //Lấy tin nhắn chưa xem
