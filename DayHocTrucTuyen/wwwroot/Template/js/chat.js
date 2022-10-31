@@ -200,8 +200,8 @@ connection.on('ListOnline', (list) => {
 //Gán thông báo cho tin nhắn
 function addPingMess(usend, img, name, noidung, time) {
     $('#menu-ping-mess').append(
-        '<li>' +
-        '<a class="show-mesg" title="" id="' + usend + '">' +
+        '<li class="' + usend + '">' +
+        '<a class="show-mesg" title="">' +
         '<figure>' +
         '<img class="wh-35" src="' + img + '" alt="" />' +
         '</figure>' +
@@ -223,7 +223,10 @@ function getPingMess() {
 
             $('#dot-tin-nhan').html(data.sl);
             $('.sl-ping-mess').html(data.sl);
+            $('.mobi-sl-ping-mess').html('(' + data.sl + ')');
+
             $('#menu-ping-mess').html('');
+            $(".list-none").remove();
 
             if (data.sl == 0) {
                 $('#dot-tin-nhan').hide();
@@ -231,12 +234,18 @@ function getPingMess() {
                 $('#menu-ping-mess').append(
                     '<span class="d-flex justify-content-center">Hiện không có tin nhắn mới nào!</span>'
                 );
+                $('#mobi-menu-ping-mess').append(
+                    '<li class="list-none">Không có tin nhắn mới nào!</li>'
+                );
             }
             else {
                 $('#dot-tin-nhan').show();
 
                 $.each(data.list, function (index, value) {
                     addPingMess(value.usend, value.img, value.name, value.noidung, value.time);
+                    $('#mobi-menu-ping-mess').append(
+                        '<li class="' + value.usend + ' list-none mobi-ping-mess">Từ ' + value.name + ': ' + value.noidung + '</li>'
+                    );
                 })
 
                 //Hiển thị theo khoảng thời gian
@@ -249,9 +258,21 @@ function getPingMess() {
     })
 }
 
-//Hiển thị popup chat khi nhấn trên thông báo chat
+//Hiển thị popup chat khi nhấn trên thông báo chat với pc
 $('#menu-ping-mess').on('click', 'li', function () {
-    var maNG = this.children[0].id;
+    openPopupChat(this.classList[0])
+});
+
+//Hiển thị popup chat khi nhấn trên thông báo chat với mobile
+$("#menu").on("click", ".mobi-ping-mess", function () {
+    var mobi_menu = $("#menu").data("mmenu");
+    mobi_menu.close();
+    openPopupChat(this.classList[0])
+});
+
+//Hàm mở popup chat
+function openPopupChat(maUser) {
+    var maNG = maUser;
     messUserReceived = maNG;
 
     //Làm mới lại tin nhắn
@@ -296,7 +317,7 @@ $('#menu-ping-mess').on('click', 'li', function () {
 
     $('.chat-box').addClass("show");
     $('.hidden-chat').removeClass("show");
-});
+}
 
 //Tạm ẩn mini chat
 $('.temp-hide-chat').on('click', function () {

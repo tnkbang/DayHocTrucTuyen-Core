@@ -64,6 +64,10 @@ img {
     z-index: 2;
 }
 
+.list-none{
+    list-style: none
+}
+
 .theme-layout {
     float: left;
     position: relative;

@@ -123,6 +123,7 @@
         max-width: 130px;
         min-width: 130px;
         width: 130px;
+        height: 130px;
     }
 
     .profile-author {
@@ -1281,6 +1282,7 @@
         max-width: 100px;
         min-width: 100px;
         width: 100px;
+        height: 100px;
     }
 
     .profile-author {
@@ -2930,6 +2932,7 @@
         max-width: 80px;
         min-width: 80px;
         width: 80px;
+        height: 80px;
     }
 
     .user-profile .join-btn {
