@@ -151,8 +151,9 @@
         </div>
     </div>
 </section><!-- content -->
-<script>
+
+@section ChildScript{
     window.addEventListener("load", function () {
         countdown('@ViewBag.ThoiGianThi', '@Model.MaPhong', '@ViewBag.LanThu');
     });
-</script>
+}
