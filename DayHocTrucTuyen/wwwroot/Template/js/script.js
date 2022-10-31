@@ -364,44 +364,6 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    //Link copied on click 	
-
-    $(".get-link").click(function (event) {
-        event.preventDefault();
-        CopyToClipboard(this.parentElement.parentElement.children[0].children[0].href, true, "Đã sao chép");
-    });
-
-    function CopyToClipboard(value, showNotification, notificationText) {
-
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val(value).select();
-        document.execCommand("copy");
-        $temp.remove();
-
-        if (typeof showNotification === 'undefined') {
-            showNotification = true;
-        }
-        if (typeof notificationText === 'undefined') {
-            notificationText = "Copied to clipboard";
-        }
-
-        var notificationTag = $("div.copy-notification");
-        if (showNotification && notificationTag.length == 0) {
-            notificationTag = $("<div/>", { "class": "copy-notification", text: notificationText });
-            $("body").append(notificationTag);
-
-            notificationTag.fadeIn("slow", function () {
-                setTimeout(function () {
-                    notificationTag.fadeOut("slow", function () {
-                        notificationTag.remove();
-                    });
-                }, 1000);
-            });
-        }
-    }
-
-
     //===== Search Filter =====//
     (function ($) {
         // custom css expression for a case-insensitive contains()
@@ -1308,6 +1270,28 @@ jQuery(document).ready(function ($) {
 })();
 
 //JS xử lý các sự kiện
+
+//Hàm sao chép link vào ô nhớ tạm
+function getLink(link) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val('https://localhost:44354/' + link).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    var notificationTag = $("div.copy-notification");
+    notificationTag = $("<div/>", { "class": "copy-notification", text: "Đã sao chép" });
+    $("body").append(notificationTag);
+
+    notificationTag.fadeIn("slow", function () {
+        setTimeout(function () {
+            notificationTag.fadeOut("slow", function () {
+                notificationTag.remove();
+            });
+        }, 1000);
+    });
+}
+
 //Kiểm tra nhập lại mật khẩu
 function passValidate(id_pass, re_pass, kt_pass) {
     var pass = document.getElementById(id_pass);
