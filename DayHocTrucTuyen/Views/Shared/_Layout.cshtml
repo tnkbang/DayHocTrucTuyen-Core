@@ -98,6 +98,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
+                                @if (uLogin.MaLoai.Equals("01"))
+                                {
+                                    <a href="~/Admin/User/List" class="dropdown-item"><i class="bi bi-grid"> Admin</i></a>
+                                }
                                 <a href="~/User/Manage/Index" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
                                 <button type="button" id="logoutAccount" class="dropdown-item text-danger" onclick="dangxuat()"><i class="bi bi-power"> Đăng xuất</i></button>
                             </li>

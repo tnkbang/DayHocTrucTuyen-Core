@@ -142,7 +142,7 @@
                             </div>
                         </div>
                     }
-                    @if (User.Claims.ToList()[1].Value.Equals("02"))
+                    @if (uLogin.MaLoai.Equals("01") || uLogin.MaLoai.Equals("02"))
                     {
                         <div class="forum-warper">
                             <div class="central-meta">
@@ -333,7 +333,7 @@
                         <div class="widget">
                             <h4 class="widget-title">Thống kê</h4>
                             <ul class="forum-static">
-                                @if(User.Claims.ToList()[1].Value.Equals("02"))
+                                @if(uLogin.MaLoai.Equals("02"))
                                 {
                                     <li>
                                         <a title="">Quản lý lớp</a>

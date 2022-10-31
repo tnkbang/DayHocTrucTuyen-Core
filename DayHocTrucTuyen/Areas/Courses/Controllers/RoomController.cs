@@ -42,6 +42,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         }
 
         //Trang chỉnh sửa lớp học
+        [Authorize(Roles = "01,02")]
         public IActionResult editRoom(string id)
         {
             string maUser = User.Claims.First().Value;
@@ -56,6 +57,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Thêm mới lớp học
         [HttpPost]
+        [Authorize(Roles = "01,02")]
         public async Task<IActionResult> createRoom(string tl, string bd, string mt, string tag, IFormFile img)
         {
             var maUser = User.Claims.First().Value;
@@ -129,6 +131,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
         //Cập nhật thông tin lớp học
         [HttpPost]
+        [Authorize(Roles = "01,02")]
         public async Task<IActionResult> editRoom(string ml, string tl, string bd, int gt, string mt, string tag, IFormFile img)
         {
             var maUser = User.Claims.First().Value;
