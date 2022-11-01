@@ -68,6 +68,10 @@ img {
     list-style: none
 }
 
+.text-none {
+    text-transform: none !important;
+}
+
 .theme-layout {
     float: left;
     position: relative;

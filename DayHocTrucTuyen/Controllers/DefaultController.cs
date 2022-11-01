@@ -10,7 +10,7 @@ namespace DayHocTrucTuyen.Controllers
 
         //Trang chủ hệ thống
         [AllowAnonymous]
-        [Route("{id?}")]
+        [Route("{id?}", Name = "ShotLink"), Route("/Default/Index", Name = "Default")]
         public IActionResult Index(string? id)
         {
             //Chuyển hướng khi có nhập ký tự

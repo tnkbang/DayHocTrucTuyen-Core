@@ -273,5 +273,21 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
             return Json(new { tt = true, lst = name });
         }
+
+        //Lấy số lượng lớp đã tham gia
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult getSLRoomJoin()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+                if (user != null)
+                {
+                    return Json(new { sl = user.getJoinRoom() });
+                }
+            }
+            return Json(new { sl = 0 });
+        }
     }
 }

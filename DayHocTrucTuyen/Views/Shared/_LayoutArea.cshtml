@@ -63,17 +63,25 @@
                 <ul>
                     <li><a href="/Default/Index" title="">Trang chủ</a></li>
                     <li>
-                        <span>Lớp học đã tham gia</span>
+                        <span>Lớp học đã tham gia <span class="sl-room-join"></span></span>
                         <ul>
-                            @if (userAccount.getListJoin().Count == 0)
+                            @if (userAccount.getJoinRoom() == 0)
                             {
                                 <li>Bạn chưa tham gia lớp học nào!</li>
                             }
                             else 
                             {
-                                foreach(var l in userAccount.getListJoin())
+                                foreach(var r in userAccount.getListJoin())
                                 {
-                                    <li><a href="~/Courses/Room/Detail/@l.MaLop" title="">@l.TenLop</a></li>
+                                    <li class="ml-2 mr-2 mt-1 mb-1">
+                                        <ins class="mesg-meta mobi-msg">
+                                            <img class="wh-35" src="@r.getImage()" alt="@r.TenLop" />
+                                            <h6><a class="text-none" href="~/Courses/Room/Detail/@r.MaLop" title="Đi đến lớp @r.TenLop">@r.TenLop</a></h6>
+                                            <span class="text-none"><b>@r.getOwner().Ten</b> là giáo viên</span>
+                                            <i class="add-del-friends fa fa-group"></i>
+                                            <i class="text-none">@r.getMembers() thành viên</i>
+                                        </ins>
+                                    </li>
                                 }
                             }
                         </ul>

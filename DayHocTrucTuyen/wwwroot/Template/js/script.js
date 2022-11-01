@@ -8,6 +8,18 @@ $(window).load(function () {
 $(document).ready(function () {
     $("span.timeago").timeago();
     $("i.timeago").timeago();
+
+    //Lấy số lượng lớp học đã tham gia
+    $.ajax({
+        url: '/Courses/Room/getSLRoomJoin',
+        type: 'GET',
+        success: function (data) {
+            $('.sl-room-join').html('(' + data.sl + ')')
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
 });
 
 jQuery(document).ready(function ($) {
