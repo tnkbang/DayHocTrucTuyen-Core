@@ -197,7 +197,7 @@ connection.on('ListOnline', (list) => {
 })
 
 
-//Gán thông báo cho tin nhắn
+//Gán thông báo cho tin nhắn pc
 function addPingMess(usend, img, name, noidung, time) {
     $('#menu-ping-mess').append(
         '<li class="' + usend + '">' +
@@ -211,6 +211,20 @@ function addPingMess(usend, img, name, noidung, time) {
         '<i class="timeago" title="' + time + '">' + time + '</i>' +
         '</div>' +
         '</a>' +
+        '</li>'
+    );
+}
+
+//Gán thông báo cho tin nhắn mobi
+function addPingMessMobi(usend, img, name, noidung, time) {
+    $('#mobi-menu-ping-mess').append(
+        '<li class="' + usend + ' list-none mobi-ping-mess">' +
+        '<div class="mesg-meta mobi-msg">' +
+        '<img class="wh-35" src="' + img + '" alt="" />' +
+        '<h6>' + name + '</h6>' +
+        '<span><i class="ti-check"></i> ' + noidung + '</span>' +
+        '<i class="timeago" title="' + time + '">' + time + '</i>' +
+        '</div>' +
         '</li>'
     );
 }
@@ -243,9 +257,7 @@ function getPingMess() {
 
                 $.each(data.list, function (index, value) {
                     addPingMess(value.usend, value.img, value.name, value.noidung, value.time);
-                    $('#mobi-menu-ping-mess').append(
-                        '<li class="' + value.usend + ' list-none mobi-ping-mess">Từ ' + value.name + ': ' + value.noidung + '</li>'
-                    );
+                    addPingMessMobi(value.usend, value.img, value.name, value.noidung, value.time);
                 })
 
                 //Hiển thị theo khoảng thời gian

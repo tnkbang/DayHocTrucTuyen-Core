@@ -1222,6 +1222,24 @@ header.sticky {
     text-transform: capitalize;
     width: 100%;
 }
+
+/* Mobi ping mess */
+#mobi-menu-ping-mess li{
+    padding-bottom: 4px;
+}
+.mobi-msg {
+    border-radius: 5px;
+    background: azure;
+    padding: 5px;
+    width: 100%;
+    vertical-align: middle
+}
+    .mobi-msg img {
+        border-radius: 50%;
+        margin-right: 10px;
+        float: left;
+    }
+
 /*help dropdown ---*/
 .dropdowns > form {
     display: inline-block;
