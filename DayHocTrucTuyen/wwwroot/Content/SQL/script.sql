@@ -21,7 +21,6 @@ create table NguoiDung(
 	Mat_Khau varchar(32) not null,
 	Img_Avt varchar(100),
 	Img_BG varchar(100),
-	Img_Nhan_Dien varchar(100),
 	Trang_Thai bit not null,
 	Mo_Ta nvarchar(300),
 	Ngay_Tao datetime not null,
@@ -63,6 +62,17 @@ create table LichSuGiaoDich(
 	So_Tien float not null,
 	So_Du float not null,
 	Ghi_Chu nvarchar(200) not null,
+	primary key (Ma_ND, Thoi_Gian)
+)
+
+create table YeuCauThanhToan(
+	Ma_ND char(7) references NguoiDung(Ma_ND),
+	Loai_Thanh_Toan varchar(20) not null,
+	So_Tai_Khoan varchar(20),
+	So_Tien float not null,
+	Trang_Thai int not null,
+	Thoi_Gian datetime,
+	Ghi_Chu nvarchar(200),
 	primary key (Ma_ND, Thoi_Gian)
 )
 
@@ -109,14 +119,6 @@ create table ThongBao(
 	primary key (Ma_TB, Ma_ND)
 )
 
-create table PhieuBinhChon(
-	Ma_Phieu char(5) primary key,
-	Ma_ND char(7) references NguoiDung(Ma_ND),
-	Chuc_Nang nvarchar(30) not null,
-	Muc_Do int not null,
-	Ghi_Chu nvarchar(500)
-)
-
 create table LopHoc(
 	Ma_Lop char(11) primary key,
 	Ma_ND char(7) references NguoiDung(Ma_ND),
@@ -147,6 +149,12 @@ create table DanhGiaLop(
 	Muc_Do int not null,
 	Ghi_Chu nvarchar(500),
 	Thoi_Gian datetime
+)
+
+create table LichSuTruyCap(
+	Thoi_Gian datetime primary key,
+	Ma_ND char(7) references NguoiDung(Ma_ND),
+	Ma_Lop char(11) references LopHoc(Ma_Lop)
 )
 
 create table HocSinhThuocLop(
@@ -244,12 +252,12 @@ INSERT [dbo].[GoiNangCap] ([Ma_Goi], [Ten_Goi], [Gia_Tien], [Hieu_Luc], [Mo_Ta])
 INSERT [dbo].[GoiNangCap] ([Ma_Goi], [Ten_Goi], [Gia_Tien], [Hieu_Luc], [Mo_Ta]) VALUES (2, N'SVip', 30000, 6, N'Gói nâng cấp tin cậy')
 INSERT [dbo].[GoiNangCap] ([Ma_Goi], [Ten_Goi], [Gia_Tien], [Hieu_Luc], [Mo_Ta]) VALUES (3, N'Premium', 50000, 12, N'Gói nâng cấp tri kỷ')
 
-INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Img_Nhan_Dien], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000001', N'01', N'Khánh', N'Băng', NULL, NULL, NULL, N'trieukhanhbang123@gmail.com', N'B486D7696F563BA2B80EEB936BC63166', N'avt-U000001-310.jpg', NULL, NULL, 1, NULL, CAST(0x0000AE650127192E AS DateTime), N'U000001')
-INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Img_Nhan_Dien], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000002', N'03', N'Lâm Linh', N'Tuyết', NULL, NULL, NULL, N'linhtuyet@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, NULL, 1, NULL, CAST(0x0000AE6E0133077B AS DateTime), N'U000002')
-INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Img_Nhan_Dien], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000003', N'03', N'Ngô Minh', N'Nguyệt', NULL, NULL, NULL, N'minhnguyet@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, NULL, 1, NULL, CAST(0x0000AE7D009A1B94 AS DateTime), N'U000003')
-INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Img_Nhan_Dien], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000004', N'03', N'Lâm Thu', N'Hà', NULL, NULL, NULL, N'thuha@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, NULL, 1, NULL, CAST(0x0000AE7D009A395D AS DateTime), N'U000004')
-INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Img_Nhan_Dien], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000005', N'03', N'Nguyễn Nhật', N'Duy', NULL, NULL, NULL, N'nhatduy@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, NULL, 1, NULL, CAST(0x0000AE7D009A51E6 AS DateTime), N'U000005')
-INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Img_Nhan_Dien], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000006', N'02', N'Hồ Ánh', N'Nguyệt', NULL, NULL, NULL, N'anhnguyet@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, NULL, 1, NULL, CAST(0x0000AE7D009A6C9B AS DateTime), N'U000006')
+INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000001', N'01', N'Khánh', N'Băng', NULL, NULL, NULL, N'trieukhanhbang123@gmail.com', N'B486D7696F563BA2B80EEB936BC63166', N'avt-U000001-310.jpg', NULL, 1, NULL, CAST(0x0000AE650127192E AS DateTime), N'U000001')
+INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000002', N'03', N'Lâm Linh', N'Tuyết', NULL, NULL, NULL, N'linhtuyet@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, 1, NULL, CAST(0x0000AE6E0133077B AS DateTime), N'U000002')
+INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000003', N'03', N'Ngô Minh', N'Nguyệt', NULL, NULL, NULL, N'minhnguyet@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, 1, NULL, CAST(0x0000AE7D009A1B94 AS DateTime), N'U000003')
+INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000004', N'03', N'Lâm Thu', N'Hà', NULL, NULL, NULL, N'thuha@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, 1, NULL, CAST(0x0000AE7D009A395D AS DateTime), N'U000004')
+INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000005', N'03', N'Nguyễn Nhật', N'Duy', NULL, NULL, NULL, N'nhatduy@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, 1, NULL, CAST(0x0000AE7D009A51E6 AS DateTime), N'U000005')
+INSERT [dbo].[NguoiDung] ([Ma_ND], [Ma_Loai], [Ho_Lot], [Ten], [Ngay_Sinh], [Gioi_Tinh], [SDT], [Email], [Mat_Khau], [Img_Avt], [Img_BG], [Trang_Thai], [Mo_Ta], [Ngay_Tao], [Bi_Danh]) VALUES (N'U000006', N'02', N'Hồ Ánh', N'Nguyệt', NULL, NULL, NULL, N'anhnguyet@gmail.com', N'E10ADC3949BA59ABBE56E057F20F883E', NULL, NULL, 1, NULL, CAST(0x0000AE7D009A6C9B AS DateTime), N'U000006')
 
 INSERT [dbo].[Tag] ([Ma_Tag], [Ten_Tag]) VALUES (N'CT001', N'Lập Trình Web')
 INSERT [dbo].[Tag] ([Ma_Tag], [Ten_Tag]) VALUES (N'CT002', N'Lập Trình .Net')

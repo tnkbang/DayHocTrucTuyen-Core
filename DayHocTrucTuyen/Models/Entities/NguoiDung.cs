@@ -18,8 +18,8 @@ namespace DayHocTrucTuyen.Models.Entities
             DanhGiaLops = new HashSet<DanhGiaLop>();
             HocSinhThuocLops = new HashSet<HocSinhThuocLop>();
             LichSuGiaoDiches = new HashSet<LichSuGiaoDich>();
+            LichSuTruyCaps = new HashSet<LichSuTruyCap>();
             LopHocs = new HashSet<LopHoc>();
-            PhieuBinhChons = new HashSet<PhieuBinhChon>();
             ThichTrangNguoiDungNavigations = new HashSet<ThichTrang>();
             ThichTrangNguoiThichNavigations = new HashSet<ThichTrang>();
             ThoiGianLamBais = new HashSet<ThoiGianLamBai>();
@@ -28,10 +28,11 @@ namespace DayHocTrucTuyen.Models.Entities
             TinNhanNguoiNhanNavigations = new HashSet<TinNhan>();
             XemTrangNguoiDungNavigations = new HashSet<XemTrang>();
             XemTrangNguoiXemNavigations = new HashSet<XemTrang>();
+            YeuCauThanhToans = new HashSet<YeuCauThanhToan>();
         }
 
         public string MaNd { get; set; } = null!;
-        public string MaLoai { get; set; } = null!;
+        public string? MaLoai { get; set; }
         public string? HoLot { get; set; }
         public string Ten { get; set; } = null!;
         public DateTime? NgaySinh { get; set; }
@@ -41,13 +42,12 @@ namespace DayHocTrucTuyen.Models.Entities
         public string MatKhau { get; set; } = null!;
         public string? ImgAvt { get; set; }
         public string? ImgBg { get; set; }
-        public string? ImgNhanDien { get; set; }
         public bool TrangThai { get; set; }
         public string? MoTa { get; set; }
         public DateTime NgayTao { get; set; }
         public string? BiDanh { get; set; }
 
-        public virtual LoaiNd MaLoaiNavigation { get; set; } = null!;
+        public virtual LoaiNd? MaLoaiNavigation { get; set; }
         public virtual PheDuyet PheDuyet { get; set; } = null!;
         public virtual TrangThaiNangCap TrangThaiNangCap { get; set; } = null!;
         public virtual ViNguoiDung ViNguoiDung { get; set; } = null!;
@@ -60,8 +60,8 @@ namespace DayHocTrucTuyen.Models.Entities
         public virtual ICollection<DanhGiaLop> DanhGiaLops { get; set; }
         public virtual ICollection<HocSinhThuocLop> HocSinhThuocLops { get; set; }
         public virtual ICollection<LichSuGiaoDich> LichSuGiaoDiches { get; set; }
+        public virtual ICollection<LichSuTruyCap> LichSuTruyCaps { get; set; }
         public virtual ICollection<LopHoc> LopHocs { get; set; }
-        public virtual ICollection<PhieuBinhChon> PhieuBinhChons { get; set; }
         public virtual ICollection<ThichTrang> ThichTrangNguoiDungNavigations { get; set; }
         public virtual ICollection<ThichTrang> ThichTrangNguoiThichNavigations { get; set; }
         public virtual ICollection<ThoiGianLamBai> ThoiGianLamBais { get; set; }
@@ -70,13 +70,14 @@ namespace DayHocTrucTuyen.Models.Entities
         public virtual ICollection<TinNhan> TinNhanNguoiNhanNavigations { get; set; }
         public virtual ICollection<XemTrang> XemTrangNguoiDungNavigations { get; set; }
         public virtual ICollection<XemTrang> XemTrangNguoiXemNavigations { get; set; }
+        public virtual ICollection<YeuCauThanhToan> YeuCauThanhToans { get; set; }
 
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
         public NguoiDung getNguoiDung(string ma)
         {
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == ma);
-            return nd;
+            return nd ?? new NguoiDung();
         }
 
         public string setMaUser()
@@ -117,9 +118,12 @@ namespace DayHocTrucTuyen.Models.Entities
         public string getTenLoai()
         {
             var loai = db.LoaiNds.FirstOrDefault(x => x.MaLoai == this.MaLoai);
-            if (loai.MaLoai.Equals("01")) return "Quản trị viên";
-
-            return loai.TenLoai;
+            if (loai != null)
+            {
+                if(loai.MaLoai.Equals("01")) return "Quản trị viên";
+                return loai.TenLoai;
+            }
+            return "Không xác định";
         }
 
         public string getFullName()
@@ -213,7 +217,7 @@ namespace DayHocTrucTuyen.Models.Entities
             if (upgrade != null)
             {
                 var pak = db.GoiNangCaps.FirstOrDefault(x => x.MaGoi == upgrade.MaGoi);
-                if (upgrade.NgayDangKy.AddDays(pak.HieuLuc * 30) > DateTime.Now)
+                if (pak != null && upgrade.NgayDangKy.AddDays(pak.HieuLuc * 30) > DateTime.Now)
                 {
                     return true;
                 }

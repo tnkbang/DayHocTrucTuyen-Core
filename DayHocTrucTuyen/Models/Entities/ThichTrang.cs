@@ -6,17 +6,17 @@ namespace DayHocTrucTuyen.Models.Entities
     public partial class ThichTrang
     {
         public string MaYt { get; set; } = null!;
-        public string NguoiDung { get; set; } = null!;
-        public string NguoiThich { get; set; } = null!;
+        public string? NguoiDung { get; set; }
+        public string? NguoiThich { get; set; }
         public DateTime ThoiGian { get; set; }
 
-        public virtual NguoiDung NguoiDungNavigation { get; set; } = null!;
-        public virtual NguoiDung NguoiThichNavigation { get; set; } = null!;
+        public virtual NguoiDung? NguoiDungNavigation { get; set; }
+        public virtual NguoiDung? NguoiThichNavigation { get; set; }
 
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
         public string setMa(string nd)
         {
-            ThichTrang yt = db.ThichTrangs.Where(x => x.NguoiDung == nd).OrderByDescending(x => x.MaYt).FirstOrDefault();
+            var yt = db.ThichTrangs.Where(x => x.NguoiDung == nd).OrderByDescending(x => x.MaYt).FirstOrDefault();
             if (yt == null)
             {
                 return nd + "_0000001";

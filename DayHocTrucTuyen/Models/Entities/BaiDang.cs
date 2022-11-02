@@ -12,15 +12,15 @@ namespace DayHocTrucTuyen.Models.Entities
         }
 
         public string MaBai { get; set; } = null!;
-        public string MaLop { get; set; } = null!;
-        public string MaNd { get; set; } = null!;
+        public string? MaLop { get; set; }
+        public string? MaNd { get; set; }
         public DateTime ThoiGian { get; set; }
         public string? NoiDung { get; set; }
         public string? DinhKem { get; set; }
         public bool TrangThai { get; set; }
 
-        public virtual LopHoc MaLopNavigation { get; set; } = null!;
-        public virtual NguoiDung MaNdNavigation { get; set; } = null!;
+        public virtual LopHoc? MaLopNavigation { get; set; }
+        public virtual NguoiDung? MaNdNavigation { get; set; }
         public virtual Ghim Ghim { get; set; } = null!;
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         public virtual ICollection<CamXuc> CamXucs { get; set; }
@@ -42,14 +42,17 @@ namespace DayHocTrucTuyen.Models.Entities
         }
         public NguoiDung getOwner()
         {
-            NguoiDung temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
+            var temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
             NguoiDung user = new NguoiDung();
 
-            user.MaNd = temp.MaNd;
-            user.HoLot = temp.HoLot;
-            user.Ten = temp.Ten;
-            user.ImgAvt = temp.ImgAvt;
-            user.ImgBg = temp.ImgBg;
+            if(temp != null)
+            {
+                user.MaNd = temp.MaNd;
+                user.HoLot = temp.HoLot;
+                user.Ten = temp.Ten;
+                user.ImgAvt = temp.ImgAvt;
+                user.ImgBg = temp.ImgBg;
+            }
 
             return user;
         }
@@ -77,7 +80,6 @@ namespace DayHocTrucTuyen.Models.Entities
                 m.Sdt = null;
                 m.MatKhau = "";
                 m.Email = "";
-                m.ImgNhanDien = null;
             }
             return mem.ToList();
         }
@@ -94,7 +96,6 @@ namespace DayHocTrucTuyen.Models.Entities
                 user.Sdt = null;
                 user.MatKhau = "";
                 user.Email = "";
-                user.ImgNhanDien = null;
             }
 
             return user;

@@ -15,7 +15,7 @@ namespace DayHocTrucTuyen.Models.Entities
         }
 
         public string MaPhong { get; set; } = null!;
-        public string MaLop { get; set; } = null!;
+        public string? MaLop { get; set; }
         public string TenPhong { get; set; } = null!;
         public DateTime NgayTao { get; set; }
         public string? MatKhau { get; set; }
@@ -25,7 +25,7 @@ namespace DayHocTrucTuyen.Models.Entities
         public bool XemLai { get; set; }
         public int ThoiLuong { get; set; }
 
-        public virtual LopHoc MaLopNavigation { get; set; } = null!;
+        public virtual LopHoc? MaLopNavigation { get; set; }
         public virtual ICollection<BiCamThi> BiCamThis { get; set; }
         public virtual ICollection<CauHoiThi> CauHoiThis { get; set; }
         public virtual ICollection<ThoiGianLamBai> ThoiGianLamBais { get; set; }
@@ -87,8 +87,8 @@ namespace DayHocTrucTuyen.Models.Entities
         public string getDapAnDaChon(int stt, string maND, int lanthu)
         {
             var tl = db.CauTraLois.FirstOrDefault(x => x.Stt == stt && x.MaPhong == this.MaPhong && x.MaNd == maND && x.LanThu == lanthu);
-
-            return tl.DapAn;
+            if (tl != null) return tl.DapAn;
+            return "";
         }
         public int getDiemThi(string maND, int lanthu)
         {
@@ -97,7 +97,7 @@ namespace DayHocTrucTuyen.Models.Entities
             {
                 var cauhoi = db.CauHoiThis.FirstOrDefault(x => x.Stt == i && x.MaPhong == this.MaPhong);
                 var traloi = db.CauTraLois.FirstOrDefault(x => x.Stt == i && x.MaPhong == this.MaPhong && x.MaNd == maND && x.LanThu == lanthu);
-                if (traloi != null && traloi.DapAn.Equals(cauhoi.LoiGiai))
+                if (cauhoi != null && traloi != null && traloi.DapAn.Equals(cauhoi.LoiGiai))
                 {
                     diem++;
                 }

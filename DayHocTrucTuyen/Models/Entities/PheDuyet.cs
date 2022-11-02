@@ -17,7 +17,7 @@ namespace DayHocTrucTuyen.Models.Entities
         public NguoiDung getNguoiDung()
         {
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
-            return nd;
+            return nd ?? new NguoiDung();
         }
     }
 }

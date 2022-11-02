@@ -6,17 +6,17 @@ namespace DayHocTrucTuyen.Models.Entities
     public partial class XemTrang
     {
         public string MaXt { get; set; } = null!;
-        public string NguoiDung { get; set; } = null!;
-        public string NguoiXem { get; set; } = null!;
+        public string? NguoiDung { get; set; }
+        public string? NguoiXem { get; set; }
         public DateTime ThoiGian { get; set; }
 
-        public virtual NguoiDung NguoiDungNavigation { get; set; } = null!;
-        public virtual NguoiDung NguoiXemNavigation { get; set; } = null!;
+        public virtual NguoiDung? NguoiDungNavigation { get; set; }
+        public virtual NguoiDung? NguoiXemNavigation { get; set; }
 
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
         public string setMa(string nd)
         {
-            XemTrang xt = db.XemTrangs.Where(x => x.NguoiDung == nd).OrderByDescending(x => x.MaXt).FirstOrDefault();
+            var xt = db.XemTrangs.Where(x => x.NguoiDung == nd).OrderByDescending(x => x.MaXt).FirstOrDefault();
             if (xt == null)
             {
                 return nd + "_0000001";

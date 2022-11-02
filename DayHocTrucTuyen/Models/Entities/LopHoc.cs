@@ -11,12 +11,13 @@ namespace DayHocTrucTuyen.Models.Entities
             BaiDangs = new HashSet<BaiDang>();
             DanhGiaLops = new HashSet<DanhGiaLop>();
             HocSinhThuocLops = new HashSet<HocSinhThuocLop>();
+            LichSuTruyCaps = new HashSet<LichSuTruyCap>();
             LopThuocTags = new HashSet<LopThuocTag>();
             PhongThis = new HashSet<PhongThi>();
         }
 
         public string MaLop { get; set; } = null!;
-        public string MaNd { get; set; } = null!;
+        public string? MaNd { get; set; }
         public DateTime NgayTao { get; set; }
         public string TenLop { get; set; } = null!;
         public string? BiDanh { get; set; }
@@ -25,10 +26,11 @@ namespace DayHocTrucTuyen.Models.Entities
         public bool TrangThai { get; set; }
         public string? ImgBia { get; set; }
 
-        public virtual NguoiDung MaNdNavigation { get; set; } = null!;
+        public virtual NguoiDung? MaNdNavigation { get; set; }
         public virtual ICollection<BaiDang> BaiDangs { get; set; }
         public virtual ICollection<DanhGiaLop> DanhGiaLops { get; set; }
         public virtual ICollection<HocSinhThuocLop> HocSinhThuocLops { get; set; }
+        public virtual ICollection<LichSuTruyCap> LichSuTruyCaps { get; set; }
         public virtual ICollection<LopThuocTag> LopThuocTags { get; set; }
         public virtual ICollection<PhongThi> PhongThis { get; set; }
 
@@ -55,13 +57,10 @@ namespace DayHocTrucTuyen.Models.Entities
         public string setMa()
         {
             var ma = "";
-            LopHoc temp;
-
             do
             {
                 ma = randomString();
-                temp = db.LopHocs.FirstOrDefault(x => x.MaLop == ma);
-            } while (temp.MaNd != null);
+            } while (db.LopHocs.FirstOrDefault(x => x.MaLop == ma) != null);
             return ma;
         }
         public string getImage()
@@ -72,14 +71,16 @@ namespace DayHocTrucTuyen.Models.Entities
 
         public NguoiDung getOwner()
         {
-            NguoiDung temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
+            var temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
             NguoiDung user = new NguoiDung();
-
-            user.MaNd = temp.MaNd;
-            user.HoLot = temp.HoLot;
-            user.Ten = temp.Ten;
-            user.ImgAvt = temp.ImgAvt;
-            user.ImgBg = temp.ImgBg;
+            if (temp != null)
+            {
+                user.MaNd = temp.MaNd;
+                user.HoLot = temp.HoLot;
+                user.Ten = temp.Ten;
+                user.ImgAvt = temp.ImgAvt;
+                user.ImgBg = temp.ImgBg;
+            }
 
             return user;
         }
@@ -148,7 +149,6 @@ namespace DayHocTrucTuyen.Models.Entities
                 m.Sdt = null;
                 m.MatKhau = "";
                 m.Email = "";
-                m.ImgNhanDien = null;
             }
             return mem.ToList();
         }
