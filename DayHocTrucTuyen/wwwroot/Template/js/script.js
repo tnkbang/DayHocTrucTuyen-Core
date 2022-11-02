@@ -2871,55 +2871,7 @@ $('#frm-update-user').on('submit', () => {
     })
 })
 
-//Cập nhật avt người dùng
-$('.edit-dp').on('change', '#user-edit-avt', function () {
-    var anh = /(\.jpg|\.jpeg|\.png)$/i;
-    var file = $('#user-edit-avt').prop('files')[0];
-
-    if ($('#user-edit-avt').val()) {
-        if (!anh.exec(file.name)) {
-            getThongBao('error', 'Lỗi', 'Định dạng ảnh không chính xác !')
-            document.getElementById('user-edit-avt').value = null;
-            return;
-        }
-
-        if (file.size > 10240 * 1024) {
-            getThongBao('error', 'Tệp tin quá lớn', 'Chỉ cho phép tải tệp tin nhỏ hơn 10MB !')
-            document.getElementById('user-edit-avt').value = null;
-            return;
-        }
-
-        var form_data = new FormData();
-        form_data.append("avt", file);
-
-        $.ajax({
-            url: '/Profile/setAvt',
-            type: 'POST',
-            data: form_data,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (!data.tt) {
-                    getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
-                }
-                else {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.getElementById("img-user-avt").src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-
-                    getThongBao('success', 'Thành công', "Cập nhật ảnh đại diện thành công !")
-                }
-            },
-            error: function () {
-                getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
-            }
-        })
-    }
-});
-
-//Cập nhật avt người dùng
+//Cập nhật bg người dùng
 $('.edit-pp').on('change', '#user-edit-bg', function () {
     var anh = /(\.jpg|\.jpeg|\.png)$/i;
     var file = $('#user-edit-bg').prop('files')[0];

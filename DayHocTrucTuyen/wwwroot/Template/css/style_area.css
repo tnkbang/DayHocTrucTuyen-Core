@@ -21065,8 +21065,14 @@ img.wh-45 {
     height: 45px
 }
 
+/* Custom img avt upload */
+.img-container {
+    max-height: 400px;
+    width: 100%;
+    overflow: hidden;
+}
 /* custom scoll */
-.custom-scroll{
+.custom-scroll {
     height: 200px;
     overflow: auto;
     margin-bottom: 10px;

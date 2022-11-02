@@ -199,3 +199,38 @@
         </div>
     </div>
 </div><!-- popup gửi tin nhắn -->
+
+<!-- upload avt -->
+<div class="popup-wraper2">
+    <div class="popup pb-2">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head pb-0">
+                <h5 class="modal-title">Thay đổi ảnh đại diện</h5>
+            </div>
+            <div class="upload-boxes mt-2">
+                <form class="c-form">
+                    <div class="img-container">
+                        <img id="cropper-avt-image" src="~/Content/Img/userBG/bg-default.jpg">
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                    </div>
+                    <div class="pt-2">
+                        <button type="button" class="main-btn" id="cropper-confirm">Crop</button>
+                        <button type="button" class="main-btn cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ChildStyle{
+    <link href="~/Template/css/cropper.css" rel="stylesheet" asp-append-version="true">
+}
+
+@section ChildScript{
+    <script src="~/Template/js/cropper.js" asp-append-version="true"></script>
+    <script src="~/Template/js/cropper-custom.js" asp-append-version="true"></script>
+}
