@@ -39,7 +39,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
                 //Lưu lịch sử truy cập
                 LichSuTruyCap ls = new LichSuTruyCap();
-                if (!ls.hasVisit(maNd))
+                if (!ls.hasVisit(maNd, roomBD.MaLop))
                 {
                     ls.MaLop = roomBD.MaLop;
                     ls.MaNd = maNd;
@@ -56,7 +56,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
                 //Lưu lịch sử truy cập
                 LichSuTruyCap ls = new LichSuTruyCap();
-                if (!ls.hasVisit(maNd))
+                if (!ls.hasVisit(maNd, room.MaLop))
                 {
                     ls.MaLop = room.MaLop;
                     ls.MaNd = maNd;

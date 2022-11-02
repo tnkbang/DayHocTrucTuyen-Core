@@ -14,9 +14,9 @@ namespace DayHocTrucTuyen.Models.Entities
 
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
-        public bool hasVisit(string maNd)
+        public bool hasVisit(string maNd, string maLop)
         {
-            var ls = db.LichSuTruyCaps.FirstOrDefault(x => x.MaNd == maNd && x.ThoiGian.AddHours(1) > DateTime.Now);
+            var ls = db.LichSuTruyCaps.FirstOrDefault(x => x.MaNd == maNd && x.MaLop == maLop && x.ThoiGian.AddHours(1) > DateTime.Now);
             return ls != null;
         }
     }
