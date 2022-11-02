@@ -10,4 +10,4 @@ Scaffold-DbContext "Data Source=KHANHBANG\MSSQL;Initial Catalog=DayHocTrucTuyen;
 
 
 Account:
-Scaffold-DbContext "Data Source=KHANHBANG\MSSQL;Initial Catalog=DayHocTrucTuyen;Persist Security Info=True;User ID=tnkb;Password=khanhbang" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models\Entities
+Scaffold-DbContext "Data Source=KHANHBANG\MSSQL;Initial Catalog=DayHocTrucTuyen;Persist Security Info=True;User ID=tnkb;Password=khanhbang" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models\Entities -force

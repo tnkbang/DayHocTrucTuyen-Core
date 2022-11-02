@@ -26,8 +26,9 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         //Giao diện chính lớp học
         public IActionResult Detail(string id)
         {
-            LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
-            LopHoc roomBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == id);
+            var maNd = User.Claims.First().Value;
+            var room = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
+            var roomBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == id);
             if (id == null || room == null && roomBD == null)
             {
                 return NotFound();
@@ -35,9 +36,36 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             if (roomBD != null)
             {
                 ViewData["Post"] = roomBD.getAllPost();
+
+                //Lưu lịch sử truy cập
+                LichSuTruyCap ls = new LichSuTruyCap();
+                if (!ls.hasVisit(maNd))
+                {
+                    ls.MaLop = roomBD.MaLop;
+                    ls.MaNd = maNd;
+                    ls.ThoiGian = DateTime.Now;
+                    db.LichSuTruyCaps.Add(ls);
+                    db.SaveChanges();
+                }
+
                 return View(roomBD);
             }
-            ViewData["Post"] = room.getAllPost();
+            if (room != null)
+            {
+                ViewData["Post"] = room.getAllPost();
+
+                //Lưu lịch sử truy cập
+                LichSuTruyCap ls = new LichSuTruyCap();
+                if (!ls.hasVisit(maNd))
+                {
+                    ls.MaLop = room.MaLop;
+                    ls.MaNd = maNd;
+                    ls.ThoiGian = DateTime.Now;
+                    db.LichSuTruyCaps.Add(ls);
+                    db.SaveChanges();
+                }
+            }
+
             return View(room);
         }
 
@@ -46,7 +74,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         public IActionResult editRoom(string id)
         {
             string maUser = User.Claims.First().Value;
-            LopHoc room = db.LopHocs.FirstOrDefault(x => x.MaLop == id && x.MaNd == maUser);
+            var room = db.LopHocs.FirstOrDefault(x => x.MaLop == id && x.MaNd == maUser);
             if (room == null || id == null)
             {
                 return NotFound();
@@ -97,7 +125,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
             if (!String.IsNullOrEmpty(bd))
             {
-                LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
+                var checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
                 if (checkBD != null)
                 {
                     return Json(new { tt = false, mess = "Bí danh đã tồn tại !" });
@@ -147,8 +175,8 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
             if (!String.IsNullOrEmpty(bd))
             {
-                LopHoc checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
-                LopHoc bidanhThis = db.LopHocs.FirstOrDefault(x => x.MaLop == update.MaLop && x.BiDanh == bd);
+                var checkBD = db.LopHocs.FirstOrDefault(x => x.BiDanh == bd);
+                var bidanhThis = db.LopHocs.FirstOrDefault(x => x.MaLop == update.MaLop && x.BiDanh == bd);
                 if (checkBD != null && bidanhThis == null)
                 {
                     return Json(new { tt = false, mess = "Bí danh đã tồn tại !" });

@@ -11,5 +11,13 @@ namespace DayHocTrucTuyen.Models.Entities
 
         public virtual LopHoc? MaLopNavigation { get; set; }
         public virtual NguoiDung? MaNdNavigation { get; set; }
+
+        DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
+
+        public bool hasVisit(string maNd)
+        {
+            var ls = db.LichSuTruyCaps.FirstOrDefault(x => x.MaNd == maNd && x.ThoiGian.AddHours(1) > DateTime.Now);
+            return ls != null;
+        }
     }
 }
