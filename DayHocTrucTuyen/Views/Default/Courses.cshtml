@@ -30,6 +30,7 @@
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="padding-bottom: 20px" data-aos="zoom-in" data-aos-delay="100">
                     <a href="~/Courses/Room/Detail/@room.MaLop">
                         <div class="course-item">
+                            <span class="price @room.getTypeGiaTien()">@room.getGiaTien()</span>
                             <img src="@room.getImage()" class="img-fluid" alt="" />
                             <div class="course-content">
                                 <div class="d-flex justify-content-between align-items-center mb-3">

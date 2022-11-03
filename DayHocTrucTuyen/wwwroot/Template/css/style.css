@@ -775,9 +775,11 @@ section {
 # Courses
 --------------------------------------------------------------*/
 .courses .course-item {
+    overflow: hidden;
+    position: relative;
     width: -webkit-fill-available;
     border-radius: 5px;
-    border: 1px solid #eef0ef;
+    border: 0.1em solid #eef0ef;
 }
 
 .courses .course-content {
@@ -850,6 +852,39 @@ section {
         font-size: 18px;
         color: #657a6d;
     }
+
+.courses .price {
+    width: 200px;
+    text-align: center;
+    position: absolute;
+    top: 30px;
+    right: -60px;
+    transform: rotate(45deg);
+    z-index: 1;
+    font-size: 14px;
+    padding: 1px 0 3px 0;
+    color: #fff;
+}
+
+.price-free {
+    background: #66CC66;
+}
+
+.price-cheap {
+    background: #33CCCC;
+}
+
+.price-medium {
+    background: #9933CC;
+}
+
+.price-expensive {
+    background: #FFCC33;
+}
+
+.price-extreme {
+    background: #FF6633;
+}
 
 /*--------------------------------------------------------------
 # Trainers

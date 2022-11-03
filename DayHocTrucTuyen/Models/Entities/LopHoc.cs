@@ -186,5 +186,14 @@ namespace DayHocTrucTuyen.Models.Entities
             if (this.GiaTien == 0) return "Miễn phí";
             return this.GiaTien.ToString("n0") + " VNĐ";
         }
+
+        public string getTypeGiaTien()
+        {
+            if (this.GiaTien == 0) return "price-free";
+            if (this.GiaTien < 50000) return "price-cheap";
+            if (this.GiaTien < 100000) return "price-medium";
+            if (this.GiaTien < 300000) return "price-expensive";
+            return "price-extreme";
+        }
     }
 }
