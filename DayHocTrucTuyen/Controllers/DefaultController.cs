@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models.Entities;
+﻿using DayHocTrucTuyen.Areas.Courses.Controllers;
+using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,16 +36,26 @@ namespace DayHocTrucTuyen.Controllers
         [AllowAnonymous]
         public IActionResult Courses(string q)
         {
-            List<LopHoc> room = db.LopHocs.OrderByDescending(x => x.NgayTao).ToList();
+            var maNd = User.Claims.First().Value;
+            SuggestController sugesst = new SuggestController();
 
+            //Lấy lớp học từ db và lớp học được đề xuất
+            List<LopHoc> room = db.LopHocs.OrderByDescending(x => x.NgayTao).ToList();
+            var result = sugesst.getRoom(maNd);
+
+            //Gộp 2 danh sách đề xuất là lớp toàn hệ thống lại, lấy duy nhất giá trị
+            result.AddRange(room);
+            result = result.DistinctBy(x => x.MaLop).ToList();
+
+            //Xử lý tìm kiếm
             if (!String.IsNullOrEmpty(q))
             {
-                room = room.Where(x => x.TenLop.ToLower().Contains(q.ToLower())).ToList();
+                result = result.Where(x => x.TenLop.ToLower().Contains(q.ToLower())).ToList();
             }
 
             ViewBag.Search = q;
 
-            return View(room);
+            return View(result);
         }
 
         //Trang liên hệ
