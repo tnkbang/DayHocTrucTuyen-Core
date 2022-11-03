@@ -36,7 +36,11 @@ namespace DayHocTrucTuyen.Controllers
         [AllowAnonymous]
         public IActionResult Courses(string q)
         {
-            var maNd = User.Claims.First().Value;
+            var maNd = "U000000";
+            if (User.Identity.IsAuthenticated)
+            {
+                maNd = User.Claims.First().Value;
+            }
             SuggestController sugesst = new SuggestController();
 
             //Lấy lớp học từ db và lớp học được đề xuất

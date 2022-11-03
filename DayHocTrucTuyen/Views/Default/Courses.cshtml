@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Khóa Học";
     ViewBag.KhoaHoc = "active";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +9,7 @@
 <div class="breadcrumbs">
     <div class="container">
         <h2>Khóa Học Phổ Biến</h2>
-        <p>Tại đây, chúng tôi cung cấp danh sách các khóa học mới nhất và phù hợp nhất với bạn. Tuy nhiên, để việc đề xuất được chính nhu cầu của bạn thì bạn nên đăng nhập vào hệ thống. Dữ liệu đề xuất được dựa trên các khóa học bạn đã gia nhập trước đây.</p>
+        <p>Bạn không biết nên tham gia lớp học nào? Đừng lo lắng, chúng tôi xin giới thiệu đến bạn một số lớp học được mọi người yêu thích. Dữ liệu này được phân tích từ lịch sử tương tác trên toàn hệ thống, đảm bảo bạn sẽ tìm được lớp học bạn ưng ý từ các lớp bên dưới. Nếu bạn chưa đăng nhập thì hãy đăng nhập ngay nhé, dữ liệu sẽ chính xác hơn khi có có lịch sử tương tác của bạn.</p>
     </div>
 </div>
 
@@ -29,33 +28,39 @@
             @foreach (var room in Model)
             {
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="padding-bottom: 20px" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="course-item">
-                        <img src="@room.getImage()" class="img-fluid" alt="" />
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                @foreach (var t in room.getTag())
-                                {
-                                    <h4>@t.TenTag</h4>
-                                }
-                            </div>
-                            <h3><a href="~/Courses/Room/Detail/@room.MaLop">@room.TenLop</a></h3>
-                            @if (room.MoTa == null)
-                            {<p>Lớp chưa có thông tin mô tả !</p>}
-                            else
-                            { <p>@room.MoTa</p>}
-                            <div class="trainer d-flex justify-content-between align-items-center">
-                                <div class="trainer-profile d-flex align-items-center">
-                                    <img width="40" height="40" src="@room.getOwner().getImageAvt()" class="img-fluid" alt="" />
-                                    <a href="~/Profile/Info/@room.getOwner().MaNd" data-toggle="tooltip" title="@room.getOwner().HoLot @room.getOwner().Ten">@room.getOwner().Ten</a>
+                    <a href="~/Courses/Room/Detail/@room.MaLop">
+                        <div class="course-item">
+                            <img src="@room.getImage()" class="img-fluid" alt="" />
+                            <div class="course-content">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    @foreach (var t in room.getTag())
+                                    {
+                                        <h4>@t.TenTag</h4>
+                                    }
                                 </div>
-                                <div class="trainer-rank d-flex align-items-center">
-                                    <i class="bx bx-user"></i> &nbsp;@room.getMembers()
-                                    &nbsp;&nbsp;
-                                    <i class="bx bx-heart"></i>&nbsp;@room.getSLCamXuc()
+                                <h3><a href="~/Courses/Room/Detail/@room.MaLop">@room.TenLop</a></h3>
+                                @if (room.MoTa == null)
+                                {
+                                    <p>Lớp chưa có thông tin mô tả !</p>
+                                }
+                                else
+                                {
+                                    <p>@room.MoTa</p>
+                                }
+                                <div class="trainer d-flex justify-content-between align-items-center">
+                                    <div class="trainer-profile d-flex align-items-center">
+                                        <img width="40" height="40" src="@room.getOwner().getImageAvt()" class="img-fluid" alt="" />
+                                        <a href="~/Profile/Info/@room.getOwner().MaNd" data-toggle="tooltip" title="@room.getOwner().HoLot @room.getOwner().Ten">@room.getOwner().Ten</a>
+                                    </div>
+                                    <div class="trainer-rank d-flex align-items-center">
+                                        <i class="bx bx-user"></i> &nbsp;@room.getMembers()
+                                        &nbsp;&nbsp;
+                                        <i class="bx bx-heart"></i>&nbsp;@room.getSLCamXuc()
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             }
         </div>
