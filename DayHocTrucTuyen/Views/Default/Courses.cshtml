@@ -3,7 +3,6 @@
     ViewBag.KhoaHoc = "active";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model List<DayHocTrucTuyen.Models.Entities.LopHoc>
 
 <!-- Banner -->
 <div class="breadcrumbs">
@@ -25,45 +24,6 @@
 <section id="courses" class="courses">
     <div class="container" data-aos="fade-up">
         <div class="row">
-            @foreach (var room in Model)
-            {
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="padding-bottom: 20px" data-aos="zoom-in" data-aos-delay="100">
-                    <a href="~/Courses/Room/Detail/@room.MaLop">
-                        <div class="course-item">
-                            <span class="price @room.getTypeGiaTien()">@room.getGiaTien()</span>
-                            <img src="@room.getImage()" class="img-fluid" alt="" />
-                            <div class="course-content">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    @foreach (var t in room.getTag())
-                                    {
-                                        <h4>@t.TenTag</h4>
-                                    }
-                                </div>
-                                <h3><a href="~/Courses/Room/Detail/@room.MaLop">@room.TenLop</a></h3>
-                                @if (room.MoTa == null)
-                                {
-                                    <p>Lớp chưa có thông tin mô tả !</p>
-                                }
-                                else
-                                {
-                                    <p>@room.MoTa</p>
-                                }
-                                <div class="trainer d-flex justify-content-between align-items-center">
-                                    <div class="trainer-profile d-flex align-items-center">
-                                        <img width="40" height="40" src="@room.getOwner().getImageAvt()" class="img-fluid" alt="" />
-                                        <a href="~/Profile/Info/@room.getOwner().MaNd" data-toggle="tooltip" title="@room.getOwner().HoLot @room.getOwner().Ten">@room.getOwner().Ten</a>
-                                    </div>
-                                    <div class="trainer-rank d-flex align-items-center">
-                                        <i class="bx bx-user"></i> &nbsp;@room.getMembers()
-                                        &nbsp;&nbsp;
-                                        <i class="bx bx-heart"></i>&nbsp;@room.getSLCamXuc()
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
         </div>
     </div>
 </section>
@@ -71,4 +31,6 @@
 @section ChildScript{
     <!-- Xử lý đề xuất tìm kiếm lớp học-->
     <script src="~/Template/js/search-room.js" asp-append-version="true"></script>
+    <!-- Xử lý phân trang lớp học-->
+    <script src="~/Template/js/paging-with-scroll.js" asp-append-version="true"></script>
 }
