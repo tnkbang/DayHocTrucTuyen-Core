@@ -25,11 +25,21 @@ namespace DayHocTrucTuyen.Controllers
                 if (lop != null) return Redirect("/Courses/Room/Detail/" + lop.MaLop);
             }
 
+            //Lấy mã người dùng khi có đăng nhập
+            var maNd = "U000000";
+            if (User.Identity.IsAuthenticated)
+            {
+                maNd = User.Claims.First().Value;
+            }
+
             ViewBag.Courses = db.LopHocs.Count();
             ViewBag.GV = db.NguoiDungs.Where(x => x.MaLoai == "03").Count();
             ViewBag.HS = db.NguoiDungs.Where(x => x.MaLoai == "04").Count();
             ViewBag.TV = db.NguoiDungs.Count();
-            ViewData["Room"] = db.LopHocs.OrderByDescending(x => x.NgayTao).ToList();
+
+            //Lấy gợi ý 9 khóa học phổ biến
+            SuggestController suggest = new SuggestController();
+            ViewData["Room"] = suggest.getRoom(maNd).Take(9).ToList();
             return View();
         }
 
