@@ -111,8 +111,8 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             {
                 tempRaw.Add(new sortRaw { 
                     room = r, 
-                    Members = r.getMembers(), 
-                    Liker = r.getSLCamXuc() 
+                    Members = r.getMembersOfWeek(), 
+                    Liker = r.getSLCamXucOfWeek()
                 });
             }
             tempRaw = tempRaw.OrderByDescending(x => x.Liker)

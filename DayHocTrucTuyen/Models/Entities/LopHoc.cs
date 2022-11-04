@@ -118,9 +118,25 @@ namespace DayHocTrucTuyen.Models.Entities
             }
             return count;
         }
+        public int getSLCamXucOfWeek()
+        {
+            var post = db.BaiDangs.Where(x => x.MaLop == this.MaLop).ToList();
+            var count = 0;
+            foreach (var p in post)
+            {
+                var a = db.CamXucs.Where(x => x.MaBai == p.MaBai && x.ThoiGian.AddDays(7) > DateTime.Now).Count();
+                count += a;
+            }
+            return count;
+        }
         public int getMembers()
         {
             var sl = db.HocSinhThuocLops.Where(x => x.MaLop == this.MaLop).Count();
+            return sl;
+        }
+        public int getMembersOfWeek()
+        {
+            var sl = db.HocSinhThuocLops.Where(x => x.MaLop == this.MaLop && x.NgayThamGia > DateTime.Now.AddDays(-7)).Count();
             return sl;
         }
         public List<Tag> getTag()
