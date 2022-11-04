@@ -314,7 +314,6 @@
     <!--Script xử lý chính-->
     <script src="~/Template/js/main.min.js" asp-append-version="true"></script>
     <script src="~/Template/js/jquery.number.min.js" asp-append-version="true"></script>
-    <script src="~/Template/js/script.js" asp-append-version="true"></script>
 
     <!--Xử lý hiển thị ngày tháng-->
     <script src="~/Template/js/customDateTime.js" asp-append-version="true"></script>
@@ -330,5 +329,6 @@
 
     <!-- Các section có trong view -->
     @RenderSection("ChildScript", required:false)
+    <script src="~/Template/js/script.js" asp-append-version="true"></script>
 </body>
 </html>

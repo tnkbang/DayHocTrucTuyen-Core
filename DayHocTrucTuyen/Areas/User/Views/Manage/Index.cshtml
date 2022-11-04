@@ -20,6 +20,7 @@
                                 </div>
                                 <ul class="profile-controls">
                                     <li><a href="javascript:void(0)" class="choose-pay" title="Nạp tiền" data-toggle="tooltip"><i class="fa fa-dollar"></i></a></li>
+                                    <li><a href="javascript:void(0)" class="payment-money" title="Rút tiền" data-toggle="tooltip"><i class="fa fa-money"></i></a></li>
                                 </ul>
                                 @if (!Model.isUpgrade())
                                 {
@@ -369,6 +370,47 @@
     </div>
 </div>
 
+<!-- Yêu cầu thanh toán -->
+<div class="popup-wraper2">
+    <div class="popup payment-money">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5>Yêu cầu rút tiền <i title="Trợ giúp" id="get-help" class="fa fa-question-circle active" style="cursor: pointer"></i></h5>
+            </div>
+            <div class="dropdowns helps popup-get-help">
+                <span>Làm sao để rút tiền?</span>
+                <ul class="help-drop">
+                    <li>Bạn cần chọn hình thức rút tiền.</li>
+                    <li>Sau đó tiến hành nhập số tài khoản ngân hàng đã chọn phía trên, đối với MoMo thì bỏ qua bước này.</li>
+                    <li>Cuối cùng thì bạn điền số tiền mình muốn rút, hãy kiểm tra số tiền đang có để tránh không rút được.</li>
+                    <li>Sau khi thành công thì bạn chờ nhân viên tiến hành kiểm tra phê duyệt và chuyển tiền cho bạn.</li>
+                </ul>
+            </div>
+            <div class="group-adding">
+                <div class="room-group pb-0">
+                    <form id="form-payment-money" method="post">
+                        <div class="mb-2" id="inp-money-loai" name="native-select" placeholder="Chọn loại thanh toán" data-search="true" data-silent-initial-value-set="false"></div>
+                        <div class="input-group mb-2 my-form money-stk">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text text-label">STK</div>
+                            </div>
+                            <input type="text" class="form-control" id="inp-money-stk" maxlength="20" placeholder="Nhập số tài khoản..." title="Ví dụ: 0111000333233">
+                        </div>
+                        <div class="input-group mb-2 my-form">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text text-label">Số tiền</div>
+                            </div>
+                            <input type="text" class="form-control formatNumber" id="inp-money-st" required maxlength="8" name="number" placeholder="Nhập số tiền cần rút..." title="Ví dụ: 10000">
+                        </div>
+                        <button type="submit" class="main-btn mt-2">Xác nhận</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- popup check đăng ký giáo viên -->
 <div class="popup-wraper1">
     <div class="popup direct-mesg">
@@ -400,4 +442,26 @@
 @section ChildScript{
     <script src="~/Template/js/echarts.min.js" asp-append-version="true"></script>
     <script src="~/Template/js/custom-statistic.js" asp-append-version="true"></script>
+    <script>
+        //Xử lý lấy tên thẻ vào select box
+        VirtualSelect.init({
+            ele: '#inp-money-loai',
+            disableSelectAll: true,
+            searchPlaceholderText: 'Tìm kiếm...',
+            noOptionsText: 'Không có dữ liệu',
+            noSearchResultsText: 'Không có kết quả hợp lệ',
+            showValueAsTags: true,
+            clearButtonText: 'Xóa',
+            optionsCount: 5,
+            options: [
+                { label: 'Ví MoMo', value: 'MoMo' },
+                { label: 'AgriBank', value: 'AgriBank' },
+                { label: 'BIDV', value: 'BIDV' },
+                { label: 'VietcomBank', value: 'VietcomBank' },
+                { label: 'MB Bank', value: 'MB Bank' },
+                { label: 'HD Bank', value: 'HD Bank' },
+                { label: 'Ocean Bank', value: 'Ocean Bank' }
+            ]
+        });
+    </script>
 }

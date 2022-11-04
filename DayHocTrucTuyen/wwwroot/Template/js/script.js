@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $('.popup-wraper4').on('click', function (e) {
+    $('.popup-wraper4, .popup-wraper2').on('click', function (e) {
         if (e.target.id != 'get-help') {
             $(".popup-get-help").removeClass('active');
         }
@@ -2918,3 +2918,64 @@ $('.edit-pp').on('change', '#user-edit-bg', function () {
         })
     }
 });
+
+//Kiểm tra rút tiền
+$('.payment-money').on('click', function () {
+    $.ajax({
+        url: '/User/Vi/checkSoDu',
+        type: 'GET',
+        success: function (data) {
+            if (data.sodu == 0) {
+                getThongBao('info', 'Bạn quá nghèo !', 'Số tiền trong tài khoản của bạn không đủ để thực hiện rút tiền !');
+            }
+            else {
+                $('.popup-wraper2').addClass('active')
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+});
+
+//bắt sự kiện thay đổi select rút tiền
+$('#inp-money-loai').change(function() {
+    var text = this.value;
+    if (text == 'MoMo') {
+        $('.money-stk').hide('slow')
+    }
+    else {
+        $('.money-stk').show('slow')
+    }
+})
+
+//Bắt sự kiện xác nhận rút tiền
+$('#form-payment-money').on('submit', () => {
+    event.preventDefault()
+    if ($('#inp-money-loai').val() == '') {
+        getThongBao('error', 'Lỗi', 'Bạn chưa chọn loại thanh toán !')
+        return;
+    }
+
+    var loai = $('#inp-money-loai').val();
+    var stk = $('#inp-money-stk').val();
+    var sotien = $('#inp-money-st').val();
+
+    $.ajax({
+        url: '/User/Vi/ycRutTien',
+        type: 'POST',
+        data: { loai: loai, stk: stk, sotien: sotien },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi', data.mess);
+            }
+            else {
+                getThongBao('success', 'Đã gửi yêu cầu', "Vui lòng chờ ban quản trị duyệt yêu cầu của bạn");
+                $('.popup-wraper2').removeClass('active')
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})

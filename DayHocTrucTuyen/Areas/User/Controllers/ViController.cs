@@ -81,5 +81,41 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             }
             return true;
         }
+
+        //Yêu cầu rút tiền
+        [HttpPost]
+        public IActionResult ycRutTien(string loai, string? stk, double sotien)
+        {
+            var maNd = User.Claims.First().Value;
+
+            if(string.IsNullOrEmpty(loai)) return Json(new { tt = false, mess = "Thiếu loại thanh toán!" });
+            if (sotien > getSoDu(maNd)) return Json(new { tt = false, mess = "Số tiền trong tài khoản không đủ!" });
+
+            //Thực hiện trừ tiền từ ví của người dùng
+            bool thaotacvi = setThayDoiSoDu(maNd, false, sotien, "Thực hiện rút tiền về tài khoản " + loai);
+            if (!thaotacvi) return Json(new { tt = false, mess = "Số tiền trong tài khoản không đủ!" });
+
+            //Tạo mới yêu cầu thanh toán
+            YeuCauThanhToan newTT = new YeuCauThanhToan();
+            newTT.MaNd = maNd;
+            newTT.LoaiThanhToan = loai;
+            newTT.SoTaiKhoan = stk ?? null;
+            newTT.SoTien = sotien;
+            newTT.TrangThai = 1;
+            newTT.ThoiGian = DateTime.Now;
+            db.YeuCauThanhToans.Add(newTT);
+
+            db.SaveChanges();
+
+            return Json(new { tt = true });
+        }
+
+        //Kiểm tra số dư trước khi yêu cầu thanh toán
+        [HttpGet]
+        public IActionResult checkSoDu()
+        {
+            var sodu = getSoDu(User.Claims.First().Value);
+            return Json(new { sodu });
+        }
     }
 }
