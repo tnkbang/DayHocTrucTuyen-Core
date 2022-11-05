@@ -3,46 +3,45 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Favicons -->
-    <link href="~/Content/Img/Resources/Logo.gif" rel="icon">
-    <link href="~/Content/Img/Resources/Logo.gif" rel="apple-touch-icon">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Title -->
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" asp-append-version="true" />
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/Img/Resources/Logo.gif">
+    <link rel="stylesheet" href="~/Template/css/icon_style.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Template/bootstrap/css/bootstrap.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Template/css/tooplate-style.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Template/css/erro.css" asp-append-version="true" />
-    <link href='https://fonts.googleapis.com/css?family=Anton|Passion+One|PT+Sans+Caption' rel='stylesheet' type='text/css'>
+    <style>
+        #footer {
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0px
+        }
+    </style>
 </head>
-<body class="text-center">
-    <div id="loader-wrapper">
-        <div id="loader"></div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>
-    <div class="error">
-        <div class="container-floud">
-            <div class="col-xs-12 ground-color text-center">
-                <div class="container-error-404">
-                    <h2 class="h1">@ViewBag.Body</h2>
-                    <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
-                    <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
-                    <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
-                </div>
+
+<body class="bg-dark text-white py-5">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />@ViewBag.CodeType</p>
             </div>
-            <br />
-            <button class="btn btn-outline-info" onclick="backPage()">Quay lại</button>
+            <div class="col-md-10">
+                <h3>OPPSSS!!!! Thật xin lỗi...</h3>
+                <p>@ViewBag.Body <br /> Vui lòng quay lại trang trước để tiếp tục duyệt.</p>
+                <a class="btn btn-danger" href="javascript:history.back()">Quay lại</a>
+            </div>
         </div>
     </div>
-    <script src="~/Template/js/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/Template/js/background.cycle.js" asp-append-version="true"></script>
-    <script src="~/Template/js/error.js" asp-append-version="true"></script>
-
-    @RenderSection("loadingError", required:false)
+    @RenderBody()
+    <div id="footer" class="text-center">
+        <a href="/">Dạy Học Trực Tuyến</a>, &copy; 27/08/2022
+    </div>
 </body>
 </html>
