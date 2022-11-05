@@ -21,6 +21,7 @@ namespace DayHocTrucTuyen.Controllers
                 var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == id);
                 var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
 
+                if (user == null && lop == null) return NotFound();
                 if(user != null) return Redirect("/Profile/Info/" + user.MaNd);
                 if (lop != null) return Redirect("/Courses/Room/Detail/" + lop.MaLop);
             }
