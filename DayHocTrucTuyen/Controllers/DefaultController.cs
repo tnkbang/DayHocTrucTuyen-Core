@@ -1,5 +1,6 @@
 ﻿using DayHocTrucTuyen.Areas.Admin.Models;
 using DayHocTrucTuyen.Areas.Courses.Controllers;
+using DayHocTrucTuyen.Areas.User.Controllers;
 using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -125,6 +126,28 @@ namespace DayHocTrucTuyen.Controllers
         public IActionResult Contact()
         {
             return View();
+        }
+
+        //Trang nhận thưởng người mới
+        [Authorize]
+        [Route("Gift")]
+        public IActionResult Gift()
+        {
+            var maNd = User.Claims.First().Value;
+            ViController vinguoidung = new ViController();
+            if (vinguoidung.hasVi(maNd))
+            {
+                var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == maNd);
+                if(nd != null) return View(new { tt = false, ten = nd.Ten });
+            }
+
+            int money = new Random().Next(100000, 200000);
+            ViewBag.Money = money.ToString("n0");
+
+            vinguoidung.setNew(maNd, 0);
+            vinguoidung.setThayDoiSoDu(maNd, true, money, "Nhận tiền từ quà tặng.");
+
+            return View(new { tt = true, ten = "" });
         }
     }
 }

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+@model dynamic
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Title -->
+    <title>Quà - Dạy Học Trực Tuyến</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/Img/Resources/Logo.gif">
+    <link rel="stylesheet" href="~/Template/css/icon_style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Template/css/gift.css" asp-append-version="true" />
+    <style>
+        #footer {
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="btn-back">
+        <a title="Quay lại trang chủ" href="/Default/Index"><img src="~/Content/Img/Resources/Logo.gif" alt="" style="width: 40px"></a>
+    </div>
+    <div class="congrats">
+        @if(Model.tt){
+            <h1>Xin chúc mừng!</h1>
+            <span>Bạn nhận được @ViewBag.Money VNĐ</span>
+        }
+        else{
+            <h1>Tham lam!</h1>
+            <span>Có cái nịt nè @Model.ten</span>
+        }
+    </div>
+    <div id="footer" class="text-center">
+        <a href="/">Dạy Học Trực Tuyến</a>, &copy; 27/08/2022
+    </div>
+    <script src="~/Template/js/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/TweenMax.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/underscore.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/gift.js" asp-append-version="true"></script>
+</body>
+</html>
