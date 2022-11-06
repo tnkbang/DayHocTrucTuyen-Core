@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Areas.Courses.Controllers
 {
     [Area(nameof(Courses))]
-    [Route("Courses/[controller]/[action]/{id?}")]
+    [Route("courses/[controller]/[action]/{id?}")]
     [Authorize]
     public class ExamController : Controller
     {
@@ -50,7 +50,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var mem = db.HocSinhThuocLops.FirstOrDefault(x => x.MaNd == User.Claims.First().Value && x.MaLop == pt.MaLop);
             if (mem == null)
             {
-                return Redirect("~/Courses/Room/Detail/" + pt.MaLop);
+                return Redirect("~/courses/room/detail/" + pt.MaLop);
             }
             return View(pt);
         }
@@ -70,7 +70,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             DateTime thoiluong = work.BatDau;
             if (thoiluong.Add(thoigianthi) < DateTime.Now || work.KetThuc != null)
             {
-                return Redirect("~/Courses/Exam/preExam/" + pt.MaPhong);
+                return Redirect("~/courses/exam/preexam/" + pt.MaPhong);
             }
 
             ViewBag.ThoiGianThi = work.BatDau.Add(thoigianthi).ToString("yyyy-MM-dd HH:mm:ss");
@@ -123,7 +123,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
             foreach (var tvl in thanhvienlop)
             {
-                notification.setThongBao(tvl.MaNd, "Bài thi mới", "exam" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?id=" + lop.MaLop);
+                notification.setThongBao(tvl.MaNd, "Bài thi mới", "exam" + "\\Từ lớp " + lop.TenLop, "courses/room/detail/" + lop.MaLop);
             }
 
             return Json(new { tt = true, exam = newPT.MaPhong });

@@ -108,7 +108,7 @@ $(window).load(function () {
 
 //Hàm đăng xuất
 function dangxuat() {
-    $.getJSON('/Account/Logout', function (data) {
+    $.getJSON('/account/logout', function (data) {
         location.replace('/');
     })
 }

@@ -56,12 +56,12 @@
                     <a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
                 </span>
                 <span class="mh-text">
-                    <a title="" href="/Default/Index"><img src="~/Content/Img/Resources/Logo.gif" alt="" style="width: 40px"></a>
+                    <a title="" href="/"><img src="~/Content/Img/Resources/Logo.gif" alt="" style="width: 40px"></a>
                 </span>
             </div>
             <nav id="menu" class="res-menu">
                 <ul>
-                    <li><a href="/Default/Index" title="">Trang chủ</a></li>
+                    <li><a href="/" title="">Trang chủ</a></li>
                     <li>
                         <span>Lớp học đã tham gia <span class="sl-room-join"></span></span>
                         <ul>
@@ -76,7 +76,7 @@
                                     <li class="ml-2 mr-2 mt-1 mb-1">
                                         <ins class="mesg-meta mobi-msg">
                                             <img class="wh-35" src="@r.getImage()" alt="@r.TenLop" />
-                                            <h6><a class="text-none" href="~/Courses/Room/Detail/@r.MaLop" title="Đi đến lớp @r.TenLop">@r.TenLop</a></h6>
+                                            <h6><a class="text-none" href="~/courses/room/detail/@r.MaLop" title="Đi đến lớp @r.TenLop">@r.TenLop</a></h6>
                                             <span class="text-none"><b>@r.getOwner().Ten</b> là giáo viên</span>
                                             <i class="add-del-friends fa fa-group"></i>
                                             <i class="text-none">@r.getMembers() thành viên</i>
@@ -90,14 +90,14 @@
                         <span>Tin nhắn <span class="mobi-sl-ping-mess"></span></span>
                         <ul id="mobi-menu-ping-mess"></ul>
                     </li>
-                    <li><a href="~/User/Notification/Detail" title="">Thông báo</a></li>
+                    <li><a href="~/user/notification/detail" title="">Thông báo</a></li>
                 </ul>
             </nav>
         </div><!-- responsive header -->
 
         <div class="topbar stick">
             <div class="logo">
-                <a title="Trở về trang chủ" href="/Default/Index"><img src="~/Content/Img/Resources/Logo.gif" alt="" style="width: 40px"></a>
+                <a title="Trở về trang chủ" href="/"><img src="~/Content/Img/Resources/Logo.gif" alt="" style="width: 40px"></a>
             </div>
             <div class="top-area">
                 <div class="page-name">
@@ -112,7 +112,7 @@
                         {
                             <div class="dropdowns">
                                 <span>Bạn chưa tham gia lớp học nào</span>
-                                <a href="~/Default/Courses" title="Danh sách lớp học" class="more-mesg">Tìm lớp học ngay</a>
+                                <a href="~/default/courses" title="Danh sách lớp học" class="more-mesg">Tìm lớp học ngay</a>
                             </div>
                         }
                         else
@@ -128,7 +128,7 @@
                                                     <img class="wh-35" src="@r.getImage()" alt="@r.TenLop" />
                                                 </figure>
                                                 <div class="mesg-meta">
-                                                    <h6><a href="~/Courses/Room/Detail/@r.MaLop" title="Đi đến lớp @r.TenLop">@r.TenLop</a></h6>
+                                                    <h6><a href="~/courses/room/detail/@r.MaLop" title="Đi đến lớp @r.TenLop">@r.TenLop</a></h6>
                                                     <span><b>@r.getOwner().Ten</b> là giáo viên</span>
                                                     <i>@r.getMembers() thành viên</i>
                                                 </div>
@@ -139,7 +139,7 @@
                                         </li>
                                     }
                                 </ul>
-                                <a href="~/Courses/Room/List" title="Danh sách lớp tham gia" class="more-mesg">Xem tất cả</a>
+                                <a href="~/courses/room/list" title="Danh sách lớp tham gia" class="more-mesg">Xem tất cả</a>
                             </div>
                         }
                     </li>
@@ -151,7 +151,7 @@
                             </a>
                             <div class="dropdowns">
                                 <span>Hiện không có thông báo mới nào!</span>
-                                <a href="~/User/Notification/Detail" title="Danh sách thông báo" class="more-mesg">Xem tất cả</a>
+                                <a href="~/user/notification/detail" title="Danh sách thông báo" class="more-mesg">Xem tất cả</a>
                             </div>
                         }
                         else 
@@ -189,7 +189,7 @@
                                         </li>
                                     }
                                 </ul>
-                                <a href="~/User/Notification/Detail" title="Danh sách thông báo" class="more-mesg">Xem tất cả</a>
+                                <a href="~/user/notification/detail" title="Danh sách thông báo" class="more-mesg">Xem tất cả</a>
                             </div>
                         }
                     </li>
@@ -200,7 +200,7 @@
                         <div class="dropdowns">
                             <span><span class="sl-ping-mess">0</span> tin nhắn mới <a href="" title="" onclick="setXemTatCaTinNhan('@maUser')">Đã xem hết</a></span>
                             <ul class="drops-menu" id="menu-ping-mess"></ul>
-                            <a href="~/User/Mess/Detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>
+                            <a href="~/user/mess/detail" title="Danh sách tin nhắn" class="more-mesg">Xem tất cả</a>
                         </div>
                     </li>
                     <li>
@@ -208,9 +208,9 @@
                         <div class="dropdowns helps">
                             <span>Bạn cần giúp gì?</span>
                             <ul class="help-drop">
-                                <li><a href="forum.html" title=""><i class="fa fa-book"></i>Lớp học và phòng thi</a></li>
-                                <li><a href="#" title=""><i class="fa fa-exclamation-triangle"></i>Phản hồi và báo cáo</a></li>
-                                <li><a href="faq.html" title=""><i class="fa fa-question-circle-o"></i>Câu hỏi khác</a></li>
+                                <li><a href="" title=""><i class="fa fa-book"></i>Lớp học và phòng thi</a></li>
+                                <li><a href="" title=""><i class="fa fa-exclamation-triangle"></i>Phản hồi và báo cáo</a></li>
+                                <li><a href="" title=""><i class="fa fa-question-circle-o"></i>Câu hỏi khác</a></li>
                             </ul>
                         </div>
                     </li>
@@ -221,9 +221,13 @@
                     <span class="status f-online"></span>
                     <div class="user-setting">
                         <ul class="log-out">
-                            <li><a href="/Profile/Info/@maUser" title=""><i class="ti-user"></i> Trang của tôi</a></li>
-                            <li><a href="/User/Manage/Index" title=""><i class="ti-view-grid"></i> Trang quản trị</a></li>
-                            <li><a href="/Profile/Update" title=""><i class="ti-pencil-alt"></i>Chỉnh sửa thông tin</a></li>
+                            <li><a href="/profile/info/@maUser" title=""><i class="ti-user"></i> Trang của tôi</a></li>
+                            @if (userAccount.MaLoai.Equals("01"))
+                            {
+                                <li><a href="/admin/user/list" title=""><i class="ti-view-grid"></i> QL người dùng</a></li>
+                            }
+                            <li><a href="/user/manage/index" title=""><i class="ti-view-grid"></i> Trang quản trị</a></li>
+                            <li><a href="/profile/update" title=""><i class="ti-pencil-alt"></i>Chỉnh sửa thông tin</a></li>
                             <li><a title="" onclick="dangxuat()"><i class="ti-power-off"></i>Đăng xuất</a></li>
                         </ul>
                     </div>

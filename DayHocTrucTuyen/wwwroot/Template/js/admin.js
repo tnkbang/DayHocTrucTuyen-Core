@@ -50,7 +50,7 @@ $userlist.bootstrapTable({
 
 //Gọi ajax về server lấy dữ liệu cho danh sách người dùng
 function ajaxGetListUser(params) {
-    var url = '/Admin/User/getList'
+    var url = '/admin/user/getlist'
     $.get(url + '?' + $.param(params.data)).then(function (res) {
         params.success(res)
         $('[data-toggle="tooltip"]').tooltip();
@@ -90,7 +90,7 @@ $('#confirm-lock-user').on('click', function () {
     event.preventDefault();
 
     $.ajax({
-        url: '/Admin/User/LockUser',
+        url: '/admin/user/lockuser',
         type: 'POST',
         data: { ma: thisUserLock },
         success: function (data) {
@@ -144,7 +144,7 @@ $roomlist.bootstrapTable({
         field: 'tenOwner',
         title: 'Tác giả',
         sortable: true,
-        formatter: (value, row, index) => { return '<a href="/Profile/Info/' + row.maOwner + '">' + row.tenOwner + '</a>' },
+        formatter: (value, row, index) => { return '<a href="/profile/info/' + row.maOwner + '">' + row.tenOwner + '</a>' },
         visible: false
     }, {
         field: 'giaTien',
@@ -177,7 +177,7 @@ $roomlist.bootstrapTable({
 
 //Gọi ajax về server lấy dữ liệu cho danh sách lớp học
 function ajaxGetListRoom(params) {
-    var url = '/Admin/Room/getList'
+    var url = '/admin/room/getlist'
     $.get(url + '?' + $.param(params.data)).then(function (res) {
         params.success(res)
         $('[data-toggle="tooltip"]').tooltip();
@@ -217,7 +217,7 @@ $('#confirm-lock-room').on('click', function () {
     event.preventDefault();
 
     $.ajax({
-        url: '/Admin/Room/LockRoom',
+        url: '/admin/room/lockroom',
         type: 'POST',
         data: { ma: thisRoomLock },
         success: function (data) {
@@ -302,7 +302,7 @@ $tableApprove.bootstrapTable({
 
 //Gọi ajax về server lấy dữ liệu cho danh sách phê duyệt
 function ajaxGetApprove(params) {
-    var url = '/Admin/User/getApprove'
+    var url = '/admin/user/getapprove'
     $.get(url + '?' + $.param(params.data)).then(function (res) {
         params.success(res)
         $('[data-toggle="tooltip"]').tooltip();
@@ -356,7 +356,7 @@ $('#confirm-approve').on('click', function () {
     }
 
     $.ajax({
-        url: '/Admin/User/setApprove',
+        url: '/admin/user/setapprove',
         type: 'POST',
         data: { ma: userApprove, tt: thisApprove, gc: $('#approve-text').val() },
         success: function (data) {
@@ -388,9 +388,9 @@ var $reportlist = $('#table-report-list')
 //Hàm set hiển thị chỉ mục báo cáo
 function setChiMucReport(value, row, index) {
     if (row.chiMuc.length == 11) {
-        return 'Lớp ' + '<a href="/Courses/Room/Detail/' + row.chiMuc + '">' + row.tenLop + '</a>';
+        return 'Lớp ' + '<a href="/courses/room/detail/' + row.chiMuc + '">' + row.tenLop + '</a>';
     }
-    return 'Bài đăng của ' + '<a href="/Courses/Room/Detail/' + row.chiMuc.slice(0, 11) + '#' + row.chiMuc + '">' + row.tenLop + '</a>';
+    return 'Bài đăng của ' + '<a href="/courses/room/detail/' + row.chiMuc.slice(0, 11) + '#' + row.chiMuc + '">' + row.tenLop + '</a>';
 }
 
 //Thêm các th row cho bảng phản hồi và báo cáo
@@ -408,7 +408,7 @@ $reportlist.bootstrapTable({
         field: 'tenOwner',
         sortable: true,
         title: 'Người báo cáo',
-        formatter: (value, row, index) => { return '<a href="/Profile/Info/' + row.maOwner + '">' + row.tenOwner + '</a>' }
+        formatter: (value, row, index) => { return '<a href="/profile/info/' + row.maOwner + '">' + row.tenOwner + '</a>' }
     }, {
         field: 'chiMuc',
         sortable: true,
@@ -436,7 +436,7 @@ $reportlist.bootstrapTable({
 
 //Gọi ajax về server lấy dữ liệu cho danh sách báo cáo
 function ajaxGetListReport(params) {
-    var url = '/Admin/Room/getReport'
+    var url = '/admin/room/getreport'
     $.get(url + '?' + $.param(params.data)).then(function (res) {
         params.success(res)
         $('[data-toggle="tooltip"]').tooltip();
@@ -475,7 +475,7 @@ $('#confirm-send-noti').on('click', function () {
     }
 
     $.ajax({
-        url: '/Admin/Room/sendNoti',
+        url: '/admin/room/sendnoti',
         type: 'POST',
         data: { maUser: thisUserReport, nd: $('#send-noti-text').val() },
         success: function (data) {
@@ -493,7 +493,7 @@ $('#confirm-send-noti').on('click', function () {
 //Hàm xóa báo cáo người dùng
 function setRemoveReport(maBaoCao, elm) {
     $.ajax({
-        url: '/Admin/Room/removeReport',
+        url: '/admin/room/removereport',
         type: 'POST',
         data: { ma: maBaoCao },
         success: function (data) {
@@ -535,7 +535,7 @@ $reportRemoveButton.click(function () {
     var listMaBaoCao = getReportSelections()
 
     $.ajax({
-        url: '/Admin/Room/removeReport',
+        url: '/admin/room/removereport',
         type: 'POST',
         data: { ma: listMaBaoCao },
         success: function (data) {

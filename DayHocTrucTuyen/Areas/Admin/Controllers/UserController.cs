@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DayHocTrucTuyen.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
-    [Route("Admin/[controller]/[action]/{id?}")]
+    [Route("admin/[controller]/[action]/{id?}")]
     [Authorize(Roles = "01")]
     public class UserController : Controller
     {
@@ -142,7 +142,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
         public string customThaoTac(string ma, bool tt)
         {
-            var result = "<button data-toggle=\"tooltip\" title=\"Xem\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"window.location.href=\'/Profile/Info?id=" + ma + "\'\"><i class=\"fa fa-eye\" aria-hidden=\"true\"></i></button>";
+            var result = "<button data-toggle=\"tooltip\" title=\"Xem\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"window.location.href=\'/profile/info/" + ma + "\'\"><i class=\"fa fa-eye\" aria-hidden=\"true\"></i></button>";
             if (tt)
             {
                 result += "<button data-toggle=\"tooltip\" title=\"Khóa\" class=\"pd-setting-ed mt-1\" onclick=\"setUserLock(\'" + ma + "\', this)\" ><i data-toggle=\"modal\" class=\"fa fa-lock\" aria-hidden=\"true\"></i></button>";
@@ -301,5 +301,16 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
             return Json(new { tt = true });
         }
         #endregion Phê duyệt người dùng
+
+        #region Chuyển tiền cho người dùng
+        //Trang xem yêu cầu rút tiền của người dùng
+        public IActionResult Approvde()
+        {
+            //ViewBag thể hiện trang đang được hiển thị trên layout
+            ViewBag.Approve = "active";
+
+            return View();
+        }
+        #endregion Chuyển tiền cho người dùng
     }
 }

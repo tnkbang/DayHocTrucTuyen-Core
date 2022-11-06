@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Areas.User.Controllers
 {
     [Area(nameof(User))]
-    [Route("User/[controller]/[action]/{id?}")]
+    [Route("user/[controller]/[action]/{id?}")]
     [Authorize]
     public class ManageController : Controller
     {

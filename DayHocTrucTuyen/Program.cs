@@ -12,9 +12,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.SlidingExpiration = true;
-    options.LoginPath = "/Account/Login";
-    options.LogoutPath = "/Account/Login";
-    options.AccessDeniedPath = "/Access/Denied";
+    options.LoginPath = "/account/login";
+    options.LogoutPath = "/account/login";
+    options.AccessDeniedPath = "/access/denied";
 });
 
 //Using custom authen role
@@ -47,7 +47,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 //Config Endpoint chat
-app.MapHub<ChatHub>($"/Models/{nameof(ChatHub)}");
+app.MapHub<ChatHub>($"/models/{nameof(ChatHub)}");
 
 //Config Map Route Areas
 app.MapAreaControllerRoute(

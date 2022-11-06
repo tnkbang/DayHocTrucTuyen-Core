@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Controllers
 {
     [Authorize]
-    [Route("Profile/[action]/{id?}")]
+    [Route("profile/[action]/{id?}")]
     public class ProfileController : Controller
     {
         // GET: Profile

@@ -13,7 +13,7 @@ namespace DayHocTrucTuyen.Controllers
 
         //Trang chủ hệ thống
         [AllowAnonymous]
-        [Route("{id?}", Name = "ShotLink"), Route("/Default/Index", Name = "Default")]
+        [Route("{id?}", Name = "ShotLink"), Route("/default/index", Name = "default")]
         public IActionResult Index(string? id)
         {
             //Chuyển hướng khi có nhập ký tự
@@ -23,8 +23,8 @@ namespace DayHocTrucTuyen.Controllers
                 var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
 
                 if (user == null && lop == null) return NotFound();
-                if(user != null) return Redirect("/Profile/Info/" + user.MaNd);
-                if (lop != null) return Redirect("/Courses/Room/Detail/" + lop.MaLop);
+                if(user != null) return Redirect("/profile/info/" + user.MaNd);
+                if (lop != null) return Redirect("/courses/room/detail/" + lop.MaLop);
             }
 
             //Lấy mã người dùng khi có đăng nhập

@@ -347,5 +347,5 @@
 //hàm hiển thị xem pdf nội tuyến
 function viewpdf(url) {
     var viewpdf = $('#viewpdf')
-    PDFObject.embed("/Content/filePost/" + encodeURIComponent(url), viewpdf)
+    PDFObject.embed("/content/filepost/" + encodeURIComponent(url), viewpdf)
 }

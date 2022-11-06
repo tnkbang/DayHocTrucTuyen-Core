@@ -54,12 +54,12 @@
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
-            <a href="~/Default/Index" class="logo me-auto"><img src="~/Content/Img/Resources/Logo.gif" alt="" class="img-fluid"></a>
+            <a href="/" class="logo me-auto"><img src="~/Content/Img/Resources/Logo.gif" alt="" class="img-fluid"></a>
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="@ViewBag.Index" href="~/Default/Index">Trang chủ</a></li>
+                    <li><a class="@ViewBag.Index" href="/">Trang chủ</a></li>
                     <li><a class="@ViewBag.ThongTin" href="">Thông tin</a></li>
-                    <li><a class="@ViewBag.KhoaHoc" href="~/Default/Courses">Khóa học</a></li>
+                    <li><a class="@ViewBag.KhoaHoc" href="~/default/courses">Khóa học</a></li>
                     <li><a class="@ViewBag.SuKien" href="">Sự kiện</a></li>
                     @*<li class="dropdown">
                     <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
@@ -80,15 +80,15 @@
                     <li><a href="#">Drop Down 4</a></li>
                     </ul>
                     </li>*@
-                    <li><a class="@ViewBag.LienHe" href="~/Default/Contact">Liên hệ</a></li>
+                    <li><a class="@ViewBag.LienHe" href="~/default/contact">Liên hệ</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
             <div id="userSystem">
                 @if (!User.Identity.IsAuthenticated)
                 {
-                    <a href="~/Account/Register" class="get-started-a">Đăng ký</a>
-                    <a href="~/Account/Login" type="button" class="btn get-started-btn">Đăng nhập</a>
+                    <a href="~/account/register" class="get-started-a">Đăng ký</a>
+                    <a href="~/account/login" type="button" class="btn get-started-btn">Đăng nhập</a>
                 }
                 else
                 {
@@ -100,9 +100,9 @@
                             <li>
                                 @if (uLogin.MaLoai.Equals("01"))
                                 {
-                                    <a href="~/Admin/User/List" class="dropdown-item"><i class="bi bi-grid"> Admin</i></a>
+                                    <a href="~/admin/user/list" class="dropdown-item"><i class="bi bi-grid"> Admin</i></a>
                                 }
-                                <a href="~/User/Manage/Index" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
+                                <a href="~/user/manage/index" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
                                 <button type="button" id="logoutAccount" class="dropdown-item text-danger" onclick="dangxuat()"><i class="bi bi-power"> Đăng xuất</i></button>
                             </li>
                         </ul>

@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     //Lấy số lượng lớp học đã tham gia
     $.ajax({
-        url: '/Courses/Room/getSLRoomJoin',
+        url: '/courses/room/getslroomjoin',
         type: 'GET',
         success: function (data) {
             $('.sl-room-join').html('(' + data.sl + ')')
@@ -1162,13 +1162,13 @@ jQuery(document).ready(function ($) {
             form_data.append('nd', comment.val());
 
             $.ajax({
-                url: '/Courses/Post/createComment',
+                url: '/courses/post/createcomment',
                 type: 'POST',
                 data: form_data,
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    var comment_HTML = '<li><div class="comet-avatar"><img class="wh-32" alt="" src="' + data.anh + '"></div><div class="we-comment"><h5><a title="" href="/Profile/Info/' + data.ma + '">' + data.hoten + '</a></h5><p>' + comment.val() + '</p><div class="inline-itms"><span class="timeago" style="text-transform: none" title="' + data.postTimeCus + '">' + data.postTime + '</span><a title="Trả lời" class="we-reply">Trả lời</a><a title="Xóa bình luận" data-toggle="modal" data-target="#confirmDeleteComment" onclick="setComment(this,' + "'" + data.postId + "','" + data.postTime + "'" + ')">Xóa</a></div></div></li>';
+                    var comment_HTML = '<li><div class="comet-avatar"><img class="wh-32" alt="" src="' + data.anh + '"></div><div class="we-comment"><h5><a title="" href="/profile/info/' + data.ma + '">' + data.hoten + '</a></h5><p>' + comment.val() + '</p><div class="inline-itms"><span class="timeago" style="text-transform: none" title="' + data.postTimeCus + '">' + data.postTime + '</span><a title="Trả lời" class="we-reply">Trả lời</a><a title="Xóa bình luận" data-toggle="modal" data-target="#confirmDeleteComment" onclick="setComment(this,' + "'" + data.postId + "','" + data.postTime + "'" + ')">Xóa</a></div></div></li>';
                     $(comment_HTML).insertBefore(parent);
                     $("span.timeago").timeago();
                     slComment.textContent++;
@@ -1327,9 +1327,9 @@ function passValidate(id_pass, re_pass, kt_pass) {
 
 //Hàm đăng ký
 function dangky() {
-    $.getJSON('/Account/createAccount' + '?holot=' + $('#holotCreate').val() + '&ten=' + $('#tenCreate').val() + '&email=' + $('#emailCreate').val() + '&matkhau=' + $('#passCreate').val(), function (data) {
+    $.getJSON('/account/createaccount' + '?holot=' + $('#holotCreate').val() + '&ten=' + $('#tenCreate').val() + '&email=' + $('#emailCreate').val() + '&matkhau=' + $('#passCreate').val(), function (data) {
         if (data.tt) {
-            window.location.href = "/Default/Index";
+            window.location.href = "/";
         }
         else {
             if (data.erro == "email") {
@@ -1351,7 +1351,7 @@ function dangky() {
 //Hàm đăng nhập
 function dangnhap() {
     var remember = document.getElementById('rememberLogin');
-    $.getJSON('/Account/getLogin' + '?email=' + $('#emailLogin').val() + '&pass=' + $('#passLogin').val() + '&re=' + remember.checked, function (data) {
+    $.getJSON('/account/getlogin' + '?email=' + $('#emailLogin').val() + '&pass=' + $('#passLogin').val() + '&re=' + remember.checked, function (data) {
         if (data.tt) {
             window.location.href = $('#urlreturnLogin').val();
         }
@@ -1365,8 +1365,8 @@ function dangnhap() {
 
 //Hàm đăng xuất
 function dangxuat() {
-    $.getJSON('/Account/Logout', function (data) {
-        location.replace('/Account/Login');
+    $.getJSON('/account/logout', function (data) {
+        location.replace('/account/login');
     })
 }
 
@@ -1408,7 +1408,7 @@ $('.viewPass').on('click', function () {
 
 //Bắt sự kiện thích trang
 function like(nd, nt) {
-    $.getJSON('/Profile/setThichTrang?nd=' + nd + '&nt=' + nt, function (data) {
+    $.getJSON('/profile/setthichtrang?nd=' + nd + '&nt=' + nt, function (data) {
         if (data.tt) {
             $('#btnLike').tooltip('hide').attr('data-original-title', 'Đã thích').tooltip('show');
             document.getElementById('btnLike').classList.remove('bg-success');
@@ -1448,7 +1448,7 @@ $('#form-create-room').on('submit', function () {
     else form_data.append("img", null)
 
     $.ajax({
-        url: '/Courses/Room/createRoom',
+        url: '/courses/room/createroom',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1458,7 +1458,7 @@ $('#form-create-room').on('submit', function () {
                 getThongBao('error', 'Lỗi !', data.mess);
             }
             else {
-                location.replace('/Courses/Room/Detail/' + data.room);
+                location.replace('/courses/room/detail/' + data.room);
             }
         },
         error: function () {
@@ -1485,7 +1485,7 @@ $('#form-edit-room').on('submit', function () {
     else form_data.append("img", null)
 
     $.ajax({
-        url: '/Courses/Room/editRoom',
+        url: '/courses/room/editroom',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1495,7 +1495,7 @@ $('#form-edit-room').on('submit', function () {
                 getThongBao('error', 'Lỗi !', data.mess);
             }
             else {
-                location.replace('/Courses/Room/Detail/' + data.room);
+                location.replace('/courses/room/detail/' + data.room);
             }
         },
         error: function () {
@@ -1633,7 +1633,7 @@ $('#btnCreatePost').on('click', function () {
     }
 
     $.ajax({
-        url: '/Courses/Post/createPost',
+        url: '/courses/post/createpost',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1655,7 +1655,7 @@ function likePost(maPost, maND) {
     form_data.append('maND', maND);
 
     $.ajax({
-        url: '/Courses/Post/setLikePost',
+        url: '/courses/post/setlikepost',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1681,10 +1681,10 @@ function getChoose(fileName) {
     filePdfNameOfRoom = fileName;
 }
 function chooseView() {
-    window.open('/Courses/Post/ViewPDF/' + encodeURIComponent(filePdfNameOfRoom));
+    window.open('/courses/post/viewpdf/' + encodeURIComponent(filePdfNameOfRoom));
 }
 function chooseDownload() {
-    location = '/Courses/Post/getFile?fileName=' + encodeURIComponent(filePdfNameOfRoom);
+    location = '/courses/post/getfile?fileName=' + encodeURIComponent(filePdfNameOfRoom);
 }
 
 //Đóng model xem pdf
@@ -1694,7 +1694,7 @@ $('#contain-viewpdf > button').on('click', function () {
 
 //hàm cho phép tải file về máy cá nhân
 function downloadfile(fileName) {
-    location = '/Courses/Post/getFile?fileName=' + encodeURIComponent(fileName);
+    location = '/courses/post/getfile?fileName=' + encodeURIComponent(fileName);
 }
 
 //Phần tử dom bình luận
@@ -1719,7 +1719,7 @@ function deleteComment() {
     form_data.append('thoigian', cmtDelTime);
 
     $.ajax({
-        url: '/Courses/Post/deleteComment',
+        url: '/courses/post/deletecomment',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1765,7 +1765,7 @@ $('#confirm-room').on('click', function () {
     event.preventDefault();
 
     $.ajax({
-        url: '/Courses/Room/setJoinRoom',
+        url: '/courses/room/setjoinroom',
         type: 'POST',
         data: { maLop: thisRoomJoin },
         success: function (data) {
@@ -1811,7 +1811,7 @@ function deletePost() {
     form_data.append('maPost', maPost);
 
     $.ajax({
-        url: '/Courses/Post/deletePost',
+        url: '/courses/post/deletepost',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1850,7 +1850,7 @@ function setTrangThaiPost() {
     form_data.append('maPost', maPost);
     
     $.ajax({
-        url: '/Courses/Post/setTrangThaiPost',
+        url: '/courses/post/settrangthaipost',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1873,12 +1873,12 @@ function setTrangThaiPost() {
 
 //Hàm chuyển về trang chỉnh sửa lớp học
 function editRoom(room) {
-    location.replace('/Courses/Room/editRoom/' + room)
+    location.replace('/courses/room/editroom/' + room)
 }
 
 //Hàm hủy chỉnh sửa lớp
 function editRoomCanel(room) {
-    location.replace('/Courses/Room/Detail/' + room)
+    location.replace('/courses/room/detail/' + room)
 }
 
 //Ghim hoặc bỏ ghim bài đăng
@@ -1886,7 +1886,7 @@ function setGhim(dom, maPost) {
     var form_data = new FormData();
     form_data.append('maPost', maPost);
     $.ajax({
-        url: '/Courses/Post/setGhim',
+        url: '/courses/post/setghim',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1926,7 +1926,7 @@ $('#form-create-exam').on('submit', function () {
     form_data.append('xemlai', text[6].checked);
 
     $.ajax({
-        url: '/Courses/Exam/createExam',
+        url: '/courses/exam/createexam',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -1936,7 +1936,7 @@ $('#form-create-exam').on('submit', function () {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                location.replace('/Courses/Exam/Manage/' + data.exam);
+                location.replace('/courses/exam/manage/' + data.exam);
             }
         },
         error: function () {
@@ -1948,7 +1948,7 @@ $('#form-create-exam').on('submit', function () {
 //Tìm kiếm bài thi
 $('#form-search-exam').on('submit', function () {
     event.preventDefault();
-    location.replace('/Courses/Exam/List/' + document.getElementById('search-exam-room').title + '?q=' + document.getElementById('search-exam-name').value);
+    location.replace('/courses/exam/list/' + document.getElementById('search-exam-room').title + '?q=' + document.getElementById('search-exam-name').value);
 })
 
 //Xử lý chỉnh sửa bài thi
@@ -1968,7 +1968,7 @@ $('#form-edit-exam').on('submit', function () {
     form_data.append('xemlai', text[6].checked);
 
     $.ajax({
-        url: '/Courses/Exam/editExam',
+        url: '/courses/exam/editexam',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -2236,7 +2236,7 @@ $('#form-create-quest').on('submit', function () {
     form_data.append('loigiai', loigiai.slice(0, loigiai.length - 1));
 
     $.ajax({
-        url: '/Courses/Exam/createQuest',
+        url: '/courses/exam/createquest',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -2301,7 +2301,7 @@ $('#form-edit-quest').on('submit', function () {
     form_data.append('loigiai', loigiai.slice(0, loigiai.length - 1));
 
     $.ajax({
-        url: '/Courses/Exam/editQuest',
+        url: '/courses/exam/editquest',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -2362,7 +2362,7 @@ function setQuestEdit(stt, maphong) {
     form_data.append('maphong', maphong);
 
     $.ajax({
-        url: '/Courses/Exam/getQuestEdit',
+        url: '/courses/exam/getquestedit',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -2405,7 +2405,7 @@ function setQuestEdit(stt, maphong) {
 //Hàm gọi về server chuẩn bị cho bài thi
 function setWorkExam(maPhong, matkhau) {
     $.ajax({
-        url: '/Courses/Exam/setWorkExam',
+        url: '/courses/exam/setworkexam',
         type: 'POST',
         data: { maphong: maPhong, matkhau: matkhau },
         success: function (data) {
@@ -2413,7 +2413,7 @@ function setWorkExam(maPhong, matkhau) {
                 getThongBao('error', 'Lỗi !', 'Mật khẩu chưa chính xác !');
             }
             else {
-                location.replace('/Courses/Exam/workExam/' + data.work.ma_Phong + '?re=' + data.work.lan_Thu);
+                location.replace('/courses/exam/workexam/' + data.work.ma_Phong + '?re=' + data.work.lan_Thu);
             }
         },
         error: function () {
@@ -2425,7 +2425,7 @@ function setWorkExam(maPhong, matkhau) {
 //Hàm bắt đầu làm bài
 function startExam(maPhong) {
     $.ajax({
-        url: '/Courses/Exam/ktMatKhau',
+        url: '/courses/exam/ktmatkhau',
         type: 'POST',
         data: { maphong : maPhong },
         success: function (data) {
@@ -2476,7 +2476,7 @@ function setDapAnThi(dom, stt, maphong, lanthu) {
     form_data.append('dapan', dapan.slice(0, dapan.length - 1));
 
     $.ajax({
-        url: '/Courses/Exam/setDapAnThi',
+        url: '/courses/exam/setdapanthi',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -2528,7 +2528,7 @@ function countdown(timer, maphong, lanthu) {
 //Hàm xử lý kết thúc bài thi
 function setEndExam(maphong, lanthu) {
     $.ajax({
-        url: '/Courses/Exam/setEndExam',
+        url: '/courses/exam/setendexam',
         type: 'POST',
         data: { maphong: maphong, lanthu: lanthu },
         success: function (data) {
@@ -2536,7 +2536,7 @@ function setEndExam(maphong, lanthu) {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
-                location.replace('/Courses/Exam/preExam/' + data.id);
+                location.replace('/courses/exam/preexam/' + data.id);
             }
         },
         error: function () {
@@ -2547,13 +2547,13 @@ function setEndExam(maphong, lanthu) {
 
 //Hàm chuyển đến trang xem lại bài thi
 function getviewExam(maphong, lanthu) {
-    location.replace('/Courses/Exam/viewExam/' + maphong + '?re=' + lanthu);
+    location.replace('/courses/exam/viewexam/' + maphong + '?re=' + lanthu);
 }
 
 //Hàm set đã xem thông báo
 function setDaXemThongBao(maTB, maND) {
     $.ajax({
-        url: '/User/Notification/setDaXemThongBao',
+        url: '/user/notification/setdaxemthongbao',
         type: 'POST',
         data: { maTB: maTB, maND: maND },
         success: function (data) {
@@ -2571,7 +2571,7 @@ function setDaXemThongBao(maTB, maND) {
 function setXemTatCaThongBao(maND) {
     event.preventDefault();
     $.ajax({
-        url: '/User/Notification/setXemTatCaThongBao',
+        url: '/user/notification/setxemtatcathongbao',
         type: 'POST',
         data: { maND: maND },
         success: function (data) {
@@ -2607,7 +2607,7 @@ $('#frm-rpt-post').on('submit', function () {
     var gc = $('#rpt-post-areas').val();
 
     $.ajax({
-        url: '/Courses/Report/createReport',
+        url: '/courses/report/createreport',
         type: 'POST',
         data: { chimuc: cm, noidung: nd, ghichu: gc },
         success: function (data) {
@@ -2644,7 +2644,7 @@ $('#frm-rpt-room').on('submit', function () {
     var gc = $('#rpt-room-areas').val();
 
     $.ajax({
-        url: '/Courses/Report/createReport',
+        url: '/courses/report/createreport',
         type: 'POST',
         data: { chimuc: cm, noidung: nd, ghichu: gc },
         success: function (data) {
@@ -2667,7 +2667,7 @@ $('#frm-rpt-room').on('submit', function () {
 //Xử lý chọn giá tiền thanh toán
 $('#form-pay').on('submit', function () {
     event.preventDefault();
-    window.location.replace('/Payment/MoMo/Pay?money=' + $('input.rdo-pay:checked').val())
+    window.location.replace('/payment/momo/pay?money=' + $('input.rdo-pay:checked').val())
 })
 
 //Biến trạng thái điều khiển khi thực hiện đăng ký giáo viên
@@ -2676,7 +2676,7 @@ var controlStateTeacher = '';
 //Hàm xử lý nhấn đăng ký giáo viên
 function getRegisTeacher() {
     $.ajax({
-        url: '/Profile/checkInfo',
+        url: '/profile/checkinfo',
         type: 'POST',
         success: function (data) {
             if (data.tt) {
@@ -2723,7 +2723,7 @@ $('#confirm-teacher').on('click', () => {
     }
     if (controlStateTeacher == 'info') {
         controlStateTeacher = '';
-        window.location.href = '/Profile/Update';
+        window.location.href = '/profile/update';
     }
     if (controlStateTeacher == 'cancel') {
         controlStateTeacher = '';
@@ -2749,7 +2749,7 @@ $('#accept-rules').on('change', () => {
 //Hàm xử lý đăng ký làm giáo viên
 function regisTeacher() {
     $.ajax({
-        url: '/Profile/regisTeacher',
+        url: '/profile/registeacher',
         type: 'POST',
         success: function (data) {
             if (data.tt) {
@@ -2770,7 +2770,7 @@ function regisTeacher() {
 //Xử lý xem chi tiết khi bị từ chối nâng cấp lên giáo viên
 $('.view-reason').on('click', () => {
     $.ajax({
-        url: '/Profile/viewReason',
+        url: '/profile/viewreason',
         type: 'POST',
         success: function (data) {
             if (data.tt) {
@@ -2797,7 +2797,7 @@ $('.view-reason').on('click', () => {
 //Hàm xử lý hủy yêu cầu lên giáo viên
 function cancelTeacher() {
     $.ajax({
-        url: '/Profile/cancelTeacher',
+        url: '/profile/cancelteacher',
         type: 'POST',
         success: function (data) {
             if (data.tt) {
@@ -2815,7 +2815,7 @@ function cancelTeacher() {
 //Hàm xử lý dom khi thực hiện các yêu cầu nâng cấp giáo viên
 function setStateTeacher() {
     $.ajax({
-        url: '/Profile/getStateTeacher',
+        url: '/profile/getstateteacher',
         type: 'POST',
         success: function (data) {
             if (data.mess == 'waiting') {
@@ -2852,7 +2852,7 @@ $('#frm-update-user').on('submit', () => {
     form_data.append('mt', text[6].value);
 
     $.ajax({
-        url: '/Profile/setUpdate',
+        url: '/profile/setupdate',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -2893,7 +2893,7 @@ $('.edit-pp').on('change', '#user-edit-bg', function () {
         form_data.append("bg", file);
 
         $.ajax({
-            url: '/Profile/setBg',
+            url: '/profile/setbg',
             type: 'POST',
             data: form_data,
             contentType: false,
@@ -2922,7 +2922,7 @@ $('.edit-pp').on('change', '#user-edit-bg', function () {
 //Kiểm tra rút tiền
 $('.payment-money').on('click', function () {
     $.ajax({
-        url: '/User/Vi/checkSoDu',
+        url: '/user/vi/checksodu',
         type: 'GET',
         success: function (data) {
             if (data.sodu == 0) {
@@ -2962,7 +2962,7 @@ $('#form-payment-money').on('submit', () => {
     var sotien = $('#inp-money-st').val();
 
     $.ajax({
-        url: '/User/Vi/ycRutTien',
+        url: '/user/vi/ycruttien',
         type: 'POST',
         data: { loai: loai, stk: stk, sotien: sotien },
         success: function (data) {

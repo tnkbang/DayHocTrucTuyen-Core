@@ -7,7 +7,7 @@
     //Hàm khởi tạo phần tử lớp học
     function addCoursesItem(data) {
         var string = '<div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="padding-bottom: 20px" data-aos="zoom-in" data-aos-delay="100">' +
-            '<a href="/Courses/Room/Detail/' + data.maLop + '">' +
+            '<a href="/courses/room/detail/' + data.maLop + '">' +
             '<div class="course-item">' +
             '<span class="price ' + data.loaiGiaTien + '">' + data.giaTien + '</span>' +
             '<img src="' + data.imgBg + '" class="img-fluid" alt="" />' +
@@ -19,12 +19,12 @@
         })
 
         string += '</div>' +
-            '<h3><a href="/Courses/Room/Detail/' + data.maLop + '">' + data.tenLop + '</a></h3>' +
+            '<h3><a href="/courses/room/detail/' + data.maLop + '">' + data.tenLop + '</a></h3>' +
             '<p>' + data.moTa + '</p>' +
             '<div class="trainer d-flex justify-content-between align-items-center">' +
             '<div class="trainer-profile d-flex align-items-center">' +
             '<img width="40" height="40" src="' + data.ownerAvt + '" class="img-fluid" alt="" />' +
-            '<a href="/Profile/Info/' + data.ownerMa + '" data-toggle="tooltip" title="' + data.ownerHoTen + '">' + data.ownerTen + '</a>' +
+            '<a href="/profile/info/' + data.ownerMa + '" data-toggle="tooltip" title="' + data.ownerHoTen + '">' + data.ownerTen + '</a>' +
             '</div>' +
             '<div class="trainer-rank d-flex align-items-center">' +
             '<i class="bx bx-user"></i> &nbsp;' + data.thanhVien +
@@ -41,7 +41,7 @@
 
     //Sau khi web tải thì call về server lấy phần tử lần đầu tiên
     $.ajax({
-        url: '/Default/Courses',
+        url: '/default/courses',
         type: 'GET',
         data: { q: textInput, offset: offsetCourses, limit: limitCourses },
         success: function (data) {
@@ -68,7 +68,7 @@
         if ($('html').scrollTop() >= main.scrollHeight - 107 && isLoad) {
             //Gọi về server lấy thêm lớp học
             $.ajax({
-                url: '/Default/Courses',
+                url: '/default/courses',
                 type: 'GET',
                 data: { q: textInput, offset: offsetCourses, limit: limitCourses },
                 success: function (data) {

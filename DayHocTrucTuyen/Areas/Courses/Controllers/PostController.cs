@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Areas.Courses.Controllers
 {
     [Area(nameof(Courses))]
-    [Route("Courses/[controller]/[action]")]
+    [Route("courses/[controller]/[action]")]
     [Authorize]
     public class PostController : Controller
     {
@@ -65,7 +65,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop && x.MaNd != newPost.MaNd);
             foreach (var tvl in thanhvienlop)
             {
-                notification.setThongBao(tvl.MaNd, "Bài đăng mới", "post" + "\\Từ lớp " + lop.TenLop, "Courses/Room/Detail?id=" + lop.MaLop);
+                notification.setThongBao(tvl.MaNd, "Bài đăng mới", "post" + "\\Từ lớp " + lop.TenLop, "courses/room/detail/" + lop.MaLop);
             }
 
             return Json(new { mess = "Thành công" });

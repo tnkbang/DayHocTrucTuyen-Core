@@ -12,7 +12,7 @@ using System.Net;
 namespace DayHocTrucTuyen.Areas.Payment.Controllers
 {
     [Area(nameof(Payment))]
-    [Route("Payment/[controller]/[action]")]
+    [Route("payment/[controller]/[action]")]
     [Authorize]
 
     public class MoMoController : Controller

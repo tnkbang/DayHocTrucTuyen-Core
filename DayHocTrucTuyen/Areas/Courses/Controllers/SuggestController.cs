@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DayHocTrucTuyen.Areas.Courses.Controllers
 {
     [Area(nameof(Courses))]
-    [Route("Courses/[controller]/[action]/{id?}")]
+    [Route("courses/[controller]/[action]/{id?}")]
     [AllowAnonymous]
     public class SuggestController : Controller
     {

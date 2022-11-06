@@ -11,7 +11,7 @@
     $progress.hide()
 
     //Bắt sự kiện khi chọn ảnh upload
-    input.addEventListener('change', function (e) {
+    $('#user-edit-avt').on('change', function (e) {
         var files = e.target.files;
         var done = function (url) {
             input.value = '';
@@ -67,7 +67,7 @@
 
                 //Gọi về server lưu ảnh
                 $.ajax({
-                    url: '/Profile/setAvt',
+                    url: '/profile/setavt',
                     type: 'POST',
                     data: formData,
                     contentType: false,

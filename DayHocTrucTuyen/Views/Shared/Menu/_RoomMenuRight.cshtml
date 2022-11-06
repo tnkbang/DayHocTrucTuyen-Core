@@ -14,7 +14,7 @@
                     <figure>
                         <span class="room-member-status status f-off @Model.getOwner().MaNd"></span>
                         <img class="wh-40" src="@Model.getOwner().getImageAvt()" data-toggle="tooltip" title="@Model.getOwner().getFullName()" />
-                        <a href="~/Profile/Info/@Model.getOwner().MaNd" title="Xem trang của @Model.getOwner().Ten">@Model.getOwner().Ten</a>
+                        <a href="~/profile/info/@Model.getOwner().MaNd" title="Xem trang của @Model.getOwner().Ten">@Model.getOwner().Ten</a>
                         <a data-toggle="tooltip" title="Giáo viên"><i class="fa fa-mortar-board"></i></a>
                     </figure>
                     <a data-toggle="tooltip" title="Quản trị viên"><i class="fa fa-key"></i></a>
@@ -25,7 +25,7 @@
                         <figure>
                             <span class="room-member-status status f-off @mem.MaNd"></span>
                             <img class="wh-40" src="@mem.getImageAvt()" data-toggle="tooltip" title="@mem.getFullName()" />
-                            <a href="~/Profile/Info/@mem.MaNd" title="Xem trang của @mem.Ten">@mem.Ten</a>
+                            <a href="~/profile/info/@mem.MaNd" title="Xem trang của @mem.Ten">@mem.Ten</a>
                             @if (mem.MaLoai.Equals("02"))
                             {
                                 <a data-toggle="tooltip" title="Giáo viên"><i class="fa fa-mortar-board"></i></a>
@@ -47,7 +47,7 @@
                     </li>
                     <li>
                         <i class="fa fa-cogs"></i>
-                        <a href="~/Courses/Exam/List/@Model.MaLop">Quản lý bài thi</a>
+                        <a href="~/courses/exam/list/@Model.MaLop">Quản lý bài thi</a>
                     </li>
                     <li>
                         <i class="fa fa-bar-chart-o"></i>

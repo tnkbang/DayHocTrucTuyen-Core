@@ -10,7 +10,7 @@
     <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
         <h1>Học hôm nay,<br>Dẫn đầu ngày mai</h1>
         <h2>Chúng tôi có những giảng viên đầy chuyên môn và tâm huyết với nghề nhà giáo.</h2>
-        <a href="~/User/Manage/Index" class="btn-get-started">Bắt đầu ngay</a>
+        <a href="~/user/manage/index" class="btn-get-started">Bắt đầu ngay</a>
     </div>
 </section><!-- End Hero -->
 <main id="main">
@@ -73,7 +73,7 @@
                             Có chế độ chăm sóc khách hàng chất lượng cao, luôn đặt trải nghiệm và cảm xúc của khách hàng lên hàng đầu.
                         </p>
                         <div class="text-center">
-                            <a href="~/Default/Register" class="more-btn">Đăng ký ngay <i class="bx bx-chevron-right"></i></a>
+                            <a href="~/account/register" class="more-btn">Đăng ký ngay <i class="bx bx-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -191,38 +191,40 @@
                 @foreach (var room in ViewData["Room"] as List<LopHoc>)
                 {
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" style="padding-bottom: 20px" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="course-item">
-                            <span class="price @room.getTypeGiaTien()">@room.getGiaTien()</span>
-                            <img src="@room.getImage()" class="img-fluid" alt="" />
-                            <div class="course-content">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    @foreach (var t in room.getTag())
-                                    {
-                                        <h4>@t.TenTag</h4>
-                                    }
-                                </div>
-                                <h3><a href="~/Courses/Room/Detail/@room.MaLop">@room.TenLop</a></h3>
-                                @if (room.MoTa == null)
-                                {
-                                    <p>Lớp chưa có thông tin mô tả !</p>
-                                }
-                                else
-                                {
-                                    <p>@room.MoTa</p>
-                                }
-                                <div class="trainer d-flex justify-content-between align-items-center">
-                                    <div class="trainer-profile d-flex align-items-center">
-                                        <img src="@room.getOwner().getImageAvt()" class="img-fluid" alt="" />
-                                        <a href="~/Profile/Info/@room.getOwner().MaNd" data-toggle="tooltip" title="@room.getOwner().HoLot @room.getOwner().Ten">@room.getOwner().Ten</a>
+                        <a href="~/courses/room/detail/@room.MaLop">
+                            <div class="course-item">
+                                <span class="price @room.getTypeGiaTien()">@room.getGiaTien()</span>
+                                <img src="@room.getImage()" class="img-fluid" alt="" />
+                                <div class="course-content">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        @foreach (var t in room.getTag())
+                                        {
+                                            <h4>@t.TenTag</h4>
+                                        }
                                     </div>
-                                    <div class="trainer-rank d-flex align-items-center">
-                                        <i class="bx bx-user"></i> &nbsp;@room.getMembers()
-                                        &nbsp;&nbsp;
-                                        <i class="bx bx-heart"></i>&nbsp;@room.getSLCamXuc()
+                                    <h3><a href="~/courses/room/detail/@room.MaLop">@room.TenLop</a></h3>
+                                    @if (room.MoTa == null)
+                                    {
+                                        <p>Lớp chưa có thông tin mô tả !</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@room.MoTa</p>
+                                    }
+                                    <div class="trainer d-flex justify-content-between align-items-center">
+                                        <div class="trainer-profile d-flex align-items-center">
+                                            <img src="@room.getOwner().getImageAvt()" class="img-fluid" alt="" />
+                                            <a href="~/profile/info/@room.getOwner().MaNd" data-toggle="tooltip" title="@room.getOwner().HoLot @room.getOwner().Ten">@room.getOwner().Ten</a>
+                                        </div>
+                                        <div class="trainer-rank d-flex align-items-center">
+                                            <i class="bx bx-user"></i> &nbsp;@room.getMembers()
+                                            &nbsp;&nbsp;
+                                            <i class="bx bx-heart"></i>&nbsp;@room.getSLCamXuc()
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 }
             </div>

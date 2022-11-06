@@ -134,7 +134,7 @@ var isSearch = true;
 //Tự khởi động khi load xong
 $(document).ready(function () {
     $.ajax({
-        url: '/Courses/Room/getAllCourses',
+        url: '/courses/room/getallcourses',
         type: 'POST',
         success: function (data) {
             if (!data.tt) {

@@ -1,5 +1,5 @@
 ﻿const connection = new signalR.HubConnectionBuilder()
-    .withUrl("/Models/ChatHub")
+    .withUrl("/models/chathub")
     .build();
 
 connection.start().catch(err => console.error(err.toString()));
@@ -121,7 +121,7 @@ function send_mess() {
         return false;
     }
     $.ajax({
-        url: '/User/Mess/sendNewTinNhan',
+        url: '/user/mess/sendnewtinnhan',
         type: 'POST',
         data: { maNN: messUserReceived, noidung: noidung.value, trangthai: true },
         success: function (data) {
@@ -169,7 +169,7 @@ function infoSendMess(gui, nhan) {
         return false;
     }
     $.ajax({
-        url: '/User/Mess/sendNewTinNhan',
+        url: '/user/mess/sendnewtinnhan',
         type: 'POST',
         data: { maNN: nhan, noidung: noidung.value, trangthai: false },
         success: function (data) {
@@ -231,7 +231,7 @@ function addPingMessMobi(usend, img, name, noidung, time) {
 
 function getPingMess() {
     $.ajax({
-        url: '/User/Mess/getAllTinChuaXem',
+        url: '/user/mess/getalltinchuaxem',
         type: 'POST',
         success: function (data) {
 
@@ -292,7 +292,7 @@ function openPopupChat(maUser) {
     offsetChat = 0;
 
     $.ajax({
-        url: '/User/Mess/getTinNhanTuUser',
+        url: '/user/mess/gettinnhantuuser',
         type: 'POST',
         data: { maNG: maNG },
         success: function (data) {
@@ -309,7 +309,7 @@ function openPopupChat(maUser) {
                     else setChat('app', 'me', data.uReceived.img_Avt, value.noi_Dung, value.thoi_Gian);
                 })
             }
-            document.getElementById('mess-view-info').onclick = function () { location.replace('/Profile/Info/' + data.uSend.ma_ND) }
+            document.getElementById('mess-view-info').onclick = function () { location.replace('/profile/info/' + data.uSend.ma_ND) }
 
             //Thanh cuộn cuối phần tử tin nhắn
             var messContent = document.getElementById('mess-content');
@@ -359,7 +359,7 @@ $('#icon-tin-nhan').on('click', function () {
 function setXemTatCaTinNhan(maND) {
     event.preventDefault();
     $.ajax({
-        url: '/User/Mess/setXemTatCaTinNhan',
+        url: '/user/mess/setxemtatcatinnhan',
         type: 'POST',
         data: { maND: maND },
         success: function (data) {
@@ -396,7 +396,7 @@ $('#mess-content').on('scroll', function () {
 
         //Gọi về server lấy tin
         $.ajax({
-            url: '/User/Mess/getTinNhanTuUser',
+            url: '/user/mess/gettinnhantuuser',
             type: 'POST',
             data: { maNG: messUserReceived, offset: offsetChat, limit: 10 },
             success: function (data) {
