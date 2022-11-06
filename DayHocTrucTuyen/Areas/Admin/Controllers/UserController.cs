@@ -1,4 +1,5 @@
 ﻿using DayHocTrucTuyen.Areas.Admin.Models;
+using DayHocTrucTuyen.Areas.User.Controllers;
 using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -303,13 +304,137 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         #endregion Phê duyệt người dùng
 
         #region Chuyển tiền cho người dùng
-        //Trang xem yêu cầu rút tiền của người dùng
-        public IActionResult Approvde()
+        //Trang xử lý yêu cầu rút tiền của người dùng
+        public IActionResult GiveMoney()
         {
             //ViewBag thể hiện trang đang được hiển thị trên layout
-            ViewBag.Approve = "active";
+            ViewBag.GiveMoney = "active";
 
             return View();
+        }
+
+        //Lấy danh sách yêu cầu rút tiền
+        [HttpGet]
+        public IActionResult getGiveMoney(string? search, string? sort, string? order, int? offset, int? limit)
+        {
+            var lst = db.YeuCauThanhToans.Where(x => x.TrangThai == 1);
+
+            //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, họ tên, email, loại,....
+            if (!string.IsNullOrEmpty(search))
+            {
+                var nd = db.NguoiDungs.FirstOrDefault(s => string.Concat(s.HoLot, " ", s.Ten).Contains(search));
+
+                if (nd != null)
+                {
+                    lst = lst.Where(s => s.MaNd == nd.MaNd);
+                }
+                else
+                {
+                    lst = lst.Where(s => s.MaNd.Contains(search));
+                }
+            }
+
+            //Xử lý sắp xếp
+            if (!string.IsNullOrEmpty(sort) && !string.IsNullOrEmpty(order))
+            {
+                switch (sort)
+                {
+                    case "maNd":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.MaNd);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.MaNd);
+                        }
+                        break;
+                    case "thoiGian":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.ThoiGian);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.ThoiGian);
+                        }
+                        break;
+                }
+            }
+
+            List<dynamic> lstResult = new List<dynamic>();
+            foreach (var item in lst.ToList())
+            {
+                var user = item.getNguoiDung();
+                var temp = new
+                {
+                    maNd = item.MaNd,
+                    hoTen = user.getFullName(),
+                    email = user.Email,
+                    sdt = user.Sdt,
+                    loaiThanhToan = item.LoaiThanhToan,
+                    soTaiKhoan = item.SoTaiKhoan,
+                    soTien = item.SoTien.ToString("n0") + "VNĐ",
+                    thoiGian = item.ThoiGian.ToString("g"),
+                    thaoTac = customGiveMoney(item.MaNd)
+                };
+                lstResult.Add(temp);
+            }
+
+            //Các tham số của phân trang như sau:
+            //      đầu tiên là danh sách truyền vào phân trang
+            //      tham số thứ 2 là vị trí phân trang
+            //      tham số cuối là số lượng trang
+            var result = PaginatedList<dynamic>.Create(lstResult, offset ?? 0, limit ?? 10);
+
+            return Json(new { total = lst.ToList().Count, totalNotFiltered = lst.ToList().Count, rows = result });
+        }
+
+        //Hàm xử lý các button thao tác, vì bootstrap-table không hỗ trợ update với formatter row nên phải dùng cách này
+        public string customGiveMoney(string ma)
+        {
+            var result = "<button data-toggle=\"tooltip\" title=\"Đã chuyển\" class=\"pd-setting-ed pressed-size ml-1 mr-1\" onclick=\"giveMoneyAccept(\'" + ma + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-check\" aria-hidden=\"true\"></i></button>";
+            result += "<button data-toggle=\"tooltip\" title=\"Từ chối\" class=\"pd-setting-ed mt-1\" onclick=\"giveMoneyRefuse(\'" + ma + "\')\" ><i data-toggle=\"modal\" class=\"fa fa-close\" aria-hidden=\"true\"></i></button>";
+            return result;
+        }
+
+        //Đồng ý hoặc từ chối chuyển tiền cho người dùng
+        [HttpPost]
+        public IActionResult setGiveMoney(string ma, bool tt, string gc)
+        {
+            NotificationController notification = new NotificationController();
+            var yc = db.YeuCauThanhToans.FirstOrDefault(x => x.MaNd == ma);
+
+            if (yc != null)
+            {
+                if (tt)
+                {
+                    yc.TrangThai = 2;
+
+                    //Gửi thông báo
+                    notification.setThongBao(yc.MaNd, "Xác nhận rút tiền", 
+                        "money", "Đã chuyển " + yc.SoTien.ToString("n0") + "VNĐ về tài khoản " + 
+                        yc.LoaiThanhToan + " theo yêu cầu lúc " + yc.ThoiGian.ToString("g"), "#");
+                }
+                else
+                {
+                    yc.TrangThai = 0;
+                    yc.GhiChu = gc;
+
+                    //Gửi thông báo
+                    notification.setThongBao(yc.MaNd, "Từ chối rút tiền", 
+                        "money", "Yêu cầu rút " + yc.SoTien.ToString("n0") + "VNĐ lúc " + 
+                        yc.ThoiGian.ToString("g") + " bị từ chối.", "#");
+
+                    //Hoàn tiền về tài khoản
+                    ViController vinguoidung = new ViController();
+                    vinguoidung.setThayDoiSoDu(yc.MaNd, true, yc.SoTien, 
+                        "Hoàn tiền do yêu cầu lúc " + yc.ThoiGian.ToString("g") + " bị từ chối");
+                }
+                db.SaveChanges();
+            }
+
+            return Json(new { tt = true });
         }
         #endregion Chuyển tiền cho người dùng
     }

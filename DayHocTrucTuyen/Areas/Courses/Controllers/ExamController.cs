@@ -123,7 +123,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             var thanhvienlop = db.HocSinhThuocLops.Where(x => x.MaLop == lop.MaLop);
             foreach (var tvl in thanhvienlop)
             {
-                notification.setThongBao(tvl.MaNd, "Bài thi mới", "exam" + "\\Từ lớp " + lop.TenLop, "courses/room/detail/" + lop.MaLop);
+                notification.setThongBao(tvl.MaNd, "Bài thi mới", "exam", "Từ lớp " + lop.TenLop, "courses/room/detail/" + lop.MaLop);
             }
 
             return Json(new { tt = true, exam = newPT.MaPhong });

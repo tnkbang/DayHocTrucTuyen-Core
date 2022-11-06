@@ -13,13 +13,13 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
         //Tạo thông báo mới
-        public void setThongBao(string maND, string tieude, string noidung, string lienket)
+        public void setThongBao(string maND, string tieude, string type, string noidung, string lienket)
         {
             ThongBao newTB = new ThongBao();
             newTB.MaTb = newTB.setMa(maND);
             newTB.MaNd = maND;
             newTB.TieuDe = tieude;
-            newTB.NoiDung = noidung;
+            newTB.NoiDung = type + "\\" + noidung;
             newTB.ThoiGian = DateTime.Now;
             newTB.TrangThai = false;
             newTB.LienKet = String.IsNullOrEmpty(lienket) ? null : lienket;

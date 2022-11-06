@@ -127,6 +127,8 @@ $('#confirm-lock-user').on('click', function () {
     })
 })
 
+//--------------------------------------------------------------------------
+
 //Xử lý trang quản lý lớp học
 var $roomlist = $('#table-room-list')
 
@@ -253,6 +255,8 @@ $('#confirm-lock-room').on('click', function () {
         }
     })
 })
+
+//----------------------------------------------------------------------------
 
 //Xử lý trang phê duyệt người dùng
 var $tableApprove = $('#table-approve')
@@ -381,6 +385,8 @@ $('#confirm-approve').on('click', function () {
         }
     })
 })
+
+//-----------------------------------------------------------------------------
 
 //Xử lý trang xem phản hồi và báo cáo
 var $reportlist = $('#table-report-list')
@@ -551,6 +557,131 @@ $reportRemoveButton.click(function () {
             else {
                 getThongBao('error', 'Lỗi', 'Source code bị thay đổi !')
             }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
+
+//---------------------------------------------------------------------------
+
+//Xử lý trang chuyển tiền cho người dùng
+var $tableGiveMoney = $('#table-give-money')
+
+//Thêm các th row cho bảng xem yêu cầu chuyển tiền
+$tableGiveMoney.bootstrapTable({
+    columns: [{
+        field: 'maNd',
+        sortable: true,
+        title: 'Mã'
+    }, {
+        field: 'hoTen',
+        title: 'Họ tên'
+    }, {
+        field: 'email',
+        title: 'Email',
+        visible: false
+    }, {
+        field: 'sdt',
+        title: 'Sđt'
+    }, {
+        field: 'loaiThanhToan',
+        title: 'Loại'
+    }, {
+        field: 'soTaiKhoan',
+        title: 'Tài khoản'
+    }, {
+        field: 'soTien',
+        title: 'Số tiền'
+    }, {
+        field: 'thoiGian',
+        sortable: true,
+        title: 'Thời gian',
+        visible: false
+    }, {
+        field: 'thaoTac',
+        title: 'Thao tác',
+        align: 'center',
+        clickToSelect: false
+    }]
+})
+
+//Gọi ajax về server lấy dữ liệu cho danh sách yêu cầu chuyển tiền
+function ajaxGetGiveMoney(params) {
+    var url = '/admin/user/getgivemoney'
+    $.get(url + '?' + $.param(params.data)).then(function (res) {
+        params.success(res)
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
+}
+
+//Xử lý đã chuyển hoặc không đồng ý chuyển tiền cho người dùng
+var thisGiveMoney, userGiveMoney;
+
+//Xác nhận đã chuyển tiền
+function giveMoneyAccept(maUser) {
+    thisGiveMoney = true;
+    userGiveMoney = maUser;
+
+    var title = document.getElementById('modal-give-money-title');
+    var content = document.getElementById('modal-give-money-content');
+
+    title.innerHTML = 'Xác nhận đã chuyển tiền?'
+    content.innerHTML = 'Khi bạn xác nhận, hệ thống sẽ hiểu rằng bạn đã chuyển tiền cho người dùng này rồi. Bạn thật sự chắc chắn về hành động này ?'
+
+    $('.popup-wraper1').addClass('active');
+}
+
+//Từ chối chuyển tiền
+function giveMoneyRefuse(maUser) {
+    thisGiveMoney = false;
+    userGiveMoney = maUser;
+
+    var title = document.getElementById('modal-give-money-title');
+    var content = document.getElementById('modal-give-money-content');
+
+    title.innerHTML = 'Từ chối chuyển tiền?'
+    content.innerHTML = 'Hãy nêu lý do từ chối:'
+        + '<textarea class="main-inp" id="give-money-text" maxlength="200" placeholder="Nhập nội dung..."></textarea>'
+
+    $('.popup-wraper1').addClass('active');
+}
+
+$('#cancel-give-money').on('click', function () {
+    thisGiveMoney = userGiveMoney = null;
+    $('.popup-wraper1').removeClass('active');
+})
+
+$('#confirm-give-money').on('click', function () {
+    event.preventDefault();
+
+    if (!thisGiveMoney && $('#give-money-text').val() == '') {
+        getThongBao('error', 'Lỗi', 'Hãy nhập nội dung ghi chú !')
+        return;
+    }
+
+    $.ajax({
+        url: '/admin/user/setgivemoney',
+        type: 'POST',
+        data: { ma: userGiveMoney, tt: thisGiveMoney, gc: $('#give-money-text').val() },
+        success: function (data) {
+
+            $tableGiveMoney.bootstrapTable('remove', {
+                field: 'maNd',
+                values: userGiveMoney
+            })
+
+            if (thisGiveMoney) {
+                getThongBao('success', 'Thành công', 'Đã xác nhận chuyển tiền cho người dùng !')
+            }
+            else {
+                getThongBao('success', 'Thành công', 'Đã từ chối chuyển tiền cho người dùng !')
+            }
+
+            thisGiveMoney = userGiveMoney = null;
+            $('.popup-wraper1').removeClass('active');
         },
         error: function () {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')

@@ -1,6 +1,6 @@
 ﻿@{
-    ViewBag.Title = "Xem báo cáo";
-    ViewBag.Main = "Phản hồi - Báo cáo";
+    ViewBag.Title = "Chuyển tiền";
+    ViewBag.Main = "Chuyển tiền cho người dùng";
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
 }
 
@@ -11,15 +11,14 @@
                 <div class="col-lg-9">
                     <!-- Danh sách -->
                     <div class="central-meta">
-                        <div id="toolbar-control">
-                            <button id="remove-report-select" class="custom-btn" disabled>
-                                <i class="fa fa-trash"></i> Xóa
-                            </button>
-                        </div>
+                        <div id="toolbar-control"></div>
                         <div class="custom-list">
-                            <table id="table-report-list"
+                            <table id="table-give-money"
                                    class="table table-responsive w-100 d-block d-md-table"
                                    data-toolbar="#toolbar-control"
+                                   data-search="true"
+                                   data-search-highlight="true"
+                                   data-search-align="left"
                                    data-show-refresh="true"
                                    data-show-toggle="true"
                                    data-show-columns="true"
@@ -28,14 +27,14 @@
                                    data-show-pagination-switch="true"
                                    data-sort-class="table-active"
                                    data-pagination="true"
-                                   data-id-field="maBaoCao"
-                                   data-unique-id="maBaoCao"
+                                   data-id-field="maNd"
+                                   data-unique-id="maNd"
                                    data-page-list="[2, 10, 20, 40, 100, All]"
                                    data-side-pagination="server"
                                    data-locale="vi-VN"
                                    data-toggle="table"
                                    data-cache="false"
-                                   data-ajax="ajaxGetListReport">
+                                   data-ajax="ajaxGetGiveMoney">
                             </table>
                         </div>
                     </div>
@@ -49,20 +48,20 @@
 </section>
 
 
-<!-- popup gửi thông báo cho người dùng -->
+<!-- popup đồng ý hoặc không đồng ý chuyển tiền cho người dùng -->
 <div class="popup-wraper1">
     <div class="popup direct-mesg">
         <span class="popup-closed"><i class="ti-close"></i></span>
         <div class="popup-meta">
             <div class="popup-head">
-                <h5 id="modal-send-noti-title">Tiêu đề cảnh báo</h5>
+                <h5 id="modal-give-money-title">Tiêu đề cảnh báo</h5>
             </div>
             <div class="Rpt-meta">
                 <form class="c-form">
-                    <p id="modal-send-noti-content">Nội dung cảnh báo</p>
+                    <p id="modal-give-money-content">Nội dung cảnh báo</p>
                     <div>
-                        <button id="confirm-send-noti" data-ripple="" type="submit" class="main-btn">Gửi</button>
-                        <button id="cancel-send-noti" data-ripple="" type="button" class="main-btn cancel">Đóng</button>
+                        <button id="confirm-give-money" data-ripple="" type="submit" class="main-btn">Xác nhận</button>
+                        <button id="cancel-give-money" data-ripple="" type="button" class="main-btn cancel">Đóng</button>
                     </div>
                 </form>
             </div>

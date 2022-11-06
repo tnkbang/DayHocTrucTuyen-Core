@@ -300,7 +300,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
         public IActionResult sendNoti(string maUser, string nd)
         {
             NotificationController notification = new NotificationController();
-            notification.setThongBao(maUser, "Thông báo từ Admin","admin\\" + nd, "");
+            notification.setThongBao(maUser, "Thông báo từ Admin","admin", nd, "");
 
             return Json(new { tt = true });
         }
