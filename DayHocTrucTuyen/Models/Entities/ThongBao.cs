@@ -7,6 +7,7 @@ namespace DayHocTrucTuyen.Models.Entities
     {
         public string MaTb { get; set; } = null!;
         public string MaNd { get; set; } = null!;
+        public string LoaiTb { get; set; } = null!;
         public string TieuDe { get; set; } = null!;
         public string? NoiDung { get; set; }
         public DateTime ThoiGian { get; set; }

@@ -167,7 +167,7 @@
                                         <li>
                                             <a href="@tb.getLienKet()" title="" onclick="setDaXemThongBao('@tb.MaTb', '@tb.MaNd')">
                                                 <figure>
-                                                    @switch (tb.NoiDung.Split('\\')[0])
+                                                    @switch (tb.LoaiTb)
                                                     {
                                                         case "exam":
                                                             <img class="wh-35" src="~/Content/Img/Resources/notification-default.png" alt="" />
@@ -182,7 +182,7 @@
                                                 </figure>
                                                 <div class="mesg-meta">
                                                     <h6>@tb.TieuDe</h6>
-                                                    <span>@tb.NoiDung.Split('\\')[1]</span>
+                                                    <span>@tb.NoiDung</span>
                                                     <i class="timeago" title="@tb.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@tb.ThoiGian.ToString()</i>
                                                 </div>
                                             </a>

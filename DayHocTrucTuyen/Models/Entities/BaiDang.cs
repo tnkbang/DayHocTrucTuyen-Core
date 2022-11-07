@@ -45,7 +45,7 @@ namespace DayHocTrucTuyen.Models.Entities
             var temp = db.NguoiDungs.FirstOrDefault(x => x.MaNd == this.MaNd);
             NguoiDung user = new NguoiDung();
 
-            if(temp != null)
+            if (temp != null)
             {
                 user.MaNd = temp.MaNd;
                 user.HoLot = temp.HoLot;

@@ -18,8 +18,9 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             ThongBao newTB = new ThongBao();
             newTB.MaTb = newTB.setMa(maND);
             newTB.MaNd = maND;
+            newTB.LoaiTb = type;
             newTB.TieuDe = tieude;
-            newTB.NoiDung = type + "\\" + noidung;
+            newTB.NoiDung = noidung;
             newTB.ThoiGian = DateTime.Now;
             newTB.TrangThai = false;
             newTB.LienKet = String.IsNullOrEmpty(lienket) ? null : lienket;
