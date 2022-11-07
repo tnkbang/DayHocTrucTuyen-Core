@@ -37,7 +37,7 @@
                                 {
                                     <li><a class="bg-success" id="btnLike" title="Thích trang" data-toggle="tooltip" onclick="like('@Model.MaNd', '@uLogin.MaNd')"><i class="fa fa-heart"></i></a></li>
                                 }
-                                <li><a class="send-mesg" href="#" title="Gửi tin nhắn" data-toggle="tooltip"><i class="fa fa-comment"></i></a></li>
+                                <li><a class="send-mesg" href="javascript:void(0)" title="Gửi tin nhắn" onclick="openPopupChat('@Model.MaNd')" data-toggle="tooltip"><i class="fa fa-comment"></i></a></li>
                             </ul>
                             </figure>
                             <div class="profile-section">
@@ -183,22 +183,6 @@
         </div>
     </div>
 </section><!-- nội dung chính -->
-<div class="popup-wraper1">
-    <div class="popup direct-mesg">
-        <span class="popup-closed"><i class="ti-close"></i></span>
-        <div class="popup-meta">
-            <div class="popup-head">
-                <h5>Gửi tin nhắn cho @Model.Ten</h5>
-            </div>
-            <div class="send-message">
-                <form method="post" class="c-form" id="info-send-mess">
-                    <textarea id="info-send-mess-text" placeholder="Nội dung tin nhắn"></textarea>
-                    <button type="submit" class="main-btn" onclick="infoSendMess('@uLogin.MaNd', '@Model.MaNd')">Gửi</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div><!-- popup gửi tin nhắn -->
 
 <!-- upload avt -->
 <div class="popup-wraper2">

@@ -182,12 +182,6 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    // popup send message
-    $('.send-mesg').on('click', function () {
-        $('.popup-wraper1').addClass('active');
-        return false;
-    });
-
     // popup report post
     $('.bad-report').on('click', function () {
         $('.popup-reportPost').addClass('active');
