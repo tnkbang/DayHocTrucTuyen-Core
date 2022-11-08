@@ -47,20 +47,12 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $('.popup-wraper4, .popup-wraper2').on('click', function (e) {
+    $('.popup-wraper4, .popup-wraper2, .popup-createExam').on('click', function (e) {
         if (e.target.id != 'get-help') {
             $(".popup-get-help").removeClass('active');
         }
         else {
             $(".popup-get-help").toggleClass('active');
-        }
-    })
-    $('.popup-createExam').on('click', function (e) {
-        if (e.target.id != 'createHelp') {
-            $(".popup-roomhelp").removeClass('active');
-        }
-        else {
-            $(".popup-roomhelp").toggleClass('active');
         }
     })
 
@@ -121,7 +113,7 @@ jQuery(document).ready(function ($) {
         $('.popup-wraper').addClass('active');
     });
     $('.popup-closed').on('click', function () {
-        $('.popup-wraper, .popup-wraper1').removeClass('active');
+        $('.popup-wraper, .popup-wraper1, .popup-wraper3').removeClass('active');
     });
 
     // choose pay
@@ -2864,6 +2856,67 @@ $('#form-payment-money').on('submit', () => {
             else {
                 getThongBao('success', 'Đã gửi yêu cầu', "Vui lòng chờ ban quản trị duyệt yêu cầu của bạn");
                 $('.popup-wraper2').removeClass('active')
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
+
+//Xử lý đổi mật khẩu bằng popup
+$('.change-pass').on('click', () => {
+    $('.popup-wraper3').addClass('active')
+})
+
+//Xử lý hiện thị mật khẩu popup đổi mật khẩu
+$('#view-pass').on('click', function () {
+    var pass = document.getElementById('inp-change-pass')
+    var new_pass = document.getElementById('inp-change-pass-new')
+    var re_pass = document.getElementById('inp-change-pass-re')
+
+    if ($('#view-pass').prop("checked") == true) {
+        pass.type = 'text'
+        new_pass.type = 'text'
+        re_pass.type = 'text'
+    }
+    else {
+        pass.type = 'password'
+        new_pass.type = 'password'
+        re_pass.type = 'password'
+    }
+})
+
+//Gọi về server đổi mật khẩu
+$('#form-change-pass').on('submit', () => {
+    event.preventDefault()
+
+    var pass = document.getElementById('inp-change-pass')
+    var new_pass = document.getElementById('inp-change-pass-new')
+    var re_pass = document.getElementById('inp-change-pass-re')
+
+    if (pass.value == new_pass.value) {
+        getThongBao('warning', 'Thông báo', 'Mật khẩu mới phải khác mật khẩu cũ !')
+        return;
+    }
+
+    if (re_pass.value != new_pass.value) {
+        getThongBao('error', 'Lỗi', 'Nhập lại mật khẩu chưa đúng !')
+        return;
+    }
+
+    $.ajax({
+        url: '/account/changepass',
+        type: 'POST',
+        data: { pass: pass.value, new_pass: new_pass.value },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi', data.mess);
+            }
+            else {
+                getThongBao('success', 'Thành công', "Bạn đã thay đổi mật khẩu.");
+                pass.value = new_pass.value = re_pass.value = null
+                $('.popup-wraper3').removeClass('active')
             }
         },
         error: function () {

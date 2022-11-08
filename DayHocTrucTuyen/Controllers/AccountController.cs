@@ -307,5 +307,22 @@ namespace DayHocTrucTuyen.Controllers
             }
             return Json(new { tt = false });
         }
+
+        //Thực hiện đổi mật khẩu với popup
+        [Authorize]
+        [HttpPost]
+        public IActionResult changePass(string pass, string new_pass)
+        {
+            var tempPass = new NguoiDung().mahoaMatKhau(pass);
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value && x.MatKhau == tempPass);
+            if (user != null)
+            {
+                user.MatKhau = user.mahoaMatKhau(new_pass);
+                db.SaveChanges();
+
+                return Json(new { tt = true });
+            }
+            return Json(new { tt = false, mess = "Mật khẩu không chính xác !" });
+        }
     }
 }

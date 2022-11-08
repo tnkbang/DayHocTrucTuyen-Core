@@ -228,7 +228,8 @@
                             }
                             <li><a href="/user/manage/index" title=""><i class="ti-view-grid"></i> Trang quản trị</a></li>
                             <li><a href="/profile/update" title=""><i class="ti-pencil-alt"></i>Chỉnh sửa thông tin</a></li>
-                            <li><a title="" onclick="dangxuat()"><i class="ti-power-off"></i>Đăng xuất</a></li>
+                            <li class="change-pass"><a href="javascript:void(0)" title=""><i class="ti-key"></i>Đổi mật khẩu</a></li>
+                            <li><a href="javascript:void(0)" title="" onclick="dangxuat()"><i class="ti-power-off"></i>Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>
@@ -288,6 +289,48 @@
                         <span class="dot"></span>
                     </div>
                     <ins class="later-rmnd">Lệnh: "Dừng lại", "Làm mới".</ins>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup đổi mật khẩu -->
+        <div class="popup-wraper3">
+            <div class="popup direct-mesg">
+                <span class="popup-closed"><i class="ti-close"></i></span>
+                <div class="popup-meta">
+                    <div class="popup-head">
+                        <h5 id="modal-lock-room-title">Thay đổi mật khẩu</h5>
+                    </div>
+                    <div class="group-adding">
+                        <div class="room-group pb-0">
+                            <form id="form-change-pass" method="post">
+                                <div class="input-group mb-2 my-form">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text text-label">MK cũ</div>
+                                    </div>
+                                    <input type="password" class="form-control" id="inp-change-pass" maxlength="20" required pattern="[a-z,1-9]{1,20}" placeholder="Nhập mật khẩu...">
+                                </div>
+                                <div class="input-group mb-2 my-form">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text text-label">MK mới</div>
+                                    </div>
+                                    <input type="password" class="form-control" id="inp-change-pass-new" maxlength="20" required pattern="[a-z,1-9]{1,20}" placeholder="Nhập mật khẩu mới...">
+                                </div>
+                                <div class="input-group mb-2 my-form">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text text-label">Nhập lại</div>
+                                    </div>
+                                    <input type="password" class="form-control" id="inp-change-pass-re" maxlength="20" required pattern="[a-z,1-9]{1,20}" placeholder="Nhập lại mk mới...">
+                                </div>
+                                <div class="checkbox">
+                                    <label class="custom-rules">
+                                        <input type="checkbox" id="view-pass"><i class="check-box"></i>Hiển thị mật khẩu
+                                    </label>
+                                </div>
+                                <button type="submit" class="main-btn mt-2">Xác nhận</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
