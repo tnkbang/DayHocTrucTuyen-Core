@@ -91,7 +91,7 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         }
 
         //Định dạng email làm mới mật khẩu
-        public string getRePass(string user, string newPass)
+        public string getRePass(string user, string link, string support_url)
         {
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Views\\Shared\\Email\\repass.html"))
@@ -99,7 +99,8 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
                 body = reader.ReadToEnd();
             }
             body = body.Replace("{{name}}", user);
-            body = body.Replace("{{new_pass}}", newPass);
+            body = body.Replace("{{link}}", link);
+            body = body.Replace("{{support_url}}", support_url);
 
             return body;
         }

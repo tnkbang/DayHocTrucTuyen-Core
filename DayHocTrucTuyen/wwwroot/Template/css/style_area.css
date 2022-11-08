@@ -3620,6 +3620,10 @@ li.google {
     z-index: auto;
 }
 
+.account-bg{
+    background-image:url(/Content/Img/Resources/theme-bg.jpg)
+}
+
 .baner-top > span {
     display: inline-block;
     text-align: left;
@@ -19903,9 +19907,31 @@ nav .main-btn {
         display: inline-block;
         color: #23d2e2;
         font-size: 2em;
-        text-transform: uppercase;
+        text-transform: none;
         animation: animate 1.5s ease-in-out infinite;
         animation-delay: calc(.1s * var(--i))
+    }
+
+.process-wraper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: black;
+    opacity: 0.5;
+    width: 100%;
+    position: fixed;
+    z-index: 9999999;
+    top: 0;
+    left: 0;
+}
+
+    .process-wraper.hidden {
+        display: none;
+    }
+
+    .process-wraper .wavy > span{
+        font-size: 1.75em;
     }
 
 @keyframes animate {
@@ -20693,17 +20719,21 @@ table.adition {
     transition: 0.25s ease;
 }
 
-#emailLogin, #passLogin, #holotCreate, #tenCreate, #emailCreate, #passCreate, #nhaplaiCreate {
+#emailLogin, #emailForgotPassword, #passResetPassword, #nhaplaiResetPassword, #passLogin, #holotCreate, #tenCreate, #emailCreate, #passCreate, #nhaplaiCreate {
     padding-left: 90px;
 }
 
 /*-- Xử lý cho input email đăng nhập --*/
-#lblemailLogin {
+#lblemailLogin, #lblemailForgotPassword, #lblpassResetPassword {
     top: 9px;
 }
 
 #emailLogin:not(:placeholder-shown) + #lblemailLogin,
-#emailLogin:focus + #lblemailLogin {
+#emailLogin:focus + #lblemailLogin,
+#emailForgotPassword:not(:placeholder-shown) + #lblemailForgotPassword,
+#emailForgotPassword:focus + #lblemailForgotPassword,
+#passResetPassword:not(:placeholder-shown) + #lblpassResetPassword,
+#passResetPassword:focus + #lblpassResetPassword {
     top: 13px;
     left: -1px;
     width: 85px;
@@ -20717,12 +20747,14 @@ table.adition {
 }
 
 /*-- Xử lý cho input mật khẩu đăng nhập --*/
-#lblpassLogin {
+#lblpassLogin, #lblnhaplaiResetPassword {
     top: 65px;
 }
 
 #passLogin:not(:placeholder-shown) + #lblpassLogin,
-#passLogin:focus + #lblpassLogin {
+#passLogin:focus + #lblpassLogin,
+#nhaplaiResetPassword:not(:placeholder-shown) + #lblnhaplaiResetPassword,
+#nhaplaiResetPassword:focus + #lblnhaplaiResetPassword {
     top: 67px;
     left: -1px;
     width: 85px;

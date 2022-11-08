@@ -12,22 +12,6 @@ namespace DayHocTrucTuyen.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
 
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult Sendmail()
-        {
-            EmailController emailController = new EmailController();
-
-            string newPass = StringGenerator.Alphabet(8);
-            string body = emailController.getRePass("Băng", newPass);
-
-            var isSend = emailController.Send("trieukhanhbang123@gmail.com", "Thông báo bảo mật", body);
-            //var isSend = emailController.SendWithFile("trieukhanhbang123@gmail.com", "Test mail", "Test gửi mail !", "fpv-gnj-laj-001-1554969988_hinh-nen-4k-tuyet-dep-cho-may-tinh-08.png");
-
-            if (isSend) return Json(new { tt = true });
-            return Json(new { tt = false });
-        }
-
         //Trang chủ hệ thống
         [AllowAnonymous]
         [Route("{id?}", Name = "ShotLink"), Route("/default/index", Name = "default")]

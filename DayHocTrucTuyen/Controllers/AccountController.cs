@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models;
+﻿using DayHocTrucTuyen.Areas.User.Controllers;
+using DayHocTrucTuyen.Models;
 using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,7 +17,7 @@ namespace DayHocTrucTuyen.Controllers
 
         //Trang đăng nhập
         [AllowAnonymous]
-        public IActionResult Login(string ReturnUrl)
+        public IActionResult Login(string? ReturnUrl)
         {
             LoginModel loginModel = new LoginModel();
             loginModel.ReturnUrl = string.IsNullOrEmpty(ReturnUrl) ? "/" : ReturnUrl;
@@ -32,6 +33,17 @@ namespace DayHocTrucTuyen.Controllers
             ViewBag.members = db.NguoiDungs.Count();
             ViewBag.classroom = db.LopHocs.Count();
             return View();
+        }
+
+        //Trang quên mật khẩu
+        [AllowAnonymous]
+        public IActionResult ForgotPassword(string? ReturnUrl)
+        {
+            LoginModel loginModel = new LoginModel();
+            loginModel.ReturnUrl = string.IsNullOrEmpty(ReturnUrl) ? "/" : ReturnUrl;
+            ViewBag.members = db.NguoiDungs.Count();
+            ViewBag.classroom = db.LopHocs.Count();
+            return View(loginModel);
         }
 
         //Xác thực đăng nhập
@@ -202,10 +214,88 @@ namespace DayHocTrucTuyen.Controllers
         public IActionResult Upgrade()
         {
             var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
-            if (user.isUpgrade()) return Redirect("/");
+            if(user != null && user.isUpgrade()) return Redirect("/");
 
             var model = db.GoiNangCaps.ToList();
             return View(model);
+        }
+
+        struct userChangePass
+        {
+            public string email { get; set; }
+            public string token { get; set; }
+            public DateTime thoiGian { get; set; }
+        }
+        static List<userChangePass> lstChangePass = new List<userChangePass>();
+
+        //Lấy thông tin khi quên mật khẩu
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult getForgotPassord(string email)
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.Email == email);
+            if (user == null) return Json(new { tt = false, mess = "Email không tồn tại trên hệ thống !" });
+            else
+            {
+                userChangePass userChange = lstChangePass.FirstOrDefault(x => x.email == user.Email);
+                var token = StringGenerator.Alphabet(30);
+                if (userChange.email != null)
+                {
+                    var timer = userChange.thoiGian.AddMinutes(30);
+                    if(timer > DateTime.Now) return Json(new { tt = false, mess = "Không thể gửi yêu cầu liên tiếp trong 30 phút !" });
+
+                    EmailController emailController = new EmailController();
+                    var body = emailController.getRePass(user.Ten, "https://localhost:44354/account/resetpasswourd/" + token, "https://localhost:44354/support");
+
+                    userChange.thoiGian = DateTime.Now;
+                    userChange.token = token;
+
+                    emailController.Send(userChange.email, "Thông báo bảo mật", body);
+                    return Json(new { tt = true, mess = "Đã gửi mail cho bạn !" });
+                }
+                else
+                {
+                    EmailController emailController = new EmailController();
+                    var body = emailController.getRePass(user.Ten, "https://localhost:44354/account/resetpassword/" + token, "https://localhost:44354/support");
+
+                    lstChangePass.Add(new userChangePass { email = user.Email, thoiGian = DateTime.Now, token = token });
+
+                    emailController.Send(user.Email, "Thông báo bảo mật", body);
+                    return Json(new { tt = true, mess = "Đã gửi mail cho bạn !" });
+                }
+            }
+        }
+
+        //Trang làm mới mật khẩu
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("/account/resetpassword/{token?}")]
+        public IActionResult ResetPassword(string token)
+        {
+            var user = lstChangePass.FirstOrDefault(x => x.token == token);
+            if (string.IsNullOrEmpty(token) || user.token == null) return NotFound();
+
+            return View(new { email = user.email });
+        }
+
+        //Thực hiện đổi mật khẩu
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult setResetPassword(string email, string pass)
+        {
+            var user = db.NguoiDungs.FirstOrDefault(x => x.Email == email);
+            if(user != null)
+            {
+                user.MatKhau = user.mahoaMatKhau(pass);
+
+                var uchange = lstChangePass.FirstOrDefault(x => x.email == email);
+                lstChangePass.Remove(uchange);
+
+                db.SaveChanges();
+
+                return Json(new { tt = true });
+            }
+            return Json(new { tt = false });
         }
     }
 }

@@ -49,9 +49,31 @@ h1, h2, h3, h4, h5, h6 {
         display: inline-block;
         color: #23d2e2;
         font-size: 2em;
-        text-transform: uppercase;
+        text-transform: none;
         animation: animate 1.5s ease-in-out infinite;
         animation-delay: calc(.1s * var(--i))
+    }
+
+.process-wraper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: black;
+    opacity: 0.5;
+    width: 100%;
+    position: fixed;
+    z-index: 9999999;
+    top: 0;
+    left: 0;
+}
+
+    .process-wraper.hidden {
+        display: none;
+    }
+
+    .process-wraper .wavy > span {
+        font-size: 1.75em;
     }
 
 @keyframes animate {
