@@ -275,6 +275,9 @@ namespace DayHocTrucTuyen.Controllers
             var user = lstChangePass.FirstOrDefault(x => x.token == token);
             if (string.IsNullOrEmpty(token) || user.token == null) return NotFound();
 
+            var temptoken = user.thoiGian.AddMinutes(30);
+            if (temptoken < DateTime.Now) return NotFound();
+
             return View(new { email = user.email });
         }
 
