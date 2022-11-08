@@ -4,6 +4,8 @@ using System.Net.Mail;
 
 namespace DayHocTrucTuyen.Areas.User.Controllers
 {
+    [Area(nameof(User))]
+    [Route("user/[controller]/[action]/{id?}")]
     public class EmailController : Controller
     {
         struct Email
@@ -86,6 +88,20 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             {
                 return false;
             }
+        }
+
+        //Định dạng email làm mới mật khẩu
+        public string getRePass(string user, string newPass)
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\Views\\Shared\\Email\\repass.html"))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{{name}}", user);
+            body = body.Replace("{{new_pass}}", newPass);
+
+            return body;
         }
     }
 }
