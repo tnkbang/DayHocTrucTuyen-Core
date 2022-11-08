@@ -238,7 +238,14 @@ namespace DayHocTrucTuyen.Controllers
             else
             {
                 userChangePass userChange = lstChangePass.FirstOrDefault(x => x.email == user.Email);
-                var token = StringGenerator.Alphabet(30);
+                
+                //Token phải là duy nhất
+                var token = "";
+                do
+                {
+                    token = StringGenerator.Alphabet(30);
+                } while (lstChangePass.FirstOrDefault(x => x.token == token).token != null);
+
                 if (userChange.email != null)
                 {
                     var timer = userChange.thoiGian.AddMinutes(30);
