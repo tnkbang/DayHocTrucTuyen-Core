@@ -237,6 +237,7 @@ namespace DayHocTrucTuyen.Controllers
             if (user == null) return Json(new { tt = false, mess = "Email không tồn tại trên hệ thống !" });
             else
             {
+                var currentURL = Request.Scheme + "://" + Request.Host.Value;
                 userChangePass userChange = lstChangePass.FirstOrDefault(x => x.email == user.Email);
                 
                 //Token phải là duy nhất
@@ -252,7 +253,7 @@ namespace DayHocTrucTuyen.Controllers
                     if(timer > DateTime.Now) return Json(new { tt = false, mess = "Không thể gửi yêu cầu liên tiếp trong 30 phút !" });
 
                     EmailController emailController = new EmailController();
-                    var body = emailController.getRePass(user.Ten, "https://localhost:44354/account/resetpasswourd/" + token, "https://localhost:44354/support");
+                    var body = emailController.getRePass(user.Ten, currentURL + "/account/resetpasswourd/" + token, currentURL + "/support");
 
                     userChange.thoiGian = DateTime.Now;
                     userChange.token = token;
@@ -263,7 +264,7 @@ namespace DayHocTrucTuyen.Controllers
                 else
                 {
                     EmailController emailController = new EmailController();
-                    var body = emailController.getRePass(user.Ten, "https://localhost:44354/account/resetpassword/" + token, "https://localhost:44354/support");
+                    var body = emailController.getRePass(user.Ten, currentURL + "/account/resetpassword/" + token, currentURL + "/support");
 
                     lstChangePass.Add(new userChangePass { email = user.Email, thoiGian = DateTime.Now, token = token });
 
