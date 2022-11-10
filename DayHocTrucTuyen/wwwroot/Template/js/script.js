@@ -2204,7 +2204,7 @@ $('#form-edit-quest').on('submit', function () {
                 domEdit[8].innerText = 'D: ' + data.cauhoi.dap_An_4;
                 domEdit[9].innerText = 'Đáp án đúng: ' + data.cauhoi.loi_Giai;
 
-                if (data.cauhoi.Multi_Ans) {
+                if (data.cauhoi.multi_Ans) {
                     domEdit[1].type = 'checkbox';
                     domEdit[3].type = 'checkbox';
                     domEdit[5].type = 'checkbox';
