@@ -15,5 +15,11 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
             return View(user);
         }
+
+        //Trang thống kê lịch sử giao dịch
+        public IActionResult TransHistory()
+        {
+            return View();
+        }
     }
 }

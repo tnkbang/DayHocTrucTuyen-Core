@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Lịch sử giao dịch";
+    ViewBag.Main = "Lịch sử giao dịch";
+    Layout = "~/Views/Shared/_LayoutArea.cshtml";
+}
+
+<section>
+    <div class="gap2 gray-bg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row merged20" id="page-contents">
+                        <div class="col-lg-9">
+                            <div class="central-meta">
+                                <h5 class="f-title"><i class="fa fa-line-chart"></i>Lịch sử giao dịch</h5>
+                                <div class="insight-box">
+                                    <div class="x_panel">
+                                        <div class="x_content">
+                                            <div id="echart_line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>Thống kê chi tiết</h2>
+                                        </div>
+                                        <div class="x_content">
+                                            <!--Nội dung table thống kê chi tiết-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Menu right-->
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section ChildScript{
+    <script src="~/Template/js/echarts.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/custom_statistic.js" asp-append-version="true"></script>
+}
