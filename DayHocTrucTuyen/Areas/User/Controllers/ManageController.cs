@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Models.Entities;
+﻿using DayHocTrucTuyen.Areas.Admin.Models;
+using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,6 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         }
 
         //Lấy thông tin giao dịch trong năm hiện tại cho biểu đồ thống kê lịch sử giao dịch
-        [Authorize]
         [HttpGet]
         public IActionResult getTransHisOfYear()
         {
@@ -54,6 +54,73 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             }
 
             return Json(new { thu = lstThu, chi = lstChi, sodu = lstSoDu });
+        }
+
+
+        //Lấy thông tin lịch sử giao dịch đưa vào table
+        [HttpGet]
+        public IActionResult getTransHisTable(string? search, string? sort, string? order, int? offset, int? limit)
+        {
+            var maNd = User.Claims.First().Value;
+            var lst = db.LichSuGiaoDiches.Where(x => x.MaNd == maNd);
+
+            //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, chỉ mục, nội dung, ghi chú,....
+            if (!string.IsNullOrEmpty(search))
+            {
+                lst = lst.Where(s => s.MaNd.Contains(search));
+            }
+
+            //Xử lý sắp xếp
+            if (!string.IsNullOrEmpty(sort) && !string.IsNullOrEmpty(order))
+            {
+                switch (sort)
+                {
+                    case "thoiGian":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.ThoiGian);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.ThoiGian);
+                        }
+                        break;
+                    case "soTien":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.SoTien);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.SoTien);
+                        }
+                        break;
+                }
+            }
+
+            List<dynamic> lstResult = new List<dynamic>();
+            foreach (var item in lst.ToList())
+            {
+                var temp = new
+                {
+                    thoiGian = item.ThoiGian.ToString("g"),
+                    //chiMuc = item.ChiMuc,
+                    //tenLop = item.getRoom().TenLop,
+                    //noiDung = item.NoiDung,
+                    //ghiChu = item.GhiChu,
+                    //thoiGian = item.ThoiGian,
+                    //thaoTac = reportThaoTac(item.MaNd, item.MaBaoCao)
+                };
+                lstResult.Add(temp);
+            }
+
+            //Các tham số của phân trang như sau:
+            //      đầu tiên là danh sách truyền vào phân trang
+            //      tham số thứ 2 là vị trí phân trang
+            //      tham số cuối là số lượng trang
+            var result = PaginatedList<dynamic>.Create(lstResult, offset ?? 0, limit ?? 10);
+
+            return Json(new { total = lst.ToList().Count, totalNotFiltered = lst.ToList().Count, rows = result });
         }
     }
 }
