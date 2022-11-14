@@ -67,7 +67,16 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, chỉ mục, nội dung, ghi chú,....
             if (!string.IsNullOrEmpty(search))
             {
-                lst = lst.Where(s => s.MaNd.Contains(search));
+                DateTime timer;
+                try
+                {
+                    timer = DateTime.Parse(search);
+                    if (timer.Year < 2000) timer = DateTime.Now;
+                }
+                catch (Exception) {
+                    timer = DateTime.Now;
+                }
+                lst = lst.Where(s => s.ThoiGian.Date == timer.Date);
             }
 
             //Xử lý sắp xếp
@@ -104,12 +113,10 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
                 var temp = new
                 {
                     thoiGian = item.ThoiGian.ToString("g"),
-                    //chiMuc = item.ChiMuc,
-                    //tenLop = item.getRoom().TenLop,
-                    //noiDung = item.NoiDung,
-                    //ghiChu = item.GhiChu,
-                    //thoiGian = item.ThoiGian,
-                    //thaoTac = reportThaoTac(item.MaNd, item.MaBaoCao)
+                    soTien = item.SoTien.ToString("n0"),
+                    soDu = item.SoDu.ToString("n0"),
+                    thuVao = item.ThuVao,
+                    ghiChu = item.GhiChu
                 };
                 lstResult.Add(temp);
             }
