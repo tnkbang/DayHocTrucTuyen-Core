@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_LayoutArea.cshtml";
 }
 
+@using DayHocTrucTuyen.Models.Entities
+@model NguoiDung
+
 <section>
     <div class="gap2 gray-bg">
         <div class="container-fluid">
@@ -57,7 +60,7 @@
                         </div>
 
                         <!-- Menu right-->
-                        
+                        @await Html.PartialAsync("~/Views/Shared/Menu/_ViewLike.cshtml", Model)
 
                     </div>
                 </div>

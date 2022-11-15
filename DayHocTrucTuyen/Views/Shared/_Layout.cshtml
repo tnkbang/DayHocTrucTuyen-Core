@@ -3,7 +3,7 @@
 @{
     Layout = null;
     NguoiDung uLogin = new NguoiDung();
-    if (User.Identity.IsAuthenticated)
+    if (User.Identity != null && User.Identity.IsAuthenticated)
     {
         uLogin = new NguoiDung().getNguoiDung(User.Claims.First().Value);
     }
@@ -85,7 +85,7 @@
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
             <div id="userSystem">
-                @if (!User.Identity.IsAuthenticated)
+                @if (User.Identity != null && !User.Identity.IsAuthenticated)
                 {
                     <a href="~/account/register" class="get-started-a">Đăng ký</a>
                     <a href="~/account/login" type="button" class="btn get-started-btn">Đăng nhập</a>
@@ -98,11 +98,11 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                @if (uLogin.MaLoai.Equals("01"))
+                                @if (uLogin.MaLoai != null && uLogin.MaLoai.Equals("01"))
                                 {
                                     <a href="~/admin/user/list" class="dropdown-item"><i class="bi bi-grid"> Admin</i></a>
                                 }
-                                <a href="~/user/manage/index" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
+                                <a href="~/user/manage/transhistory" class="dropdown-item"><i class="bi bi-grid"> Trang quản trị</i></a>
                                 <button type="button" id="logoutAccount" class="dropdown-item text-danger" onclick="dangxuat()"><i class="bi bi-power"> Đăng xuất</i></button>
                             </li>
                         </ul>

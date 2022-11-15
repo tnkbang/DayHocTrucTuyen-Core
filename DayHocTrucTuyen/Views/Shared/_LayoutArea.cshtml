@@ -222,11 +222,11 @@
                     <div class="user-setting">
                         <ul class="log-out">
                             <li><a href="/profile/info/@maUser" title=""><i class="ti-user"></i> Trang của tôi</a></li>
-                            @if (userAccount.MaLoai.Equals("01"))
+                            @if (userAccount.MaLoai != null && userAccount.MaLoai.Equals("01"))
                             {
                                 <li><a href="/admin/user/list" title=""><i class="ti-view-grid"></i> QL người dùng</a></li>
                             }
-                            <li><a href="/user/manage/index" title=""><i class="ti-view-grid"></i> Trang quản trị</a></li>
+                            <li><a href="/user/manage/transhistory" title=""><i class="ti-view-grid"></i> Trang quản trị</a></li>
                             <li><a href="/profile/update" title=""><i class="ti-pencil-alt"></i>Chỉnh sửa thông tin</a></li>
                             <li class="change-pass"><a href="javascript:void(0)" title=""><i class="ti-key"></i>Đổi mật khẩu</a></li>
                             <li><a href="javascript:void(0)" title="" onclick="dangxuat()"><i class="ti-power-off"></i>Đăng xuất</a></li>

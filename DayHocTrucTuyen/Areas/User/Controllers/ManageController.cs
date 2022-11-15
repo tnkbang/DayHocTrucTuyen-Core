@@ -20,7 +20,8 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
         //Trang thống kê lịch sử giao dịch
         public IActionResult TransHistory()
         {
-            return View();
+            var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            return View(user);
         }
 
         //Lấy thông tin giao dịch trong năm hiện tại cho biểu đồ thống kê lịch sử giao dịch
