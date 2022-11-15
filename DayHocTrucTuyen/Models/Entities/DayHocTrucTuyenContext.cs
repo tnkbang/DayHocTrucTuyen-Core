@@ -59,7 +59,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<BaiDang>(entity =>
             {
                 entity.HasKey(e => e.MaBai)
-                    .HasName("PK__BaiDang__3A5539EF3F74A764");
+                    .HasName("PK__BaiDang__3A5539EFA9FD8ECC");
 
                 entity.ToTable("BaiDang");
 
@@ -110,7 +110,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<BaoCao>(entity =>
             {
                 entity.HasKey(e => e.MaBaoCao)
-                    .HasName("PK__BaoCao__5FC87B6EF38A2684");
+                    .HasName("PK__BaoCao__5FC87B6E0AB07C38");
 
                 entity.ToTable("BaoCao");
 
@@ -152,7 +152,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<BiCamThi>(entity =>
             {
                 entity.HasKey(e => new { e.MaNd, e.MaPhong })
-                    .HasName("PK__BiCamThi__015410DDD39AA1AE");
+                    .HasName("PK__BiCamThi__015410DD21F62A1F");
 
                 entity.ToTable("BiCamThi");
 
@@ -188,7 +188,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<BinhLuan>(entity =>
             {
                 entity.HasKey(e => new { e.MaBai, e.MaNd, e.ThoiGian })
-                    .HasName("PK__BinhLuan__4176DE910276F3C5");
+                    .HasName("PK__BinhLuan__4176DE9182256901");
 
                 entity.ToTable("BinhLuan");
 
@@ -233,7 +233,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<CamXuc>(entity =>
             {
                 entity.HasKey(e => new { e.MaNd, e.MaBai })
-                    .HasName("PK__CamXuc__CDC7DE28915BF4D8");
+                    .HasName("PK__CamXuc__CDC7DE286C68564C");
 
                 entity.ToTable("CamXuc");
 
@@ -269,7 +269,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<CauHoiThi>(entity =>
             {
                 entity.HasKey(e => new { e.Stt, e.MaPhong })
-                    .HasName("PK__CauHoiTh__E5282BFB04E9146F");
+                    .HasName("PK__CauHoiTh__E5282BFBECEAB9DA");
 
                 entity.ToTable("CauHoiThi");
 
@@ -303,7 +303,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<CauTraLoi>(entity =>
             {
                 entity.HasKey(e => new { e.Stt, e.MaPhong, e.MaNd, e.LanThu })
-                    .HasName("PK__CauTraLo__1FE83402334902C1");
+                    .HasName("PK__CauTraLo__1FE834025D55077E");
 
                 entity.ToTable("CauTraLoi");
 
@@ -343,7 +343,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<DanhGiaLop>(entity =>
             {
                 entity.HasKey(e => e.MaDg)
-                    .HasName("PK__DanhGiaL__2E67451C53D69C8F");
+                    .HasName("PK__DanhGiaL__2E67451C991DAB0A");
 
                 entity.ToTable("DanhGiaLop");
 
@@ -389,7 +389,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<Ghim>(entity =>
             {
                 entity.HasKey(e => e.MaBai)
-                    .HasName("PK__Ghim__3A5539EFE65A8E65");
+                    .HasName("PK__Ghim__3A5539EFF4B2AE1E");
 
                 entity.ToTable("Ghim");
 
@@ -413,7 +413,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<GoiNangCap>(entity =>
             {
                 entity.HasKey(e => e.MaGoi)
-                    .HasName("PK__GoiNangC__3D0F9148E6C575E7");
+                    .HasName("PK__GoiNangC__3D0F91480CD9BB0A");
 
                 entity.ToTable("GoiNangCap");
 
@@ -437,7 +437,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<HocSinhThuocLop>(entity =>
             {
                 entity.HasKey(e => new { e.MaNd, e.MaLop })
-                    .HasName("PK__HocSinhT__E2596BF5F8ADC167");
+                    .HasName("PK__HocSinhT__E2596BF52ACB9466");
 
                 entity.ToTable("HocSinhThuocLop");
 
@@ -473,7 +473,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<LichSuGiaoDich>(entity =>
             {
                 entity.HasKey(e => new { e.MaNd, e.ThoiGian })
-                    .HasName("PK__LichSuGi__B23E77E6A84D5FC5");
+                    .HasName("PK__LichSuGi__B23E77E64E7F767A");
 
                 entity.ToTable("LichSuGiaoDich");
 
@@ -507,7 +507,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<LichSuTruyCap>(entity =>
             {
                 entity.HasKey(e => e.ThoiGian)
-                    .HasName("PK__LichSuTr__C5CFA508CF4BBC9F");
+                    .HasName("PK__LichSuTr__C5CFA508D4F3D9DD");
 
                 entity.ToTable("LichSuTruyCap");
 
@@ -541,7 +541,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<LoaiNd>(entity =>
             {
                 entity.HasKey(e => e.MaLoai)
-                    .HasName("PK__LoaiND__586312F98414E8A2");
+                    .HasName("PK__LoaiND__586312F96D194C92");
 
                 entity.ToTable("LoaiND");
 
@@ -559,11 +559,11 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<LopHoc>(entity =>
             {
                 entity.HasKey(e => e.MaLop)
-                    .HasName("PK__LopHoc__C3BE643D367EB5B0");
+                    .HasName("PK__LopHoc__C3BE643D8DE3C9DF");
 
                 entity.ToTable("LopHoc");
 
-                entity.HasIndex(e => e.BiDanh, "UQ__LopHoc__7F28B28B2D2C9C61")
+                entity.HasIndex(e => e.BiDanh, "UQ__LopHoc__7F28B28B55738035")
                     .IsUnique();
 
                 entity.Property(e => e.MaLop)
@@ -640,14 +640,14 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<NguoiDung>(entity =>
             {
                 entity.HasKey(e => e.MaNd)
-                    .HasName("PK__NguoiDun__2E628DB60B581E7D");
+                    .HasName("PK__NguoiDun__2E628DB69C88F0CF");
 
                 entity.ToTable("NguoiDung");
 
-                entity.HasIndex(e => e.BiDanh, "UQ__NguoiDun__7F28B28BF090F63F")
+                entity.HasIndex(e => e.BiDanh, "UQ__NguoiDun__7F28B28B09F63ED7")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__NguoiDun__A9D105342984C3C6")
+                entity.HasIndex(e => e.Email, "UQ__NguoiDun__A9D10534A59F64A3")
                     .IsUnique();
 
                 entity.Property(e => e.MaNd)
@@ -722,7 +722,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<PheDuyet>(entity =>
             {
                 entity.HasKey(e => e.MaNd)
-                    .HasName("PK__PheDuyet__2E628DB616A92534");
+                    .HasName("PK__PheDuyet__2E628DB60EBDD481");
 
                 entity.ToTable("PheDuyet");
 
@@ -752,7 +752,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<PhongThi>(entity =>
             {
                 entity.HasKey(e => e.MaPhong)
-                    .HasName("PK__PhongThi__F369D6B393B4FF44");
+                    .HasName("PK__PhongThi__F369D6B36C267D0E");
 
                 entity.ToTable("PhongThi");
 
@@ -804,7 +804,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<Tag>(entity =>
             {
                 entity.HasKey(e => e.MaTag)
-                    .HasName("PK__Tag__C1AE337A14CE9F06");
+                    .HasName("PK__Tag__C1AE337A6A9363A0");
 
                 entity.ToTable("Tag");
 
@@ -822,7 +822,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<ThichTrang>(entity =>
             {
                 entity.HasKey(e => e.MaYt)
-                    .HasName("PK__ThichTra__2E62A20F0C90B89F");
+                    .HasName("PK__ThichTra__2E62A20F5F19C71B");
 
                 entity.ToTable("ThichTrang");
 
@@ -862,7 +862,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<ThoiGianLamBai>(entity =>
             {
                 entity.HasKey(e => new { e.MaNd, e.MaPhong, e.LanThu })
-                    .HasName("PK__ThoiGian__DFB3C799B218F48D");
+                    .HasName("PK__ThoiGian__DFB3C799E05002E9");
 
                 entity.ToTable("ThoiGianLamBai");
 
@@ -904,7 +904,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<ThongBao>(entity =>
             {
                 entity.HasKey(e => new { e.MaTb, e.MaNd })
-                    .HasName("PK__ThongBao__5C84D3AEBA0749C3");
+                    .HasName("PK__ThongBao__5C84D3AE762A7E80");
 
                 entity.ToTable("ThongBao");
 
@@ -995,7 +995,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<TrangThaiNangCap>(entity =>
             {
                 entity.HasKey(e => e.MaNd)
-                    .HasName("PK__TrangTha__2E628DB659AA6CCA");
+                    .HasName("PK__TrangTha__2E628DB69D3A95F8");
 
                 entity.ToTable("TrangThaiNangCap");
 
@@ -1026,7 +1026,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<ViNguoiDung>(entity =>
             {
                 entity.HasKey(e => e.MaNd)
-                    .HasName("PK__ViNguoiD__2E628DB6D37ACD52");
+                    .HasName("PK__ViNguoiD__2E628DB6207A831B");
 
                 entity.ToTable("ViNguoiDung");
 
@@ -1054,7 +1054,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<XemTrang>(entity =>
             {
                 entity.HasKey(e => e.MaXt)
-                    .HasName("PK__XemTrang__2E62DAEE7698BD85");
+                    .HasName("PK__XemTrang__2E62DAEE2570E359");
 
                 entity.ToTable("XemTrang");
 
@@ -1094,7 +1094,7 @@ namespace DayHocTrucTuyen.Models.Entities
             modelBuilder.Entity<YeuCauThanhToan>(entity =>
             {
                 entity.HasKey(e => new { e.MaNd, e.ThoiGian })
-                    .HasName("PK__YeuCauTh__B23E77E681AB3296");
+                    .HasName("PK__YeuCauTh__B23E77E699C10F2F");
 
                 entity.ToTable("YeuCauThanhToan");
 

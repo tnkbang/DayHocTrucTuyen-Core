@@ -226,6 +226,28 @@ $(document).ready(function () {
     }
 });
 
+//Hàm bắt sự kiện mở thống kê lớp học
+function setTKPostAndMems(malop) {
+    if ($('#echart_postandmems').length) {
+        $.ajax({
+            url: '/courses/room/getpostandmemsofweek',
+            type: 'GET',
+            data: { maLop: malop },
+            success: function (data) {
+                setChartPostAndMems(data.mems, data.post)
+                $('.popup-wraper5').addClass('active')
+            },
+            error: function () {
+                getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+            }
+        })
+    }
+}
+
+$('#close-statistic').on('click', () => {
+    $('.popup-wraper5').removeClass('active')
+})
+
 //-------------------------------------------------
 
 //Xử lý trang lịch sử giao dịch
@@ -319,44 +341,83 @@ function setChartTransHis(thu, chi, sodu) {
     });
 }
 
-//Xử lý table
-var $tableTransHis = $('#table-transhis')
+//--------------------------------------------------
 
-//Hàm xử lý hiển thị tăng hoặc giảm
-function setFormatUpOrDown(value, row, index) {
-    if (row.thuVao) {
-        return '<i class="fa fa-long-arrow-up text-success"></i> ' + row.soTien + ' VNĐ';
-    }
-    return '<i class="fa fa-long-arrow-down text-danger"></i> ' + row.soTien + ' VNĐ';
-}
+//Xử lý trang lớp học
+//Hàm hiển thị biểu đồ
+function setChartPostAndMems(mems, post) {
+    if (typeof (echarts) === 'undefined') { return; }
+    var echartLine = echarts.init(document.getElementById('echart_line'), theme);
 
-//Thêm các th row cho bảng lịch sử giao dịch
-$tableTransHis.bootstrapTable({
-    columns: [{
-        field: 'thoiGian',
-        sortable: true,
-        title: 'Thời gian'
-    }, {
-        field: 'soTien',
-        title: 'Số tiền',
-        sortable: true,
-        formatter: setFormatUpOrDown
-    }, {
-        field: 'soDu',
-        title: 'Số dư',
-        formatter: (value, row, index) => { return row.soDu + ' VNĐ' }
-    }, {
-        field: 'ghiChu',
-        title: 'Ghi chú'
-    }]
-})
-
-//Gọi ajax về server lấy dữ liệu cho bảng lịch sử giao dịch
-function ajaxGetTransHis(params) {
-    var url = '/user/manage/gettranshistable'
-    $.get(url + '?' + $.param(params.data)).then(function (res) {
-        params.success(res)
-        $('[data-toggle="tooltip"]').tooltip();
-    })
-    $($('input[type="search"]').parent()[0]).addClass('col-sm-12 col-md-4 col-lg-4 p-0')
+    echartLine.setOption({
+        title: {
+            text: '',
+            subtext: 'Thống kê thành viên và bài đăng trong tuần'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            x: 220,
+            y: 40,
+            data: ['Thành viên', 'Bài đăng']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                magicType: {
+                    show: true,
+                    title: {
+                        line: 'Dòng',
+                        bar: 'Cột',
+                        stack: 'Xếp chồng',
+                        tiled: 'Phân nhóm'
+                    },
+                    type: ['line', 'bar', 'stack', 'tiled']
+                },
+                restore: {
+                    show: true,
+                    title: "Làm mới"
+                },
+                saveAsImage: {
+                    show: true,
+                    title: "Lưu ảnh"
+                }
+            }
+        },
+        calculable: true,
+        xAxis: [{
+            type: 'category',
+            boundaryGap: false,
+            data: ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7']
+        }],
+        yAxis: [{
+            type: 'value'
+        }],
+        series: [{
+            name: 'Thành viên',
+            type: 'bar',
+            smooth: true,
+            itemStyle: {
+                normal: {
+                    areaStyle: {
+                        type: 'default'
+                    }
+                }
+            },
+            data: mems
+        }, {
+            name: 'Bài đăng',
+            type: 'bar',
+            smooth: true,
+            itemStyle: {
+                normal: {
+                    areaStyle: {
+                        type: 'default'
+                    }
+                }
+            },
+            data: post
+        }]
+    });
 }

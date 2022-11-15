@@ -714,7 +714,27 @@ else
         </div>
     </div>
 </div>
-
+<!-- popup thống kê -->
+<div class="popup-wraper5">
+    <div class="popup">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5 id="modal-statistic-title">Thành viên và bài đăng trong tuần</h5>
+            </div>
+            <div class="Rpt-meta">
+                <form class="c-form">
+                    <div class="x_content" id="echart_postandmems">
+                        <div id="echart_line"></div>
+                    </div>
+                    <div>
+                        <button id="close-statistic" data-ripple="" type="button" class="main-btn cancel">Đóng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- popup thông báo -->
 <div class="popup-wraper1">
     <div class="popup direct-mesg">
@@ -735,3 +755,8 @@ else
         </div>
     </div>
 </div>
+
+@section ChildScript{
+    <script src="~/Template/js/echarts.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/custom_statistic.js" asp-append-version="true"></script>
+}

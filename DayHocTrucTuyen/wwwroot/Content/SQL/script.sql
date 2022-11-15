@@ -161,7 +161,7 @@ create table LichSuTruyCap(
 create table HocSinhThuocLop(
 	Ma_ND char(7) references NguoiDung(Ma_ND),
 	Ma_Lop char(11) references LopHoc(Ma_Lop),
-	Ngay_Tham_Gia Datetime,
+	Ngay_Tham_Gia Datetime not null,
 	primary key (Ma_ND, Ma_Lop)
 )
 

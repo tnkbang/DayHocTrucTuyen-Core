@@ -21227,6 +21227,12 @@ img.wh-45 {
         left: auto;
     }
 
+@media(max-width: 640px){
+    .auto-mb-hide {
+        display: none !important
+    }
+}
+
 @media (min-width: 576px) {
     .dropdown-menu-sm-start {
         --bs-position: start;

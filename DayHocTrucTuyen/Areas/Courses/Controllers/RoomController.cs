@@ -307,7 +307,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         [AllowAnonymous]
         public IActionResult getSLRoomJoin()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 var user = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
                 if (user != null)
@@ -316,6 +316,31 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 }
             }
             return Json(new { sl = 0 });
+        }
+
+        //Lấy thống kê bài đăng và thành viên mới của lớp theo tuần
+        [HttpGet]
+        public IActionResult getPostAndMemsOfWeek(string maLop)
+        {
+            DateTime startDayOfWeek = DateTime.Today.AddDays(-1 * (int)(DateTime.Today.DayOfWeek));
+            DateTime endDayOfWeek = DateTime.Today.AddDays(6 - (int)DateTime.Today.DayOfWeek);
+
+            var lstPost = db.BaiDangs.Where(x => x.MaLop == maLop && x.ThoiGian >= startDayOfWeek && x.ThoiGian <= endDayOfWeek).ToList();
+            var lstMems = db.HocSinhThuocLops.Where(x => x.MaLop == maLop && x.NgayThamGia >= startDayOfWeek && x.NgayThamGia <= endDayOfWeek).ToList();
+
+            List<int> resultPost = new List<int>();
+            List<int> resultMems = new List<int>();
+
+            for(int i = 0; i <= 6; i++)
+            {
+                var tempPost = lstPost.Where(x => (int)x.ThoiGian.DayOfWeek == i).ToList().Count;
+                var tempMems = lstMems.Where(x => (int)x.NgayThamGia.DayOfWeek == i).ToList().Count;
+
+                resultPost.Add(tempPost);
+                resultMems.Add(tempMems);
+            }
+
+            return Json(new { post = resultPost, mems = resultMems });
         }
     }
 }
