@@ -2095,6 +2095,10 @@ function addDOMQuestMultiAns(stt, maphong, cauhoi, dapan1, dapan2, dapan3, dapan
 $('#form-create-quest').on('submit', function () {
     event.preventDefault();
 
+    if ($('#noQuestExam').length) {
+        $('#noQuestExam').remove()
+    }
+
     var text = document.getElementsByClassName('form-create-quest');
     var kt_da = document.getElementsByClassName('form-create-quest-yes');
     var loigiai = "";

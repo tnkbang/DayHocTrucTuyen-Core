@@ -86,6 +86,9 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 return NotFound();
             }
 
+            //Nếu bài thi không được xem lại
+            if (!pt.XemLai) return Redirect("~/courses/exam/preexam/" + pt.MaPhong);
+
             var work = db.ThoiGianLamBais.FirstOrDefault(x => x.MaNd == User.Claims.First().Value && x.MaPhong == id && x.LanThu == re);
             if (work == null) return NotFound();
             ViewBag.LanThu = work.LanThu;
