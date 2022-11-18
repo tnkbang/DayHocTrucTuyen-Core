@@ -26,7 +26,8 @@
                                     <br />
                                     <span>Đóng: @Model.Ngay_Dong.ToString("HH:mm dd/MM/yyyy")</span>
                                     <br />*@
-                                    @if (Model.NgayMo > DateTime.Now){<button class="btn btn-primary" disabled>Chưa đến thời gian làm bài</button> }
+                                    @if(uLogin.hasCamThi(Model.MaPhong)){ <button class="btn btn-primary" disabled>Bạn đã bị cấm thi</button> }
+                                    else if (Model.NgayMo > DateTime.Now){<button class="btn btn-primary" disabled>Chưa đến thời gian làm bài</button> }
                                     else if(Model.NgayDong < DateTime.Now) { <button class="btn btn-primary" disabled>Đã qua thời gian làm bài</button>}
                                     else if(Model.getListThi(uLogin.MaNd).Count() == Model.LuotThi) { <button class="btn btn-primary" disabled>Đã hết lượt làm bài</button>}
                                     else { <button class="btn btn-primary" onclick="startExam('@Model.MaPhong')">Bắt đầu làm bài</button>}

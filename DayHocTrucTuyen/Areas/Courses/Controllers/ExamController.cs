@@ -266,7 +266,10 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         public IActionResult setWorkExam(string maphong, string matkhau)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong && x.MatKhau == matkhau);
-            if (pt == null) return Json(new { tt = false });
+            if (pt == null) return Json(new { tt = false, mess = "Mật khẩu chưa chính xác!" });
+
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaNd == User.Claims.First().Value);
+            if(nd != null && nd.hasCamThi(pt.MaPhong)) return Json(new { tt = false, mess = "Bạn đã bị cấm thi đối với bài thi này!" });
 
             ThoiGianLamBai working = new ThoiGianLamBai();
             working.MaNd = User.Claims.First().Value;

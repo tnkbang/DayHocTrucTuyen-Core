@@ -2298,7 +2298,7 @@ function setWorkExam(maPhong, matkhau) {
         data: { maphong: maPhong, matkhau: matkhau },
         success: function (data) {
             if (!data.tt) {
-                getThongBao('error', 'Lỗi !', 'Mật khẩu chưa chính xác !');
+                getThongBao('error', 'Lỗi !', data.mess);
             }
             else {
                 location.replace('/courses/exam/workexam/' + data.work.ma_Phong + '?re=' + data.work.lan_Thu);
