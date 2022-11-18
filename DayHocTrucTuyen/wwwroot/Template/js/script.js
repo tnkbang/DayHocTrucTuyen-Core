@@ -2458,6 +2458,11 @@ function getviewExam(maphong, lanthu) {
     location.replace('/courses/exam/viewexam/' + maphong + '?re=' + lanthu);
 }
 
+//Hàm tiếp tục làm bài thi
+function setContinueExam(maphong, lanthu) {
+    location.replace('/courses/exam/workexam/' + maphong + '?re=' + lanthu);
+}
+
 //Hàm set đã xem thông báo
 function setDaXemThongBao(maTB, maND) {
     $.ajax({

@@ -67,7 +67,7 @@ namespace DayHocTrucTuyen.Models.Entities
         }
         public List<ThoiGianLamBai> getListThi(string maND)
         {
-            return db.ThoiGianLamBais.Where(x => x.MaNd == maND && x.MaPhong == this.MaPhong).ToList();
+            return db.ThoiGianLamBais.Where(x => x.MaNd == maND && x.MaPhong == this.MaPhong).OrderByDescending(x => x.BatDau).ToList();
         }
         public int getSLLamBai()
         {

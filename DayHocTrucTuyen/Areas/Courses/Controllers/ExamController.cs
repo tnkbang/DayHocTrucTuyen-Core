@@ -28,7 +28,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         [Authorize(Roles = "01,02")]
         public IActionResult List(string id, string q)
         {
-            LopHoc lp = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
+            var lp = db.LopHocs.FirstOrDefault(x => x.MaLop == id);
             if (id == null || lp == null)
             {
                 return NotFound();
@@ -64,17 +64,23 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             if (work == null) return NotFound();
 
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == work.MaPhong);
-            ViewBag.LanThu = work.LanThu;
 
-            TimeSpan thoigianthi = new TimeSpan(0, pt.ThoiLuong / 60, pt.ThoiLuong % 60, 0);
-            DateTime thoiluong = work.BatDau;
-            if (thoiluong.Add(thoigianthi) < DateTime.Now || work.KetThuc != null)
+            if(pt != null)
             {
-                return Redirect("~/courses/exam/preexam/" + pt.MaPhong);
+                ViewBag.LanThu = work.LanThu;
+
+                TimeSpan thoigianthi = new TimeSpan(0, pt.ThoiLuong / 60, pt.ThoiLuong % 60, 0);
+                DateTime thoiluong = work.BatDau;
+                if (thoiluong.Add(thoigianthi) < DateTime.Now || work.KetThuc != null)
+                {
+                    return Redirect("~/courses/exam/preexam/" + pt.MaPhong);
+                }
+
+                ViewBag.ThoiGianThi = work.BatDau.Add(thoigianthi).ToString("yyyy-MM-dd HH:mm:ss");
+                return View(pt);
             }
 
-            ViewBag.ThoiGianThi = work.BatDau.Add(thoigianthi).ToString("yyyy-MM-dd HH:mm:ss");
-            return View(pt);
+            return NotFound();
         }
 
         //Trang xem lại bài thi
@@ -244,7 +250,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         public IActionResult ktMatKhau(string maphong)
         {
             var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == maphong);
-            if (pt.MatKhau != null) return Json(new { tt = true });
+            if (pt != null && pt.MatKhau != null) return Json(new { tt = true });
 
             return Json(new { tt = false });
         }
@@ -295,7 +301,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             }
             else
             {
-                if (dapan == "") db.CauTraLois.Remove(tl);
+                if (String.IsNullOrEmpty(dapan)) db.CauTraLois.Remove(tl);
                 else tl.DapAn = dapan;
             }
 
@@ -311,9 +317,12 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             if (pt == null) return Json(new { tt = false });
 
             var bt = db.ThoiGianLamBais.FirstOrDefault(x => x.MaNd == User.Claims.First().Value && x.MaPhong == pt.MaPhong && x.LanThu == lanthu);
-            bt.KetThuc = DateTime.Now;
 
-            db.SaveChanges();
+            if (bt != null)
+            {
+                bt.KetThuc = DateTime.Now;
+                db.SaveChanges();
+            }
 
             return Json(new { tt = true, id = pt.MaPhong });
         }

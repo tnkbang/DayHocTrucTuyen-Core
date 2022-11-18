@@ -38,6 +38,7 @@
                                     <table class="table table-hover table-responsive-lg table-responsive-md table-responsive-sm text-center">
                                         <thead>
                                             <tr>
+                                                <th>STT</th>
                                                 <th>Bắt đầu</th>
                                                 <th>Kết thúc</th>
                                                 <th>Điểm số</th>
@@ -45,9 +46,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @{ var tempSTT = Model.getSLThi(uLogin.MaNd); }
                                             @foreach(ThoiGianLamBai lamBai in Model.getListThi(uLogin.MaNd))
                                             {
                                                 <tr>
+                                                    <td>
+                                                        <span>@tempSTT</span>
+                                                        @{ tempSTT--; }
+                                                    </td>
                                                     <td>
                                                         <span>@lamBai.BatDau.ToString()</span>
                                                     </td>
@@ -56,17 +62,30 @@
                                                         {
                                                             <span>@lamBai.KetThuc.ToString()</span>
                                                         }
-                                                        else { <span>Chưa hoàn thành</span>}
+                                                        else { <span>@lamBai.getTrangThaiLamBai()</span>}
                                                     </td>
                                                     <td class="topic-data">
-                                                        <span>@Model.getDiemThi(uLogin.MaNd, lamBai.LanThu)/@Model.getSLCauHoi()</span>
+                                                        @if(lamBai.KetThuc != null || !lamBai.hasLamBai())
+                                                        {
+                                                            <span>@Model.getDiemThi(uLogin.MaNd, lamBai.LanThu)/@Model.getSLCauHoi()</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>-/@Model.getSLCauHoi()</span>
+                                                        }
                                                     </td>
                                                     <td>
-                                                        @if (Model.XemLai) 
+                                                        @if(lamBai.KetThuc != null)
                                                         {
-                                                            <button type="button" class="btn btn-outline-info" onclick="getviewExam('@Model.MaPhong', '@lamBai.LanThu')">Xem lại</button>
+                                                            if (Model.XemLai){ <button type="button" class="btn btn-outline-info" onclick="getviewExam('@Model.MaPhong', '@lamBai.LanThu')">Xem lại</button> }
+                                                            else{ <button type="button" disabled class="btn btn-outline-info" ty>Không được xem lại</button> }
                                                         }
-                                                        else { <button type="button" disabled class="btn btn-outline-info" ty>Không được xem lại</button>}
+                                                        else
+                                                        {
+                                                            if(lamBai.hasLamBai()){ <button type="button" class="btn btn-outline-info" onclick="setContinueExam('@Model.MaPhong', '@lamBai.LanThu')">Tiếp tục làm bài</button> }
+                                                            else if(Model.XemLai){ <button type="button" class="btn btn-outline-info" onclick="getviewExam('@Model.MaPhong', '@lamBai.LanThu')">Xem lại</button> }
+                                                            else{ <button type="button" disabled class="btn btn-outline-info" ty>Không được xem lại</button> }
+                                                        }
                                                     </td>
                                                 </tr>
                                             }
