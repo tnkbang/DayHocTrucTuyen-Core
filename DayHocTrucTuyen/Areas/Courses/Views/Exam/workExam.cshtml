@@ -152,6 +152,27 @@
     </div>
 </section><!-- content -->
 
+<!-- popup thông báo kết thúc bài thi -->
+<div class="popup-wraper1">
+    <div class="popup direct-mesg">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5 id="modal-end-exam-title">Kết thúc bài thi?</h5>
+            </div>
+            <div class="Rpt-meta">
+                <form class="c-form">
+                    <p id="modal-end-exam-content">Khi bạn xác nhận kết thúc, chúng tôi sẽ tiến hành tính điểm và bạn không thể tiếp tục làm bài. Bạn chắc chắn chứ?</p>
+                    <div>
+                        <button id="confirm-end-exam" data-ripple="" type="submit" class="main-btn">Xác nhận</button>
+                        <button id="cancel-end-exam" data-ripple="" type="button" class="main-btn cancel">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section ChildScript{
     <script>
         window.addEventListener("load", function () {

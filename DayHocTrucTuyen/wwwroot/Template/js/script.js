@@ -2409,17 +2409,31 @@ function countdown(timer, maphong, lanthu) {
     }, 1000);
 }
 
+//Biến chứa bài thi và lần thử đang thực hiện
+var thisExam, thisReExam;
+
 //Hàm xử lý kết thúc bài thi
 function setEndExam(maphong, lanthu) {
+    thisExam = maphong;
+    thisReExam = lanthu;
+    $('.popup-wraper1').addClass('active');
+}
+
+//Bắt sự kiện xác nhận kết thúc bài thi
+$('#confirm-end-exam').on('click', () => {
+    event.preventDefault();
+
     $.ajax({
         url: '/courses/exam/setendexam',
         type: 'POST',
-        data: { maphong: maphong, lanthu: lanthu },
+        data: { maphong: thisExam, lanthu: thisReExam },
         success: function (data) {
             if (!data.tt) {
                 getThongBao('error', 'Lỗi !', 'Mã lệnh javascript đã bị thay đổi. Vui lòng tải lại trang !');
             }
             else {
+                thisExam = thisReExam = null;
+                $('.popup-wraper1').removeClass('active');
                 location.replace('/courses/exam/preexam/' + data.id);
             }
         },
@@ -2427,7 +2441,13 @@ function setEndExam(maphong, lanthu) {
             getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
         }
     })
-}
+})
+
+//Bắt sự kiện hủy kết thúc bài thi
+$('#cancel-end-exam').on('click', () => {
+    thisExam = thisReExam = null;
+    $('.popup-wraper1').removeClass('active');
+})
 
 //Hàm chuyển đến trang xem lại bài thi
 function getviewExam(maphong, lanthu) {
