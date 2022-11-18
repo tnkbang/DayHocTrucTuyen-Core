@@ -271,5 +271,12 @@ namespace DayHocTrucTuyen.Models.Entities
             if (this.MaLoai == "02") return "Lực lượng nòng cốt của hệ thống. Có thể tạo ra các bài thi và khóa học, từ đó thu về lợi nhuận cho bản thân và hệ thống.";
             return "Người dùng cơ bản của hệ thống, không có nhiều quyền lực đặc biệt nhưng là nguồn nhân tố chính giúp duy trì sự hoạt động của hệ thống.";
         }
+
+        public bool hasCamThi(string maPhong)
+        {
+            var pt = db.BiCamThis.FirstOrDefault(x => x.MaNd == this.MaNd && x.MaPhong == maPhong);
+            if (pt != null) return true;
+            return false;
+        }
     }
 }

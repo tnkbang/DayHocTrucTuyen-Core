@@ -57,6 +57,21 @@ namespace DayHocTrucTuyen.Models.Entities
             }
             return sb.ToString();
         }
+
+        public string getMaOwner()
+        {
+            var lp = db.LopHocs.FirstOrDefault(x => x.MaLop == this.MaLop);
+            if (lp != null && lp.MaNd != null) return lp.MaNd;
+            return "";
+        }
+
+        public LopHoc getLopHoc()
+        {
+            var lp = db.LopHocs.FirstOrDefault(x => x.MaLop == this.MaLop);
+            if (lp != null) return lp;
+            return new LopHoc();
+        }
+
         public int getSLCauHoi()
         {
             return db.CauHoiThis.Where(x => x.MaPhong == this.MaPhong).Count();

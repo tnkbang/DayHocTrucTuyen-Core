@@ -2463,6 +2463,11 @@ function setContinueExam(maphong, lanthu) {
     location.replace('/courses/exam/workexam/' + maphong + '?re=' + lanthu);
 }
 
+//Mở và đóng popup cấm thi
+$('.banned-user-exam, #confirm-banned-exam').on('click', () => {
+    $('.popup-wraper1').toggleClass('active');
+})
+
 //Hàm set đã xem thông báo
 function setDaXemThongBao(maTB, maND) {
     $.ajax({

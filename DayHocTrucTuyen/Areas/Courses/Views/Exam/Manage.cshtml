@@ -73,6 +73,7 @@
                                         <h5 class="create-post">Danh sách câu hỏi</h5>
                                     </div>
                                     <div class="align-right">
+                                        <button class="addnewforum btn-outline-info banned-user-exam" data-toggle="tooltip" title="Cấm thi người dùng"><i class="fa fa-gavel"></i></button>
                                         <button class="addnewforum btn-outline-info edit-exam" data-toggle="tooltip" title="Chỉnh sửa thông tin bài thi"><i class="fa fa-cogs"></i></button>
                                         <button class="addnewforum btn-outline-success create-quest" data-toggle="tooltip" title="Thêm câu hỏi mới"><i class="fa fa-plus"></i></button>
                                     </div>
@@ -376,3 +377,42 @@
         </div>
     </div>
 </div><!--Popup update quest-->
+
+<!-- popup cấm thi -->
+<div class="popup-wraper1">
+    <div class="popup direct-mesg">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5 id="modal-banned-exam-title">Cấm thi người dùng</h5>
+            </div>
+            <div>
+                <ul class="twiter-feed invitepage lst-banned mb-0 pb-0">
+                    @foreach (var mem in Model.getLopHoc().listMembers())
+                    {
+                        <li>
+                            <figure>
+                                <span class="room-member-status status f-off @mem.MaNd"></span>
+                                <img class="wh-40" src="@mem.getImageAvt()" data-toggle="tooltip" title="@mem.getFullName()" />
+                                <a href="~/profile/info/@mem.MaNd" title="Xem trang của @mem.Ten">@mem.Ten</a>
+                                @if (mem.MaLoai != null && mem.MaLoai.Equals("02"))
+                                {
+                                    <a data-toggle="tooltip" title="Giáo viên"><i class="fa fa-mortar-board"></i></a>
+                                }
+                            </figure>
+                            @if (mem.hasCamThi(Model.MaPhong))
+                            {
+                                <a data-toggle="tooltip" title="Đã bị cấm thi"><i class="fa fa-ban action"></i></a>
+                            }
+                            else
+                            {
+                                <a data-toggle="tooltip" title="Cấm thi"><i class="fa fa-gavel action"></i></a>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+            <button id="confirm-banned-exam" data-ripple="" type="button" class="custom-btn float-right">Xác nhận</button>
+        </div>
+    </div>
+</div>

@@ -1415,7 +1415,7 @@ header.sticky {
             margin-bottom: 0;
         }
 
-        .sidebar .widget > ul {
+        .sidebar .widget > ul, ul.lst-banned {
             display: inline-block;
             list-style: outside none none;
             margin-bottom: 0;
@@ -1446,18 +1446,22 @@ header.sticky {
             width: 3px;
         }
 
-    .sidebar .widget li {
+    .sidebar .widget li, .lst-banned li {
         display: inline-block;
         margin-bottom: 14px;
         position: relative;
         width: 100%;
     }
 
-        .sidebar .widget li:last-child {
+        .sidebar .widget li:last-child, .lst-banned li:last-child {
             margin-bottom: 0;
         }
 
-        .sidebar .widget li i {
+        .lst-banned li:first-child{
+            margin-top: 10px;
+        }
+
+        .sidebar .widget li i, .lst-banned li i {
             display: inline-block;
             font-size: 12px;
             margin-right: 8px;
@@ -1468,7 +1472,13 @@ header.sticky {
             font-style: normal;
         }
 
-        .sidebar .widget li > a {
+        .lst-banned li i.action{
+            position: absolute;
+            right: 0;
+            cursor: pointer
+        }
+
+        .sidebar .widget li > a, .lst-banned li > a {
             display: inline-block;
             font-size: 13px;
             font-weight: 400;
@@ -11944,7 +11954,7 @@ aside .widget.pitnik-links > ul > li > a {
 }
 /*--- send direct message popup ---*/
 .popup.direct-mesg {
-    width: 400px;
+    max-width: 400px;
 }
 
 .send-message {

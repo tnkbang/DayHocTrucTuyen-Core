@@ -47,6 +47,12 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             {
                 return NotFound();
             }
+
+            //Nếu chủ lớp nhấn vào thì chuyển trang quản lý phòng thi
+            if(User.Claims.First().Value.Equals(pt.getMaOwner()))
+                return Redirect("~/courses/exam/manage/" + pt.MaPhong);
+
+            //Nếu học sinh không thuộc lớp nhấn vào thì chuyển trang xem lớp
             var mem = db.HocSinhThuocLops.FirstOrDefault(x => x.MaNd == User.Claims.First().Value && x.MaLop == pt.MaLop);
             if (mem == null)
             {
