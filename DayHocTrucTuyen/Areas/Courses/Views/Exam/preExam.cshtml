@@ -22,10 +22,6 @@
                                     <br />
                                     <span>Lượt thi: @Model.getListThi(uLogin.MaNd).Count()/@Model.LuotThi</span>
                                     <br />
-                                    @*<span>Mở: @Model.Ngay_Mo.ToString("HH:mm dd/MM/yyyy")</span>
-                                    <br />
-                                    <span>Đóng: @Model.Ngay_Dong.ToString("HH:mm dd/MM/yyyy")</span>
-                                    <br />*@
                                     @if(uLogin.hasCamThi(Model.MaPhong)){ <button class="btn btn-primary" disabled>Bạn đã bị cấm thi</button> }
                                     else if (Model.NgayMo > DateTime.Now){<button class="btn btn-primary" disabled>Chưa đến thời gian làm bài</button> }
                                     else if(Model.NgayDong < DateTime.Now) { <button class="btn btn-primary" disabled>Đã qua thời gian làm bài</button>}
