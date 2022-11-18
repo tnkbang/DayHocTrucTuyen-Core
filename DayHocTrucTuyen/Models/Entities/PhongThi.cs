@@ -119,6 +119,16 @@ namespace DayHocTrucTuyen.Models.Entities
             }
             return diem;
         }
+        public int getMaxPoint(string maNd)
+        {
+            int tempDiem = 0;
+            foreach (ThoiGianLamBai lamBai in getListThi(maNd))
+            {
+                int dt = getDiemThi(maNd, lamBai.LanThu);
+                if (tempDiem < dt) tempDiem = dt;
+            }
+            return tempDiem;
+        }
         public List<PhongThi> searchPhongThi(string maND, string tenphong)
         {
             var phongthi = from pt in db.PhongThis

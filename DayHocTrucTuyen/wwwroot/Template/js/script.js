@@ -2495,6 +2495,11 @@ $('.banned_user').on('click', (e) => {
     })
 })
 
+//Mở và đóng popup xem điểm thi
+$('.statistic-exam, #confirm-statistic-exam').on('click', () => {
+    $('.popup-wraper2').toggleClass('active');
+})
+
 //Hàm set đã xem thông báo
 function setDaXemThongBao(maTB, maND) {
     $.ajax({

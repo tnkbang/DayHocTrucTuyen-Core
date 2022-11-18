@@ -73,6 +73,7 @@
                                         <h5 class="create-post">Danh sách câu hỏi</h5>
                                     </div>
                                     <div class="align-right">
+                                        <button class="addnewforum btn-outline-info statistic-exam" data-toggle="tooltip" title="Xem điểm thi"><i class="fa fa-bar-chart"></i></button>
                                         <button class="addnewforum btn-outline-info banned-user-exam" data-toggle="tooltip" title="Cấm thi người dùng"><i class="fa fa-gavel"></i></button>
                                         <button class="addnewforum btn-outline-info edit-exam" data-toggle="tooltip" title="Chỉnh sửa thông tin bài thi"><i class="fa fa-cogs"></i></button>
                                         <button class="addnewforum btn-outline-success create-quest" data-toggle="tooltip" title="Thêm câu hỏi mới"><i class="fa fa-plus"></i></button>
@@ -416,3 +417,56 @@
         </div>
     </div>
 </div>
+
+<!-- popup cấm thi -->
+<div class="popup-wraper2">
+    <div class="popup @*direct-mesg*@">
+        <span class="popup-closed"><i class="ti-close"></i></span>
+        <div class="popup-meta">
+            <div class="popup-head">
+                <h5 id="modal-statistic-exam-title" data-examcode="@Model.MaPhong">Xem điểm thi</h5>
+            </div>
+            <div id="toolbar-control"></div>
+            <div class="custom-list">
+                <table id="table-point-exam"
+                       class="table table-responsive w-100 d-block d-md-table"
+                       data-toolbar="#toolbar-control"
+                       data-search="true"
+                       data-search-highlight="true"
+                       data-search-align="left"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-show-columns="true"
+                       data-show-columns-toggle-all="true"
+                       data-show-export="true"
+                       data-show-pagination-switch="true"
+                       data-sort-class="table-active"
+                       data-pagination="true"
+                       data-id-field="maNd"
+                       data-unique-id="maNd"
+                       data-page-list="[2, 10, 20, 40, 100, All]"
+                       data-side-pagination="server"
+                       data-locale="vi-VN"
+                       data-toggle="table"
+                       data-cache="false"
+                       data-ajax="ajaxGetPointExam">
+                </table>
+            </div>
+            <button id="confirm-statistic-exam" data-ripple="" type="button" class="custom-btn float-right mt-3">Xác nhận</button>
+        </div>
+    </div>
+</div>
+
+@section ChildStyle{
+    <link href="~/Template/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/Template/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" asp-append-version="true">
+}
+
+@section ChildScript{
+    <script src="~/Template/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/tableExport.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/bootstrap-table.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/bootstrap-table-locale-all.min.js" asp-append-version="true"></script>
+    <script src="~/Template/bootstrap-table/bootstrap-table-export.min.js" asp-append-version="true"></script>
+    <script src="~/Template/js/table_statistic.js" asp-append-version="true"></script>
+}

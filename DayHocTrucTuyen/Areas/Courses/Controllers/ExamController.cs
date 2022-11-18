@@ -1,4 +1,5 @@
-﻿using DayHocTrucTuyen.Areas.User.Controllers;
+﻿using DayHocTrucTuyen.Areas.Admin.Models;
+using DayHocTrucTuyen.Areas.User.Controllers;
 using DayHocTrucTuyen.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -360,6 +361,100 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             db.SaveChanges();
 
             return Json(new { tt = trangthai });
+        }
+
+        //Xem danh sách điểm người dùng đã làm bài
+        [HttpGet]
+        public IActionResult getPointExam(string examcode, string? search, string? sort, string? order, int? offset, int? limit)
+        {
+            var lst = db.NguoiDungs.Where(x => x.TrangThai);
+
+            //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, họ tên,....
+            if (!string.IsNullOrEmpty(search))
+            {
+                lst = lst.Where(s => string.Concat(s.HoLot, " ", s.Ten).Contains(search)
+                                || s.MaNd.Contains(search));
+            }
+
+            //Xử lý sắp xếp
+            if (!string.IsNullOrEmpty(sort) && !string.IsNullOrEmpty(order))
+            {
+                switch (sort)
+                {
+                    case "maNd":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.MaNd);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.MaNd);
+                        }
+                        break;
+                    case "hoTen":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.Ten).ThenBy(x => x.HoLot);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.Ten).ThenByDescending(x => x.HoLot);
+                        }
+                        break;
+                    case "gioiTinh":
+                        if (order.Equals("asc"))
+                        {
+                            lst = lst.OrderBy(x => x.GioiTinh);
+                        }
+                        else
+                        {
+                            lst = lst.OrderByDescending(x => x.GioiTinh);
+                        }
+                        break;
+                }
+            }
+
+            List<dynamic> lstResult = new List<dynamic>();
+            var pt = db.PhongThis.FirstOrDefault(x => x.MaPhong == examcode);
+            if (pt != null)
+            {
+                foreach (var item in lst.ToList())
+                {
+                    var temp = new
+                    {
+                        maNd = item.MaNd,
+                        imgAvt = item.getImageAvt(),
+                        hoTen = item.HoLot + " " + item.Ten,
+                        gioiTinh = item.GioiTinh == 1 ? "Nam" : item.GioiTinh == 2 ? "Nữ" : item.GioiTinh == 3 ? "Thứ 3" : null,
+                        sdt = item.Sdt,
+                        biDanh = item.BiDanh == item.MaNd ? null : item.BiDanh,
+                        luotThi = pt.getSLThi(item.MaNd),
+                        diemCaoNhat = pt.getMaxPoint(item.MaNd)
+                    };
+                    lstResult.Add(temp);
+                }
+            }
+
+            //Xử lý sắp xếp theo điểm thi
+            if (!string.IsNullOrEmpty(sort) && !string.IsNullOrEmpty(order) && sort.Equals("diemCaoNhat"))
+            {
+                if (order.Equals("asc"))
+                {
+                    lstResult = lstResult.OrderBy(x => x.diemCaoNhat).ToList();
+                }
+                else
+                {
+                    lstResult = lstResult.OrderByDescending(x => x.diemCaoNhat).ToList();
+                }
+            }
+
+            //Các tham số của phân trang như sau:
+            //      đầu tiên là danh sách truyền vào phân trang
+            //      tham số thứ 2 là vị trí phân trang
+            //      tham số cuối là số lượng trang
+            var result = PaginatedList<dynamic>.Create(lstResult, offset ?? 0, limit ?? 10);
+
+            return Json(new { total = lst.ToList().Count, totalNotFiltered = lst.ToList().Count, rows = result });
         }
     }
 }
