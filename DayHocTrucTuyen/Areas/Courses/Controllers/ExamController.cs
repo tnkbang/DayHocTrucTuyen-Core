@@ -332,5 +332,31 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
             return Json(new { tt = true, id = pt.MaPhong });
         }
+
+        //Cấm thi hoặc bỏ cấm thi người dùng
+        [HttpPost]
+        public IActionResult setBanned(string maNd, string maPhong)
+        {
+            var ban = db.BiCamThis.FirstOrDefault(x => x.MaNd == maNd && x.MaPhong == maPhong);
+            bool trangthai = true;
+
+            if(ban != null)
+            {
+                db.BiCamThis.Remove(ban);
+                trangthai = false;
+            }
+            else
+            {
+                BiCamThi newBan = new BiCamThi();
+                newBan.MaNd = maNd;
+                newBan.MaPhong = maPhong;
+
+                db.BiCamThis.Add(newBan);
+                trangthai = true;
+            }
+            db.SaveChanges();
+
+            return Json(new { tt = trangthai });
+        }
     }
 }

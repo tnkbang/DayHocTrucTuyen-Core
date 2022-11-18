@@ -402,11 +402,11 @@
                             </figure>
                             @if (mem.hasCamThi(Model.MaPhong))
                             {
-                                <a data-toggle="tooltip" title="Đã bị cấm thi"><i class="fa fa-ban action"></i></a>
+                                <a data-toggle="tooltip" title="Đã bị cấm thi"><i data-examcode="@Model.MaPhong" data-usercode="@mem.MaNd" class="fa fa-ban action banned_user"></i></a>
                             }
                             else
                             {
-                                <a data-toggle="tooltip" title="Cấm thi"><i class="fa fa-gavel action"></i></a>
+                                <a data-toggle="tooltip" title="Cấm thi"><i data-examcode="@Model.MaPhong" data-usercode="@mem.MaNd" class="fa fa-gavel action banned_user"></i></a>
                             }
                         </li>
                     }

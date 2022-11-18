@@ -2468,6 +2468,33 @@ $('.banned-user-exam, #confirm-banned-exam').on('click', () => {
     $('.popup-wraper1').toggleClass('active');
 })
 
+//Xử lý cấm thi và bỏ cấm thi người dùng
+$('.banned_user').on('click', (e) => {
+    var mand = e.target.dataset.usercode;
+    var maphong = e.target.dataset.examcode;
+
+    $.ajax({
+        url: '/courses/exam/setbanned',
+        type: 'POST',
+        data: { maNd: mand, maPhong: maphong },
+        success: function (data) {
+            if (!data.tt) {
+                $(e.target).attr("class", "fa fa-gavel action banned_user");
+                $(e.target.parentElement).tooltip('hide').attr('data-original-title', 'Cấm thi').tooltip('show');
+                getThongBao('success', 'Bỏ cấm thi', 'Đã bỏ cấm thi người dùng thành công !');
+            }
+            else {
+                $(e.target).attr("class", "fa fa-ban action banned_user");
+                $(e.target.parentElement).tooltip('hide').attr('data-original-title', 'Đã bị cấm thi').tooltip('show');
+                getThongBao('success', 'Đã cấm thi', 'Đã cấm thi người dùng thành công !');
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
+
 //Hàm set đã xem thông báo
 function setDaXemThongBao(maTB, maND) {
     $.ajax({
