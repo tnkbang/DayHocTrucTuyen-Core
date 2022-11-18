@@ -114,7 +114,9 @@
     //Bắt sự kiện nhấn đóng popup
     $('.popup-closed, .cancel').on('click', function () {
         $modal.removeClass('active');
-        cropper.destroy();
-        cropper = null;
+        if (cropper != null) {
+            cropper.destroy();
+            cropper = null;
+        }
     });
 });

@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $('.popup-wraper4, .popup-wraper2, .popup-createExam').on('click', function (e) {
+    $('.popup-wraper4, .popup-wraper5, .popup-wraper2, .popup-createExam').on('click', function (e) {
         if (e.target.id != 'get-help') {
             $(".popup-get-help").removeClass('active');
         }
@@ -118,7 +118,7 @@ jQuery(document).ready(function ($) {
 
     // choose pay
     $('.choose-pay').on('click', function () {
-        $('.popup-wraper4').addClass('active');
+        $('.popup-wraper5').addClass('active');
     });
 
     // Create class room
@@ -2879,7 +2879,7 @@ $('.payment-money').on('click', function () {
                 getThongBao('info', 'Bạn quá nghèo !', 'Số tiền trong tài khoản của bạn không đủ để thực hiện rút tiền !');
             }
             else {
-                $('.popup-wraper2').addClass('active')
+                $('.popup-wraper4').addClass('active')
             }
         },
         error: function () {
@@ -2921,7 +2921,7 @@ $('#form-payment-money').on('submit', () => {
             }
             else {
                 getThongBao('success', 'Đã gửi yêu cầu', "Vui lòng chờ ban quản trị duyệt yêu cầu của bạn");
-                $('.popup-wraper2').removeClass('active')
+                $('.popup-wraper4').removeClass('active')
             }
         },
         error: function () {
