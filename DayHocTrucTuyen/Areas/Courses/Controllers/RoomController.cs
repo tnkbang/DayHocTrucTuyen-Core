@@ -288,6 +288,26 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             return Json(new { tt = true });
         }
 
+        //Thành viên rời khỏi lớp
+        [HttpPost]
+        public IActionResult setLeaveRoom(string maLop)
+        {
+            var maUser = User.Claims.First().Value;
+            var lp = db.LopHocs.FirstOrDefault(x => x.MaLop == maLop);
+            if (lp != null)
+            {
+                var hs = db.HocSinhThuocLops.FirstOrDefault(x => x.MaNd == maUser && x.MaLop == lp.MaLop);
+
+                if(hs != null)
+                {
+                    db.HocSinhThuocLops.Remove(hs);
+                    db.SaveChanges();
+                }
+            }
+
+            return Json(new { tt = true });
+        }
+
         //Lấy tên tất cả các lớp học
         [HttpPost]
         [AllowAnonymous]

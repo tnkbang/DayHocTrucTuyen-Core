@@ -6620,6 +6620,16 @@ button.createoredit {
     transition: all 0.2s linear 0s;
 }
 
+.salary-area .leave-room{
+    text-transform: none;
+    background: none;
+    color: #dc3545;
+}
+
+.salary-area .leave-room:hover{
+    color: #fff;
+}
+
     .salary-area > button:hover {
         background: #e82d05;
     }

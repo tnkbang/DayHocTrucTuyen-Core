@@ -1668,6 +1668,25 @@ $('#confirm-room').on('click', function () {
     })
 })
 
+//Xử lý thành viên rời khỏi lớp
+$('.leave-room').on('click', (e) => {
+    var maLop = e.target.dataset.roomcode;
+
+    $.ajax({
+        url: '/courses/room/setleaveroom',
+        type: 'POST',
+        data: { maLop: maLop },
+        success: function (data) {
+            if (data.tt) {
+                location.reload()
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
+
 //Gán nội dung cho trả lời bình luận
 $('.we-reply').on('click', function () {
     event.preventDefault()
