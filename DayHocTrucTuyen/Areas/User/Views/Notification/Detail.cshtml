@@ -30,7 +30,7 @@
                                                 {
                                                     <li>
                                                         <a href="~/@tb.LienKet" title="" onclick="setDaXemThongBao('@tb.MaTb', '@tb.MaNd')">
-                                                            <figure>
+                                                            @*<figure>
                                                                 @switch (tb.LoaiTb)
                                                                 {
                                                                     case "exam":
@@ -43,9 +43,9 @@
                                                                         <img width="40" height="40" src="~/Content/Img/Resources/notification-default.png" alt="" />
                                                                         break;
                                                                 }
-                                                            </figure>
+                                                            </figure>*@
                                                             <div class="notifi-meta">
-                                                                <p>@tb.TieuDe - @tb.NoiDung</p>
+                                                                <p><b>@tb.TieuDe</b><br>@tb.NoiDung</p>
                                                                 <span class="timeago" title="@tb.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@tb.ThoiGian.ToString()</span>
                                                             </div>
                                                         </a>
@@ -78,7 +78,7 @@
                                                 {
                                                     <li>
                                                         <a href="~/@tb.LienKet" title="">
-                                                            <figure>
+                                                            @*<figure>
                                                                 @switch (tb.LoaiTb)
                                                                 {
                                                                     case "exam":
@@ -91,9 +91,9 @@
                                                                         <img width="40" height="40" src="~/Content/Img/Resources/notification-default.png" alt="" />
                                                                         break;
                                                                 }
-                                                            </figure>
+                                                            </figure>*@
                                                             <div class="notifi-meta">
-                                                                <p>@tb.TieuDe - @tb.NoiDung</p>
+                                                                <p><b>@tb.TieuDe</b><br>@tb.NoiDung</p>
                                                                 <span class="timeago" title="@tb.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@tb.ThoiGian.ToString()</span>
                                                             </div>
                                                         </a>

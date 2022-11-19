@@ -4532,7 +4532,7 @@ a.forgot-pwd {
     display: inline-block;
     line-height: initial;
     vertical-align: middle;
-    width: 86%;
+    width: 100%;
 }
 
     .notifi-meta > p {
@@ -4546,6 +4546,7 @@ a.forgot-pwd {
 
     .notifi-meta > span {
         font-size: 12px;
+        float: right
     }
 
         .notifi-meta > span > i {
