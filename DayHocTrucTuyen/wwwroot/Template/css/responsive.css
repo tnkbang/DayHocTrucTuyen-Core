@@ -789,7 +789,7 @@
     }
 
     .notifi-meta {
-        width: 100%;
+        width: 80%;
     }
 
     .full-postmeta {
@@ -1839,8 +1839,12 @@
     }
 
     .featured-baner > h3 {
-        font-size: 18px;
+        font-size: 40px;
         left: 15px;
+    }
+
+    .noti-baner > h3 {
+        font-size: 40px;
     }
 
     .pitred-links > a {
@@ -2504,7 +2508,7 @@
     }
 
     .notifi-meta {
-        width: 100%;
+        width: 68%;
     }
 
         .notifi-meta > p {

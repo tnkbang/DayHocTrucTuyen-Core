@@ -4532,7 +4532,7 @@ a.forgot-pwd {
     display: inline-block;
     line-height: initial;
     vertical-align: middle;
-    width: 100%;
+    width: 86%;
 }
 
     .notifi-meta > p {
@@ -4541,12 +4541,18 @@ a.forgot-pwd {
         font-weight: 400;
         line-height: 15px;
         margin-bottom: 0;
+        text-transform: none;
+    }
+
+    .notifi-meta > p > span{
+        font-weight: 500;
         text-transform: capitalize;
     }
 
     .notifi-meta > span {
         font-size: 12px;
-        float: right
+        position: absolute;
+        right: 2em;
     }
 
         .notifi-meta > span > i {
@@ -13146,11 +13152,26 @@ aside .widget.pitnik-links > ul > li > a {
 }
 
 /*--- Pitred page ---*/
-.featured-baner {
+.featured-baner, .noti-baner {
     display: inline-block;
     position: relative;
     width: 100%;
 }
+
+.noti-section {
+    background-image: url(/Content/Img/Resources/banner-noti.jpg);
+    background-repeat: round;
+}
+
+.noti-baner{
+    text-align: center
+}
+
+    .noti-baner > h3 {
+        color: #fa6342;
+        font-size: 50px;
+        text-transform: capitalize
+    }
 
     .featured-baner > img {
         display: inline-block;

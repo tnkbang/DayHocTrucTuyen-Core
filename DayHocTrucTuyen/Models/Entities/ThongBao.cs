@@ -57,5 +57,36 @@ namespace DayHocTrucTuyen.Models.Entities
         {
             return String.IsNullOrEmpty(this.LienKet) ? "#" : "/" + this.LienKet;
         }
+
+        public string getIcon()
+        {
+            switch (this.LoaiTb)
+            {
+                case "exam":
+                    return "fa-edit";
+                case "post":
+                    return "fa-comments";
+                case "money":
+                    return "fa-money";
+                default:
+                    return "fa-bell";
+            }
+        }
+
+        public string getIconImg()
+        {
+            string url = "Content/Img/Resources/";
+            switch (this.LoaiTb)
+            {
+                case "exam":
+                    return url += "notification-exam.png";
+                case "post":
+                    return url += "notification-post.png";
+                case "money":
+                    return url += "notification-money.png";
+                default:
+                    return url += "notification-default.png";
+            }
+        }
     }
 }

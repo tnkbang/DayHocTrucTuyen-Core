@@ -167,18 +167,7 @@
                                         <li>
                                             <a href="@tb.getLienKet()" title="" onclick="setDaXemThongBao('@tb.MaTb', '@tb.MaNd')">
                                                 <figure>
-                                                    @switch (tb.LoaiTb)
-                                                    {
-                                                        case "exam":
-                                                            <img class="wh-35" src="~/Content/Img/Resources/notification-default.png" alt="" />
-                                                            break;
-                                                        case "post":
-                                                            <img class="wh-35" height="40" src="~/Content/Img/Resources/notification-default.png" alt="" />
-                                                            break;
-                                                        default:
-                                                            <img class="wh-35" height="40" src="~/Content/Img/Resources/notification-default.png" alt="" />
-                                                            break;
-                                                    }
+                                                    <img class="wh-35" src="~/@tb.getIconImg()" alt="" />
                                                 </figure>
                                                 <div class="mesg-meta">
                                                     <h6>@tb.TieuDe</h6>
