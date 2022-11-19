@@ -28,17 +28,20 @@
                                 <div>
                                     <img id="img-user-bg" src="@Model.getImageBG()" alt="" />
                                 </div>
-                            <ul class="profile-controls">
-                                @if (Model.liked(uLogin.MaNd))
+                                @if (!uLogin.MaNd.Equals(Model.MaNd))
                                 {
-                                    <li><a id="btnLike" title="Đã thích" data-toggle="tooltip"><i class="fa fa-heart"></i></a></li>
+                                    <ul class="profile-controls">
+                                        @if (Model.liked(uLogin.MaNd))
+                                        {
+                                            <li><a id="btnLike" title="Đã thích" data-toggle="tooltip"><i class="fa fa-heart"></i></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a class="bg-success" id="btnLike" title="Thích trang" data-toggle="tooltip" onclick="like('@Model.MaNd', '@uLogin.MaNd')"><i class="fa fa-heart"></i></a></li>
+                                        }
+                                        <li><a class="send-mesg" href="javascript:void(0)" title="Gửi tin nhắn" onclick="openPopupChat('@Model.MaNd')" data-toggle="tooltip"><i class="fa fa-comment"></i></a></li>
+                                    </ul>
                                 }
-                                else
-                                {
-                                    <li><a class="bg-success" id="btnLike" title="Thích trang" data-toggle="tooltip" onclick="like('@Model.MaNd', '@uLogin.MaNd')"><i class="fa fa-heart"></i></a></li>
-                                }
-                                <li><a class="send-mesg" href="javascript:void(0)" title="Gửi tin nhắn" onclick="openPopupChat('@Model.MaNd')" data-toggle="tooltip"><i class="fa fa-comment"></i></a></li>
-                            </ul>
                             </figure>
                             <div class="profile-section">
                                 <div class="row">

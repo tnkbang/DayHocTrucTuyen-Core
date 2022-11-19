@@ -1839,12 +1839,8 @@
     }
 
     .featured-baner > h3 {
-        font-size: 40px;
+        font-size: 18px;
         left: 15px;
-    }
-
-    .noti-baner > h3 {
-        font-size: 40px;
     }
 
     .pitred-links > a {

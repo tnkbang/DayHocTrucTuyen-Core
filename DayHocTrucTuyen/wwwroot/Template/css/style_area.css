@@ -3933,7 +3933,7 @@ nav.breadcrumb {
     border-bottom: 1px solid #e1e8ed;
     position: relative;
     float: left;
-    padding: 50px 15px 0;
+    padding: 15px 0 0 0;
     width: 100%;
 }
 
@@ -3965,7 +3965,7 @@ nav.breadcrumb {
 .page-header > figure {
     float: left;
     margin-bottom: 0;
-    margin-top: 30px;
+    margin-top: 0;
     text-align: center;
     width: 100%;
     z-index: 3;
@@ -13152,26 +13152,11 @@ aside .widget.pitnik-links > ul > li > a {
 }
 
 /*--- Pitred page ---*/
-.featured-baner, .noti-baner {
+.featured-baner {
     display: inline-block;
     position: relative;
     width: 100%;
 }
-
-.noti-section {
-    background-image: url(/Content/Img/Resources/banner-noti.jpg);
-    background-repeat: round;
-}
-
-.noti-baner{
-    text-align: center
-}
-
-    .noti-baner > h3 {
-        color: #fa6342;
-        font-size: 50px;
-        text-transform: capitalize
-    }
 
     .featured-baner > img {
         display: inline-block;
