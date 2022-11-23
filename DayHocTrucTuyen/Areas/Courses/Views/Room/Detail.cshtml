@@ -559,6 +559,42 @@ else
     </section><!-- content -->
 }
 
+<!-- Đề xuất khóa học -->
+<section>
+    <div class="gap2 gray-bg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="central-meta">
+                        <span class="create-post mb-0">Dành cho bạn <a href="~/default/courses" title="">Xem tất cả</a></span>
+                        <ul class="contributorz suggest-room">
+                            @foreach(var r in ViewData["SuggestRoom"] as List<LopHoc>)
+                            {
+                                <li>
+                                    <img src="@r.getImage()" alt="">
+                                    <div class="d-flex justify-content-between align-items-center tag">
+                                        @foreach (var t in r.getTag())
+                                        {
+                                            <span>@t.TenTag</span>
+                                        }
+                                    </div>
+                                    <div class="sugtd-frnd-meta">
+                                        <span class="name" title="">@r.TenLop</span>
+                                        <span><a href="~/profile/info/@r.MaNd" title="@r.getOwner().getFullName()" data-toggle="tooltip">@r.getOwner().Ten</a> là giáo viên</span>
+                                        <ul class="add-remove-frnd">
+                                            <li class="add-tofrndlist"><a href="~/courses/room/detail/@r.MaLop"><i class="fa fa-plus"></i> Tham gia lớp</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!--Popup xem hoặc tải pdf-->
 <div class="modal fade" id="myChoosePDF">
     <div class="modal-dialog">
@@ -577,6 +613,7 @@ else
         </div>
     </div>
 </div>
+
 <!--Popup xác nhận xóa bài viết-->
 <div class="modal fade" id="confirmDeletePost">
     <div class="modal-dialog">
@@ -595,6 +632,7 @@ else
         </div>
     </div>
 </div>
+
 <!--Popup xác nhận xóa bình luận-->
 <div class="modal fade" id="confirmDeleteComment">
     <div class="modal-dialog">
@@ -613,6 +651,7 @@ else
         </div>
     </div>
 </div>
+
 <!--Popup khóa hoặc mở khóa bài đăng-->
 <div class="modal fade" id="confirmTrangThaiPost">
     <div class="modal-dialog">
@@ -631,6 +670,7 @@ else
         </div>
     </div>
 </div>
+
 <!--Popup Báo cáo bài đăng-->
 <div class="popup-reportPost">
     <div class="popup">
@@ -692,6 +732,7 @@ else
         </div>
     </div>
 </div>
+
 <!--Popup Báo cáo lớp học-->
 <div class="popup-reportRoom">
     <div class="popup">
@@ -748,6 +789,7 @@ else
         </div>
     </div>
 </div>
+
 <!-- popup thống kê -->
 <div class="popup-wraper5">
     <div class="popup">
@@ -769,6 +811,7 @@ else
         </div>
     </div>
 </div>
+
 <!-- popup thông báo -->
 <div class="popup-wraper1">
     <div class="popup direct-mesg">

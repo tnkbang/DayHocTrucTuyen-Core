@@ -149,10 +149,14 @@ section {
     position: relative;
 }
 
-    .gap2 .container .room-title {
-        border-radius: 5px;
-        backdrop-filter: brightness(1.5);
+    .gap2 .container-fluid .room-title {
+        backdrop-filter: brightness(0.6);
+        padding-top: 10px;
         padding-bottom: 10px;
+    }
+
+    .gap2 .container-fluid .room-title b{
+        color: aqua;
     }
 
     .gap2.no-gap {
@@ -7213,12 +7217,52 @@ button.createoredit {
         }
 
 .suggested-frnd-caro .owl-item > li,
-.frndz-list .owl-item > li {
+.frndz-list .owl-item > li, .suggest-room li {
     background: #f2f7fb none repeat scroll 0 0;
     border: 1px solid #ede9e9;
     border-radius: 3px;
     padding-bottom: 7px;
+    transition: all 0.2s linear 0s;
 }
+
+.suggest-room li{
+    border: none
+}
+
+.suggest-room .tag {
+    text-align: center;
+    position: absolute;
+    top: 80px;
+    font-size: 8px;
+    display: flex;
+    left: 0;
+    width: 100%;
+}
+
+.suggest-room li:hover {
+    transition: all 0.2s linear 0s;
+    transform: scale(1.1)
+}
+
+.suggest-room .name {
+    text-align: center;
+    position: absolute;
+    top: 20px;
+    font-size: 15px;
+    color: #fff;
+    width: 100%;
+    backdrop-filter: brightness(0.6);
+}
+
+.suggest-room .tag span{
+    border-radius: 2.5px;
+    color: #fff;
+    background: #7750f8;
+    margin: 0 2px 0 2px;
+    padding: 0 5px 0 5px;
+    width: max-content
+}
+
 
     .suggested-frnd-caro .owl-item > li img,
     .frndz-list .owl-item > li img {

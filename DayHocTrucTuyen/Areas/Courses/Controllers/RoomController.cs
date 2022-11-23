@@ -33,6 +33,11 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
             {
                 return NotFound();
             }
+
+            //Lấy gợi ý 10 khóa học
+            SuggestController suggest = new SuggestController();
+            ViewData["SuggestRoom"] = suggest.getRoom(maNd).Take(10).OrderBy(item => new Random().Next()).ToList();
+
             if (roomBD != null)
             {
                 ViewData["Post"] = roomBD.getAllPost();
