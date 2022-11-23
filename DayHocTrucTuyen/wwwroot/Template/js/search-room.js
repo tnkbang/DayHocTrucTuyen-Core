@@ -261,11 +261,8 @@ function speech_recognition() {
             }
             else {
                 $('.text-record').text(transcript);
-
                 searchFormInput.value = transcript;
-                setTimeout(() => {
-                    recognition.stop();
-                }, 500)
+                recognition.stop();
             }
 
             // setTimeout(() => {
