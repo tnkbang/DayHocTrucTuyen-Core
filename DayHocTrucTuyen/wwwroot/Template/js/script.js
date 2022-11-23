@@ -112,8 +112,8 @@ jQuery(document).ready(function ($) {
     $('.edit-prof').on('click', function () {
         $('.popup-wraper').addClass('active');
     });
-    $('.popup-closed').on('click', function () {
-        $('.popup-wraper, .popup-wraper1, .popup-wraper3').removeClass('active');
+    $('.popup-closed, .popup-hide').on('click', function () {
+        $('.popup-wraper, .popup-wraper1, .popup-wraper2, .popup-wraper3').removeClass('active');
     });
 
     // choose pay
