@@ -7249,7 +7249,7 @@ button.createoredit {
     position: absolute;
     top: 20px;
     font-size: 15px;
-    color: #fff;
+    color: aqua;
     width: 100%;
     backdrop-filter: brightness(0.6);
 }

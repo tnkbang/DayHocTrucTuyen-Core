@@ -3061,7 +3061,6 @@ $('#confirm-room-rating').on('click', (e) => {
             else {
                 getThongBao('success', 'Thành công', "Bạn đã đánh giá cho lớp học này!");
                 $('.popup-wraper4').removeClass('active')
-                $('.rating-room').hide('slow')
             }
         },
         error: function () {
