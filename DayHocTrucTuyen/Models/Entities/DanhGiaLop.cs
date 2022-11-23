@@ -14,5 +14,18 @@ namespace DayHocTrucTuyen.Models.Entities
 
         public virtual LopHoc? MaLopNavigation { get; set; }
         public virtual NguoiDung? MaNdNavigation { get; set; }
+
+        DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
+
+        public string setMa()
+        {
+            var ma = "";
+            do
+            {
+                ma = StringGenerator.Alphabet(15);
+            } while (db.DanhGiaLops.FirstOrDefault(x => x.MaDg == ma) != null);
+
+            return ma;
+        }
     }
 }

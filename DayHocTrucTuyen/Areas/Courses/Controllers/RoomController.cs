@@ -367,5 +367,42 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
             return Json(new { post = resultPost, mems = resultMems });
         }
+
+        //Đánh giá lớp học
+        [HttpPost]
+        public IActionResult Rating(string maLop, int rate, string nhanXet)
+        {
+            var maNd = User.Claims.First().Value;
+            var lop = db.LopHocs.FirstOrDefault(x => x.MaLop == maLop);
+
+            if(lop != null)
+            {
+                var dg = db.DanhGiaLops.FirstOrDefault(x => x.MaNd == maNd && x.MaLop == maLop);
+                if(dg != null)
+                {
+                    dg.MucDo = rate;
+                    dg.GhiChu = nhanXet;
+                    dg.ThoiGian = DateTime.Now;
+                }
+                else
+                {
+                    DanhGiaLop newDG = new DanhGiaLop();
+                    newDG.MaDg = newDG.setMa();
+                    newDG.MaNd = maNd;
+                    newDG.MaLop = maLop;
+                    newDG.MucDo = rate;
+                    newDG.GhiChu = nhanXet;
+                    newDG.ThoiGian = DateTime.Now;
+
+                    db.DanhGiaLops.Add(newDG);
+                }
+
+                db.SaveChanges();
+
+                return Json(new { tt = true, mess = "Đánh giá lớp thành công!" });
+            }
+
+            return Json(new { tt = false, mess = "Mã lệnh bị thay đổi !" });
+        }
     }
 }

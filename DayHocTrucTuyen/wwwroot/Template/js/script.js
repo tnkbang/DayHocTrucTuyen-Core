@@ -113,7 +113,7 @@ jQuery(document).ready(function ($) {
         $('.popup-wraper').addClass('active');
     });
     $('.popup-closed, .popup-hide').on('click', function () {
-        $('.popup-wraper, .popup-wraper1, .popup-wraper2, .popup-wraper3').removeClass('active');
+        $('.popup-wraper, .popup-wraper1, .popup-wraper2, .popup-wraper3, .popup-wraper4').removeClass('active');
     });
 
     // choose pay
@@ -3026,3 +3026,46 @@ function dangxuat() {
         location.replace('/');
     })
 }
+
+//Mở popup đánh giá lớp
+$('.rating-room').on('click', () => {
+    $('.popup-wraper4').addClass('active');
+})
+
+//Xử lý đánh giá lớp
+$('#confirm-room-rating').on('click', (e) => {
+    event.preventDefault();
+
+    var maLop = e.target.dataset.roomcode;
+    var nhanXet = $('#room-rating-areas').val();
+    var rate = 0;
+
+    for (let i = 1; i < 6; i++) {
+        if ($('#rating-' + i).is(":checked"))
+            rate = i;
+    }
+
+    if (rate == 0) {
+        getThongBao('error', 'Lỗi', 'Vui lòng chọn mức độ hài lòng!');
+        return;
+    }
+
+    $.ajax({
+        url: '/courses/room/rating',
+        type: 'POST',
+        data: { maLop: maLop, rate: rate, nhanXet: nhanXet },
+        success: function (data) {
+            if (!data.tt) {
+                getThongBao('error', 'Lỗi', data.mess);
+            }
+            else {
+                getThongBao('success', 'Thành công', "Bạn đã đánh giá cho lớp học này!");
+                $('.popup-wraper4').removeClass('active')
+                $('.rating-room').hide('slow')
+            }
+        },
+        error: function () {
+            getThongBao('error', 'Lỗi', 'Không thể gửi yêu cầu về máy chủ !')
+        }
+    })
+})
