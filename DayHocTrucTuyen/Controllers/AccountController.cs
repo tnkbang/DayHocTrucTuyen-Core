@@ -75,7 +75,7 @@ namespace DayHocTrucTuyen.Controllers
                 //Tạo list lưu chủ thể đăng nhập
                 var claims = new List<Claim>() {
                         new Claim("MaNd", user.MaNd),
-                        new Claim("LoaiNd", user.MaLoai),
+                        new Claim("LoaiNd", user.MaLoai ?? "03"),
                         new Claim("Ten", user.Ten)
                     };
 
@@ -231,7 +231,7 @@ namespace DayHocTrucTuyen.Controllers
         //Lấy thông tin khi quên mật khẩu
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult getForgotPassord(string email)
+        public IActionResult getForgotPassword(string email)
         {
             var user = db.NguoiDungs.FirstOrDefault(x => x.Email == email);
             if (user == null) return Json(new { tt = false, mess = "Email không tồn tại trên hệ thống !" });
@@ -250,7 +250,7 @@ namespace DayHocTrucTuyen.Controllers
                 if (userChange.email != null)
                 {
                     var timer = userChange.thoiGian.AddMinutes(30);
-                    if(timer > DateTime.Now) return Json(new { tt = false, mess = "Không thể gửi yêu cầu liên tiếp trong 30 phút !" });
+                    if(timer > DateTime.Now) return Json(new { tt = true, mess = "Không thể gửi yêu cầu liên tiếp trong 30 phút !" });
 
                     EmailController emailController = new EmailController();
                     var body = emailController.getRePass(user.Ten, currentURL + "/account/resetpasswourd/" + token, currentURL + "/support");

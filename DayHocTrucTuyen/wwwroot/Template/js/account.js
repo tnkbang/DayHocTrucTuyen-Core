@@ -122,7 +122,7 @@ $('#formForgotPassword').on('submit', function () {
     $('.process-wraper').removeClass('hidden');
 
     $.ajax({
-        url: '/account/getforgotpassord',
+        url: '/account/getforgotpassword',
         type: 'POST',
         data: { email: $('#emailForgotPassword').val() },
         success: function (data) {
@@ -133,10 +133,8 @@ $('#formForgotPassword').on('submit', function () {
                 $('#errorForgotPassword').focus();
             }
             else {
-                getThongBao('info', 'Đã gửi email', "Chúng tôi đã gửi email cho bạn, hãy kiểm tra!");
-                setTimeout(() => {
-                    window.location.href = '/'
-                }, 2000);
+                $('.reset_email').html($('#emailForgotPassword').val());
+                $('.popup-wraper1').addClass('active');
             }
 
             $('.process-wraper').addClass('hidden');
@@ -179,3 +177,8 @@ $('#formResetPassword').on('submit', function () {
         }
     })
 })
+
+//Bắt sự kiện đóng popup
+$('.popup-closed, .popup-hide').on('click', function () {
+    $('.popup-wraper1').removeClass('active');
+});
