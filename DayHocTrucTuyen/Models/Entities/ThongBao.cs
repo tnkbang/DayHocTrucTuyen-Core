@@ -68,6 +68,8 @@ namespace DayHocTrucTuyen.Models.Entities
                     return "fa-comments";
                 case "money":
                     return "fa-money";
+                case "admin":
+                    return "fa-user-secret";
                 default:
                     return "fa-bell";
             }
@@ -84,6 +86,8 @@ namespace DayHocTrucTuyen.Models.Entities
                     return url += "notification-post.png";
                 case "money":
                     return url += "notification-money.png";
+                case "admin":
+                    return url += "notification-admin.png";
                 default:
                     return url += "notification-default.png";
             }
