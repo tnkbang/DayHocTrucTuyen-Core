@@ -1819,6 +1819,11 @@ $('#form-create-exam').on('submit', function () {
     var text = document.getElementsByClassName('form-create-exam');
     var form_data = new FormData();
 
+    if (text[2].value >= text[3].value) {
+        getThongBao('error', 'Lỗi !', 'Ngày kết thúc phải lớn hơn ngày mở !');
+        return;
+    }
+
     form_data.append('malop', text[0].id);
     form_data.append('ten', text[0].value);
     form_data.append('thoiluong', text[1].value);
@@ -1860,6 +1865,11 @@ $('#form-edit-exam').on('submit', function () {
 
     var text = document.getElementsByClassName('form-edit-exam');
     var form_data = new FormData();
+
+    if (text[2].value >= text[3].value) {
+        getThongBao('error', 'Lỗi !', 'Ngày kết thúc phải lớn hơn ngày mở !');
+        return;
+    }
 
     form_data.append('maphong', text[0].id);
     form_data.append('ten', text[0].value);
