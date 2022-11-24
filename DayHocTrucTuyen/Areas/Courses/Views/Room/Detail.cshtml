@@ -34,7 +34,7 @@
                         {
                             <button onclick="setJoinRoom('@Model.MaLop', '@Model.getGiaTien()')">Tham gia ngay<span>(@Model.getGiaTien())</span></button>
                         }
-                        else
+                        else if (!Model.isOwner(uLogin.MaNd))
                         {
                             <button data-roomcode="@Model.MaLop" class="leave-room"><i class="fa fa-sign-out"></i> Rời khỏi lớp</button>
                         }
