@@ -1322,6 +1322,11 @@ $('#form-create-room').on('submit', function () {
     var text = document.getElementsByClassName('form-create-room');
     var form_data = new FormData();
 
+    if ($('#room-create-tag').val() == '') {
+        getThongBao('error', 'Lỗi !', 'Chưa chọn tag cho lớp');
+        return;
+    }
+
     form_data.append('tl', text[0].value);
     if (text[1].value) form_data.append('bd', text[1].value);
     else form_data.append('bd', null);
@@ -1357,6 +1362,11 @@ $('#form-edit-room').on('submit', function () {
 
     var text = document.getElementsByClassName('form-edit-room');
     var form_data = new FormData();
+
+    if ($('#room-edit-tag').val() == '') {
+        getThongBao('error', 'Lỗi !', 'Không thể để trống tag lớp');
+        return;
+    }
 
     form_data.append('ml', document.getElementById('viewroom-Name').title);
     form_data.append('tl', text[0].value);

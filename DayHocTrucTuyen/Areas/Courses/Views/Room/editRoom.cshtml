@@ -84,7 +84,7 @@
                                             </div>
                                             <div>
                                                 <label>Thẻ</label>
-                                                <select id="room-edit-tag" multiple name="native-select" placeholder="Chọn chủ đề cho lớp" data-search="true" data-silent-initial-value-set="true" data-max-values="3">
+                                                <select id="room-edit-tag" multiple name="native-select" placeholder="Chọn chủ đề cho lớp" data-search="true" data-silent-initial-value-set="true" data-max-values="2">
                                                     @foreach (var tag in ViewData["Tag"] as List<Tag>)
                                                     {
                                                         if (Model.isTag(tag.MaTag))
