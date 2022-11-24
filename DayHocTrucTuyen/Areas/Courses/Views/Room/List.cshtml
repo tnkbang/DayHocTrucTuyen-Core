@@ -361,13 +361,23 @@
                         <div class="widget">
                             <h4 class="widget-title">Bài đăng gần đây</h4>
                             <ul class="recent-topics">
-                                @foreach(var p in uLogin.getRecentPosts())
-                                {
-                                    <li>
-                                        <a href="@p.getLienKet()">@p.TieuDe</a>
-                                        <span class="timeago" title="@p.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@p.ThoiGian.ToString()</span>
-                                        <i><a href="@p.getLienKet()">@p.NoiDung</a></i>
-                                    </li>
+                                @{
+                                    var lst = uLogin.getRecentPosts();
+                                    if(lst.Count != 0)
+                                    {
+                                        foreach (var p in uLogin.getRecentPosts())
+                                        {
+                                            <li>
+                                                <a href="@p.getLienKet()">@p.TieuDe</a>
+                                                <span class="timeago" title="@p.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@p.ThoiGian.ToString()</span>
+                                                <i><a href="@p.getLienKet()">@p.NoiDung</a></i>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="text-center"><i>Không có bài đăng nào!</i></li>
+                                    }
                                 }
                             </ul>
                         </div>
