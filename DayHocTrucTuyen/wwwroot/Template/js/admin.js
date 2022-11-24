@@ -461,7 +461,7 @@ function setSendNoti(maUser) {
     var content = document.getElementById('modal-send-noti-content');
 
     title.innerHTML = 'Gửi thông báo cho người dùng?'
-    content.innerHTML = 'Nhập nội dung tin nhắn:'
+    content.innerHTML = 'Nhập nội dung thông báo:'
         + '<textarea class="main-inp mb-0" id="send-noti-text" maxlength="200" placeholder="Nhập nội dung..."></textarea>'
 
     $('.popup-wraper1').addClass('active');

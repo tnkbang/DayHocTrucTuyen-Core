@@ -374,7 +374,7 @@ namespace DayHocTrucTuyen.Areas.Admin.Controllers
                     sdt = user.Sdt,
                     loaiThanhToan = item.LoaiThanhToan,
                     soTaiKhoan = item.SoTaiKhoan,
-                    soTien = item.SoTien.ToString("n0") + "VNĐ",
+                    soTien = item.SoTien.ToString("n0") + " VNĐ",
                     thoiGian = item.ThoiGian.ToString("g"),
                     thaoTac = customGiveMoney(item.MaNd)
                 };
