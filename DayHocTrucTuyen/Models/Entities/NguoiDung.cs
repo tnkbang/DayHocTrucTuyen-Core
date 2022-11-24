@@ -278,5 +278,12 @@ namespace DayHocTrucTuyen.Models.Entities
             if (pt != null) return true;
             return false;
         }
+
+        public List<ThongBao> getRecentPosts()
+        {
+            var tb = db.ThongBaos.Where(x => x.MaNd == this.MaNd && (x.LoaiTb.Equals("post") || x.LoaiTb.Equals("exam")))
+                .OrderByDescending(x => x.ThoiGian).Take(5).ToList();
+            return tb;
+        }
     }
 }

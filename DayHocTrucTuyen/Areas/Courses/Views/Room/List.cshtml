@@ -361,21 +361,14 @@
                         <div class="widget">
                             <h4 class="widget-title">Bài đăng gần đây</h4>
                             <ul class="recent-topics">
-                                <li>
-                                    <a href="#" title="">Bài tập mới !</a>
-                                    <span>2 hours, 16 minutes ago</span>
-                                    <i><a href="">Lớp học: ABC</a></i>
-                                </li>
-                                <li>
-                                    <a href="#" title="">Bài tập mới !</a>
-                                    <span>3 hours, 2 minutes ago</span>
-                                    <i><a href="">Lớp học: ABCD</a></i>
-                                </li>
-                                <li>
-                                    <a href="#" title="">Bài tập mới !</a>
-                                    <span>4 hours, 16 minutes ago</span>
-                                    <i><a href="">Lớp học: ABCDE</a></i>
-                                </li>
+                                @foreach(var p in uLogin.getRecentPosts())
+                                {
+                                    <li>
+                                        <a href="@p.getLienKet()">@p.TieuDe</a>
+                                        <span class="timeago" title="@p.ThoiGian.ToString("yyyy-MM-dd'T'HH:mm:ss")">@p.ThoiGian.ToString()</span>
+                                        <i><a href="@p.getLienKet()">@p.NoiDung</a></i>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </aside>
