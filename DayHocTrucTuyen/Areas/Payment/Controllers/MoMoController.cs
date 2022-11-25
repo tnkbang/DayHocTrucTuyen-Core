@@ -24,6 +24,8 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
         //Xử lý nạp tiền
         public IActionResult Pay(string money)
         {
+            var currentURL = Request.Scheme + "://" + Request.Host.Value;
+
             //request params need to request to MoMo system
             string endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
             string partnerCode = "MOMOBW8K20220903";
@@ -31,7 +33,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             string serectkey = "dJTcUi9ROvZGCakIJuFzQfBK69QaHJKh";
             string orderInfo = "Nạp tiền vào tài khoản";
 
-            string redirectUrl = "https://localhost:44354/user/manage/index";
+            string redirectUrl = currentURL + "/user/manage/index";
             string ipnUrl = ngrokUrl + "/payment/momo/savepay";
             string requestType = "captureWallet";
 
@@ -94,6 +96,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
         //Xử lý nâng cấp tài khoản
         public IActionResult Upgrade(int id)
         {
+            var currentURL = Request.Scheme + "://" + Request.Host.Value;
             var pak = db.GoiNangCaps.FirstOrDefault(x => x.MaGoi == id);
             if (pak == null) return Redirect("/");
 
@@ -104,7 +107,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             string serectkey = "dJTcUi9ROvZGCakIJuFzQfBK69QaHJKh";
             string orderInfo = pak.MoTa;
 
-            string redirectUrl = "https://localhost:44354/user/manage/index";
+            string redirectUrl = currentURL + "/user/manage/index";
             string ipnUrl = ngrokUrl + "/payment/momo/savepay";
             string requestType = "captureWallet";
 
@@ -241,7 +244,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
                     }
 
                     lichSu.ThuVao = true;
-                    lichSu.GhiChu = "Nạp " + user.money + " VNĐ vào tài khoản.";
+                    lichSu.GhiChu = "Nạp " + user.money.ToString("n0") + " VNĐ vào tài khoản.";
                 }
 
                 //Tiến hành lưu lại tất cả thông tin
