@@ -104,12 +104,11 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
             List<dynamic> lstResult = new List<dynamic>();
             foreach (var item in lst.ToList())
             {
-                var soDuHienTai = new ViController().getSoDu(item.MaNd);
                 var temp = new
                 {
                     thoiGian = item.ThoiGian.ToString("g"),
                     soTien = item.SoTien.ToString("n0"),
-                    soDu = item.SoDu == -1 ? soDuHienTai.ToString("n0") : item.SoDu.ToString("n0"),
+                    soDu = item.SoDu.ToString("n0"),
                     thuVao = item.ThuVao,
                     ghiChu = item.GhiChu
                 };
