@@ -19,7 +19,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
         static List<UserPayment> userPayments = new List<UserPayment>();
-
+        string ngrokUrl = "https://0dc9-2402-800-63b5-e95f-819c-1988-efa-14bd.ap.ngrok.io";
 
         //Xử lý nạp tiền
         public IActionResult Pay(string money)
@@ -31,8 +31,8 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             string serectkey = "dJTcUi9ROvZGCakIJuFzQfBK69QaHJKh";
             string orderInfo = "Nạp tiền vào tài khoản";
 
-            string redirectUrl = "https://localhost:44354/User/Manage/Index";
-            string ipnUrl = "https://cead-2402-800-63b5-a749-b0f8-561e-a288-b0e8.ap.ngrok.io/Payment/MoMo/SavePay";
+            string redirectUrl = "https://localhost:44354/user/manage/index";
+            string ipnUrl = ngrokUrl + "/payment/momo/savepay";
             string requestType = "captureWallet";
 
             string amount = money;
@@ -104,8 +104,8 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
             string serectkey = "dJTcUi9ROvZGCakIJuFzQfBK69QaHJKh";
             string orderInfo = pak.MoTa;
 
-            string redirectUrl = "https://localhost:44354/User/Manage/Index";
-            string ipnUrl = "https://cead-2402-800-63b5-a749-b0f8-561e-a288-b0e8.ap.ngrok.io/Payment/MoMo/SavePay";
+            string redirectUrl = "https://localhost:44354/user/manage/index";
+            string ipnUrl = ngrokUrl + "/payment/momo/savepay";
             string requestType = "captureWallet";
 
             string amount = pak.GiaTien.ToString();
@@ -186,6 +186,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
                 //Nếu người dùng đang nâng cấp tài khoản
                 if (pak != null)
                 {
+                    var soDuHienTai = new ViController().getSoDu(user.maNd);
                     var upgrade = db.TrangThaiNangCaps.FirstOrDefault(x => x.MaNd == user.maNd);
 
                     //Nếu chưa từng nâng cấp thì tạo mới gói nâng cấp
@@ -209,7 +210,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
                     //Thông tin giao dịch
                     lichSu.ThuVao = false;
                     lichSu.SoTien = user.money;
-                    lichSu.SoDu = -1;
+                    lichSu.SoDu = soDuHienTai;
                     lichSu.GhiChu = "Nâng cấp tài khoản với gói: " + pak.TenGoi;
                 }
 
