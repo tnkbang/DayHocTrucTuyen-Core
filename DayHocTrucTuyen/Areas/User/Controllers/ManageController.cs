@@ -73,6 +73,8 @@ namespace DayHocTrucTuyen.Areas.User.Controllers
                 lst = lst.Where(s => s.ThoiGian.Date == timer.Date);
             }
 
+            lst = lst.OrderByDescending(x => x.ThoiGian);
+
             //Xử lý sắp xếp
             if (!string.IsNullOrEmpty(sort) && !string.IsNullOrEmpty(order))
             {
