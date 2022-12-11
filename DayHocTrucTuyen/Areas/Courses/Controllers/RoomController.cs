@@ -137,6 +137,7 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
                 }
                 newLop.BiDanh = bd;
             }
+            else newLop.BiDanh = newLop.MaLop;
 
             if (!String.IsNullOrEmpty(mt)) { newLop.MoTa = mt; }
 

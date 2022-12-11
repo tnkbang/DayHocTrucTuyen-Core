@@ -65,7 +65,7 @@
     $(window).on('scroll', function () {
         var main = document.querySelector('#courses > .container > .row');
 
-        if ($('html').scrollTop() >= main.scrollHeight - 107 && isLoad) {
+        if ($('html').scrollTop() >= main.scrollHeight - 108 && isLoad) {
             //Gọi về server lấy thêm lớp học
             $.ajax({
                 url: '/default/courses',

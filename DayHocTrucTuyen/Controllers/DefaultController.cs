@@ -36,8 +36,8 @@ namespace DayHocTrucTuyen.Controllers
             }
 
             ViewBag.Courses = db.LopHocs.Count();
-            ViewBag.GV = db.NguoiDungs.Where(x => x.MaLoai == "03").Count();
-            ViewBag.HS = db.NguoiDungs.Where(x => x.MaLoai == "04").Count();
+            ViewBag.GV = db.NguoiDungs.Where(x => x.MaLoai == "02").Count();
+            ViewBag.HS = db.NguoiDungs.Where(x => x.MaLoai == "03").Count();
             ViewBag.TV = db.NguoiDungs.Count();
 
             //Lấy gợi ý 9 khóa học phổ biến

@@ -1328,10 +1328,8 @@ $('#form-create-room').on('submit', function () {
     }
 
     form_data.append('tl', text[0].value);
-    if (text[1].value) form_data.append('bd', text[1].value);
-    else form_data.append('bd', null);
-    if (text[2].value) form_data.append('mt', text[2].value);
-    else form_data.append('mt', null);
+    form_data.append('bd', text[1].value);
+    form_data.append('mt', text[2].value);
     form_data.append('tag', $('#room-create-tag').val());
     if ($('#img-room').prop('files')[0]) form_data.append("img", $('#img-room').prop('files')[0]);
     else form_data.append("img", null)

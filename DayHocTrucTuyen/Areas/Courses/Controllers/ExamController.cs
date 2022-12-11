@@ -367,7 +367,12 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
         [HttpGet]
         public IActionResult getPointExam(string examcode, string? search, string? sort, string? order, int? offset, int? limit)
         {
-            var lst = db.NguoiDungs.Where(x => x.TrangThai);
+            var maLop = examcode.Substring(0, 11);
+            var lst = from nd in db.NguoiDungs
+                       join hs in db.HocSinhThuocLops
+                       on nd.MaNd equals hs.MaNd
+                       where hs.MaLop == maLop
+                       select nd;
 
             //Nếu tìm kiếm không rỗng thì xử lý tìm kiếm mã, họ tên,....
             if (!string.IsNullOrEmpty(search))

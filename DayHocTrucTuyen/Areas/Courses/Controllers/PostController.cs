@@ -38,8 +38,8 @@ namespace DayHocTrucTuyen.Areas.Courses.Controllers
 
                 foreach(var file in files)
                 {
-                    string file_extension = Path.GetFileName(file.FileName).Substring(Path.GetFileName(file.FileName).LastIndexOf('.'));
-                    var fileName = newPost.MaBai + "-" + DateTime.Now.Millisecond + file_extension;
+                    //string file_extension = Path.GetFileName(file.FileName).Substring(Path.GetFileName(file.FileName).LastIndexOf('.'));
+                    var fileName = newPost.MaBai + "-" + file.FileName;
                     var filePath = Path.Combine(basePath, fileName);
 
                     //Thêm file vào server và cập nhật vào csdl
