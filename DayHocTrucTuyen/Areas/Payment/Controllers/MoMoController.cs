@@ -19,7 +19,7 @@ namespace DayHocTrucTuyen.Areas.Payment.Controllers
     {
         DayHocTrucTuyenContext db = new DayHocTrucTuyenContext();
         static List<UserPayment> userPayments = new List<UserPayment>();
-        string ngrokUrl = "https://0dc9-2402-800-63b5-e95f-819c-1988-efa-14bd.ap.ngrok.io";
+        string ngrokUrl = "https://7b9c-113-161-208-91.ap.ngrok.io";
 
         //Xử lý nạp tiền
         public IActionResult Pay(string money)
