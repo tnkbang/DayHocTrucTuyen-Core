@@ -47,6 +47,6 @@ Thay đổi xác thực MoMo tại:
 
 ## Demo
 
-<a href="https://youtu.be/x03ahjnrzgQ">
-    <img src="https://youtu.be/x03ahjnrzgQ/0.jpg" style="width:100%;">
-</a>
+[![Watch the video](https://img.youtube.com/vi/x03ahjnrzgQ/hqdefault.jpg)](https://youtu.be/x03ahjnrzgQ)
+</br>
+https://youtu.be/x03ahjnrzgQ
