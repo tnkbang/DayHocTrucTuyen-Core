@@ -47,4 +47,4 @@ Thay đổi xác thực MoMo tại:
 
 ## Demo
 
-[![Watch the video](/DayHocTrucTuyen/wwwroot/Content/Img/Resources/about.jpg)](https://youtu.be/x03ahjnrzgQ)
+[![Watch the video](https://youtu.be/x03ahjnrzgQ)](https://youtu.be/x03ahjnrzgQ)
