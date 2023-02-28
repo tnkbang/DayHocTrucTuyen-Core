@@ -28,19 +28,19 @@ Cấu hình kết nối csdl tại:
 Change: "Data Source=KHANHBANG\\MSSQL;Initial Catalog=DayHocTrucTuyen;Persist Security Info=True;User ID=tnkb;Password=khanhbang"
 ```
 
-Cấu hình xác thực email:
+Cấu hình gửi xác thực email:
 ```
 ./appsettings.json
 
 Thay đổi địa chỉ email và chữ ký ứng dụng
 ```
 
-Cần đổi cấu hình API login Google tại:
+Có thể thay đổi cấu hình API login Google tại:
 ```
 ./wwwroot/Template/js/getAPI.js
 ```
 
-Thay đổi xác thực MoMo tại:
+Có thể thay đổi xác thực MoMo tại:
 ```
 ./Areas/Payment/MoMoController.cs
 ```
